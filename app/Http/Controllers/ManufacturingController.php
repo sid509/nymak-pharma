@@ -18,6 +18,7 @@ class ManufacturingController extends Controller
                 ['Home', url('/')],
                 ['Manufacturing', url('/manufacturing')],
             ])->toArray(),
+            'content' => \App\Models\PageContent::for('manufacturing'),
         ]);
     }
 }

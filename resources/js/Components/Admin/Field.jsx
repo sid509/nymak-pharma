@@ -21,6 +21,29 @@ export default function Field({ field, value, error, onChange }) {
         );
     }
 
+    if (type === 'image') {
+        // value = current stored path; field.preview carries the same for edit screens
+        const current = field.preview ?? (typeof value === 'string' ? value : null);
+        return (
+            <div>
+                <label htmlFor={`f-${name}`} className={labelCls}>
+                    {label}{required && <span className="ml-0.5 text-red-600" aria-hidden>*</span>}
+                </label>
+                {current && (
+                    <div className="mb-2 flex items-center gap-3">
+                        <img src={`/${current}`} alt="" className="h-14 w-14 rounded-lg border border-ink-100 bg-white object-contain" />
+                        <p className="text-xs text-ink-400">Current image — choose a file to replace.</p>
+                    </div>
+                )}
+                <input id={`f-${name}`} type="file" accept="image/jpeg,image/png,image/webp"
+                       onChange={(e) => onChange(name, e.target.files[0] || null)}
+                       className={`${inputCls} file:mr-3 file:rounded-md file:border-0 file:bg-brand-50 file:px-3 file:py-1.5 file:text-xs file:font-bold file:text-brand-800`} />
+                <p className="mt-1.5 text-xs text-ink-400">{help || 'JPEG, PNG or WebP up to 2 MB — converted to WebP.'}</p>
+                {error && <p className="mt-1.5 text-xs font-semibold text-red-600" role="alert">{error}</p>}
+            </div>
+        );
+    }
+
     const control =
         type === 'textarea' ? (
             <textarea rows={rows} value={value ?? ''} onChange={(e) => onChange(name, e.target.value)} className={inputCls} />

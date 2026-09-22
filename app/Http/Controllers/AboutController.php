@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Certification;
+use App\Models\PageContent;
 use App\Models\TeamMember;
 use App\Support\Seo;
 use Inertia\Inertia;
@@ -20,9 +21,10 @@ class AboutController extends Controller
                 ['Home', url('/')],
                 ['About Us', url('/about')],
             ])->toArray(),
-            'leadership' => TeamMember::where('is_leadership', true)->orderBy('sort_order')->get(['name', 'role']),
-            'team' => TeamMember::where('is_leadership', false)->orderBy('sort_order')->get(['name', 'role']),
+            'leadership' => TeamMember::where('is_leadership', true)->orderBy('sort_order')->get(['name', 'role', 'photo']),
+            'team' => TeamMember::where('is_leadership', false)->orderBy('sort_order')->get(['name', 'role', 'photo']),
             'certifications' => Certification::orderBy('sort_order')->get(['name', 'issuer', 'image']),
+            'content' => PageContent::for('about'),
         ]);
     }
 }

@@ -22,6 +22,7 @@ class TeamMemberController extends CrudController
         return [
             'module' => ['title' => 'Team Members', 'singular' => 'Team member', 'route' => 'team-members', 'icon' => 'Users'],
             'columns' => [
+                ['key' => 'photo', 'label' => '', 'type' => 'image', 'class' => 'w-14'],
                 ['key' => 'name', 'label' => 'Name'],
                 ['key' => 'role', 'label' => 'Role'],
                 ['key' => 'is_leadership', 'label' => 'Leadership', 'type' => 'bool'],
@@ -31,6 +32,8 @@ class TeamMemberController extends CrudController
             'fields' => [
                 ['name' => 'name', 'label' => 'Name', 'type' => 'text', 'required' => true],
                 ['name' => 'role', 'label' => 'Role / title', 'type' => 'text', 'required' => true],
+                ['name' => 'photo', 'label' => 'Photo', 'type' => 'image', 'dir' => 'team',
+                    'help' => 'Optional — initials shown when empty.'],
                 ['name' => 'is_leadership', 'label' => 'Show in leadership section', 'type' => 'checkbox'],
                 ['name' => 'sort_order', 'label' => 'Sort order', 'type' => 'number'],
             ],

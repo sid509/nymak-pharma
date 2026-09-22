@@ -3,20 +3,20 @@ import { ArrowRight, Building2, Mail, MapPin, Phone } from 'lucide-react';
 import { ButtonLink, Container, PageHero, SectionHeading } from '../../Components/Ui';
 import SiteLayout from '../../Layouts/SiteLayout';
 
-export default function MarketsIndex({ seo, markets, offices }) {
+export default function MarketsIndex({ seo, markets, offices, content }) {
     const withPages = markets.filter((m) => m.has_page);
     const listed = markets.filter((m) => !m.has_page);
 
     return (
         <SiteLayout>
-            <PageHero eyebrow="Global Presence" breadcrumbs={[['Home', '/'], ['Global Presence']]}
-                title="Healthcare products to 24+ countries — and counting"
-                lead="From the South Pacific to West Africa to Central America: through every step, our commitment is to deliver quality, efficacious products and leave a positive footprint wherever we go." />
+            <PageHero eyebrow={content.hero_eyebrow} breadcrumbs={[['Home', '/'], ['Global Presence']]}
+                title={content.hero_title}
+                lead={content.hero_lead} />
 
             {/* Featured markets with dedicated pages */}
             <section className="py-16 sm:py-20">
                 <Container>
-                    <SectionHeading eyebrow="Key Markets" title="Where we operate directly" />
+                    <SectionHeading eyebrow={content.markets_eyebrow} title={content.markets_title} />
                     <div className="mt-10 grid gap-5 md:grid-cols-3">
                         {withPages.map((m) => (
                             <a key={m.slug} href={`/global-presence/${m.slug}`}
@@ -40,11 +40,10 @@ export default function MarketsIndex({ seo, markets, offices }) {
                 <Container>
                     <div className="grid items-center gap-10 lg:grid-cols-[1fr_1.2fr]">
                         <div>
-                            <p className="mb-3 text-xs font-bold uppercase tracking-[0.2em] text-brand-300">Export Footprint</p>
-                            <h2 className="text-3xl font-extrabold tracking-tight sm:text-4xl">Every container tells a story</h2>
+                            <p className="mb-3 text-xs font-bold uppercase tracking-[0.2em] text-brand-300">{content.footprint_eyebrow}</p>
+                            <h2 className="text-3xl font-extrabold tracking-tight sm:text-4xl">{content.footprint_title}</h2>
                             <p className="mt-4 leading-relaxed text-ink-200">
-                                More than 200 containers shipped in FY 2023–24. Below are the markets we serve —
-                                and the number keeps growing.
+                                {content.footprint_body}
                             </p>
                         </div>
                         <ul className="grid grid-cols-2 gap-3 sm:grid-cols-3">
@@ -75,7 +74,7 @@ export default function MarketsIndex({ seo, markets, offices }) {
             {/* International offices */}
             <section className="py-16 sm:py-20">
                 <Container>
-                    <SectionHeading eyebrow="On the Ground" title="International offices & partners" />
+                    <SectionHeading eyebrow={content.offices_eyebrow} title={content.offices_title} />
                     <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
                         {offices.map((o) => (
                             <address key={o.name} className="rounded-2xl border border-ink-100 bg-white p-6 not-italic shadow-card">
@@ -94,10 +93,9 @@ export default function MarketsIndex({ seo, markets, offices }) {
                         ))}
                     </div>
                     <div className="mt-12 rounded-2xl bg-brand-700 p-8 text-white">
-                        <h2 className="text-xl font-extrabold">Don't see your market?</h2>
+                        <h2 className="text-xl font-extrabold">{content.cta_title}</h2>
                         <p className="mt-2 max-w-xl text-sm leading-relaxed text-brand-100">
-                            We open new markets with the right partners. If you distribute pharmaceuticals or
-                            manage public health procurement, let's discuss your territory.
+                            {content.cta_body}
                         </p>
                         <ButtonLink href="/contact" variant="light" className="mt-5">Start the conversation</ButtonLink>
                     </div>

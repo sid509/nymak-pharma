@@ -31,8 +31,11 @@ php artisan tinker --execute="App\Models\User::first()->update(['password' => 'n
 | Articles | `/admin/posts` | CRUD + draft/publish via `published_at`; markdown body; SEO fields |
 | FAQs | `/admin/faqs` | CRUD via shared CRUD controller |
 | Testimonials | `/admin/testimonials` | CRUD via shared CRUD controller |
-| Certifications | `/admin/certifications` | CRUD via shared CRUD controller |
-| Team | `/admin/team-members` | CRUD + `is_leadership` flag via shared CRUD controller |
+| Certifications | `/admin/certifications` | CRUD via shared CRUD controller; logo/badge image upload (→WebP, thumb in table) |
+| Team | `/admin/team-members` | CRUD + `is_leadership` flag + photo upload via shared CRUD controller; public page falls back to initials |
+| Client logos | `/admin/clients` | CRUD via shared CRUD controller — logo upload (→WebP) feeds the home-page client strip |
+| Page content | `/admin/pages` | Per-page copy & image slots (`PageContent::SCHEMA`): every headline, paragraph, card list (JSON) and image on Home/About/Manufacturing/Quality/Contact and the four index heroes. Blank text restores defaults; images upload →WebP |
+| Site settings | `/admin/settings` | Company facts — tagline, phone/WhatsApp/email, addresses, stats, socials, overseas offices (JSON). `SiteSetting::merged()` layers rows over `config/nymak.php` and feeds header/footer NAP, Contact, schema.org and llms.txt |
 | Admin users | `/admin/users` | Create/edit/delete admin accounts; self-delete blocked; optional password reset on edit |
 | SEO pages | `/admin/seo-pages` | Meta title/description/OG-image overrides for the 11 static & listing pages; blanks fall back to controller defaults |
 | Profile | `/admin/profile` | Change own password (`current_password` verified) |
@@ -65,7 +68,18 @@ Request ──> auth middleware ──> Admin/*Controller ──> Eloquent (shar
 - **Shared CRUD.** `Admin\CrudController` provides index/create/store/edit/
   update/destroy; subclasses declare `model()`, `request()` and a `config()`
   (module name, table columns, searchable fields, form fields). The generic
-  `Pages/Admin/Crud/Index.jsx` + `Form.jsx` render any module.
+  `Pages/Admin/Crud/Index.jsx` + `Form.jsx` render any module. Field type
+  `image` adds upload→WebP with old-file cleanup; column type `image` renders
+  a thumbnail in tables.
+- **Page content slots.** `PageContent::SCHEMA` declares each public page's
+  editable copy (text/textarea/image/json). Controllers resolve
+  `PageContent::for($page)` — stored rows over declared defaults — into a
+  `content` prop; React pages render exclusively from it. Admin edits publish
+  on next request; blank text deletes the row (default restored).
+- **Site settings.** `SiteSetting` rows are dotted keys merged over
+  `config/nymak.php` by `SiteSetting::merged()`; the Inertia `site` prop,
+  `Seo::organizationSchema()`, offices and stats all read through it, so an
+  edit propagates everywhere at once.
 - **Slug binding.** Admin URLs use the model's route key (slug for slugged
   models, id elsewhere). Public URLs are unaffected by admin edits.
 - **Images.** `App\Support\ImageUpload` validates (real MIME, ≤2 MB),

@@ -74,3 +74,21 @@ Pharma corporate website, engineered for SEO-first B2B lead generation.
 
 ### Tests
 - 49 PHP + 18 React tests — all green.
+
+## Unreleased — CMS layer
+
+- Page content editor (`/admin/pages`): every public page's copy and images
+  editable via `page_contents` slot overrides with schema defaults; JSON
+  slots cover repeating lists (timeline, capability cards, dosage forms).
+- Site settings (`/admin/settings`): tagline, NAP, socials, stats and
+  overseas offices merged over `config/nymak.php` via `SiteSetting::merged()`
+  — feeds layout NAP, Organization schema, Contact and llms.txt.
+- Client logos (`/admin/clients`): new `client_logos` entity; home strip now
+  renders from DB instead of a hardcoded filename list.
+- Team photos + certification badge uploads via new `image` field type in the
+  shared CRUD layer (thumbnail columns, WebP conversion, old-file cleanup).
+- `HandleInertiaRequests` site prop, `Seo::organizationSchema` and all
+  `config('nymak…')` public reads now resolve through `SiteSetting::merged()`.
+
+### Tests
+- 62 PHP + 18 React tests — all green.

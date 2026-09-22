@@ -16,6 +16,7 @@ class TeamMemberRequest extends FormRequest
         return [
             'name' => ['required', 'string', 'max:120'],
             'role' => ['required', 'string', 'max:120'],
+            'photo' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:2048'],
             'is_leadership' => ['boolean'],
             'sort_order' => ['integer', 'min:0', 'max:65535'],
         ];

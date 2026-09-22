@@ -10,19 +10,26 @@ import AdminLayout from '../../../Layouts/AdminLayout';
 export default function CrudForm({ module, fields, record }) {
     const base = `/admin/${module.route}`;
     const isEdit = !!record;
-    const initial = Object.fromEntries(fields.map((f) => [f.name, record?.[f.name] ?? (f.type === 'checkbox' ? false : '')]));
-    const form = useForm(initial);
+    const hasFiles = fields.some((f) => f.type === 'image');
+    const initial = Object.fromEntries(fields.map((f) => [
+        f.name,
+        f.type === 'image' ? null : record?.[f.name] ?? (f.type === 'checkbox' ? false : ''),
+    ]));
+    const form = useForm(isEdit && hasFiles ? { ...initial, _method: 'PUT' } : initial);
 
     const submit = (e) => {
         e.preventDefault();
-        isEdit ? form.put(`${base}/${record.id}`) : form.post(base);
+        const opts = hasFiles ? { forceFormData: true } : {};
+        isEdit ? (hasFiles ? form.post(`${base}/${record.id}`, opts) : form.put(`${base}/${record.id}`))
+               : form.post(base, opts);
     };
 
     return (
         <AdminLayout title={`${isEdit ? 'Edit' : 'New'} ${module.singular || module.title}`}>
             <form onSubmit={submit} className="max-w-2xl space-y-5 rounded-2xl border border-ink-200 bg-white p-6 sm:p-8">
                 {fields.map((f) => (
-                    <Field key={f.name} field={f} value={form.data[f.name]}
+                    <Field key={f.name} field={{ ...f, preview: f.type === 'image' ? record?.[f.name] : null }}
+                           value={form.data[f.name]}
                            error={form.errors[f.name]}
                            onChange={(k, v) => form.setData(k, v)} />
                 ))}

@@ -2,12 +2,12 @@ import Accordion from '../Components/Accordion';
 import { ButtonLink, Container, PageHero } from '../Components/Ui';
 import SiteLayout from '../Layouts/SiteLayout';
 
-export default function Faqs({ seo, groups }) {
+export default function Faqs({ seo, groups, content }) {
     return (
         <SiteLayout>
-            <PageHero eyebrow="FAQs" breadcrumbs={[['Home', '/'], ['FAQs']]}
-                title="Frequently asked questions"
-                lead="Direct answers about who we are, what we manufacture, where we export and how to work with us." />
+            <PageHero eyebrow={content.hero_eyebrow} breadcrumbs={[['Home', '/'], ['FAQs']]}
+                title={content.hero_title}
+                lead={content.hero_lead} />
 
             <section className="py-14 sm:py-20">
                 <Container className="max-w-4xl">
@@ -24,10 +24,9 @@ export default function Faqs({ seo, groups }) {
                     </div>
 
                     <div className="mt-14 rounded-2xl bg-brand-700 p-8 text-white">
-                        <h2 className="text-xl font-extrabold">Still have a question?</h2>
+                        <h2 className="text-xl font-extrabold">{content.cta_title}</h2>
                         <p className="mt-2 max-w-xl text-sm leading-relaxed text-brand-100">
-                            Our exports and regulatory teams respond to every enquiry — products, pricing,
-                            registration, packaging and logistics.
+                            {content.cta_body}
                         </p>
                         <ButtonLink href="/contact" variant="light" className="mt-5">Ask us directly</ButtonLink>
                     </div>

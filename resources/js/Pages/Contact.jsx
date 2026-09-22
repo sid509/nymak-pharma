@@ -4,14 +4,14 @@ import EnquiryForm from '../Components/EnquiryForm';
 import { Container, PageHero } from '../Components/Ui';
 import SiteLayout from '../Layouts/SiteLayout';
 
-export default function Contact({ seo, offices, products, selectedProduct, formStartedAt, honeypot }) {
+export default function Contact({ seo, offices, products, selectedProduct, formStartedAt, honeypot, content }) {
     const { site, flash } = usePage().props;
 
     return (
         <SiteLayout>
-            <PageHero eyebrow="Contact Us" breadcrumbs={[['Home', '/'], ['Contact Us']]}
-                title="Let's talk about your market"
-                lead="Whether you're a distributor, hospital, NGO or health programme — tell us your requirement and our exports team will respond." />
+            <PageHero eyebrow={content.hero_eyebrow} breadcrumbs={[['Home', '/'], ['Contact Us']]}
+                title={content.hero_title}
+                lead={content.hero_lead} />
 
             <section className="py-14 sm:py-20">
                 <Container className="grid gap-12 lg:grid-cols-[1fr_420px]">
@@ -23,8 +23,8 @@ export default function Contact({ seo, offices, products, selectedProduct, formS
                             </div>
                         )}
                         <div className="rounded-2xl border border-ink-100 bg-white p-6 shadow-card sm:p-8">
-                            <h2 className="text-xl font-extrabold text-ink-900">Send an enquiry</h2>
-                            <p className="mt-1 text-sm text-ink-500">Fields marked * are required.</p>
+                            <h2 className="text-xl font-extrabold text-ink-900">{content.form_title}</h2>
+                            <p className="mt-1 text-sm text-ink-500">{content.form_lead}</p>
                             <div className="mt-6">
                                 <EnquiryForm products={products} selectedProduct={selectedProduct} formStartedAt={formStartedAt} honeypot={honeypot} />
                             </div>

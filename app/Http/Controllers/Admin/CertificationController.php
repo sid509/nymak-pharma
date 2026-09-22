@@ -22,6 +22,7 @@ class CertificationController extends CrudController
         return [
             'module' => ['title' => 'Certifications', 'singular' => 'Certification', 'route' => 'certifications', 'icon' => 'BadgeCheck'],
             'columns' => [
+                ['key' => 'image', 'label' => '', 'type' => 'image', 'class' => 'w-14'],
                 ['key' => 'name', 'label' => 'Name'],
                 ['key' => 'issuer', 'label' => 'Issuer'],
                 ['key' => 'sort_order', 'label' => 'Order', 'class' => 'w-16'],
@@ -31,8 +32,8 @@ class CertificationController extends CrudController
                 ['name' => 'name', 'label' => 'Name', 'type' => 'text', 'required' => true],
                 ['name' => 'issuer', 'label' => 'Issuer', 'type' => 'text'],
                 ['name' => 'description', 'label' => 'Description', 'type' => 'textarea', 'rows' => 3],
-                ['name' => 'image', 'label' => 'Image path', 'type' => 'text',
-                    'help' => 'Optional. Web-relative path e.g. images/certifications/iso.webp'],
+                ['name' => 'image', 'label' => 'Logo / badge', 'type' => 'image', 'dir' => 'certifications',
+                    'help' => 'Optional — shown on Quality and About pages.'],
                 ['name' => 'sort_order', 'label' => 'Sort order', 'type' => 'number'],
             ],
         ];

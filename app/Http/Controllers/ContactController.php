@@ -33,7 +33,8 @@ class ContactController extends Controller
                 ['Home', url('/')],
                 ['Contact Us', url('/contact')],
             ])->toArray(),
-            'offices' => config('nymak.offices'),
+            'offices' => \App\Models\SiteSetting::get('offices', []),
+            'content' => \App\Models\PageContent::for('contact'),
             'products' => Product::where('has_detail_page', true)
                 ->orderBy('name')
                 ->get(['id', 'name'])

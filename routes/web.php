@@ -63,6 +63,12 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::resource('users', Controllers\Admin\UserController::class)->except('show');
         Route::resource('seo-pages', Controllers\Admin\SeoPageController::class)->only('index', 'edit', 'update')
             ->parameters(['seo-pages' => 'seoPage']);
+        Route::resource('clients', Controllers\Admin\ClientLogoController::class)->except('show');
+        Route::get('/pages', [Controllers\Admin\PageContentController::class, 'index'])->name('pages.index');
+        Route::get('/pages/{page}/edit', [Controllers\Admin\PageContentController::class, 'edit'])->name('pages.edit');
+        Route::put('/pages/{page}', [Controllers\Admin\PageContentController::class, 'update'])->name('pages.update');
+        Route::get('/settings', [Controllers\Admin\SiteSettingsController::class, 'edit'])->name('settings.edit');
+        Route::put('/settings', [Controllers\Admin\SiteSettingsController::class, 'update'])->name('settings.update');
 
         Route::get('/profile', [Controllers\Admin\ProfileController::class, 'edit'])->name('profile.edit');
         Route::put('/profile/password', [Controllers\Admin\ProfileController::class, 'update'])->name('profile.update');

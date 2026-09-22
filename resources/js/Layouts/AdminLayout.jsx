@@ -1,7 +1,7 @@
 import { Link, router, usePage } from '@inertiajs/react';
 import {
-    BadgeCheck, CircleHelp, Globe2, Inbox, LayoutDashboard, LogOut, Menu,
-    Newspaper, Package, Quote, Search, Tag, Users, X,
+    BadgeCheck, CircleHelp, FileText, Globe2, Inbox, LayoutDashboard, LogOut,
+    Menu, Newspaper, Package, Quote, Search, Settings, Tag, Users, X,
 } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
@@ -21,9 +21,12 @@ const NAV = [
         { name: 'Testimonials', href: '/admin/testimonials', icon: Quote },
         { name: 'Certifications', href: '/admin/certifications', icon: BadgeCheck },
         { name: 'Team', href: '/admin/team-members', icon: Users },
+        { name: 'Client logos', href: '/admin/clients', icon: BadgeCheck },
+        { name: 'Page content', href: '/admin/pages', icon: FileText },
     ]},
     { group: 'System', items: [
         { name: 'SEO pages', href: '/admin/seo-pages', icon: Search },
+        { name: 'Site settings', href: '/admin/settings', icon: Settings },
         { name: 'Admin users', href: '/admin/users', icon: Users },
     ]},
 ];

@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         @php($seo = $page['props']['seo'] ?? [])
-        @php($siteName = config('nymak.short_name'))
+        @php($siteName = \App\Models\SiteSetting::get('short_name'))
         @php($pageTitle = empty($seo['title']) ? $siteName : $seo['title'] . ' | ' . $siteName)
 
         <title>{{ $pageTitle }}</title>

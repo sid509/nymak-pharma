@@ -19,6 +19,7 @@ class PostController extends Controller
                 ['Home', url('/')],
                 ['Blog & Resources', url('/blog')],
             ])->toArray(),
+            'content' => \App\Models\PageContent::for('posts.index'),
             'posts' => Post::published()->latest('published_at')
                 ->paginate(9, ['title', 'slug', 'category', 'excerpt', 'cover_image', 'published_at']),
         ]);

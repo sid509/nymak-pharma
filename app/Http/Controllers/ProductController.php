@@ -20,6 +20,7 @@ class ProductController extends Controller
                 ['Home', url('/')],
                 ['Products', url('/products')],
             ])->toArray(),
+            'content' => \App\Models\PageContent::for('products.index'),
             'categories' => ProductCategory::orderBy('sort_order')
                 ->withCount('products')
                 ->with(['featuredProducts' => fn ($q) => $q->whereNotNull('image')->limit(4)

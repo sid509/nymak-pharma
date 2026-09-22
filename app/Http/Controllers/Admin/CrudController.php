@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Support\ImageUpload;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -70,9 +71,34 @@ abstract class CrudController extends Controller
         ]);
     }
 
+    /** Fields of type 'image' — file uploads converted to WebP via ImageUpload. */
+    protected function imageFields(): array
+    {
+        return collect($this->config()['fields'])
+            ->where('type', 'image')->keyBy('name')->all();
+    }
+
+    /** Merge validated data with any uploaded images (replace = delete old file). */
+    protected function data(Request $request, ?Model $existing = null): array
+    {
+        $data = $this->validated($request);
+
+        foreach ($this->imageFields() as $name => $field) {
+            unset($data[$name]); // file input isn't a column value by itself
+            if ($file = $request->file($name)) {
+                if ($existing) {
+                    ImageUpload::delete($existing->{$name});
+                }
+                $data[$name] = ImageUpload::store($file, $field['dir'], $data['name'] ?? $data['title'] ?? $name);
+            }
+        }
+
+        return $data;
+    }
+
     public function store(Request $request): RedirectResponse
     {
-        $this->model()::create($this->validated($request));
+        $this->model()::create($this->data($request));
 
         return $this->backToIndex('created');
     }
@@ -88,14 +114,19 @@ abstract class CrudController extends Controller
 
     public function update(Request $request): RedirectResponse
     {
-        $this->record($request)->update($this->validated($request));
+        $record = $this->record($request);
+        $record->update($this->data($request, $record));
 
         return $this->backToIndex('updated');
     }
 
     public function destroy(Request $request): RedirectResponse
     {
-        $this->record($request)->delete();
+        $record = $this->record($request);
+        foreach (array_keys($this->imageFields()) as $name) {
+            ImageUpload::delete($record->{$name});
+        }
+        $record->delete();
 
         return $this->backToIndex('deleted');
     }

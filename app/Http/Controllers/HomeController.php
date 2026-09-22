@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Certification;
+use App\Models\ClientLogo;
 use App\Models\Faq;
+use App\Models\Market;
+use App\Models\PageContent;
 use App\Models\Post;
 use App\Models\Product;
 use App\Models\ProductCategory;
@@ -56,7 +59,10 @@ class HomeController extends Controller
             'posts' => Post::published()->latest('published_at')->limit(3)
                 ->get(['title', 'slug', 'category', 'excerpt', 'published_at']),
             'faqs' => $faqs,
-            'stats' => config('nymak.stats'),
+            'stats' => \App\Models\SiteSetting::get('stats'),
+            'clients' => ClientLogo::orderBy('sort_order')->get(['name', 'image']),
+            'markets' => Market::orderBy('sort_order')->limit(9)->get(['name']),
+            'content' => PageContent::for('home'),
         ]);
     }
 }

@@ -30,6 +30,7 @@ class FaqController extends Controller
 
         return Inertia::render('Faqs', [
             'seo' => $seo->toArray(),
+            'content' => \App\Models\PageContent::for('faqs'),
             'groups' => $faqs->map(fn ($items, $category) => [
                 'category' => $category,
                 'faqs' => $items->map(fn ($f) => ['question' => $f->question, 'answer' => $f->answer])->values(),

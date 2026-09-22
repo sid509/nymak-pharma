@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
             TestimonialSeeder::class,
             CertificationSeeder::class,
             TeamMemberSeeder::class,
+            ClientLogoSeeder::class,
         ]);
 
         // Admin user for the enquiry inbox. Credentials come from the

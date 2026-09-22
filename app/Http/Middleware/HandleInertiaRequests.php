@@ -37,19 +37,13 @@ class HandleInertiaRequests extends Middleware
     {
         return [
             ...parent::share($request),
-            'site' => fn () => [
-                'name' => config('nymak.short_name'),
-                'legal_name' => config('nymak.legal_name'),
-                'tagline' => config('nymak.tagline'),
-                'phone' => config('nymak.phone'),
-                'phone_href' => config('nymak.phone_href'),
-                'whatsapp' => config('nymak.whatsapp'),
-                'email' => config('nymak.email'),
-                'address' => config('nymak.address'),
-                'branch_address' => config('nymak.branch_address'),
-                'offices' => config('nymak.offices'),
-                'socials' => array_filter(config('nymak.socials')),
-            ],
+            'site' => fn () => collect(\App\Models\SiteSetting::merged())->only(
+                'short_name', 'legal_name', 'tagline', 'phone', 'phone_href',
+                'whatsapp', 'email', 'address', 'branch_address', 'offices', 'socials',
+                'founded', 'founder'
+            )->put('name', \App\Models\SiteSetting::get('short_name'))
+                ->put('socials', array_filter(\App\Models\SiteSetting::get('socials', [])))
+                ->all(),
             'nav' => fn () => [
                 'categories' => \App\Models\ProductCategory::orderBy('sort_order')
                     ->get(['name', 'slug'])

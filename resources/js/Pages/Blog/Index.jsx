@@ -4,12 +4,12 @@ import { PostCard } from '../../Components/Cards';
 import { Container, PageHero } from '../../Components/Ui';
 import SiteLayout from '../../Layouts/SiteLayout';
 
-export default function BlogIndex({ seo, posts }) {
+export default function BlogIndex({ seo, posts, content }) {
     return (
         <SiteLayout>
-            <PageHero eyebrow="Blog & Resources" breadcrumbs={[['Home', '/'], ['Blog']]}
-                title="Insights from inside pharmaceutical exports"
-                lead="Company news, quality explainers and product knowledge from the Nymak team." />
+            <PageHero eyebrow={content.hero_eyebrow} breadcrumbs={[['Home', '/'], ['Blog']]}
+                title={content.hero_title}
+                lead={content.hero_lead} />
 
             <section className="py-14 sm:py-20">
                 <Container>

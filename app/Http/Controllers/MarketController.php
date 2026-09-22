@@ -20,7 +20,8 @@ class MarketController extends Controller
                 ['Global Presence', url('/global-presence')],
             ])->toArray(),
             'markets' => Market::orderBy('sort_order')->get(),
-            'offices' => config('nymak.offices'),
+            'offices' => \App\Models\SiteSetting::get('offices', []),
+            'content' => \App\Models\PageContent::for('markets.index'),
         ]);
     }
 
@@ -33,7 +34,7 @@ class MarketController extends Controller
             ->with('category:id,slug')
             ->select('id', 'market_id', 'product_category_id', 'name', 'slug', 'description', 'image')]);
 
-        $office = collect(config('nymak.offices'))
+        $office = collect(\App\Models\SiteSetting::get('offices', []))
             ->first(fn ($o) => strtoupper($o['country_code'] ?? '') === strtoupper($market->iso_code ?? ''));
 
         return Inertia::render('Markets/Show', [

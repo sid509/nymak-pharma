@@ -111,14 +111,14 @@ class Seo
             'type' => $this->type,
             'schema' => $this->schema,
             'url' => url()->current(),
-            'site_name' => config('nymak.short_name'),
+            'site_name' => \App\Models\SiteSetting::get('short_name'),
         ];
     }
 
     /** Organization + WebSite schema — emitted on every page from the Blade shell. */
     public static function organizationSchema(): array
     {
-        $c = config('nymak');
+        $c = \App\Models\SiteSetting::merged();
         $socials = array_values(array_filter($c['socials']));
 
         return [
@@ -160,7 +160,7 @@ class Seo
             '@type' => 'WebSite',
             '@id' => url('/#website'),
             'url' => url('/'),
-            'name' => config('nymak.name'),
+            'name' => \App\Models\SiteSetting::get('name'),
             'publisher' => ['@id' => url('/#organization')],
         ];
     }

@@ -34,6 +34,7 @@ class QualityController extends Controller
         }
 
         return Inertia::render('Quality', [
+            'content' => \App\Models\PageContent::for('quality'),
             'seo' => $seo->toArray(),
             'certifications' => Certification::orderBy('sort_order')->get(),
             'faqs' => $qualityFaqs,
