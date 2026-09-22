@@ -34,6 +34,15 @@ Route::get('/terms', [Controllers\PageController::class, 'terms'])->name('terms'
 
 Route::get('/sitemap.xml', Controllers\SitemapController::class)->name('sitemap');
 
+// llms.txt — generated from site settings + catalogue so admin edits reach AI crawlers.
+Route::get('/llms.txt', function () {
+    return response(view('llms', [
+        'c' => \App\Models\SiteSetting::merged(),
+        'categories' => \App\Models\ProductCategory::orderBy('sort_order')->get(['name', 'slug', 'intro']),
+        'markets' => \App\Models\Market::orderBy('sort_order')->pluck('name'),
+    ]))->header('Content-Type', 'text/plain; charset=utf-8');
+});
+
 Route::prefix('admin')->name('admin.')->group(function () {
     Route::middleware('guest')->group(function () {
         Route::get('/login', [Controllers\Admin\AuthController::class, 'create'])->name('login');

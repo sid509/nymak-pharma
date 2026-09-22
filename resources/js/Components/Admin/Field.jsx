@@ -21,6 +21,27 @@ export default function Field({ field, value, error, onChange }) {
         );
     }
 
+    if (type === 'file') {
+        const current = field.preview ?? (typeof value === 'string' ? value : null);
+        return (
+            <div>
+                <label htmlFor={`f-${name}`} className={labelCls}>
+                    {label}{required && <span className="ml-0.5 text-red-600" aria-hidden>*</span>}
+                </label>
+                {current && (
+                    <p className="mb-2 text-xs text-ink-500">
+                        Current: <a href={`/${current}`} target="_blank" rel="noopener noreferrer" className="font-bold text-brand-700 underline">{current}</a>
+                    </p>
+                )}
+                <input id={`f-${name}`} type="file" accept="application/pdf"
+                       onChange={(e) => onChange(name, e.target.files[0] || null)}
+                       className={`${inputCls} file:mr-3 file:rounded-md file:border-0 file:bg-brand-50 file:px-3 file:py-1.5 file:text-xs file:font-bold file:text-brand-800`} />
+                <p className="mt-1.5 text-xs text-ink-400">{help || 'PDF up to 10 MB.'}</p>
+                {error && <p className="mt-1.5 text-xs font-semibold text-red-600" role="alert">{error}</p>}
+            </div>
+        );
+    }
+
     if (type === 'image') {
         // value = current stored path; field.preview carries the same for edit screens
         const current = field.preview ?? (typeof value === 'string' ? value : null);

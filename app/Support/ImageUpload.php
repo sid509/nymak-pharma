@@ -35,9 +35,28 @@ class ImageUpload
         return "images/{$subdir}/{$filename}";
     }
 
+    /**
+     * Store a non-image upload (e.g. brochure PDF) under public/files/ as-is.
+     *
+     * @return string web-relative path, e.g. "files/brochure-abc123.pdf"
+     */
+    public static function storeFile(UploadedFile $file, string $subdir = '', ?string $name = null): string
+    {
+        $dir = public_path('files'.($subdir ? "/{$subdir}" : ''));
+        if (! is_dir($dir)) {
+            mkdir($dir, 0755, true);
+        }
+
+        $slug = Str::slug(str_replace('/', '-', $name ?: pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME)));
+        $filename = $slug.'-'.Str::random(6).'.'.$file->getClientOriginalExtension();
+        $file->move($dir, $filename);
+
+        return trim("files/{$subdir}/{$filename}", '/');
+    }
+
     public static function delete(?string $webPath): void
     {
-        if ($webPath && str_starts_with($webPath, 'images/')) {
+        if ($webPath && (str_starts_with($webPath, 'images/') || str_starts_with($webPath, 'files/'))) {
             $abs = public_path($webPath);
             if (is_file($abs)) {
                 unlink($abs);

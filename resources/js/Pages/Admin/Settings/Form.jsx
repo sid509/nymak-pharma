@@ -8,12 +8,15 @@ import AdminLayout from '../../../Layouts/AdminLayout';
  * Organization schema and llms.txt. Blank fields restore config defaults.
  */
 export default function SettingsForm({ fields }) {
-    const initial = Object.fromEntries(fields.map((f) => [f.name, f.value ?? '']));
+    const initial = Object.fromEntries(fields.map((f) => [
+        f.name,
+        (f.type === 'image' || f.type === 'file') ? null : f.value ?? '',
+    ]));
     const form = useForm(initial);
 
     const submit = (e) => {
         e.preventDefault();
-        form.put('/admin/settings');
+        form.put('/admin/settings', { forceFormData: true });
     };
 
     return (
@@ -24,7 +27,9 @@ export default function SettingsForm({ fields }) {
                     data and llms.txt. Keep them consistent with official company records.
                 </p>
                 {fields.map((f) => (
-                    <Field key={f.name} field={f} value={form.data[f.name]}
+                    <Field key={f.name}
+                           field={{ ...f, preview: (f.type === 'image' || f.type === 'file') ? f.value : null }}
+                           value={form.data[f.name]}
                            error={form.errors[f.name]}
                            onChange={(k, v) => form.setData(k, v)} />
                 ))}

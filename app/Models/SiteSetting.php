@@ -39,6 +39,8 @@ class SiteSetting extends Model
         'socials.x' => ['X (Twitter) URL', 'text', 'Blank hides the icon.'],
         'socials.facebook' => ['Facebook URL', 'text', 'Blank hides the icon.'],
         'socials.youtube' => ['YouTube URL', 'text', 'Blank hides the icon.'],
+        'logo' => ['Logo image', 'image', 'PNG/JPG — replaces the built-in SVG wordmark in header/footer and feeds schema.org. Blank keeps the SVG.'],
+        'brochure' => ['Product brochure', 'file', 'PDF up to 10 MB — linked from Home, Contact and footer.'],
         'offices' => ['Overseas offices (JSON)', 'json', 'Array of {name, address, phone, phone_alt?, email?, country_code}.'],
     ];
 

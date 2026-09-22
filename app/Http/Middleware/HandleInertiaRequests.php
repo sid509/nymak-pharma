@@ -40,9 +40,10 @@ class HandleInertiaRequests extends Middleware
             'site' => fn () => collect(\App\Models\SiteSetting::merged())->only(
                 'short_name', 'legal_name', 'tagline', 'phone', 'phone_href',
                 'whatsapp', 'email', 'address', 'branch_address', 'offices', 'socials',
-                'founded', 'founder'
+                'founded', 'founder', 'logo', 'brochure'
             )->put('name', \App\Models\SiteSetting::get('short_name'))
                 ->put('socials', array_filter(\App\Models\SiteSetting::get('socials', [])))
+                ->put('logo_uploaded', \App\Models\SiteSetting::where('key', 'logo')->exists())
                 ->all(),
             'nav' => fn () => [
                 'categories' => \App\Models\ProductCategory::orderBy('sort_order')

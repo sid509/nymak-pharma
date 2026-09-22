@@ -93,7 +93,7 @@ export default function Footer() {
                     <p className="flex gap-4">
                         <Link href="/privacy-policy" className="hover:text-white">Privacy Policy</Link>
                         <Link href="/terms" className="hover:text-white">Terms of Use</Link>
-                        <a href="/nymak-pharma-brochure.pdf" target="_blank" rel="noopener noreferrer"
+                        <a href={`/${site.brochure}`} target="_blank" rel="noopener noreferrer"
                            onClick={() => track('brochure_download')} className="hover:text-white">Brochure</a>
                         <a href="/sitemap.xml" className="hover:text-white">Sitemap</a>
                     </p>

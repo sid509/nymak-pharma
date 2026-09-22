@@ -24,6 +24,9 @@ return [
         .'recognised Star Export House, supplying IV fluids, finished formulations, medical devices, '
         .'rapid diagnostic kits and vaccines to more than 24 countries.',
 
+    'logo' => 'images/logo.png', // used in Organization schema; admin upload overrides
+    'brochure' => 'nymak-pharma-brochure.pdf', // linked on Home/Contact/footer
+
     'phone' => '+91 98252 25567',
     'phone_href' => '+919825225567',
     'whatsapp' => '919825225567',

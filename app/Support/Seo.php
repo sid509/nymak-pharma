@@ -127,7 +127,7 @@ class Seo
             'name' => $c['legal_name'],
             'alternateName' => $c['short_name'],
             'url' => url('/'),
-            'logo' => url('images/logo.png'),
+            'logo' => url($c['logo'] ?? 'images/logo.png'),
             'description' => $c['description'],
             'foundingDate' => (string) $c['founded'],
             'founder' => ['@type' => 'Person', 'name' => $c['founder']],

@@ -1,4 +1,13 @@
+import { usePage } from '@inertiajs/react';
+
 export default function Logo({ className = '', light = false }) {
+    const { site } = usePage().props;
+
+    // Admin-uploaded logo (Site settings) replaces the built-in SVG wordmark.
+    if (site?.logo_uploaded) {
+        return <img src={`/${site.logo}`} alt={site.name || 'Nymak Pharma'} className={`h-10 w-auto ${className}`} />;
+    }
+
     return (
         <span className={`inline-flex items-center gap-2.5 ${className}`}>
             {/* Wordmark mark: stylised N monogram in brand square */}

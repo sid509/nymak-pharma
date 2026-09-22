@@ -39,6 +39,8 @@ class SiteSettingsController extends Controller
         $rules = [];
         foreach (SiteSetting::FIELDS as $key => [$label, $type]) {
             $rules[str_replace('.', '_', $key)] = match ($type) {
+                'image' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:2048'],
+                'file' => ['nullable', 'file', 'mimes:pdf', 'max:10240'],
                 'email' => ['nullable', 'email', 'max:200'],
                 'json' => ['nullable', 'json', 'max:20000'],
                 'textarea' => ['nullable', 'string', 'max:2000'],
@@ -47,7 +49,25 @@ class SiteSettingsController extends Controller
         }
         $data = $request->validate($rules);
 
-        foreach (SiteSetting::FIELDS as $key => $f) {
+        // File-type settings (logo image, brochure PDF) upload and store a path.
+        foreach (SiteSetting::FIELDS as $key => [$label, $type]) {
+            $input = str_replace('.', '_', $key);
+            if (! in_array($type, ['image', 'file'])) {
+                continue;
+            }
+            if ($file = $request->file($input)) {
+                \App\Support\ImageUpload::delete(SiteSetting::where('key', $key)->value('value'));
+                $path = $type === 'image'
+                    ? \App\Support\ImageUpload::store($file, 'brand', $key)
+                    : \App\Support\ImageUpload::storeFile($file);
+                SiteSetting::updateOrCreate(['key' => $key], ['value' => $path]);
+            }
+        }
+
+        foreach (SiteSetting::FIELDS as $key => [$label, $type]) {
+            if (in_array($type, ['image', 'file'])) {
+                continue;
+            }
             $value = $data[str_replace('.', '_', $key)] ?? null;
             if ($value === null || $value === '') {
                 SiteSetting::where('key', $key)->delete();

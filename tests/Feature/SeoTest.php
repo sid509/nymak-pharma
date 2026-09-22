@@ -77,7 +77,8 @@ class SeoTest extends TestCase
         $this->assertStringContainsString('Sitemap:', $robots);
         $this->assertStringContainsString('Disallow: /admin', $robots);
 
-        $llms = file_get_contents(public_path('llms.txt'));
+        // llms.txt is generated from site settings + catalogue (dynamic route)
+        $llms = $this->get('/llms.txt')->assertOk()->getContent();
         $this->assertStringContainsString('Nymak Pharma', $llms);
         $this->assertStringContainsString('/products', $llms);
     }

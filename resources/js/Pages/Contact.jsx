@@ -67,7 +67,7 @@ export default function Contact({ seo, offices, products, selectedProduct, formS
                                    className="inline-flex items-center gap-2 text-sm font-bold text-brand-300 hover:text-white">
                                     <MessageCircle size={16} aria-hidden /> Chat on WhatsApp
                                 </a>
-                                <a href="/nymak-pharma-brochure.pdf" target="_blank" rel="noopener noreferrer"
+                                <a href={`/${site.brochure}`} target="_blank" rel="noopener noreferrer"
                                    onClick={() => window.nymakTrack && window.nymakTrack('brochure_download')}
                                    className="inline-flex items-center gap-2 text-sm font-bold text-brand-300 hover:text-white">
                                     <Download size={16} aria-hidden /> Download product brochure (PDF)
