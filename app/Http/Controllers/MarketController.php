@@ -11,6 +11,15 @@ class MarketController extends Controller
 {
     public function index(): Response
     {
+        // Portfolio model: markets show *what we actually did* there — the
+        // products supplied — instead of thin per-country pages.
+        $markets = Market::where('show_in_portfolio', true)
+            ->orderBy('sort_order')
+            ->with(['products' => fn ($q) => $q->where('has_detail_page', true)
+                ->with('category:id,slug')
+                ->select('id', 'market_id', 'product_category_id', 'name', 'slug', 'image')])
+            ->get();
+
         return Inertia::render('Markets/Index', [
             'seo' => Seo::make(
                 'Global Presence — Pharmaceutical Exports to 24+ Countries',
@@ -20,41 +29,22 @@ class MarketController extends Controller
                 ['Global Presence', url('/global-presence')],
             ])->toArray(),
             'markets' => Market::orderBy('sort_order')->get(),
+            'portfolio' => $markets->map(fn ($m) => [
+                'name' => $m->name,
+                'slug' => $m->slug,
+                'region' => $m->region,
+                'description' => $m->description,
+                'office' => collect(\App\Models\SiteSetting::get('offices', []))
+                    ->first(fn ($o) => strtoupper($o['country_code'] ?? '') === strtoupper($m->iso_code ?? '')),
+                'products' => $m->products->map(fn ($p) => [
+                    'name' => $p->name,
+                    'image' => $p->image,
+                    'category' => $p->category->name,
+                    'url' => "/products/{$p->category->slug}/{$p->slug}",
+                ])->values(),
+            ]),
             'offices' => \App\Models\SiteSetting::get('offices', []),
             'content' => \App\Models\PageContent::for('markets.index'),
-        ]);
-    }
-
-    public function show(Market $market): Response
-    {
-        // Requirement #9: only markets with real, distinct content get pages.
-        abort_unless($market->has_page, 404);
-
-        $market->load(['products' => fn ($q) => $q->where('has_detail_page', true)
-            ->with('category:id,slug')
-            ->select('id', 'market_id', 'product_category_id', 'name', 'slug', 'description', 'image')]);
-
-        $office = collect(\App\Models\SiteSetting::get('offices', []))
-            ->first(fn ($o) => strtoupper($o['country_code'] ?? '') === strtoupper($market->iso_code ?? ''));
-
-        return Inertia::render('Markets/Show', [
-            'seo' => Seo::make(
-                $market->meta_title ?? "Pharmaceutical Exports to {$market->name}",
-                $market->meta_description ?? $market->description
-                    ?? "Nymak Pharma supplies WHO-GMP certified pharmaceuticals to {$market->name} — IV fluids, formulations, devices and diagnostics."
-            )->breadcrumbs([
-                ['Home', url('/')],
-                ['Global Presence', url('/global-presence')],
-                [$market->name, url("/global-presence/{$market->slug}")],
-            ])->toArray(),
-            'market' => $market->only('name', 'slug', 'region', 'description'),
-            'office' => $office,
-            'products' => $market->products->map(fn ($p) => [
-                'name' => $p->name,
-                'description' => $p->description,
-                'image' => $p->image,
-                'url' => url("/products/{$p->category->slug}/{$p->slug}"),
-            ]),
         ]);
     }
 }

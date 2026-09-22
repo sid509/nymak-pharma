@@ -41,7 +41,7 @@ export default function ProductsShow({ seo, product, category, related }) {
                                     <div className="flex gap-4 text-sm">
                                         <dt className="w-28 shrink-0 font-bold text-ink-500">Marketed in</dt>
                                         <dd>
-                                            <Link href={`/global-presence/${product.market.slug}`} className="inline-flex items-center gap-1 font-semibold text-brand-700 hover:underline">
+                                            <Link href="/global-presence" className="inline-flex items-center gap-1 font-semibold text-brand-700 hover:underline">
                                                 <MapPin size={13} aria-hidden /> {product.market.name}
                                             </Link>
                                         </dd>

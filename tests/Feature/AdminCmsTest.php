@@ -40,7 +40,7 @@ class AdminCmsTest extends TestCase
             ->assertOk()
             ->assertInertia(fn ($p) => $p->component('Admin/Pages/Form')
                 ->has('fields')
-                ->where('values.hero_title', 'Efficacy-Driven Lifecare, Exported Worldwide'));
+                ->where('values.hero_title', '25+ years of Efficacy-Driven lifecare'));
     }
 
     public function test_page_content_update_overrides_public_page(): void
@@ -64,7 +64,7 @@ class AdminCmsTest extends TestCase
             'hero_title' => '',
         ]);
 
-        $this->get('/')->assertSee('Efficacy-Driven Lifecare, Exported Worldwide', false);
+        $this->get('/')->assertSee('25+ years of Efficacy-Driven lifecare', false);
     }
 
     public function test_page_content_json_field_validates_and_renders(): void
@@ -92,6 +92,7 @@ class AdminCmsTest extends TestCase
         $this->assertStringStartsWith('images/pages/', $path);
         $this->assertStringEndsWith('.webp', $path);
         $this->assertFileExists(public_path($path));
+        unlink(public_path($path));
     }
 
     public function test_site_settings_edit_and_override_propagate(): void
@@ -134,6 +135,7 @@ class AdminCmsTest extends TestCase
         $logo = ClientLogo::where('name', 'Test Distributor')->first();
         $this->assertStringEndsWith('.webp', $logo->image);
         $this->assertFileExists(public_path($logo->image));
+        unlink(public_path($logo->image));
 
         // Logo reaches the home page via the clients prop
         $this->get('/')->assertInertia(fn ($p) => $p->component('Home')
@@ -163,6 +165,7 @@ class AdminCmsTest extends TestCase
         $member = \App\Models\TeamMember::where('name', 'Ms. Test Person')->first();
         $this->assertNotNull($member->photo);
         $this->assertFileExists(public_path($member->photo));
+        unlink(public_path($member->photo));
 
         // Photo reaches the About page via the leadership prop
         $this->get('/about')->assertInertia(fn ($p) => $p->component('About')
@@ -182,6 +185,7 @@ class AdminCmsTest extends TestCase
 
         $cert = \App\Models\Certification::where('name', 'Test Cert')->first();
         $this->assertStringEndsWith('.webp', $cert->image);
+        unlink(public_path($cert->image));
         $this->get('/quality-certifications')->assertInertia(fn ($p) => $p->component('Quality')
             ->where('certifications', fn ($c) => collect($c)->contains('image', $cert->image)));
     }

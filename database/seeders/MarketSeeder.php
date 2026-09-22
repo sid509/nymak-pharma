@@ -16,13 +16,13 @@ class MarketSeeder extends Seeder
             // Markets with dedicated pages — real content exists (offices + branded portfolio).
             ['name' => 'Sierra Leone', 'slug' => 'sierra-leone', 'iso_code' => 'SL', 'region' => 'West Africa',
                 'description' => 'Nymak Pharma serves Sierra Leone through its authorised office in Freetown, supplying a registered portfolio of branded formulations — including the Alumak, Amoximak, Clavmak and Zincomak ranges — to hospitals, pharmacies and public health programmes.',
-                'has_page' => true, 'sort_order' => 1],
+                'show_in_portfolio' => true, 'sort_order' => 1],
             ['name' => 'Liberia', 'slug' => 'liberia', 'iso_code' => 'LR', 'region' => 'West Africa',
                 'description' => 'Through Core Africa Liberia Inc. in Paynesville, Nymak Pharma supplies the Liberian market with antimalarials, antibiotics, nutritional formulations and injectables under the Nymak branded range.',
-                'has_page' => true, 'sort_order' => 2],
+                'show_in_portfolio' => true, 'sort_order' => 2],
             ['name' => 'Nigeria', 'slug' => 'nigeria', 'iso_code' => 'NG', 'region' => 'West Africa',
                 'description' => 'Nymak Pharma entered the Nigerian market in 2000 — a milestone that lifted export volumes by 25% and opened the company\'s wider expansion across the African continent.',
-                'has_page' => true, 'sort_order' => 3],
+                'show_in_portfolio' => true, 'sort_order' => 3],
 
             // Named markets without dedicated pages (requirement #9 — no thin duplicates).
             ['name' => 'Ghana', 'slug' => 'ghana', 'iso_code' => 'GH', 'region' => 'West Africa', 'sort_order' => 4],

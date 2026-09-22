@@ -27,14 +27,14 @@ php artisan tinker --execute="App\Models\User::first()->update(['password' => 'n
 | Enquiries | `/admin/enquiries` | Search (name/email/company/country/subject), unread/read filter, expand to read, mark read/unread, delete, `mailto:`/tel reply links |
 | Products | `/admin/products` | Search (name/strength/group), category filter, paginated; create/edit/delete; image upload (→WebP); `has_detail_page` publish flag; SEO fields; sort order |
 | Categories | `/admin/categories` | Edit only — name, icon, intro, description, SEO, sort. Create/delete intentionally absent (structural; map to URLs/nav) |
-| Markets | `/admin/markets` | Full CRUD; `has_page` controls the public `/global-presence/{slug}` page; delete blocked while products reference the market |
+| Markets | `/admin/markets` | Full CRUD; `show_in_portfolio` includes the market as an expandable portfolio entry on `/global-presence` (no per-country pages); delete blocked while products reference the market |
 | Articles | `/admin/posts` | CRUD + draft/publish via `published_at`; markdown body; SEO fields |
 | FAQs | `/admin/faqs` | CRUD via shared CRUD controller |
 | Testimonials | `/admin/testimonials` | CRUD via shared CRUD controller |
 | Certifications | `/admin/certifications` | CRUD via shared CRUD controller; logo/badge image upload (→WebP, thumb in table) |
-| Team | `/admin/team-members` | CRUD + `is_leadership` flag + photo upload via shared CRUD controller; public page falls back to initials |
+| Team | `/admin/team-members` | CRUD + `is_leadership` flag + photo upload + slug/bio/SEO fields; a bio gives the member a `/team/{slug}` profile page (Person schema); initials fallback when no photo |
 | Client logos | `/admin/clients` | CRUD via shared CRUD controller — logo upload (→WebP) feeds the home-page client strip |
-| Page content | `/admin/pages` | Per-page copy & image slots (`PageContent::SCHEMA`): every headline, paragraph, card list (JSON) and image on Home/About/Manufacturing/Quality/Contact and the four index heroes. Blank text restores defaults; images upload →WebP |
+| Page content | `/admin/pages` | Per-page copy & image slots (`PageContent::SCHEMA`): every headline, paragraph, card list (JSON) and image on Home/About/Manufacturing/Quality/Contact/Team/Inside Nymak and the index heroes. Blank text restores defaults; images upload →WebP |
 | Site settings | `/admin/settings` | Company facts — tagline, phone/WhatsApp/email, addresses, stats, socials, overseas offices (JSON). `SiteSetting::merged()` layers rows over `config/nymak.php` and feeds header/footer NAP, Contact, schema.org and llms.txt |
 | Admin users | `/admin/users` | Create/edit/delete admin accounts; self-delete blocked; optional password reset on edit |
 | SEO pages | `/admin/seo-pages` | Meta title/description/OG-image overrides for the 11 static & listing pages; blanks fall back to controller defaults |

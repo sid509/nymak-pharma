@@ -12,7 +12,7 @@ class MarketRequest extends FormRequest
     {
         $this->merge([
             'slug' => Str::slug((string) $this->slug ?: $this->name),
-            'has_page' => $this->boolean('has_page'),
+            'show_in_portfolio' => $this->boolean('show_in_portfolio'),
         ]);
     }
 
@@ -24,7 +24,7 @@ class MarketRequest extends FormRequest
             'iso_code' => ['nullable', 'string', 'max:3'],
             'region' => ['nullable', 'string', 'max:120'],
             'description' => ['nullable', 'string', 'max:5000'],
-            'has_page' => ['boolean'],
+            'show_in_portfolio' => ['boolean'],
             'meta_title' => ['nullable', 'string', 'max:70'],
             'meta_description' => ['nullable', 'string', 'max:300'],
             'sort_order' => ['integer', 'min:0', 'max:65535'],

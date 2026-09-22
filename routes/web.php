@@ -15,7 +15,11 @@ Route::get('/products/{category}/{product}', [Controllers\ProductController::cla
     ->name('products.show');
 
 Route::get('/global-presence', [Controllers\MarketController::class, 'index'])->name('markets.index');
-Route::get('/global-presence/{market}', [Controllers\MarketController::class, 'show'])->name('markets.show');
+
+Route::get('/team', [Controllers\TeamController::class, 'index'])->name('team.index');
+Route::get('/team/{member}', [Controllers\TeamController::class, 'show'])->name('team.show');
+
+Route::get('/inside-nymak', Controllers\InsideController::class)->name('inside');
 
 Route::get('/blog', [Controllers\PostController::class, 'index'])->name('posts.index');
 Route::get('/blog/{post}', [Controllers\PostController::class, 'show'])

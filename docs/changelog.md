@@ -92,3 +92,18 @@ Pharma corporate website, engineered for SEO-first B2B lead generation.
 
 ### Tests
 - 62 PHP + 18 React tests — all green.
+
+### Team pages & interactive story
+- `/team` index + `/team/{slug}` profile pages (Person schema, bio-gated —
+  no thin profiles), seeded with real bios from nymakpharma.com.
+- `/inside-nymak`: interactive company story — authored journey rail,
+  scroll-reveal motion, animated stat counters, and a market explorer
+  (country selector → supplied-products panel).
+- Global Presence is now a portfolio: markets render as expandable
+  "what we did there" entries with supplied products; per-country
+  pages removed (`has_page` → `show_in_portfolio`).
+- Motion layer: `Reveal`/`CountUp` primitives (IntersectionObserver +
+  CSS, reduced-motion aware), CTA sheen/arrow treatment, staggered
+  card grids on Home.
+- Page copy defaults synced to nymakpharma.com wording; llms.txt
+  generated from settings + catalogue.

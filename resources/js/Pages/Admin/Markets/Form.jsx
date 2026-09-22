@@ -11,9 +11,7 @@ export default function MarketForm({ market = null }) {
         iso_code: market?.iso_code || '',
         region: market?.region || '',
         description: market?.description || '',
-        has_page: market?.has_page ?? false,
-        meta_title: market?.meta_title || '',
-        meta_description: market?.meta_description || '',
+        show_in_portfolio: market?.show_in_portfolio ?? false,
         sort_order: market?.sort_order ?? 0,
     });
 
@@ -35,17 +33,11 @@ export default function MarketForm({ market = null }) {
                         <Field field={{ name: 'iso_code', label: 'ISO code', help: 'e.g. SL, LR, NG' }} value={form.data.iso_code} error={form.errors.iso_code} onChange={set} />
                         <Field field={{ name: 'region', label: 'Region', help: 'e.g. West Africa' }} value={form.data.region} error={form.errors.region} onChange={set} />
                     </div>
-                    <Field field={{ name: 'description', label: 'Market description', type: 'textarea', rows: 5, help: 'Markdown supported — required for a public page.' }} value={form.data.description} error={form.errors.description} onChange={set} />
+                    <Field field={{ name: 'description', label: 'What we do in this market', type: 'textarea', rows: 5, help: 'Markdown supported — the portfolio entry shown on Global Presence.' }} value={form.data.description} error={form.errors.description} onChange={set} />
                     <div className="grid gap-5 sm:grid-cols-2">
-                        <Field field={{ name: 'has_page', label: 'Public market page', type: 'checkbox', help: 'Publish /global-presence/{slug} — only enable with real unique content.' }} value={form.data.has_page} error={form.errors.has_page} onChange={set} />
+                        <Field field={{ name: 'show_in_portfolio', label: 'Show in portfolio', type: 'checkbox', help: 'Include this market on Global Presence with its supplied products.' }} value={form.data.show_in_portfolio} error={form.errors.show_in_portfolio} onChange={set} />
                         <Field field={{ name: 'sort_order', label: 'Sort order', type: 'number' }} value={form.data.sort_order} error={form.errors.sort_order} onChange={set} />
                     </div>
-                </section>
-
-                <section className="space-y-5 rounded-2xl border border-ink-200 bg-white p-6 sm:p-8">
-                    <h2 className="text-sm font-extrabold uppercase tracking-wider text-ink-500">SEO</h2>
-                    <Field field={{ name: 'meta_title', label: 'Meta title', help: `${(form.data.meta_title || '').length}/70 — blank derives from market name.` }} value={form.data.meta_title} error={form.errors.meta_title} onChange={set} />
-                    <Field field={{ name: 'meta_description', label: 'Meta description', type: 'textarea', rows: 2, help: `${(form.data.meta_description || '').length}/300` }} value={form.data.meta_description} error={form.errors.meta_description} onChange={set} />
                 </section>
 
                 <div className="flex items-center gap-3">

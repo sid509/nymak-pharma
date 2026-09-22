@@ -138,9 +138,9 @@ class AdminCrudTest extends TestCase
     public function market_crud_and_delete_guard(): void
     {
         $this->actingAs($this->admin)->post('/admin/markets', [
-            'name' => 'Rwanda', 'iso_code' => 'RW', 'region' => 'East Africa', 'has_page' => true,
+            'name' => 'Rwanda', 'iso_code' => 'RW', 'region' => 'East Africa', 'show_in_portfolio' => true,
         ])->assertRedirect('/admin/markets');
-        $this->assertDatabaseHas('markets', ['slug' => 'rwanda', 'has_page' => true]);
+        $this->assertDatabaseHas('markets', ['slug' => 'rwanda', 'show_in_portfolio' => true]);
 
         $used = Market::whereHas('products')->firstOrFail();
         $this->actingAs($this->admin)->delete("/admin/markets/{$used->slug}")->assertStatus(422);

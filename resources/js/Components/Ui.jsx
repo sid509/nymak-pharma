@@ -1,4 +1,5 @@
 import { Link } from '@inertiajs/react';
+import { CountUp } from './Motion';
 import { ChevronRight } from 'lucide-react';
 
 export function Container({ children, className = '' }) {
@@ -24,9 +25,9 @@ export function SectionHeading({ eyebrow, title, lead, align = 'left', className
 export function ButtonLink({ href, children, variant = 'primary', className = '', external = false, ...rest }) {
     const base = 'inline-flex items-center justify-center gap-2 rounded-lg px-5 py-3 text-sm font-bold transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2';
     const styles = {
-        primary: 'bg-brand-700 text-white hover:bg-brand-800',
-        outline: 'border border-ink-200 bg-white text-ink-800 hover:border-brand-400 hover:text-brand-800',
-        light: 'bg-white text-ink-900 hover:bg-brand-50',
+        primary: 'btn-cta bg-brand-700 text-white hover:bg-brand-800',
+        outline: 'btn-cta border border-ink-200 bg-white text-ink-800 hover:border-brand-400 hover:text-brand-800',
+        light: 'btn-cta bg-white text-ink-900 hover:bg-brand-50',
         ghost: 'text-brand-700 hover:bg-brand-50',
     };
     const cls = `${base} ${styles[variant]} ${className}`;
@@ -59,7 +60,9 @@ export function Breadcrumbs({ items }) {
 export function Stat({ value, label }) {
     return (
         <div>
-            <p className="text-4xl font-extrabold tracking-tight text-white sm:text-5xl">{value}</p>
+            <p className="text-4xl font-extrabold tracking-tight text-white sm:text-5xl">
+                <CountUp value={value} />
+            </p>
             <p className="mt-1 text-sm font-semibold uppercase tracking-wider text-brand-200">{label}</p>
         </div>
     );

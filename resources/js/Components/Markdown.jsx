@@ -31,6 +31,10 @@ export function mdToHtml(md = '') {
         .join('\n');
 }
 
-export default function Markdown({ body }) {
-    return <div className="prose-nymak" dangerouslySetInnerHTML={{ __html: mdToHtml(body) }} />;
+export default function Markdown({ body, text, inline: isInline = false }) {
+    const source = body ?? text ?? '';
+    if (isInline) {
+        return <span dangerouslySetInnerHTML={{ __html: inline(source) }} />;
+    }
+    return <div className="prose-nymak" dangerouslySetInnerHTML={{ __html: mdToHtml(source) }} />;
 }

@@ -49,7 +49,7 @@ export function ProductCard({ product, url }) {
                     <span className="mt-1 line-clamp-2 block text-xs leading-relaxed text-ink-500">{product.description}</span>
                 )}
                 <span className="mt-2 inline-flex items-center gap-1 text-xs font-bold text-brand-700">
-                    View product <ArrowRight size={13} aria-hidden />
+                    View product <ArrowRight size={13} className="btn-arrow" aria-hidden />
                 </span>
             </span>
         </>

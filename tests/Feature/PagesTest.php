@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\TeamMember;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Inertia\Testing\AssertableInertia as Assert;
 use PHPUnit\Framework\Attributes\Test;
@@ -51,13 +52,21 @@ class PagesTest extends TestCase
     }
 
     #[Test]
-    public function market_pages_only_render_for_content_rich_markets(): void
+    public function global_presence_is_a_portfolio_not_per_country_pages(): void
     {
-        $this->get('/global-presence/sierra-leone')->assertOk();
-        $this->get('/global-presence/liberia')->assertOk();
-        // Ghana is a listed market without a dedicated page — must not render
-        // a thin/duplicate page (requirement #9).
-        $this->get('/global-presence/ghana')->assertNotFound();
+        // No thin/duplicate country pages — markets live as portfolio entries.
+        $this->get('/global-presence')->assertOk()
+            ->assertInertia(fn ($p) => $p->component('Markets/Index')->has('portfolio'));
+        $this->get('/global-presence/sierra-leone')->assertNotFound();
+
+        // Team index + bio-gated detail pages.
+        $this->get('/team')->assertOk()
+            ->assertInertia(fn ($p) => $p->component('Team/Index')->has('leadership'));
+        $member = TeamMember::whereNotNull('bio')->firstOrFail();
+        $this->get("/team/{$member->slug}")->assertOk()
+            ->assertSee('"@type":"Person"', false);
+        TeamMember::create(['name' => 'Mr. Test Person', 'slug' => 'test-person', 'role' => 'Analyst']);
+        $this->get('/team/test-person')->assertNotFound();
     }
 
     #[Test]

@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\Market;
+use App\Models\TeamMember;
 use App\Models\PageMeta;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -77,22 +78,23 @@ class AdminSeoTest extends TestCase
     }
 
     #[Test]
-    public function market_meta_fields_drive_public_page(): void
+    public function team_member_meta_fields_drive_public_profile(): void
     {
         $admin = User::factory()->create();
-        $market = Market::where('has_page', true)->firstOrFail();
+        $member = TeamMember::whereNotNull('bio')->firstOrFail();
 
-        $this->actingAs($admin)->put("/admin/markets/{$market->slug}", [
-            'name' => $market->name,
-            'slug' => $market->slug,
-            'has_page' => true,
-            'meta_title' => 'Pharma exports to '.$market->name.' — custom',
-            'meta_description' => 'Custom market description override.',
-        ])->assertRedirect('/admin/markets');
+        $this->actingAs($admin)->put("/admin/team-members/{$member->id}", [
+            'name' => $member->name,
+            'slug' => $member->slug,
+            'role' => $member->role,
+            'bio' => $member->bio,
+            'meta_title' => 'Custom profile title',
+            'meta_description' => 'Custom profile description.',
+        ])->assertRedirect();
 
-        $this->get("/global-presence/{$market->slug}")
-            ->assertSee('Pharma exports to '.$market->name.' — custom', false)
-            ->assertSee('Custom market description override.', false);
+        $this->get("/team/{$member->slug}")
+            ->assertSee('Custom profile title', false)
+            ->assertSee('Custom profile description.', false);
     }
 
     #[Test]

@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Market;
 use App\Models\Post;
 use App\Models\Product;
 use App\Models\ProductCategory;
+use App\Models\TeamMember;
 use Illuminate\Http\Response;
 
 class SitemapController extends Controller
@@ -19,6 +19,8 @@ class SitemapController extends Controller
             ['/quality-certifications', '0.8', 'monthly'],
             ['/products', '0.9', 'weekly'],
             ['/global-presence', '0.8', 'monthly'],
+            ['/team', '0.6', 'monthly'],
+            ['/inside-nymak', '0.5', 'monthly'],
             ['/blog', '0.7', 'weekly'],
             ['/faqs', '0.6', 'monthly'],
             ['/contact', '0.9', 'monthly'],
@@ -40,11 +42,12 @@ class SitemapController extends Controller
                 'lastmod' => $p->updated_at,
             ]);
 
-        $markets = Market::where('has_page', true)->get()
+        // Team member detail pages — one URL each, gated on bio presence.
+        $members = TeamMember::whereNotNull('bio')->get()
             ->map(fn ($m) => [
-                'loc' => url("/global-presence/{$m->slug}"),
-                'priority' => '0.7',
-                'freq' => 'monthly',
+                'loc' => url("/team/{$m->slug}"),
+                'priority' => '0.5',
+                'freq' => 'yearly',
                 'lastmod' => $m->updated_at,
             ]);
 
@@ -56,7 +59,7 @@ class SitemapController extends Controller
                 'lastmod' => $p->updated_at,
             ]);
 
-        $all = $urls->concat($categories)->concat($products)->concat($markets)->concat($posts);
+        $all = $urls->concat($categories)->concat($products)->concat($members)->concat($posts);
 
         $xml = '<?xml version="1.0" encoding="UTF-8"?>'
             .'<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'

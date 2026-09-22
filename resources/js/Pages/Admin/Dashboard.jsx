@@ -35,7 +35,7 @@ export default function Dashboard({ stats, recentEnquiries }) {
                 <div className="flex items-center justify-between border-b border-ink-100 px-5 py-3.5">
                     <h2 className="text-sm font-extrabold text-ink-900">Latest enquiries</h2>
                     <Link href="/admin/enquiries" className="inline-flex items-center gap-1 text-xs font-bold text-brand-700 hover:underline">
-                        View all <ArrowRight size={12} aria-hidden />
+                        View all <ArrowRight size={12} className="btn-arrow" aria-hidden />
                     </Link>
                 </div>
                 {recentEnquiries.length === 0 ? (

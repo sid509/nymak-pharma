@@ -1,5 +1,6 @@
 import { Link, usePage } from '@inertiajs/react';
 import { ArrowRight, Award, BadgeCheck, Download, Globe2, MapPin, Quote } from 'lucide-react';
+import { Reveal } from '../Components/Motion';
 import Accordion from '../Components/Accordion';
 import { CategoryCard, PostCard, ProductCard } from '../Components/Cards';
 import { ButtonLink, Container, Eyebrow, SectionHeading, Stat } from '../Components/Ui';
@@ -28,7 +29,7 @@ export default function Home({ seo, categories, featuredProducts, testimonials, 
                             {content.hero_subtitle}
                         </p>
                         <div className="mt-8 flex flex-wrap gap-3">
-                            <ButtonLink href="/products">Explore Our Products <ArrowRight size={16} aria-hidden /></ButtonLink>
+                            <ButtonLink href="/products">Explore Our Products <ArrowRight size={16} className="btn-arrow" aria-hidden /></ButtonLink>
                             <ButtonLink href="/contact" variant="light">Partner With Us</ButtonLink>
                             <a href={`/${site.brochure}`} target="_blank" rel="noopener noreferrer"
                                onClick={() => window.nymakTrack && window.nymakTrack('brochure_download')}
@@ -63,7 +64,7 @@ export default function Home({ seo, categories, featuredProducts, testimonials, 
                             <p>{content.about_p2}</p>
                         </div>
                         <div className="mt-6 flex flex-wrap gap-3">
-                            <ButtonLink href="/about" variant="outline">Our Story <ArrowRight size={15} aria-hidden /></ButtonLink>
+                            <ButtonLink href="/about" variant="outline">Our Story <ArrowRight size={15} className="btn-arrow" aria-hidden /></ButtonLink>
                             <ButtonLink href="/manufacturing" variant="ghost">See our facility</ButtonLink>
                         </div>
                     </div>
@@ -86,7 +87,11 @@ export default function Home({ seo, categories, featuredProducts, testimonials, 
                         title={content.portfolio_title}
                         lead={content.portfolio_lead} />
                     <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
-                        {categories.map((c) => <CategoryCard key={c.id} category={c} href={`/products/${c.slug}`} />)}
+                        {categories.map((c, i) => (
+                            <Reveal key={c.id} delay={i * 60}>
+                                <CategoryCard category={c} href={`/products/${c.slug}`} />
+                            </Reveal>
+                        ))}
                     </div>
                 </Container>
             </section>
@@ -99,12 +104,14 @@ export default function Home({ seo, categories, featuredProducts, testimonials, 
                             <SectionHeading eyebrow={content.brands_eyebrow}
                                 title={content.brands_title}
                                 lead={content.brands_lead} />
-                            <ButtonLink href="/products" variant="outline">Full catalogue <ArrowRight size={15} aria-hidden /></ButtonLink>
+                            <ButtonLink href="/products" variant="outline">Full catalogue <ArrowRight size={15} className="btn-arrow" aria-hidden /></ButtonLink>
                         </div>
                         <div className="mt-10 grid grid-cols-2 gap-5 md:grid-cols-3 lg:grid-cols-4">
-                            {featuredProducts.map((p) => (
-                                <ProductCard key={p.id} product={p}
-                                    url={`/products/${p.category.slug}/${p.slug}`} />
+                            {featuredProducts.map((p, i) => (
+                                <Reveal key={p.id} delay={Math.min(i * 50, 200)}>
+                                    <ProductCard product={p}
+                                        url={`/products/${p.category.slug}/${p.slug}`} />
+                                </Reveal>
                             ))}
                         </div>
                     </Container>
@@ -123,7 +130,7 @@ export default function Home({ seo, categories, featuredProducts, testimonials, 
                             {content.quality_body}
                         </p>
                         <ButtonLink href="/quality-certifications" variant="outline" className="mt-6">
-                            All certifications <ArrowRight size={15} aria-hidden />
+                            All certifications <ArrowRight size={15} className="btn-arrow" aria-hidden />
                         </ButtonLink>
                     </div>
                     <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
@@ -176,8 +183,9 @@ export default function Home({ seo, categories, featuredProducts, testimonials, 
                     <Container>
                         <SectionHeading eyebrow={content.testimonials_eyebrow} align="center" title={content.testimonials_title} />
                         <div className="mt-12 grid gap-5 md:grid-cols-3">
-                            {testimonials.map((t) => (
-                                <figure key={t.name} className="flex flex-col rounded-2xl border border-ink-100 bg-white p-6 shadow-card">
+                            {testimonials.map((t, i) => (
+                                <Reveal key={t.name} delay={i * 80}>
+                                <figure className="flex h-full flex-col rounded-2xl border border-ink-100 bg-white p-6 shadow-card">
                                     <Quote size={24} className="text-brand-500" aria-hidden />
                                     <blockquote className="mt-4 flex-1 text-sm leading-relaxed text-ink-700">{t.quote}</blockquote>
                                     <figcaption className="mt-5 border-t border-ink-100 pt-4">
@@ -185,6 +193,7 @@ export default function Home({ seo, categories, featuredProducts, testimonials, 
                                         <p className="text-xs font-semibold text-ink-500">{t.country}</p>
                                     </figcaption>
                                 </figure>
+                                </Reveal>
                             ))}
                         </div>
                     </Container>
@@ -221,7 +230,7 @@ export default function Home({ seo, categories, featuredProducts, testimonials, 
                             <p className="mt-4 text-ink-600">
                                 {content.faq_lead}
                             </p>
-                            <ButtonLink href="/faqs" variant="outline" className="mt-6">All FAQs <ArrowRight size={15} aria-hidden /></ButtonLink>
+                            <ButtonLink href="/faqs" variant="outline" className="mt-6">All FAQs <ArrowRight size={15} className="btn-arrow" aria-hidden /></ButtonLink>
                         </div>
                         <Accordion items={faqs} />
                     </Container>
@@ -234,7 +243,7 @@ export default function Home({ seo, categories, featuredProducts, testimonials, 
                     <Container>
                         <div className="flex flex-wrap items-end justify-between gap-4">
                             <SectionHeading eyebrow={content.journal_eyebrow} title={content.journal_title} />
-                            <ButtonLink href="/blog" variant="outline">All articles <ArrowRight size={15} aria-hidden /></ButtonLink>
+                            <ButtonLink href="/blog" variant="outline">All articles <ArrowRight size={15} className="btn-arrow" aria-hidden /></ButtonLink>
                         </div>
                         <div className="mt-10 grid gap-5 md:grid-cols-3">
                             {posts.map((p) => <PostCard key={p.slug} post={p} />)}
@@ -255,7 +264,7 @@ export default function Home({ seo, categories, featuredProducts, testimonials, 
                         </p>
                     </div>
                     <div className="flex flex-wrap gap-3">
-                        <ButtonLink href="/contact" variant="light">Send an enquiry <ArrowRight size={15} aria-hidden /></ButtonLink>
+                        <ButtonLink href="/contact" variant="light">Send an enquiry <ArrowRight size={15} className="btn-arrow" aria-hidden /></ButtonLink>
                         <ButtonLink href={`https://wa.me/${site.whatsapp}`} external variant="outline" className="border-white/40 text-white hover:border-white hover:text-white">
                             WhatsApp us
                         </ButtonLink>

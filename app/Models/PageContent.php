@@ -21,8 +21,8 @@ class PageContent extends Model
     public const SCHEMA = [
         'home' => [
             ['hero_badge', 'Hero badge', 'text', 'WHO-GMP Certified · Star Export House'],
-            ['hero_title', 'Hero headline', 'text', 'Efficacy-Driven Lifecare, Exported Worldwide'],
-            ['hero_subtitle', 'Hero subtitle', 'textarea', 'Nymak Pharma is a pharmaceutical manufacturer and exporter in India supplying IV fluids, finished formulations, medical devices, rapid diagnostic kits and vaccines to partners in more than 24 countries.'],
+            ['hero_title', 'Hero headline', 'text', '25+ years of Efficacy-Driven lifecare'],
+            ['hero_subtitle', 'Hero subtitle', 'textarea', 'Your Reliable Partner in Efficacious Lifecare Solutions — trusted in 24 countries and counting. A WHO-GMP certified pharmaceutical manufacturer and Star Export House supplying IV fluids, finished formulations, medical devices, rapid diagnostic kits and vaccines.'],
             ['hero_image', 'Hero background image', 'image', 'images/hero/facility-aerial.webp'],
             ['about_eyebrow', 'About section eyebrow', 'text', 'About Nymak Pharma'],
             ['about_title', 'About section title', 'text', 'A pharmaceutical manufacturer India has exported through since 1998'],
@@ -95,7 +95,7 @@ class PageContent extends Model
             ['hero_lead', 'Hero lead', 'textarea', 'Every accolade reflects our commitment to quality, integrity and the partners who rely on our products — WHO-GMP, ISO 13485:2016, Star Export House and more.'],
             ['cred_eyebrow', 'Credentials eyebrow', 'text', 'Credentials'],
             ['cred_title', 'Credentials title', 'text', 'Awards & certifications'],
-            ['cred_lead', 'Credentials lead', 'textarea', 'Certificates are available to partners for verification during registration and audits.'],
+            ['cred_lead', 'Credentials lead', 'textarea', 'Each accolade and certification reflects our deep-rooted commitment to quality, integrity and global healthcare excellence — the trust of our partners, the safety of our products, and the lives we strive to improve. Certificates are available to partners for verification during registration and audits.'],
             ['cert_iso_image', 'ISO certificate scan', 'image', 'images/certifications/iso-13485-certificate.webp'],
             ['cert_star_image', 'Star Export House scan', 'image', 'images/certifications/star-export-house-certificate.webp'],
             ['system_title', 'System heading', 'text', 'How quality works here'],
@@ -124,7 +124,7 @@ class PageContent extends Model
         'markets.index' => [
             ['hero_eyebrow', 'Hero eyebrow', 'text', 'Global Presence'],
             ['hero_title', 'Hero title', 'text', 'Healthcare products to 24+ countries — and counting'],
-            ['hero_lead', 'Hero lead', 'textarea', 'From the South Pacific to West Africa to Central America: through every step, our commitment is to deliver quality, efficacious products and leave a positive footprint wherever we go.'],
+            ['hero_lead', 'Hero lead', 'textarea', 'Operating in over 24 countries like Somalia, Kenya, D R Congo, Nigeria and Sierra Leone, we bring more than healthcare products — we bring dedication. Through every step, our commitment is clear: to improve lives by delivering quality and efficacious products and leaving a positive footprint wherever we go.'],
             ['markets_eyebrow', 'Markets eyebrow', 'text', 'Key Markets'],
             ['markets_title', 'Markets title', 'text', 'Where we operate directly'],
             ['footprint_eyebrow', 'Footprint eyebrow', 'text', 'Export Footprint'],
@@ -139,6 +139,27 @@ class PageContent extends Model
             ['hero_eyebrow', 'Hero eyebrow', 'text', 'Blog & Resources'],
             ['hero_title', 'Hero title', 'text', 'Insights from inside pharmaceutical exports'],
             ['hero_lead', 'Hero lead', 'textarea', 'Company news, quality explainers and product knowledge from the Nymak team.'],
+        ],
+        'team.index' => [
+            ['hero_eyebrow', 'Hero eyebrow', 'text', 'Our Team'],
+            ['hero_title', 'Hero title', 'text', 'The people behind the promise'],
+            ['hero_lead', 'Hero lead', 'textarea', 'Behind every innovation, every product, and every promise we make — stands a team united by expertise and empathy. We combine clinical precision with heartfelt commitment to deliver quality healthcare solutions that truly make a difference.'],
+            ['leadership_eyebrow', 'Leadership eyebrow', 'text', 'Leadership'],
+            ['leadership_title', 'Leadership title', 'text', 'Guided by experience'],
+            ['team_eyebrow', 'Team eyebrow', 'text', 'Specialists'],
+            ['team_title', 'Team title', 'text', 'Every discipline, one standard'],
+        ],
+        'inside' => [
+            ['hero_eyebrow', 'Hero eyebrow', 'text', 'Inside Nymak'],
+            ['hero_title', 'Hero title', 'text', 'From a single ampoule to 24+ countries'],
+            ['hero_lead', 'Hero lead', 'textarea', 'Scroll through the story of how a 1998 startup in Mundra became an exporter trusted across four regions.'],
+            ['story_eyebrow', 'Story section eyebrow', 'text', 'The Journey'],
+            ['story_title', 'Story section title', 'text', 'How we got here'],
+            ['explorer_eyebrow', 'Market explorer eyebrow', 'text', 'Global Footprint'],
+            ['explorer_title', 'Market explorer title', 'text', 'Tap a market. See what we built there.'],
+            ['explorer_lead', 'Market explorer lead', 'textarea', 'Each country below is a real operating relationship — select one to see the products we supply there today.'],
+            ['cta_title', 'Closing CTA title', 'text', 'Ready to write the next chapter with us?'],
+            ['cta_body', 'Closing CTA body', 'textarea', 'Distributors, ministries and hospital groups — tell us what your market needs and we will scope a supply plan.'],
         ],
         'faqs' => [
             ['hero_eyebrow', 'Hero eyebrow', 'text', 'FAQs'],
@@ -158,6 +179,8 @@ class PageContent extends Model
         'products.index' => 'Products (overview)',
         'markets.index' => 'Global Presence',
         'posts.index' => 'Blog / Resources',
+        'team.index' => 'Team',
+        'inside' => 'Inside Nymak (interactive)',
         'faqs' => 'FAQs',
     ];
 

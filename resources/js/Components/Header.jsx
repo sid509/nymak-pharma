@@ -10,6 +10,8 @@ const links = [
     { name: 'Manufacturing', href: '/manufacturing' },
     { name: 'Quality', href: '/quality-certifications' },
     { name: 'Global Presence', href: '/global-presence' },
+    { name: 'Team', href: '/team' },
+    { name: 'Inside Nymak', href: '/inside-nymak' },
     { name: 'Blog', href: '/blog' },
 ];
 

@@ -1,4 +1,6 @@
-import { Award, BadgeCheck, FlaskConical, HeartHandshake, PackageCheck, ShieldCheck } from 'lucide-react';
+import { Link } from '@inertiajs/react';
+import { ArrowRight, Award, BadgeCheck, FlaskConical, HeartHandshake, PackageCheck, ShieldCheck } from 'lucide-react';
+import { Reveal } from '../Components/Motion';
 import { ButtonLink, Container, PageHero, SectionHeading } from '../Components/Ui';
 import SiteLayout from '../Layouts/SiteLayout';
 
@@ -83,30 +85,62 @@ export default function About({ seo, leadership, team, certifications, content }
                     <SectionHeading eyebrow="Leadership" title="The team behind the quality" />
                     <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
                         {leadership.map((m) => (
-                            <div key={m.name} className="rounded-2xl border border-ink-100 bg-white p-6 shadow-card">
-                                {m.photo ? (
-                                    <img src={`/${m.photo}`} alt={m.name} width="96" height="96" loading="lazy"
-                                         className="h-12 w-12 rounded-full object-cover" />
+                            <Reveal key={m.name}>
+                                {m.has_page ? (
+                                    <Link href={`/team/${m.slug}`}
+                                          className="group block h-full rounded-2xl border border-ink-100 bg-white p-6 shadow-card transition-shadow hover:shadow-lg hover:shadow-ink-900/5">
+                                        {m.photo ? (
+                                            <img src={`/${m.photo}`} alt={m.name} width="96" height="96" loading="lazy"
+                                                 className="h-12 w-12 rounded-full object-cover object-top" />
+                                        ) : (
+                                            <span className="flex h-12 w-12 items-center justify-center rounded-full bg-brand-700 text-base font-extrabold text-white">
+                                                {initials(m.name)}
+                                            </span>
+                                        )}
+                                        <h3 className="mt-4 text-base font-bold text-ink-900 group-hover:text-brand-800">{m.name}</h3>
+                                        <p className="mt-0.5 text-xs font-semibold uppercase tracking-wider text-brand-700">{m.role}</p>
+                                        <span className="mt-3 inline-flex items-center gap-1 text-xs font-bold text-brand-700">
+                                            Profile <ArrowRight size={12} className="btn-arrow" aria-hidden />
+                                        </span>
+                                    </Link>
                                 ) : (
-                                    <span className="flex h-12 w-12 items-center justify-center rounded-full bg-brand-700 text-base font-extrabold text-white">
-                                        {initials(m.name)}
-                                    </span>
+                                    <div className="h-full rounded-2xl border border-ink-100 bg-white p-6 shadow-card">
+                                        {m.photo ? (
+                                            <img src={`/${m.photo}`} alt={m.name} width="96" height="96" loading="lazy"
+                                                 className="h-12 w-12 rounded-full object-cover object-top" />
+                                        ) : (
+                                            <span className="flex h-12 w-12 items-center justify-center rounded-full bg-brand-700 text-base font-extrabold text-white">
+                                                {initials(m.name)}
+                                            </span>
+                                        )}
+                                        <h3 className="mt-4 text-base font-bold text-ink-900">{m.name}</h3>
+                                        <p className="mt-0.5 text-xs font-semibold uppercase tracking-wider text-brand-700">{m.role}</p>
+                                    </div>
                                 )}
-                                <h3 className="mt-4 text-base font-bold text-ink-900">{m.name}</h3>
-                                <p className="mt-0.5 text-xs font-semibold uppercase tracking-wider text-brand-700">{m.role}</p>
-                            </div>
+                            </Reveal>
                         ))}
                     </div>
                     {team?.length > 0 && (
                         <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
                             {team.map((m) => (
-                                <div key={m.name} className="flex items-center gap-3 rounded-xl border border-ink-100 bg-ink-50/50 px-5 py-4">
-                                    {m.photo && <img src={`/${m.photo}`} alt={m.name} width="40" height="40" loading="lazy" className="h-9 w-9 rounded-full object-cover" />}
-                                    <div>
-                                        <p className="text-sm font-bold text-ink-900">{m.name}</p>
-                                        <p className="text-xs font-medium text-ink-500">{m.role}</p>
+                                m.has_page ? (
+                                    <Link key={m.name} href={`/team/${m.slug}`}
+                                          className="flex items-center gap-3 rounded-xl border border-ink-100 bg-ink-50/50 px-5 py-4 transition-colors hover:border-brand-200 hover:bg-brand-50/60">
+                                        {m.photo && <img src={`/${m.photo}`} alt={m.name} width="40" height="40" loading="lazy" className="h-9 w-9 rounded-full object-cover object-top" />}
+                                        <div>
+                                            <p className="text-sm font-bold text-ink-900">{m.name}</p>
+                                            <p className="text-xs font-medium text-ink-500">{m.role}</p>
+                                        </div>
+                                    </Link>
+                                ) : (
+                                    <div key={m.name} className="flex items-center gap-3 rounded-xl border border-ink-100 bg-ink-50/50 px-5 py-4">
+                                        {m.photo && <img src={`/${m.photo}`} alt={m.name} width="40" height="40" loading="lazy" className="h-9 w-9 rounded-full object-cover object-top" />}
+                                        <div>
+                                            <p className="text-sm font-bold text-ink-900">{m.name}</p>
+                                            <p className="text-xs font-medium text-ink-500">{m.role}</p>
+                                        </div>
                                     </div>
-                                </div>
+                                )
                             ))}
                         </div>
                     )}

@@ -16,7 +16,7 @@ export default function MarketsIndex({ markets, filters }) {
                     { key: 'iso_code', label: 'ISO' },
                     { key: 'region', label: 'Region' },
                     { key: 'products_count', label: 'Products' },
-                    { key: 'has_page', label: 'Page', type: 'bool' },
+                    { key: 'show_in_portfolio', label: 'Portfolio', type: 'bool' },
                 ]}
                 rows={markets}
                 filters={filters}
@@ -28,8 +28,8 @@ export default function MarketsIndex({ markets, filters }) {
                         <td className="px-4 py-3 text-sm text-ink-600">{m.region || '—'}</td>
                         <td className="px-4 py-3 text-sm text-ink-600">{m.products_count}</td>
                         <td className="px-4 py-3">
-                            {m.has_page
-                                ? <Link href={`/global-presence/${m.slug}`} target="_blank" className="text-xs font-bold text-brand-700 hover:underline">Live ↗</Link>
+                            {m.show_in_portfolio
+                                ? <span className="rounded-full bg-emerald-50 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-emerald-700">Listed</span>
                                 : <span className="text-xs text-ink-300">—</span>}
                         </td>
                         <td className="px-4 py-3 text-right">
