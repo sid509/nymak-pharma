@@ -1,0 +1,88 @@
+@import 'tailwindcss';
+
+@theme {
+    --font-sans: 'Manrope Variable', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+    /* Nymak brand — deep clinical teal */
+    --color-brand-50: #eefcfb;
+    --color-brand-100: #d5f6f4;
+    --color-brand-200: #b0ece9;
+    --color-brand-300: #7ededa;
+    --color-brand-400: #45c6c2;
+    --color-brand-500: #28aba8;
+    --color-brand-600: #1e8d8b;
+    --color-brand-700: #0e7a72;
+    --color-brand-800: #12605c;
+    --color-brand-900: #134f4d;
+    --color-brand-950: #06302f;
+
+    --color-ink-50: #f4f7f8;
+    --color-ink-100: #e4eaec;
+    --color-ink-200: #c7d3d7;
+    --color-ink-300: #a2b4bb;
+    --color-ink-400: #748f99;
+    --color-ink-500: #58737f;
+    --color-ink-600: #4b606b;
+    --color-ink-700: #3f515a;
+    --color-ink-800: #2c3f47;
+    --color-ink-900: #16293a;
+    --color-ink-950: #0a1c29;
+
+    --color-gold-400: #e8b95c;
+    --color-gold-500: #d9a03f;
+    --color-gold-600: #b97f26;
+
+    --shadow-card: 0 1px 2px rgb(10 28 41 / 0.05), 0 8px 24px -12px rgb(10 28 41 / 0.12);
+    --shadow-card-hover: 0 2px 4px rgb(10 28 41 / 0.06), 0 16px 40px -16px rgb(14 122 114 / 0.22);
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+    *, ::before, ::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+body {
+    text-rendering: optimizeLegibility;
+}
+
+::selection {
+    background: var(--color-brand-200);
+    color: var(--color-ink-950);
+}
+
+/* Product / spec tables */
+.spec-table th {
+    @apply bg-ink-50 text-left text-xs font-bold uppercase tracking-wider text-ink-600;
+}
+.spec-table th, .spec-table td {
+    @apply border-b border-ink-100 px-4 py-3;
+}
+.spec-table tr:last-child td {
+    @apply border-b-0;
+}
+
+/* Long-form content (blog/legal) */
+.prose-nymak h2 {
+    @apply mt-10 mb-4 text-2xl font-extrabold tracking-tight text-ink-900;
+}
+.prose-nymak h3 {
+    @apply mt-8 mb-3 text-xl font-bold text-ink-900;
+}
+.prose-nymak p {
+    @apply mb-4 leading-relaxed text-ink-700;
+}
+.prose-nymak ul {
+    @apply mb-4 list-disc space-y-1 pl-6 text-ink-700;
+}
+.prose-nymak strong {
+    @apply font-semibold text-ink-900;
+}
