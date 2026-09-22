@@ -1,5 +1,5 @@
 import { Link } from '@inertiajs/react';
-import { ArrowRight, MapPin, Package, Pill, ShieldCheck } from 'lucide-react';
+import { ArrowRight, Award, BadgeCheck, Building2, Droplets, FileCheck2, FlaskConical, Globe2, MapPin, Microscope, Package, Pill, ShieldCheck, Ship, Sprout, Syringe, Tag } from 'lucide-react';
 import { useState } from 'react';
 import Markdown from '../Components/Markdown';
 import { CountUp, Reveal, useScrollProgress } from '../Components/Motion';
@@ -12,6 +12,16 @@ import SiteLayout from '../Layouts/SiteLayout';
  * Every visible value comes from DB: content slots, stats, timeline,
  * portfolio markets, categories, leadership.
  */
+const JOURNEY_ICONS = { Award, BadgeCheck, Building2, Droplets, FileCheck2, FlaskConical, Globe2, Microscope, Package, Ship, ShieldCheck, Sprout, Syringe, Tag };
+
+// Gradient-ring palette cycling through the brand ramp.
+const RINGS = [
+    ['#28aba8', '#7ededa'],
+    ['#1e8d8b', '#45c6c2'],
+    ['#d9a03f', '#e8b95c'],
+    ['#12605c', '#28aba8'],
+];
+
 export default function Inside({ seo, content, stats, timeline, portfolio, categories, leadership }) {
     const [active, setActive] = useState(0);
     const market = portfolio[active];
@@ -59,19 +69,34 @@ export default function Inside({ seo, content, stats, timeline, portfolio, categ
                     <Reveal><p className="text-xs font-bold uppercase tracking-[0.2em] text-brand-700">{content.story_eyebrow}</p></Reveal>
                     <Reveal delay={60}><h2 className="mt-3 text-3xl font-extrabold tracking-tight text-ink-950 sm:text-4xl">{content.story_title}</h2></Reveal>
 
-                    <ol ref={railRef} className="story-rail mt-12 space-y-6"
+                    <ol ref={railRef} className="story-rail mt-14 space-y-8 md:space-y-10"
                         style={{ '--rail': railProgress }}>
-                        {timeline.map((t, i) => (
-                            <Reveal key={t.year} delay={i * 60}>
-                                <li className="relative pl-16 sm:pl-20">
-                                    <span className="story-node" aria-hidden>{t.year}</span>
-                                    <div className="rounded-2xl border border-ink-100 bg-white p-6 shadow-card sm:p-7">
-                                        <h3 className="text-lg font-extrabold text-ink-900 sm:text-xl">{t.title}</h3>
-                                        <p className="mt-2 leading-relaxed text-ink-600">{t.text}</p>
-                                    </div>
-                                </li>
-                            </Reveal>
-                        ))}
+                        {timeline.map((t, i) => {
+                            const even = i % 2 === 0;
+                            const Icon = JOURNEY_ICONS[t.icon] || Award;
+                            const [g1, g2] = RINGS[i % RINGS.length];
+                            const card = (
+                                <div className="rounded-2xl border border-ink-100 bg-white p-5 shadow-card sm:p-6">
+                                    <h3 className="text-base font-extrabold text-ink-900 sm:text-lg">{t.title}</h3>
+                                    <p className="mt-1.5 text-sm leading-relaxed text-ink-600">{t.text}</p>
+                                </div>
+                            );
+                            const chip = (
+                                <span className="story-icon"><Icon size={20} aria-hidden /></span>
+                            );
+                            return (
+                                <Reveal key={t.year} delay={i * 50}>
+                                    <li className="relative pl-16 md:grid md:grid-cols-[1fr_5.5rem_1fr] md:items-center md:gap-x-8 md:pl-0">
+                                        <div className="story-node md:static md:col-start-2 md:row-start-1 md:mx-auto"
+                                             style={{ '--g1': g1, '--g2': g2 }} aria-hidden>
+                                            <span>{t.year}</span>
+                                        </div>
+                                        <div className={`md:row-start-1 ${even ? 'md:col-start-1' : 'md:col-start-3'}`}>{card}</div>
+                                        <div className={`hidden md:flex md:row-start-1 ${even ? 'md:col-start-3 md:justify-start' : 'md:col-start-1 md:justify-end'}`}>{chip}</div>
+                                    </li>
+                                </Reveal>
+                            );
+                        })}
                     </ol>
                 </Container>
             </section>

@@ -135,41 +135,66 @@ body {
 .btn-cta .btn-arrow { transition: transform .18s cubic-bezier(.16, 1, .3, 1); }
 .btn-cta:hover .btn-arrow, .btn-cta:focus-visible .btn-arrow { transform: translateX(3px); }
 
-/* Inside Nymak — authored scroll story.
-   The year pill IS the node on the rail; it fills in as its card reveals. */
+/* Inside Nymak — serpentine journey. A gradient spine draws downward
+   with scroll; circular year rings alternate sides on desktop and
+   pop as their milestone card reveals. */
 .story-rail { position: relative; }
 .story-rail::before {
     content: '';
     position: absolute;
     left: 21px;
-    top: 4px;
-    bottom: 4px;
+    top: 0;
+    bottom: 0;
     width: 2px;
-    background: linear-gradient(to bottom, var(--color-brand-200), var(--color-brand-500));
+    background: linear-gradient(to bottom, var(--color-brand-300), var(--color-brand-600) 60%, var(--color-gold-500));
     border-radius: 2px;
 }
 .story-node {
     position: absolute;
-    left: -2px;
-    top: 1.5rem;
+    left: -3px;
+    top: 1.25rem;
     z-index: 1;
-    display: grid;
     width: 3rem;
     height: 3rem;
+    padding: 3px;
+    border-radius: 9999px;
+    background: linear-gradient(135deg, var(--g1, var(--color-brand-500)), var(--g2, var(--color-brand-300)));
+    box-shadow: 0 4px 14px -4px rgb(10 60 60 / .35);
+    transition: transform .4s cubic-bezier(.16, 1, .3, 1);
+}
+.story-node > span {
+    display: grid;
+    width: 100%;
+    height: 100%;
     place-items: center;
-    border: 2px solid var(--color-brand-200);
     border-radius: 9999px;
     background: #fff;
     font-size: 10px;
     font-weight: 800;
     letter-spacing: -0.02em;
-    color: var(--color-brand-700);
-    transition: background-color .35s ease, border-color .35s ease, color .35s ease;
+    color: var(--color-ink-900);
 }
-.reveal.is-visible .story-node {
-    border-color: var(--color-brand-700);
-    background: var(--color-brand-700);
-    color: #fff;
+.reveal.is-visible .story-node { transform: scale(1.08); }
+.story-icon {
+    display: grid;
+    width: 3rem;
+    height: 3rem;
+    place-items: center;
+    border: 1px solid var(--color-ink-200);
+    border-radius: 9999px;
+    background: #fff;
+    color: var(--color-brand-700);
+    box-shadow: 0 2px 8px -3px rgb(16 24 40 / .18);
+}
+
+@media (min-width: 768px) {
+    .story-rail::before { left: calc(50% - 1px); }
+    .story-node {
+        width: 4.5rem;
+        height: 4.5rem;
+        padding: 4px;
+    }
+    .story-node > span { font-size: 0.8125rem; }
 }
 
 /* Explorer chips */

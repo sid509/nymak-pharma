@@ -45,7 +45,7 @@ class InsideController extends Controller
             ])->toArray(),
             'content' => PageContent::for('inside'),
             'stats' => SiteSetting::get('stats', []),
-            'timeline' => PageContent::for('about')['timeline'],
+            'timeline' => PageContent::for('inside')['journey'],
             'portfolio' => $portfolio,
             'categories' => ProductCategory::orderBy('sort_order')
                 ->withCount('products')
