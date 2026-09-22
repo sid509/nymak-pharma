@@ -59,15 +59,16 @@ export default function Inside({ seo, content, stats, timeline, portfolio, categ
                     <Reveal><p className="text-xs font-bold uppercase tracking-[0.2em] text-brand-700">{content.story_eyebrow}</p></Reveal>
                     <Reveal delay={60}><h2 className="mt-3 text-3xl font-extrabold tracking-tight text-ink-950 sm:text-4xl">{content.story_title}</h2></Reveal>
 
-                    <ol ref={railRef} className="story-rail mt-12 space-y-10 pl-12"
+                    <ol ref={railRef} className="story-rail mt-12 space-y-6"
                         style={{ '--rail': railProgress }}>
                         {timeline.map((t, i) => (
-                            <Reveal key={t.year} delay={i * 70}>
-                                <li className="relative">
-                                    <span className="story-dot" aria-hidden />
-                                    <p className="text-xs font-extrabold uppercase tracking-[0.2em] text-brand-600">{t.year}</p>
-                                    <h3 className="mt-1 text-xl font-extrabold text-ink-900">{t.title}</h3>
-                                    <p className="mt-2 max-w-2xl leading-relaxed text-ink-600">{t.text}</p>
+                            <Reveal key={t.year} delay={i * 60}>
+                                <li className="relative pl-16 sm:pl-20">
+                                    <span className="story-node" aria-hidden>{t.year}</span>
+                                    <div className="rounded-2xl border border-ink-100 bg-white p-6 shadow-card sm:p-7">
+                                        <h3 className="text-lg font-extrabold text-ink-900 sm:text-xl">{t.title}</h3>
+                                        <p className="mt-2 leading-relaxed text-ink-600">{t.text}</p>
+                                    </div>
                                 </li>
                             </Reveal>
                         ))}
