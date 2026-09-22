@@ -16,6 +16,15 @@ class ContactController extends Controller
 {
     public function create(): Response
     {
+        // ?product={slug-or-id} pre-selects a product in the enquiry form —
+        // product detail CTAs deep-link here.
+        $selected = request('product')
+            ? Product::where('has_detail_page', true)
+                ->where(fn ($q) => $q->where('slug', request('product'))
+                    ->orWhere('id', request('product')))
+                ->value('id')
+            : null;
+
         return Inertia::render('Contact', [
             'seo' => Seo::make(
                 'Contact Us — Pharmaceutical Export Enquiries',
@@ -29,6 +38,7 @@ class ContactController extends Controller
                 ->orderBy('name')
                 ->get(['id', 'name'])
                 ->map(fn ($p) => ['id' => $p->id, 'name' => $p->name]),
+            'selectedProduct' => $selected,
             'formStartedAt' => now()->timestamp,
             'honeypot' => config('nymak.enquiry.honeypot'),
         ]);

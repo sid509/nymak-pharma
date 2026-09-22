@@ -16,11 +16,11 @@ function Field({ label, error, required, children }) {
     );
 }
 
-export default function EnquiryForm({ products = [], formStartedAt, honeypot = 'website_url', productId = null, compact = false }) {
+export default function EnquiryForm({ products = [], formStartedAt, honeypot = 'website_url', selectedProduct = null, compact = false }) {
     const { site } = usePage().props;
     const form = useForm({
         name: '', company: '', email: '', phone: '', country: '',
-        subject: '', message: '', product_id: productId || '', privacy: false,
+        subject: '', message: '', product_id: selectedProduct || '', privacy: false,
         [honeypot]: '', form_started_at: formStartedAt || Math.floor(Date.now() / 1000),
     });
 

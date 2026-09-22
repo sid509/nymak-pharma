@@ -46,6 +46,7 @@ class HandleInertiaRequests extends Middleware
                 'whatsapp' => config('nymak.whatsapp'),
                 'email' => config('nymak.email'),
                 'address' => config('nymak.address'),
+                'branch_address' => config('nymak.branch_address'),
                 'offices' => config('nymak.offices'),
                 'socials' => array_filter(config('nymak.socials')),
             ],

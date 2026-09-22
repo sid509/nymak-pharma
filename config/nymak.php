@@ -76,7 +76,7 @@ return [
     |--------------------------------------------------------------------------
     */
     'socials' => [
-        'linkedin' => 'https://www.linkedin.com/company/nymak-pharma',
+        'linkedin' => 'https://www.linkedin.com/in/nymak/',
         'instagram' => 'https://www.instagram.com/nymakpharma',
         'x' => 'https://x.com/nymakpharma',
         'youtube' => null,

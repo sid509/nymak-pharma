@@ -51,7 +51,7 @@ export default function ProductsShow({ seo, product, category, related }) {
                             </dl>
 
                             <div className="mt-6 flex flex-wrap gap-3">
-                                <ButtonLink href="/contact">Enquire about this product</ButtonLink>
+                                <ButtonLink href={`/contact?product=${product.slug}`}>Request a Quote</ButtonLink>
                                 <ButtonLink href={`/products/${category.slug}`} variant="outline">Back to {category.name}</ButtonLink>
                             </div>
                         </div>

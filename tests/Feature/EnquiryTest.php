@@ -109,4 +109,18 @@ class EnquiryTest extends TestCase
 
         $this->assertEquals($product->id, Enquiry::first()->product_id);
     }
+
+    #[Test]
+    public function product_query_param_preselects_the_product(): void
+    {
+        $product = \App\Models\Product::where('has_detail_page', true)->firstOrFail();
+
+        $this->get("/contact?product={$product->slug}")
+            ->assertOk()
+            ->assertInertia(fn ($page) => $page->where('selectedProduct', $product->id));
+
+        $this->get('/contact?product=nonexistent-slug')
+            ->assertOk()
+            ->assertInertia(fn ($page) => $page->where('selectedProduct', null));
+    }
 }

@@ -1,10 +1,10 @@
 import { usePage } from '@inertiajs/react';
-import { Building2, Clock, Mail, MapPin, Phone } from 'lucide-react';
+import { Building2, Clock, Download, Mail, MapPin, MessageCircle, Phone } from 'lucide-react';
 import EnquiryForm from '../Components/EnquiryForm';
 import { Container, PageHero } from '../Components/Ui';
 import SiteLayout from '../Layouts/SiteLayout';
 
-export default function Contact({ seo, offices, products, formStartedAt, honeypot }) {
+export default function Contact({ seo, offices, products, selectedProduct, formStartedAt, honeypot }) {
     const { site, flash } = usePage().props;
 
     return (
@@ -26,7 +26,7 @@ export default function Contact({ seo, offices, products, formStartedAt, honeypo
                             <h2 className="text-xl font-extrabold text-ink-900">Send an enquiry</h2>
                             <p className="mt-1 text-sm text-ink-500">Fields marked * are required.</p>
                             <div className="mt-6">
-                                <EnquiryForm products={products} formStartedAt={formStartedAt} honeypot={honeypot} />
+                                <EnquiryForm products={products} selectedProduct={selectedProduct} formStartedAt={formStartedAt} honeypot={honeypot} />
                             </div>
                         </div>
                     </div>
@@ -44,7 +44,7 @@ export default function Contact({ seo, offices, products, formStartedAt, honeypo
                                 </p>
                                 <p className="flex gap-2.5 text-ink-200">
                                     <MapPin size={16} className="mt-0.5 shrink-0 text-brand-400" aria-hidden />
-                                    <span>Branch: {`A-802, Money Plant High Street, Jagatpur Road, SG Highway, Ahmedabad, Gujarat, India`}</span>
+                                    <span>Branch: {site.branch_address}</span>
                                 </p>
                                 <p>
                                     <a href={`tel:${site.phone_href}`} className="flex gap-2.5 font-semibold hover:text-white">
@@ -61,6 +61,18 @@ export default function Contact({ seo, offices, products, formStartedAt, honeypo
                                     <span>Mon–Sat, 9:30–18:30 IST</span>
                                 </p>
                             </address>
+                            <div className="mt-5 flex flex-col gap-2.5 border-t border-ink-800 pt-5">
+                                <a href={`https://wa.me/${site.whatsapp}`} target="_blank" rel="noopener noreferrer"
+                                   onClick={() => window.nymakTrack && window.nymakTrack('contact_click', { method: 'whatsapp' })}
+                                   className="inline-flex items-center gap-2 text-sm font-bold text-brand-300 hover:text-white">
+                                    <MessageCircle size={16} aria-hidden /> Chat on WhatsApp
+                                </a>
+                                <a href="/nymak-pharma-brochure.pdf" target="_blank" rel="noopener noreferrer"
+                                   onClick={() => window.nymakTrack && window.nymakTrack('brochure_download')}
+                                   className="inline-flex items-center gap-2 text-sm font-bold text-brand-300 hover:text-white">
+                                    <Download size={16} aria-hidden /> Download product brochure (PDF)
+                                </a>
+                            </div>
                         </div>
 
                         {offices.map((o) => (

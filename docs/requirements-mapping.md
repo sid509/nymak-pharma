@@ -27,7 +27,7 @@ Source: `Requirements/requirements.md`. Status: ✅ done · 🔶 partial · ⏭ 
 | 21 | AMP | Skipped per requirements (mobile perf prioritized) | ⏭ |
 | 22 | Backlinks/PR | Out of code scope; noted for marketing | ⏭ |
 | 23 | Social profiles | Config-driven `sameAs` + footer icons (suppress empty) | ✅ |
-| 24 | Contact form → lead gen | `EnquiryRequest` validation + storage + queued mail + admin inbox | ✅ |
+| 24 | Contact form → lead gen | `EnquiryRequest` validation + storage + queued mail + admin inbox; `?product=` deep-link pre-selects the product; brochure download + WhatsApp + tel/mailto all tracked | ✅ |
 | 25 | Responsive across devices | Mobile-first Tailwind; hamburger nav; scrollable tables; tap targets | ✅ |
 | 26 | Laravel backend | Laravel 12 | ✅ |
 | 27 | React frontend | Inertia React + SSR | ✅ |

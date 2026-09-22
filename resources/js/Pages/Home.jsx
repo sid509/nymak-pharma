@@ -1,5 +1,5 @@
 import { Link, usePage } from '@inertiajs/react';
-import { ArrowRight, Award, BadgeCheck, Globe2, MapPin, Quote } from 'lucide-react';
+import { ArrowRight, Award, BadgeCheck, Download, Globe2, MapPin, Quote } from 'lucide-react';
 import Accordion from '../Components/Accordion';
 import { CategoryCard, PostCard, ProductCard } from '../Components/Cards';
 import { ButtonLink, Container, Eyebrow, SectionHeading, Stat } from '../Components/Ui';
@@ -32,6 +32,11 @@ export default function Home({ seo, categories, featuredProducts, testimonials, 
                         <div className="mt-8 flex flex-wrap gap-3">
                             <ButtonLink href="/products">Explore Our Products <ArrowRight size={16} aria-hidden /></ButtonLink>
                             <ButtonLink href="/contact" variant="light">Partner With Us</ButtonLink>
+                            <a href="/nymak-pharma-brochure.pdf" target="_blank" rel="noopener noreferrer"
+                               onClick={() => window.nymakTrack && window.nymakTrack('brochure_download')}
+                               className="inline-flex items-center gap-1.5 self-center text-sm font-bold text-brand-200 underline-offset-4 hover:text-white hover:underline">
+                                <Download size={15} aria-hidden /> Download Brochure
+                            </a>
                         </div>
                     </div>
                 </Container>
