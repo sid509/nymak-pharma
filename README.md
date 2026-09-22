@@ -11,7 +11,7 @@ AI-search visibility → B2B lead generation. Every architectural decision is
 in service of that funnel — content is server-rendered for crawlers, structured
 for AI answer engines, and every page routes visitors to an enquiry.
 
-**Stack:** Laravel 12 · PHP 8.3 · Inertia.js v2 · React 18 (SSR) · SQLite ·
+**Stack:** Laravel 12 · PHP 8.3 · Inertia.js v2 · React 19 (SSR) · SQLite ·
 Tailwind CSS 4 · Vite · Vitest
 
 ---
