@@ -25,6 +25,8 @@ class MarketRequest extends FormRequest
             'region' => ['nullable', 'string', 'max:120'],
             'description' => ['nullable', 'string', 'max:5000'],
             'has_page' => ['boolean'],
+            'meta_title' => ['nullable', 'string', 'max:70'],
+            'meta_description' => ['nullable', 'string', 'max:300'],
             'sort_order' => ['integer', 'min:0', 'max:65535'],
         ];
     }

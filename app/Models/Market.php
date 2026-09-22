@@ -9,6 +9,7 @@ class Market extends Model
 {
     protected $fillable = [
         'name', 'slug', 'iso_code', 'region', 'description', 'has_page', 'sort_order',
+        'meta_title', 'meta_description',
     ];
 
     protected $casts = ['has_page' => 'boolean'];

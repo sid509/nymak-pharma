@@ -16,7 +16,7 @@ class FaqController extends Controller
         $seo = Seo::make(
             'Frequently Asked Questions — Nymak Pharma',
             'Answers about Nymak Pharma\'s products, IV fluids, certifications, export markets, quality systems and how to partner with us.'
-        )->schema([
+        )->override('faqs')->schema([
             '@type' => 'FAQPage',
             'mainEntity' => $faqs->flatten()->map(fn ($f) => [
                 '@type' => 'Question',

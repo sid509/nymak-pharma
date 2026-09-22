@@ -15,7 +15,7 @@ class PostController extends Controller
             'seo' => Seo::make(
                 'Insights & Resources — Nymak Pharma',
                 'Company news, quality explainers and product insights from Nymak Pharma — a WHO-GMP certified pharmaceutical manufacturer and exporter.'
-            )->breadcrumbs([
+            )->override('posts.index')->breadcrumbs([
                 ['Home', url('/')],
                 ['Blog & Resources', url('/blog')],
             ])->toArray(),
@@ -37,6 +37,7 @@ class PostController extends Controller
                 '@type' => 'Article',
                 'headline' => $post->title,
                 'description' => $post->excerpt,
+                'image' => $post->cover_image ? url($post->cover_image) : null,
                 'datePublished' => $post->published_at->toIso8601String(),
                 'dateModified' => $post->updated_at->toIso8601String(),
                 'author' => ['@id' => url('/#organization')],

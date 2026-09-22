@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\PostRequest;
 use App\Models\Post;
+use App\Support\ImageUpload;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -34,7 +35,12 @@ class PostController extends Controller
 
     public function store(PostRequest $request): RedirectResponse
     {
-        Post::create($request->validated());
+        $data = $request->safe()->except('cover_image');
+        if ($file = $request->file('cover_image')) {
+            $data['cover_image'] = ImageUpload::store($file, 'covers', $data['slug']);
+        }
+
+        Post::create($data);
 
         return redirect()->route('admin.posts.index')->with('success', 'Article created.');
     }
@@ -43,19 +49,26 @@ class PostController extends Controller
     {
         return Inertia::render('Admin/Posts/Form', [
             'post' => $post->only('id', 'title', 'slug', 'category', 'excerpt', 'body',
-                'meta_title', 'meta_description', 'published_at'),
+                'cover_image', 'meta_title', 'meta_description', 'published_at'),
         ]);
     }
 
     public function update(PostRequest $request, Post $post): RedirectResponse
     {
-        $post->update($request->validated());
+        $data = $request->safe()->except('cover_image');
+        if ($file = $request->file('cover_image')) {
+            ImageUpload::delete($post->cover_image);
+            $data['cover_image'] = ImageUpload::store($file, 'covers', $data['slug']);
+        }
+
+        $post->update($data);
 
         return redirect()->route('admin.posts.index')->with('success', 'Article updated.');
     }
 
     public function destroy(Post $post): RedirectResponse
     {
+        ImageUpload::delete($post->cover_image);
         $post->delete();
 
         return redirect()->route('admin.posts.index')->with('success', 'Article deleted.');

@@ -11,7 +11,7 @@ class PageController extends Controller
     public function privacy(): Response
     {
         return Inertia::render('Legal', [
-            'seo' => Seo::make('Privacy Policy', 'How Nymak Pharma collects, uses and protects personal data submitted through this website.')
+            'seo' => Seo::make('Privacy Policy', 'How Nymak Pharma collects, uses and protects personal data submitted through this website.')->override('privacy')
                 ->toArray(),
             'heading' => 'Privacy Policy',
             'kind' => 'privacy',
@@ -21,7 +21,7 @@ class PageController extends Controller
     public function terms(): Response
     {
         return Inertia::render('Legal', [
-            'seo' => Seo::make('Terms of Use', 'Terms governing the use of the Nymak Pharma website and its content.')
+            'seo' => Seo::make('Terms of Use', 'Terms governing the use of the Nymak Pharma website and its content.')->override('terms')
                 ->toArray(),
             'heading' => 'Terms of Use',
             'kind' => 'terms',

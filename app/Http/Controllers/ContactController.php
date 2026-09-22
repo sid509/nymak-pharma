@@ -29,7 +29,7 @@ class ContactController extends Controller
             'seo' => Seo::make(
                 'Contact Us — Pharmaceutical Export Enquiries',
                 'Contact Nymak Pharma for pharmaceutical exports, product enquiries, distribution and partnership — offices in India, UK, Sierra Leone & Liberia.'
-            )->breadcrumbs([
+            )->override('contact')->breadcrumbs([
                 ['Home', url('/')],
                 ['Contact Us', url('/contact')],
             ])->toArray(),

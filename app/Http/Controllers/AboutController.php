@@ -16,7 +16,7 @@ class AboutController extends Controller
             'seo' => Seo::make(
                 'About Us — WHO-GMP Pharmaceutical Manufacturer Since 1998',
                 'Founded in 1998, Nymak Pharma is a WHO-GMP certified pharmaceutical manufacturer and Star Export House serving 24+ countries from Mundra, Gujarat, India.'
-            )->breadcrumbs([
+            )->override('about')->breadcrumbs([
                 ['Home', url('/')],
                 ['About Us', url('/about')],
             ])->toArray(),

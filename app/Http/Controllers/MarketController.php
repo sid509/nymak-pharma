@@ -15,7 +15,7 @@ class MarketController extends Controller
             'seo' => Seo::make(
                 'Global Presence — Pharmaceutical Exports to 24+ Countries',
                 'Nymak Pharma exports pharmaceuticals, IV fluids and medical supplies to 24+ countries across Africa, Central America & the South Pacific.'
-            )->breadcrumbs([
+            )->override('markets.index')->breadcrumbs([
                 ['Home', url('/')],
                 ['Global Presence', url('/global-presence')],
             ])->toArray(),
@@ -38,8 +38,8 @@ class MarketController extends Controller
 
         return Inertia::render('Markets/Show', [
             'seo' => Seo::make(
-                "Pharmaceutical Exports to {$market->name}",
-                $market->description
+                $market->meta_title ?? "Pharmaceutical Exports to {$market->name}",
+                $market->meta_description ?? $market->description
                     ?? "Nymak Pharma supplies WHO-GMP certified pharmaceuticals to {$market->name} — IV fluids, formulations, devices and diagnostics."
             )->breadcrumbs([
                 ['Home', url('/')],

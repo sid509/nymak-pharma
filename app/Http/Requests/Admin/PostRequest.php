@@ -23,6 +23,7 @@ class PostRequest extends FormRequest
             'category' => ['nullable', 'string', 'max:80'],
             'excerpt' => ['nullable', 'string', 'max:400'],
             'body' => ['nullable', 'string', 'max:60000'],
+            'cover_image' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:2048'],
             'published_at' => ['nullable', 'date'],
             'meta_title' => ['nullable', 'string', 'max:70'],
             'meta_description' => ['nullable', 'string', 'max:200'],

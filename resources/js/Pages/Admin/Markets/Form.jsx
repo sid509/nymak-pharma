@@ -12,6 +12,8 @@ export default function MarketForm({ market = null }) {
         region: market?.region || '',
         description: market?.description || '',
         has_page: market?.has_page ?? false,
+        meta_title: market?.meta_title || '',
+        meta_description: market?.meta_description || '',
         sort_order: market?.sort_order ?? 0,
     });
 
@@ -38,6 +40,12 @@ export default function MarketForm({ market = null }) {
                         <Field field={{ name: 'has_page', label: 'Public market page', type: 'checkbox', help: 'Publish /global-presence/{slug} — only enable with real unique content.' }} value={form.data.has_page} error={form.errors.has_page} onChange={set} />
                         <Field field={{ name: 'sort_order', label: 'Sort order', type: 'number' }} value={form.data.sort_order} error={form.errors.sort_order} onChange={set} />
                     </div>
+                </section>
+
+                <section className="space-y-5 rounded-2xl border border-ink-200 bg-white p-6 sm:p-8">
+                    <h2 className="text-sm font-extrabold uppercase tracking-wider text-ink-500">SEO</h2>
+                    <Field field={{ name: 'meta_title', label: 'Meta title', help: `${(form.data.meta_title || '').length}/70 — blank derives from market name.` }} value={form.data.meta_title} error={form.errors.meta_title} onChange={set} />
+                    <Field field={{ name: 'meta_description', label: 'Meta description', type: 'textarea', rows: 2, help: `${(form.data.meta_description || '').length}/300` }} value={form.data.meta_description} error={form.errors.meta_description} onChange={set} />
                 </section>
 
                 <div className="flex items-center gap-3">

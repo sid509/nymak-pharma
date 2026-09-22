@@ -16,7 +16,7 @@ class ProductController extends Controller
             'seo' => Seo::make(
                 'Pharmaceutical Products — IV Fluids, Formulations & More',
                 'Explore Nymak Pharma\'s export portfolio: IV fluids, finished formulations, medical devices & disposables, rapid diagnostic kits and vaccines.'
-            )->breadcrumbs([
+            )->override('products.index')->breadcrumbs([
                 ['Home', url('/')],
                 ['Products', url('/products')],
             ])->toArray(),

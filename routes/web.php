@@ -61,6 +61,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::resource('certifications', Controllers\Admin\CertificationController::class)->except('show');
         Route::resource('team-members', Controllers\Admin\TeamMemberController::class)->except('show');
         Route::resource('users', Controllers\Admin\UserController::class)->except('show');
+        Route::resource('seo-pages', Controllers\Admin\SeoPageController::class)->only('index', 'edit', 'update')
+            ->parameters(['seo-pages' => 'seoPage']);
 
         Route::get('/profile', [Controllers\Admin\ProfileController::class, 'edit'])->name('profile.edit');
         Route::put('/profile/password', [Controllers\Admin\ProfileController::class, 'update'])->name('profile.update');

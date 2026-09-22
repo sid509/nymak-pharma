@@ -21,7 +21,7 @@ class HomeController extends Controller
         $seo = Seo::make(
             'Pharmaceutical Manufacturer & Exporter in India',
             'Nymak Pharma — WHO-GMP certified pharmaceutical manufacturer and Star Export House supplying IV fluids, finished formulations, medical devices, rapid test kits and vaccines to 24+ countries.'
-        )->schema([
+        )->override('home')->schema([
             '@type' => 'WebPage',
             'name' => 'Nymak Pharma — Pharmaceutical Manufacturer & Exporter',
             'url' => url('/'),

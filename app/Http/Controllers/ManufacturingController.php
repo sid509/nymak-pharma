@@ -14,7 +14,7 @@ class ManufacturingController extends Controller
             'seo' => Seo::make(
                 'Pharmaceutical Manufacturing Facility — Mundra, Gujarat',
                 'Inside Nymak Pharma\'s WHO-GMP certified manufacturing facility in Mundra, Gujarat — in-house QC lab, QA systems, regulatory and warehouse teams.'
-            )->breadcrumbs([
+            )->override('manufacturing')->breadcrumbs([
                 ['Home', url('/')],
                 ['Manufacturing', url('/manufacturing')],
             ])->toArray(),

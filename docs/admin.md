@@ -34,7 +34,21 @@ php artisan tinker --execute="App\Models\User::first()->update(['password' => 'n
 | Certifications | `/admin/certifications` | CRUD via shared CRUD controller |
 | Team | `/admin/team-members` | CRUD + `is_leadership` flag via shared CRUD controller |
 | Admin users | `/admin/users` | Create/edit/delete admin accounts; self-delete blocked; optional password reset on edit |
+| SEO pages | `/admin/seo-pages` | Meta title/description/OG-image overrides for the 11 static & listing pages; blanks fall back to controller defaults |
 | Profile | `/admin/profile` | Change own password (`current_password` verified) |
+
+## SEO coverage — every dynamic page is admin-editable
+
+| Page type | Editable fields | Schema |
+|---|---|---|
+| Product detail | meta title, description, slug, image, `has_detail_page` | `Product` — auto-derived from name/description/image |
+| Category | meta title, description, intro, body, icon, sort | `ItemList`/`BreadcrumbList` — auto |
+| Market page | meta title, description, slug, `has_page`, body | `BreadcrumbList` — auto |
+| Article | meta title, description, slug, cover image, category, publish date | `Article` — auto-derived incl. cover image |
+| Static/list pages (home, about, products index, blog index, markets index, FAQs, contact, legal…) | meta title, description, OG image via **SEO pages** module | `WebPage`/`FAQPage`/`BreadcrumbList` — auto |
+
+Structured data is never hand-edited: JSON-LD is generated from the same
+fields admins control, so it cannot drift out of sync or break validity.
 
 ## Architecture
 

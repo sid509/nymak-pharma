@@ -17,7 +17,7 @@ class QualityController extends Controller
         $seo = Seo::make(
             'Quality & Certifications — WHO-GMP, ISO 13485',
             'Nymak Pharma\'s quality credentials: WHO-GMP certified facility, ISO 13485:2016, Star Export House, Pharmexcil RCMC — with in-house QC/QA oversight.'
-        )->breadcrumbs([
+        )->override('quality')->breadcrumbs([
             ['Home', url('/')],
             ['Quality & Certifications', url('/quality-certifications')],
         ]);

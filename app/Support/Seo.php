@@ -67,6 +67,27 @@ class Seo
         return $this;
     }
 
+    /**
+     * Apply admin-managed overrides for a page key (page_metas table).
+     * Only non-empty fields override — controller defaults remain otherwise.
+     */
+    public function override(string $key): self
+    {
+        $meta = \App\Models\PageMeta::where('key', $key)->first();
+
+        if ($meta?->meta_title) {
+            $this->title = $meta->meta_title;
+        }
+        if ($meta?->meta_description) {
+            $this->description = Str::of($meta->meta_description)->squish()->limit(150)->toString();
+        }
+        if ($meta?->og_image) {
+            $this->image = url($meta->og_image);
+        }
+
+        return $this;
+    }
+
     public function breadcrumbs(array $items): self
     {
         return $this->schema([

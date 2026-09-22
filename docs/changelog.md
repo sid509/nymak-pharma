@@ -68,6 +68,9 @@ Pharma corporate website, engineered for SEO-first B2B lead generation.
   simple entities; dedicated pages where entities need more.
 - Single-role auth (ADR-008); delete guards on referenced products/markets;
   self-delete blocked.
+- Full SEO control: per-entity meta fields (products, categories, markets,
+  posts), cover images for articles (feeds OG + Article schema), and
+  `page_metas` overrides for all static/list pages via `/admin/seo-pages`.
 
 ### Tests
-- 43 PHP + 18 React tests — all green.
+- 49 PHP + 18 React tests — all green.
