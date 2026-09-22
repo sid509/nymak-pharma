@@ -118,7 +118,7 @@ export default function Manufacturing({ seo }) {
                     <SectionHeading eyebrow="What we make" title="Dosage forms & product lines" />
                     <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                         {dosageForms.map(([title, text]) => (
-                            <div key={title} className="rounded-xl border-l-4 border-brand-500 bg-ink-50/60 p-5">
+                            <div key={title} className="rounded-xl border border-ink-100 bg-white p-5 shadow-card">
                                 <h3 className="text-sm font-bold text-ink-900">{title}</h3>
                                 <p className="mt-1.5 text-sm leading-relaxed text-ink-600">{text}</p>
                             </div>
