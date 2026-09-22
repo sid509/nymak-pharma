@@ -18,7 +18,7 @@ export default function Home({ seo, categories, featuredProducts, testimonials, 
                      className="absolute inset-0 -z-10 h-full w-full object-cover opacity-40" />
                 <div className="absolute inset-0 -z-10 bg-gradient-to-r from-ink-950/95 via-ink-950/75 to-ink-950/30" />
                 <Container className="py-20 sm:py-28 lg:py-32">
-                    <div className="max-w-2xl">
+                    <div className="enter max-w-2xl">
                         <p className="inline-flex items-center gap-2 rounded-full border border-brand-400/40 bg-brand-900/40 px-4 py-1.5 text-xs font-bold uppercase tracking-widest text-brand-200">
                             <BadgeCheck size={14} aria-hidden /> {content.hero_badge}
                         </p>
@@ -207,11 +207,15 @@ export default function Home({ seo, categories, featuredProducts, testimonials, 
                         <p className="text-center text-xs font-bold uppercase tracking-[0.2em] text-ink-500">
                             {content.clients_lead}
                         </p>
-                        <div className="mt-8 grid grid-cols-3 items-center gap-6 sm:grid-cols-4 lg:grid-cols-7">
-                            {clients.map((c) => (
-                                <img key={c.name} src={`/${c.image}`} alt={`${c.name} — Nymak Pharma client`}
-                                     width="200" height="120" loading="lazy"
-                                     className="mx-auto h-12 w-auto object-contain opacity-80 transition-opacity hover:opacity-100" />
+                        <div className="marquee mt-8" aria-label="Our clients">
+                            {[0, 1].map((track) => (
+                                <div key={track} className="marquee-track" aria-hidden={track === 1}>
+                                    {clients.map((c) => (
+                                        <img key={c.name} src={`/${c.image}`} alt={track === 0 ? `${c.name} — Nymak Pharma client` : ''}
+                                             width="200" height="120" loading="lazy"
+                                             className="h-12 w-auto shrink-0 object-contain opacity-80 transition-opacity hover:opacity-100" />
+                                    ))}
+                                </div>
                             ))}
                         </div>
                     </Container>

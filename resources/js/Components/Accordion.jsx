@@ -20,12 +20,15 @@ export default function Accordion({ items }) {
                                              className={`shrink-0 text-brand-600 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
                             </button>
                         </h3>
-                        {isOpen && (
-                            <div id={`faq-panel-${i}`} role="region" aria-labelledby={`faq-button-${i}`}
-                                 className="px-5 pb-5 text-sm leading-relaxed text-ink-600 sm:text-[15px]">
-                                {item.answer}
+                        <div id={`faq-panel-${i}`} role="region" aria-labelledby={`faq-button-${i}`}
+                             aria-hidden={! isOpen}
+                             className={`grid transition-[grid-template-rows] duration-300 ease-out ${isOpen ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'}`}>
+                            <div className="overflow-hidden">
+                                <div className="px-5 pb-5 text-sm leading-relaxed text-ink-600 sm:text-[15px]">
+                                    {item.answer}
+                                </div>
                             </div>
-                        )}
+                        </div>
                     </div>
                 );
             })}

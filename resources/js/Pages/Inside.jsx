@@ -2,7 +2,7 @@ import { Link } from '@inertiajs/react';
 import { ArrowRight, MapPin, Package, Pill, ShieldCheck } from 'lucide-react';
 import { useState } from 'react';
 import Markdown from '../Components/Markdown';
-import { CountUp, Reveal } from '../Components/Motion';
+import { CountUp, Reveal, useScrollProgress } from '../Components/Motion';
 import { ButtonLink, Container } from '../Components/Ui';
 import SiteLayout from '../Layouts/SiteLayout';
 
@@ -15,6 +15,7 @@ import SiteLayout from '../Layouts/SiteLayout';
 export default function Inside({ seo, content, stats, timeline, portfolio, categories, leadership }) {
     const [active, setActive] = useState(0);
     const market = portfolio[active];
+    const [railRef, railProgress] = useScrollProgress();
 
     return (
         <SiteLayout>
@@ -58,7 +59,8 @@ export default function Inside({ seo, content, stats, timeline, portfolio, categ
                     <Reveal><p className="text-xs font-bold uppercase tracking-[0.2em] text-brand-700">{content.story_eyebrow}</p></Reveal>
                     <Reveal delay={60}><h2 className="mt-3 text-3xl font-extrabold tracking-tight text-ink-950 sm:text-4xl">{content.story_title}</h2></Reveal>
 
-                    <ol className="story-rail mt-12 space-y-10 pl-12">
+                    <ol ref={railRef} className="story-rail mt-12 space-y-10 pl-12"
+                        style={{ '--rail': railProgress }}>
                         {timeline.map((t, i) => (
                             <Reveal key={t.year} delay={i * 70}>
                                 <li className="relative">
@@ -108,7 +110,7 @@ export default function Inside({ seo, content, stats, timeline, portfolio, categ
                         <Reveal delay={80}>
                             {market && (
                                 <div key={market.name}
-                                     className="reveal is-visible rounded-2xl border border-ink-100 bg-white p-7 shadow-card sm:p-9">
+                                     className="explorer-panel rounded-2xl border border-ink-100 bg-white p-7 shadow-card sm:p-9">
                                     <div className="flex flex-wrap items-center gap-3">
                                         <h3 className="text-2xl font-extrabold tracking-tight text-ink-950">{market.name}</h3>
                                         <span className="rounded-full bg-brand-50 px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-brand-700">{market.region}</span>

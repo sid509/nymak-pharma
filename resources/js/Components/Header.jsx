@@ -26,7 +26,16 @@ export default function Header() {
     const currentUrl = usePage().url;
     const [mobileOpen, setMobileOpen] = useState(false);
     const [dropOpen, setDropOpen] = useState(false);
+    const [scrolled, setScrolled] = useState(false);
     const dropRef = useRef(null);
+
+    // Header gains a floor shadow once the page scrolls (continuity cue).
+    useEffect(() => {
+        const onScroll = () => setScrolled(window.scrollY > 8);
+        onScroll();
+        window.addEventListener('scroll', onScroll, { passive: true });
+        return () => window.removeEventListener('scroll', onScroll);
+    }, []);
 
     // Close menus on navigation / escape / outside click.
     useEffect(() => setMobileOpen(false), [currentUrl]);
@@ -41,7 +50,7 @@ export default function Header() {
     const isActive = (href) => href === '/' ? currentUrl === '/' : currentUrl.startsWith(href);
 
     return (
-        <header className="sticky top-0 z-50">
+        <header className="site-header sticky top-0 z-50" data-scrolled={scrolled}>
             {/* Utility bar */}
             <div className="bg-ink-950 text-ink-100">
                 <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-1.5 text-xs sm:px-6">

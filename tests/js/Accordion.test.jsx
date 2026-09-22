@@ -31,7 +31,11 @@ describe('Accordion', () => {
         const btn = screen.getByRole('button', { name: items[1].question });
         fireEvent.click(btn);
         fireEvent.click(btn);
-        expect(screen.queryByText(items[1].answer)).not.toBeInTheDocument();
+        // Content stays mounted for the height transition — assert collapsed state.
+        const region = screen.getByText(items[1].answer).closest('[role="region"]');
+        expect(btn).toHaveAttribute('aria-expanded', 'false');
+        expect(region).toHaveAttribute('aria-hidden', 'true');
+        expect(region.className).toContain('grid-rows-[0fr]');
     });
 
     it('renders nothing harmful for empty items', () => {

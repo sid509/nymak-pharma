@@ -43,6 +43,45 @@ export function Reveal({ children, className = '', delay = 0, as: Tag = 'div' })
     );
 }
 
+/**
+ * Scroll-progress through an element — 0 at top-of-viewport entry,
+ * 1 when the element's bottom reaches the viewport bottom. Used for
+ * scroll-driven motion where the scroll relationship carries meaning.
+ */
+export function useScrollProgress() {
+    const ref = useRef(null);
+    const [progress, setProgress] = useState(0);
+
+    useEffect(() => {
+        const el = ref.current;
+        if (! el) return;
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            setProgress(1);
+            return;
+        }
+        let raf = null;
+        const update = () => {
+            raf = null;
+            const rect = el.getBoundingClientRect();
+            const vh = window.innerHeight;
+            const total = rect.height + vh * 0.4;
+            const done = Math.min(Math.max(vh * 0.9 - rect.top, 0), total);
+            setProgress(done / total);
+        };
+        const onScroll = () => { if (! raf) raf = requestAnimationFrame(update); };
+        update();
+        window.addEventListener('scroll', onScroll, { passive: true });
+        window.addEventListener('resize', onScroll);
+        return () => {
+            window.removeEventListener('scroll', onScroll);
+            window.removeEventListener('resize', onScroll);
+            if (raf) cancelAnimationFrame(raf);
+        };
+    }, []);
+
+    return [ref, progress];
+}
+
 /** Counts an integer up when scrolled into view. "24+" renders 0→24 then keeps the suffix. */
 export function CountUp({ value, className = '' }) {
     const [ref, inView] = useInView({ threshold: 0.6 });
