@@ -111,6 +111,7 @@ class ProductController extends Controller
             ])->toArray(),
             'product' => [
                 'name' => $product->name,
+                'slug' => $product->slug,
                 'description' => $product->description,
                 'image' => $product->image,
                 'market' => $product->market?->only('name', 'slug'),
