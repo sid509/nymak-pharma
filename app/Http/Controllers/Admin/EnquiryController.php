@@ -5,32 +5,30 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Enquiry;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
 
 class EnquiryController extends Controller
 {
-    public function index(): Response
+    public function index(Request $request): Response
     {
-        return Inertia::render('Admin/Enquiries', [
-            'seo' => ['title' => 'Enquiries', 'robots' => 'noindex, nofollow'],
-            'enquiries' => Enquiry::with('product:id,name')
+        return Inertia::render('Admin/Enquiries/Index', [
+            'enquiries' => Enquiry::query()
+                ->with('product:id,name,slug')
+                ->when($request->q, fn ($q, $s) => $q->where(fn ($w) => $w
+                    ->where('name', 'like', "%{$s}%")
+                    ->orWhere('email', 'like', "%{$s}%")
+                    ->orWhere('company', 'like', "%{$s}%")
+                    ->orWhere('country', 'like', "%{$s}%")
+                    ->orWhere('subject', 'like', "%{$s}%")))
+                ->when($request->status === 'unread', fn ($q) => $q->unread())
+                ->when($request->status === 'read', fn ($q) => $q->whereNotNull('read_at'))
                 ->latest()
                 ->paginate(20)
-                ->through(fn ($e) => [
-                    'id' => $e->id,
-                    'name' => $e->name,
-                    'company' => $e->company,
-                    'email' => $e->email,
-                    'phone' => $e->phone,
-                    'country' => $e->country,
-                    'subject' => $e->subject,
-                    'message' => $e->message,
-                    'product' => $e->product?->name,
-                    'read' => $e->read_at !== null,
-                    'created_at' => $e->created_at->toIso8601String(),
-                ]),
-            'unread' => Enquiry::unread()->count(),
+                ->withQueryString(),
+            'unreadCount' => Enquiry::unread()->count(),
+            'filters' => $request->only('q', 'status'),
         ]);
     }
 
@@ -41,10 +39,17 @@ class EnquiryController extends Controller
         return back();
     }
 
+    public function markUnread(Enquiry $enquiry): RedirectResponse
+    {
+        $enquiry->update(['read_at' => null]);
+
+        return back();
+    }
+
     public function destroy(Enquiry $enquiry): RedirectResponse
     {
         $enquiry->delete();
 
-        return back();
+        return back()->with('success', 'Enquiry deleted.');
     }
 }

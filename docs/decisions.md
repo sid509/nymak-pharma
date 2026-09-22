@@ -64,6 +64,9 @@ middleware. No registration, no roles, no content editing.
 come from env (`NYMAK_ADMIN_*`), created by the seeder. If a CMS is needed
 later, it layers on cleanly.
 
+**Superseded by ADR-008** — the admin surface grew into a full content panel;
+the auth/session approach and env-seeded users were kept.
+
 ## ADR-005 — SQLite now, portable schema
 
 **Decision.** SQLite per requirements. No SQLite-specific SQL; FKs, indexes
@@ -94,6 +97,34 @@ to sized WebP in `public/images/` with slugified, descriptive filenames.
 
 **Trade-offs.** New images need the same conversion step — documented in
 development.md. Accepted: it keeps runtime simple and output deterministic.
+
+## ADR-008 — Admin panel: same app, single role, shared CRUD
+
+**Context.** The client plan requires the team to manage products, markets,
+articles, FAQs and site content without developer help.
+
+**Decision.** `/admin` is an Inertia/React interface inside the same app —
+same models, same DB, same session auth (Laravel `auth` middleware, throttled
+login). Single admin role: every `users` row is a full admin; no role matrix.
+Simple entities (FAQs, testimonials, certifications, team) share
+`Admin\CrudController` + two generic React pages driven by per-entity field
+config. Products/posts/markets/categories/enquiries/users get dedicated
+controllers and pages. Admin URLs bind by model route key (slug for
+slugged models), public URL behavior unchanged.
+
+**Alternatives considered.** Role/permission tables (spatie/permission):
+rejected — the team is a handful of trusted admins; adding a matrix now is
+speculative complexity. Filament/third-party admin: rejected — it would ship
+a second design system and hide behavior from tests we control.
+
+**Deferred deliberately.** Audit logging, per-role permissions, media library,
+rich-text editor. Add when a real need appears — the schema and controllers
+don't preclude them.
+
+**Slug policy.** Admin edits accept a slug field; uniqueness is validated
+server-side. Category slugs are not editable (they're structural URLs).
+Changing a public slug does not create a redirect — acceptable now since the
+site pre-launch; if it ships, add a `redirects` table before allowing edits.
 
 ## Assumptions documented (not decisions)
 

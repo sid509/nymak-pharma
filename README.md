@@ -17,7 +17,7 @@ npm run build
 php artisan serve & php artisan inertia:start-ssr
 ```
 
-Open http://localhost:8000. Admin inbox: `/admin`.
+Open http://localhost:8000. Admin panel: `/admin` (credentials from `NYMAK_ADMIN_*` env — see `docs/admin.md`).
 
 ## What's here
 

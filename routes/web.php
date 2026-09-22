@@ -44,8 +44,25 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
     Route::middleware('auth')->group(function () {
         Route::post('/logout', [Controllers\Admin\AuthController::class, 'destroy'])->name('logout');
-        Route::get('/', [Controllers\Admin\EnquiryController::class, 'index'])->name('enquiries.index');
+        Route::redirect('/', '/admin/dashboard')->name('home');
+        Route::get('/dashboard', Controllers\Admin\DashboardController::class)->name('dashboard');
+
+        Route::get('/enquiries', [Controllers\Admin\EnquiryController::class, 'index'])->name('enquiries.index');
         Route::patch('/enquiries/{enquiry}/read', [Controllers\Admin\EnquiryController::class, 'markRead'])->name('enquiries.read');
+        Route::patch('/enquiries/{enquiry}/unread', [Controllers\Admin\EnquiryController::class, 'markUnread'])->name('enquiries.unread');
         Route::delete('/enquiries/{enquiry}', [Controllers\Admin\EnquiryController::class, 'destroy'])->name('enquiries.destroy');
+
+        Route::resource('products', Controllers\Admin\ProductController::class)->except('show');
+        Route::resource('categories', Controllers\Admin\CategoryController::class)->only('index', 'edit', 'update');
+        Route::resource('markets', Controllers\Admin\MarketController::class)->except('show');
+        Route::resource('posts', Controllers\Admin\PostController::class)->except('show');
+        Route::resource('faqs', Controllers\Admin\FaqController::class)->except('show');
+        Route::resource('testimonials', Controllers\Admin\TestimonialController::class)->except('show');
+        Route::resource('certifications', Controllers\Admin\CertificationController::class)->except('show');
+        Route::resource('team-members', Controllers\Admin\TeamMemberController::class)->except('show');
+        Route::resource('users', Controllers\Admin\UserController::class)->except('show');
+
+        Route::get('/profile', [Controllers\Admin\ProfileController::class, 'edit'])->name('profile.edit');
+        Route::put('/profile/password', [Controllers\Admin\ProfileController::class, 'update'])->name('profile.update');
     });
 });

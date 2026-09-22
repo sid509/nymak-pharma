@@ -46,3 +46,28 @@ Pharma corporate website, engineered for SEO-first B2B lead generation.
 ### Docs
 - architecture, decisions, database, seo, testing, deployment, development,
   changelog, requirements-mapping.
+
+## Phase 2 — Lead funnel + admin panel
+
+### Lead funnel
+- `?product={slug}` deep-link pre-selects a product in the enquiry form;
+  product pages carry "Request a Quote".
+- Brochure PDF download (hero, footer, contact sidebar) — tracked.
+- Security headers middleware (strips `X-Powered-By`, adds nosniff/SAMEORIGIN/
+  Referrer-Policy). LinkedIn URL corrected to the real profile.
+
+### Admin panel
+- `/admin` dashboard: unread enquiry badge, catalogue/content counts,
+  actionable alerts, latest enquiries.
+- Enquiries inbox: search, unread/read filter, expandable detail, read
+  toggle, delete.
+- CRUD: products (image upload→WebP, detail-page flag, SEO), categories
+  (edit-only), markets (`has_page` gate), posts (draft/publish), FAQs,
+  testimonials, certifications, team, admin users, own password.
+- `Admin\CrudController` + generic React index/form pages shared by the four
+  simple entities; dedicated pages where entities need more.
+- Single-role auth (ADR-008); delete guards on referenced products/markets;
+  self-delete blocked.
+
+### Tests
+- 43 PHP + 18 React tests — all green.

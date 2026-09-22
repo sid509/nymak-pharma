@@ -41,12 +41,12 @@ class AdminTest extends TestCase
         $this->post('/admin/login', [
             'email' => 'admin@example.test',
             'password' => 'secret-password',
-        ])->assertRedirect('/admin');
+        ])->assertRedirect('/admin/dashboard');
 
-        $this->actingAs($admin)->get('/admin')
+        $this->actingAs($admin)->get('/admin/enquiries')
             ->assertOk()
             ->assertInertia(fn ($page) => $page
-                ->component('Admin/Enquiries')
+                ->component('Admin/Enquiries/Index')
                 ->has('enquiries.data', 1)
             );
     }

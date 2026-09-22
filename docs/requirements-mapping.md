@@ -28,6 +28,7 @@ Source: `Requirements/requirements.md`. Status: ✅ done · 🔶 partial · ⏭ 
 | 22 | Backlinks/PR | Out of code scope; noted for marketing | ⏭ |
 | 23 | Social profiles | Config-driven `sameAs` + footer icons (suppress empty) | ✅ |
 | 24 | Contact form → lead gen | `EnquiryRequest` validation + storage + queued mail + admin inbox; `?product=` deep-link pre-selects the product; brochure download + WhatsApp + tel/mailto all tracked | ✅ |
+| 24b | Admin panel | Full `/admin` panel: dashboard, enquiries inbox w/ search+filter, CRUD for products/categories/markets/posts/faqs/testimonials/certifications/team/users, image upload→WebP, single-role auth, delete guards — `docs/admin.md` | ✅ |
 | 25 | Responsive across devices | Mobile-first Tailwind; hamburger nav; scrollable tables; tap targets | ✅ |
 | 26 | Laravel backend | Laravel 12 | ✅ |
 | 27 | React frontend | Inertia React + SSR | ✅ |

@@ -18,7 +18,7 @@ export default function AdminLogin() {
                 <div className="mb-6 flex justify-center"><Logo /></div>
                 <form onSubmit={submit} className="rounded-2xl border border-ink-100 bg-white p-7 shadow-card">
                     <h1 className="text-lg font-extrabold text-ink-900">Admin sign in</h1>
-                    <p className="mt-1 text-sm text-ink-500">Enquiry inbox for Nymak Pharma.</p>
+                    <p className="mt-1 text-sm text-ink-500">Nymak Pharma administration.</p>
 
                     <div className="mt-6 space-y-4">
                         <div>

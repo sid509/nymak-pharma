@@ -62,6 +62,10 @@ class HandleInertiaRequests extends Middleware
             'auth' => fn () => [
                 'user' => $request->user()?->only('name', 'email'),
             ],
+            // Admin chrome data — guest requests short-circuit before the query.
+            'admin' => fn () => [
+                'unreadEnquiries' => $request->user() ? \App\Models\Enquiry::unread()->count() : 0,
+            ],
         ];
     }
 }
