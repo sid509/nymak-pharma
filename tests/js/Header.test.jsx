@@ -11,10 +11,16 @@ describe('Header', () => {
 
     it('exposes the products dropdown with aria state', () => {
         render(<Header />);
-        const btn = screen.getByRole('button', { name: /products/i });
+        const btn = screen.getByRole('button', { name: /product categories/i });
         expect(btn).toHaveAttribute('aria-expanded', 'false');
         fireEvent.click(btn);
         expect(btn).toHaveAttribute('aria-expanded', 'true');
+    });
+
+    it('Products nav item links to /products (not just a toggle)', () => {
+        render(<Header />);
+        expect(screen.getAllByRole('link', { name: 'Products' })[0])
+            .toHaveAttribute('href', '/products');
     });
 
     it('toggles the mobile menu', () => {

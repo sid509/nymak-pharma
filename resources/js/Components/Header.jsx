@@ -67,34 +67,44 @@ export default function Header() {
                     <nav aria-label="Primary" className="hidden items-center gap-1 lg:flex">
                         {links.map((link) =>
                             link.dropdown ? (
-                                <div key={link.name} className="relative" ref={dropRef}>
-                                    <button
-                                        type="button"
-                                        aria-expanded={dropOpen}
-                                        aria-haspopup="true"
-                                        onClick={() => setDropOpen((v) => !v)}
-                                        className={`inline-flex items-center gap-1 rounded-lg px-3 py-2 text-sm font-semibold transition-colors ${
-                                            isActive(link.href) ? 'text-brand-700' : 'text-ink-700 hover:bg-ink-50 hover:text-ink-950'
-                                        }`}
-                                    >
-                                        {link.name}
-                                        <ChevronDown size={14} aria-hidden className={`transition-transform ${dropOpen ? 'rotate-180' : ''}`} />
-                                    </button>
-                                    {dropOpen && (
-                                        <div className="absolute left-0 top-full mt-1 w-72 rounded-xl border border-ink-100 bg-white p-2 shadow-card">
-                                            <Link href="/products"
-                                                  className="block rounded-lg px-3 py-2 text-sm font-bold text-ink-900 hover:bg-brand-50">
-                                                All Products
+                                <div key={link.name} className="group relative" ref={dropRef}>
+                                    <div className="inline-flex items-center">
+                                        {/* "Products" navigates; the chevron toggles the menu */}
+                                        <Link href={link.href}
+                                              className={`rounded-l-lg py-2 pl-3 pr-1 text-sm font-semibold transition-colors ${
+                                                  isActive(link.href) ? 'text-brand-700' : 'text-ink-700 hover:bg-ink-50 hover:text-ink-950'
+                                              }`}>
+                                            {link.name}
+                                        </Link>
+                                        <button
+                                            type="button"
+                                            aria-expanded={dropOpen}
+                                            aria-haspopup="true"
+                                            aria-label="Product categories"
+                                            onClick={() => setDropOpen((v) => !v)}
+                                            className={`rounded-r-lg py-2 pl-0.5 pr-2 transition-colors ${
+                                                isActive(link.href) ? 'text-brand-700' : 'text-ink-700 hover:bg-ink-50 hover:text-ink-950'
+                                            }`}
+                                        >
+                                            <ChevronDown size={14} aria-hidden className={`transition-transform ${dropOpen ? 'rotate-180' : ''}`} />
+                                        </button>
+                                    </div>
+                                    {/* CSS hover/focus keeps it working pre-hydration; dropOpen covers touch taps */}
+                                    <div className={`absolute left-0 top-full w-72 rounded-xl border border-ink-100 bg-white p-2 shadow-card ${
+                                        dropOpen ? 'block' : 'hidden group-hover:block group-focus-within:block'
+                                    }`}>
+                                        <Link href="/products"
+                                              className="block rounded-lg px-3 py-2 text-sm font-bold text-ink-900 hover:bg-brand-50">
+                                            All Products
+                                        </Link>
+                                        <div className="my-1 h-px bg-ink-100" />
+                                        {(nav?.categories || []).map((c) => (
+                                            <Link key={c.href} href={c.href}
+                                                  className="block rounded-lg px-3 py-2 text-sm font-medium text-ink-700 hover:bg-brand-50 hover:text-brand-800">
+                                                {c.name}
                                             </Link>
-                                            <div className="my-1 h-px bg-ink-100" />
-                                            {(nav?.categories || []).map((c) => (
-                                                <Link key={c.href} href={c.href}
-                                                      className="block rounded-lg px-3 py-2 text-sm font-medium text-ink-700 hover:bg-brand-50 hover:text-brand-800">
-                                                    {c.name}
-                                                </Link>
-                                            ))}
-                                        </div>
-                                    )}
+                                        ))}
+                                    </div>
                                 </div>
                             ) : (
                                 <Link key={link.name} href={link.href}
@@ -128,7 +138,7 @@ export default function Header() {
                                     <div key={link.name}>
                                         <Link href={link.href}
                                               className={`block rounded-lg px-3 py-2.5 text-sm font-bold ${isActive(link.href) ? 'bg-brand-50 text-brand-800' : 'text-ink-800'}`}>
-                                            All Products
+                                            {link.name}
                                         </Link>
                                         <div className="ml-3 border-l-2 border-ink-100 pl-2">
                                             {(nav?.categories || []).map((c) => (
