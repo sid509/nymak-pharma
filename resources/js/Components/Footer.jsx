@@ -1,7 +1,9 @@
-import { Link, usePage } from '@inertiajs/react';
+import { usePage } from '@inertiajs/react';
+import Link from '../i18n/LocaleLink';
 import { Mail, MapPin, Phone } from 'lucide-react';
 import Logo from './Logo';
 import SocialIcon from './SocialIcons';
+import { useT } from '../i18n/useT';
 
 function track(contact) {
     if (typeof window !== 'undefined' && window.nymakTrack) {
@@ -11,6 +13,7 @@ function track(contact) {
 
 export default function Footer() {
     const { site = {}, nav } = usePage().props;
+    const { t } = useT();
     const year = new Date().getFullYear();
 
     return (
@@ -21,8 +24,7 @@ export default function Footer() {
                     <div>
                         <Link href="/" aria-label="Nymak Pharma — home"><Logo light /></Link>
                         <p className="mt-4 text-sm leading-relaxed text-ink-300">
-                            25+ years of efficacy-driven lifecare. WHO-GMP certified pharmaceutical
-                            manufacturer and exporter serving 24+ countries.
+                            {t('25+ years of efficacy-driven lifecare. WHO-GMP certified pharmaceutical manufacturer and exporter serving 24+ countries.')}
                         </p>
                         <div className="mt-4 flex gap-2">
                             {Object.entries(site.socials || {}).map(([key, href]) => (
@@ -37,7 +39,7 @@ export default function Footer() {
 
                     {/* Quick links */}
                     <nav aria-label="Footer">
-                        <p className="t-eyebrow text-gold-400">Company</p>
+                        <p className="t-eyebrow text-gold-400">{t('Company')}</p>
                         <ul className="mt-4 space-y-2 text-sm">
                             {[
                                 ['About Us', '/about'],
@@ -48,16 +50,16 @@ export default function Footer() {
                                 ['FAQs', '/faqs'],
                                 ['Contact Us', '/contact'],
                             ].map(([name, href]) => (
-                                <li key={href}><Link href={href} className="transition-colors hover:text-white">{name}</Link></li>
+                                <li key={href}><Link href={href} className="transition-colors hover:text-white">{t(name)}</Link></li>
                             ))}
                         </ul>
                     </nav>
 
                     {/* Products */}
                     <nav aria-label="Product categories">
-                        <p className="t-eyebrow text-gold-400">Products</p>
+                        <p className="t-eyebrow text-gold-400">{t('Products')}</p>
                         <ul className="mt-4 space-y-2 text-sm">
-                            <li><Link href="/products" className="transition-colors hover:text-white">All Products</Link></li>
+                            <li><Link href="/products" className="transition-colors hover:text-white">{t('All Products')}</Link></li>
                             {(nav?.categories || []).map((c) => (
                                 <li key={c.href}><Link href={c.href} className="transition-colors hover:text-white">{c.name}</Link></li>
                             ))}
@@ -66,7 +68,7 @@ export default function Footer() {
 
                     {/* Contact / NAP — consistent name+address+phone (requirement #17) */}
                     <div>
-                        <p className="t-eyebrow text-gold-400">Get in Touch</p>
+                        <p className="t-eyebrow text-gold-400">{t('Get in Touch')}</p>
                         <address className="mt-4 space-y-3 text-sm not-italic">
                             <p className="flex gap-2">
                                 <MapPin size={16} className="mt-0.5 shrink-0 text-gold-400" aria-hidden />
@@ -89,13 +91,13 @@ export default function Footer() {
                 </div>
 
                 <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-ink-800 pt-6 text-xs text-ink-400 sm:flex-row">
-                    <p>© {year} {site.legal_name}. All rights reserved.</p>
+                    <p>{t('© {year} {name}. All rights reserved.', { year, name: site.legal_name })}</p>
                     <p className="flex gap-4">
-                        <Link href="/privacy-policy" className="transition-colors hover:text-white">Privacy Policy</Link>
-                        <Link href="/terms" className="transition-colors hover:text-white">Terms of Use</Link>
+                        <Link href="/privacy-policy" className="transition-colors hover:text-white">{t('Privacy Policy')}</Link>
+                        <Link href="/terms" className="transition-colors hover:text-white">{t('Terms of Use')}</Link>
                         <a href={`/${site.brochure}`} target="_blank" rel="noopener noreferrer"
-                           onClick={() => track('brochure_download')} className="transition-colors hover:text-white">Brochure</a>
-                        <a href="/sitemap.xml" className="transition-colors hover:text-white">Sitemap</a>
+                           onClick={() => track('brochure_download')} className="transition-colors hover:text-white">{t('Brochure')}</a>
+                        <a href="/sitemap.xml" className="transition-colors hover:text-white">{t('Sitemap')}</a>
                     </p>
                 </div>
             </div>

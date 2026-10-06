@@ -27,6 +27,10 @@ class PostRequest extends FormRequest
             'published_at' => ['nullable', 'date'],
             'meta_title' => ['nullable', 'string', 'max:70'],
             'meta_description' => ['nullable', 'string', 'max:200'],
+            // French/Spanish translations — merged into the model's i18n JSON column.
+            'i18n' => ['sometimes', 'array'],
+            'i18n.*' => ['array'],
+            'i18n.*.*' => ['nullable', 'string', 'max:100000'],
         ];
     }
 }

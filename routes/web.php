@@ -1,52 +1,79 @@
 <?php
 
 use App\Http\Controllers;
+use App\Http\Middleware\SetLocale;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', Controllers\HomeController::class)->name('home');
-Route::get('/about', Controllers\AboutController::class)->name('about');
-Route::get('/manufacturing', Controllers\ManufacturingController::class)->name('manufacturing');
-Route::get('/quality-certifications', Controllers\QualityController::class)->name('quality');
+// Public site — localised: English unprefixed (canonical), /fr/…, /es/…
+// The same routes register twice. The {locale?} group registers FIRST so
+// named routes resolve to the locale-carrying URI (nameList keeps the first
+// registration) — route() then honours URL::defaults('locale') set by
+// SetLocale. Bare EN routes register second: {locale?}/x fails to match a
+// plain /x (Laravel's greedy first-segment quirk), so English requests fall
+// through to these.
+$public = function () {
+    Route::get('/', Controllers\HomeController::class)->name('home');
+    Route::get('/about', Controllers\AboutController::class)->name('about');
+    Route::get('/manufacturing', Controllers\ManufacturingController::class)->name('manufacturing');
+    Route::get('/quality-certifications', Controllers\QualityController::class)->name('quality');
 
-// Catalogue hierarchy: overview → category landing page → full product
-// list → product detail. Category URLs match the live site (/product/{slug})
-// so existing rankings carry over without redirects.
-Route::get('/products', [Controllers\ProductController::class, 'index'])->name('products.index');
-Route::get('/product/{category}', [Controllers\ProductController::class, 'category'])->name('products.category');
-Route::get('/product/{category}/products', [Controllers\ProductController::class, 'catalogue'])->name('products.catalogue');
-Route::get('/product/{category}/{product}', [Controllers\ProductController::class, 'show'])
-    ->scopeBindings()
-    ->name('products.show');
+    // Catalogue hierarchy: overview → category landing page → full product
+    // list → product detail. Category URLs match the live site (/product/{slug})
+    // so existing rankings carry over without redirects.
+    Route::get('/products', [Controllers\ProductController::class, 'index'])->name('products.index');
+    Route::get('/product/{category}', [Controllers\ProductController::class, 'category'])->name('products.category');
+    Route::get('/product/{category}/products', [Controllers\ProductController::class, 'catalogue'])->name('products.catalogue');
+    Route::get('/product/{category}/{product}', [Controllers\ProductController::class, 'show'])
+        ->scopeBindings()
+        ->name('products.show');
 
-// 301s — old-site URLs (docs/seo-page-map.md) and the interim /products/{category} paths.
-Route::permanentRedirect('/about-us', '/about');
-Route::permanentRedirect('/contact-us', '/contact');
-Route::permanentRedirect('/iv-fluid', '/product/iv-fluids');
-Route::get('/products/{category}/{product?}', fn (string $category, ?string $product = null) => redirect(
-    $product ? "/product/{$category}/{$product}" : "/product/{$category}", 301
-));
+    // 301s — old-site URLs (docs/seo-page-map.md) and the interim /products/{category}
+    // paths. Redirects preserve the locale prefix.
+    $redir = fn (string $to) => function () use ($to) {
+        $prefix = ($l = app()->getLocale()) === 'en' ? '' : "/{$l}";
 
-Route::get('/global-presence', [Controllers\MarketController::class, 'index'])->name('markets.index');
+        return redirect($prefix.$to, 301);
+    };
+    Route::get('/about-us', $redir('/about'));
+    Route::get('/contact-us', $redir('/contact'));
+    Route::get('/iv-fluid', $redir('/product/iv-fluids'));
+    Route::get('/products/{category}/{product?}', function (Request $request) {
+        $prefix = ($l = app()->getLocale()) === 'en' ? '' : "/{$l}";
+        [$category, $product] = [$request->route('category'), $request->route('product')];
 
-Route::get('/team', [Controllers\TeamController::class, 'index'])->name('team.index');
-Route::get('/team/{member}', [Controllers\TeamController::class, 'show'])->name('team.show');
+        return redirect($prefix.($product ? "/product/{$category}/{$product}" : "/product/{$category}"), 301);
+    });
 
-Route::get('/inside-nymak', Controllers\InsideController::class)->name('inside');
+    Route::get('/global-presence', [Controllers\MarketController::class, 'index'])->name('markets.index');
 
-Route::get('/blog', [Controllers\PostController::class, 'index'])->name('posts.index');
-Route::get('/blog/{post}', [Controllers\PostController::class, 'show'])
-    ->scopeBindings()
-    ->name('posts.show');
+    Route::get('/team', [Controllers\TeamController::class, 'index'])->name('team.index');
+    Route::get('/team/{member}', [Controllers\TeamController::class, 'show'])->name('team.show');
 
-Route::get('/faqs', Controllers\FaqController::class)->name('faqs');
+    Route::get('/inside-nymak', Controllers\InsideController::class)->name('inside');
 
-Route::get('/contact', [Controllers\ContactController::class, 'create'])->name('contact');
-Route::post('/contact', [Controllers\ContactController::class, 'store'])
-    ->middleware('throttle:5,1')
-    ->name('contact.store');
+    Route::get('/blog', [Controllers\PostController::class, 'index'])->name('posts.index');
+    Route::get('/blog/{post}', [Controllers\PostController::class, 'show'])
+        ->scopeBindings()
+        ->name('posts.show');
 
-Route::get('/privacy-policy', [Controllers\PageController::class, 'privacy'])->name('privacy');
-Route::get('/terms', [Controllers\PageController::class, 'terms'])->name('terms');
+    Route::get('/faqs', Controllers\FaqController::class)->name('faqs');
+
+    Route::get('/contact', [Controllers\ContactController::class, 'create'])->name('contact');
+    Route::post('/contact', [Controllers\ContactController::class, 'store'])
+        ->middleware('throttle:5,1')
+        ->name('contact.store');
+
+    Route::get('/privacy-policy', [Controllers\PageController::class, 'privacy'])->name('privacy');
+    Route::get('/terms', [Controllers\PageController::class, 'terms'])->name('terms');
+};
+
+Route::group([
+    'prefix' => '{locale?}',
+    'where' => ['locale' => 'fr|es'],
+    'middleware' => SetLocale::class,
+], $public);
+Route::middleware(SetLocale::class)->group($public);
 
 Route::get('/sitemap.xml', Controllers\SitemapController::class)->name('sitemap');
 

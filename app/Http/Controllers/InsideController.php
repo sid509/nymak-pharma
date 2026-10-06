@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Middleware\SetLocale;
+
 use App\Models\Market;
 use App\Models\PageContent;
 use App\Models\ProductCategory;
@@ -21,7 +23,7 @@ class InsideController extends Controller
             ->orderBy('sort_order')
             ->with(['products' => fn ($q) => $q->where('has_detail_page', true)
                 ->with('category:id,name,slug')
-                ->select('id', 'market_id', 'product_category_id', 'name', 'slug', 'image')])
+                ->select('id', 'market_id', 'product_category_id', 'name', 'slug', 'image', 'i18n')])
             ->get()
             ->map(fn ($m) => [
                 'name' => $m->name,
@@ -40,8 +42,8 @@ class InsideController extends Controller
                 'Inside Nymak — An Interactive Story | Nymak Pharma',
                 'An interactive walk through Nymak Pharma — from a 1998 startup in Mundra to an exporter trusted across 24+ countries.'
             )->override('inside')->breadcrumbs([
-                ['Home', url('/')],
-                ['Inside Nymak', url('/inside-nymak')],
+                ['Home', SetLocale::absolute('/')],
+                ['Inside Nymak', SetLocale::absolute('/inside-nymak')],
             ])->toArray(),
             'content' => PageContent::for('inside'),
             'stats' => SiteSetting::get('stats', []),
@@ -49,9 +51,9 @@ class InsideController extends Controller
             'portfolio' => $portfolio,
             'categories' => ProductCategory::orderBy('sort_order')
                 ->withCount('products')
-                ->get(['name', 'slug', 'intro']),
+                ->get(['name', 'slug', 'intro', 'i18n']),
             'leadership' => TeamMember::where('is_leadership', true)->orderBy('sort_order')
-                ->get(['name', 'slug', 'role', 'photo', 'bio'])
+                ->get(['name', 'slug', 'role', 'photo', 'bio', 'i18n'])
                 ->map(fn ($m) => [
                     'name' => $m->name, 'slug' => $m->slug, 'role' => $m->role,
                     'photo' => $m->photo, 'initials' => $m->initials(),

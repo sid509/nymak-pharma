@@ -33,7 +33,7 @@ class EnquiryRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'privacy.accepted' => 'Please agree to the privacy policy before submitting.',
+            'privacy.accepted' => __('Please agree to the privacy policy before submitting.'),
             'message.min' => 'Please include a few more details about your enquiry.',
         ];
     }

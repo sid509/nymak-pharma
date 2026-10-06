@@ -44,6 +44,12 @@ class TeamMemberController extends CrudController
                 ['name' => 'meta_description', 'label' => 'Meta description', 'type' => 'textarea', 'rows' => 2],
                 ['name' => 'sort_order', 'label' => 'Sort order', 'type' => 'number'],
             ],
+            'translatable' => [
+                ['name' => 'role', 'label' => 'Role / title', 'type' => 'text'],
+                ['name' => 'bio', 'label' => 'Bio (detail page body)', 'type' => 'textarea', 'rows' => 6],
+                ['name' => 'meta_title', 'label' => 'Meta title', 'type' => 'text'],
+                ['name' => 'meta_description', 'label' => 'Meta description', 'type' => 'textarea', 'rows' => 2],
+            ],
         ];
     }
 }

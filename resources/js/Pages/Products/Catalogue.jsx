@@ -1,10 +1,11 @@
-import { Link } from '@inertiajs/react';
+import Link from '../../i18n/LocaleLink';
 import { ArrowLeft, ArrowRight, Search } from 'lucide-react';
 import { useMemo, useState } from 'react';
 import { ProductCard } from '../../Components/Cards';
 import SpecTable from '../../Components/SpecTable';
 import { ButtonLink, Container, PageHero } from '../../Components/Ui';
 import SiteLayout from '../../Layouts/SiteLayout';
+import { useT } from '../../i18n/useT';
 import { CategoryNav, fill } from './Category';
 
 const groupId = (name) => `group-${name.replace(/\W+/g, '-').toLowerCase()}`;
@@ -15,6 +16,7 @@ const groupId = (name) => `group-${name.replace(/\W+/g, '-').toLowerCase()}`;
  * for completeness (and SEO) without a buy/quote affordance.
  */
 export default function ProductsCatalogue({ seo, category, groups, siblings, content: c }) {
+    const { t } = useT();
     const [query, setQuery] = useState('');
     const isKitCategory = category.slug === 'rapid-diagnostic-kits';
     const vars = { category: category.name, count: category.products_count, query };
@@ -45,7 +47,7 @@ export default function ProductsCatalogue({ seo, category, groups, siblings, con
                 <Container>
                     <div className="grid gap-12 lg:grid-cols-[240px_1fr]">
                         <aside className="lg:sticky lg:top-28 lg:self-start">
-                            <CategoryNav siblings={siblings} current={category.slug} title="Categories" allLabel="All Products" />
+                            <CategoryNav siblings={siblings} current={category.slug} title={t('Categories')} allLabel={t('All Products')} />
                             <Link href={category.url} className="mt-3 inline-flex items-center gap-1.5 px-3 text-sm font-semibold text-brand-700 hover:underline">
                                 <ArrowLeft size={14} aria-hidden /> {fill(c.back_label, vars)}
                             </Link>

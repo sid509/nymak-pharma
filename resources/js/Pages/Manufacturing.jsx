@@ -1,6 +1,7 @@
 import { ClipboardCheck, FileCheck2, FlaskConical, Microscope, Package, Warehouse } from 'lucide-react';
 import { ButtonLink, Container, PageHero, SectionHeading } from '../Components/Ui';
 import SiteLayout from '../Layouts/SiteLayout';
+import { useT } from '../i18n/useT';
 
 const ICONS = { ClipboardCheck, FileCheck2, FlaskConical, Microscope, Package, Warehouse };
 const Icon = ({ name }) => {
@@ -9,6 +10,7 @@ const Icon = ({ name }) => {
 };
 
 export default function Manufacturing({ seo, content }) {
+    const { t } = useT();
     return (
         <SiteLayout>
             <PageHero eyebrow={content.hero_eyebrow} breadcrumbs={[['Home', '/'], ['Manufacturing']]}
@@ -34,11 +36,11 @@ export default function Manufacturing({ seo, content }) {
                         <div className="mt-4 grid grid-cols-2 gap-3">
                             <div className="rounded-xl bg-brand-50 p-4">
                                 <p className="text-2xl font-bold text-brand-800">WHO-GMP</p>
-                                <p className="text-xs font-semibold text-ink-600">Certified facility</p>
+                                <p className="text-xs font-semibold text-ink-600">{t('Certified facility')}</p>
                             </div>
                             <div className="rounded-xl bg-brand-50 p-4">
                                 <p className="text-2xl font-bold text-brand-800">ISO 13485</p>
-                                <p className="text-xs font-semibold text-ink-600">Quality management</p>
+                                <p className="text-xs font-semibold text-ink-600">{t('Quality management')}</p>
                             </div>
                         </div>
                     </div>
@@ -78,8 +80,8 @@ export default function Manufacturing({ seo, content }) {
                         ))}
                     </div>
                     <div className="mt-12 flex flex-wrap gap-3">
-                        <ButtonLink href="/products">Browse the product catalogue</ButtonLink>
-                        <ButtonLink href="/quality-certifications" variant="outline">Quality & certifications</ButtonLink>
+                        <ButtonLink href="/products">{t('Browse the product catalogue')}</ButtonLink>
+                        <ButtonLink href="/quality-certifications" variant="outline">{t('Quality & certifications')}</ButtonLink>
                     </div>
                 </Container>
             </section>

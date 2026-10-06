@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Middleware\SetLocale;
+
 use App\Models\Certification;
 use App\Models\Faq;
 use App\Support\Seo;
@@ -18,8 +20,8 @@ class QualityController extends Controller
             'Quality & Certifications — WHO-GMP, ISO 13485',
             'Nymak Pharma\'s quality credentials: WHO-GMP certified facility, ISO 13485:2016, Star Export House, Pharmexcil RCMC — with in-house QC/QA oversight.'
         )->override('quality')->breadcrumbs([
-            ['Home', url('/')],
-            ['Quality & Certifications', url('/quality-certifications')],
+            ['Home', SetLocale::absolute('/')],
+            ['Quality & Certifications', SetLocale::absolute('/quality-certifications')],
         ]);
 
         if ($qualityFaqs->isNotEmpty()) {

@@ -67,6 +67,7 @@ abstract class CrudController extends Controller
         return Inertia::render('Admin/Crud/Form', [
             'module' => $this->config()['module'],
             'fields' => $this->config()['fields'],
+            'translatable' => $this->config()['translatable'] ?? [],
             'record' => null,
         ]);
     }
@@ -82,6 +83,7 @@ abstract class CrudController extends Controller
     protected function data(Request $request, ?Model $existing = null): array
     {
         $data = $this->validated($request);
+        unset($data['i18n']); // translations merge via setTranslations(), not mass assignment
 
         foreach ($this->imageFields() as $name => $field) {
             unset($data[$name]); // file input isn't a column value by itself
@@ -98,7 +100,8 @@ abstract class CrudController extends Controller
 
     public function store(Request $request): RedirectResponse
     {
-        $this->model()::create($this->data($request));
+        $record = $this->model()::create($this->data($request));
+        $this->applyTranslations($record, $request);
 
         return $this->backToIndex('created');
     }
@@ -108,6 +111,7 @@ abstract class CrudController extends Controller
         return Inertia::render('Admin/Crud/Form', [
             'module' => $this->config()['module'],
             'fields' => $this->config()['fields'],
+            'translatable' => $this->config()['translatable'] ?? [],
             'record' => $this->record($request),
         ]);
     }
@@ -116,8 +120,21 @@ abstract class CrudController extends Controller
     {
         $record = $this->record($request);
         $record->update($this->data($request, $record));
+        $this->applyTranslations($record, $request);
 
         return $this->backToIndex('updated');
+    }
+
+    /** Merge i18n.fr / i18n.es into the record's JSON column when translatable. */
+    private function applyTranslations(Model $record, Request $request): void
+    {
+        if (! method_exists($record, 'setTranslations')) {
+            return;
+        }
+        foreach (['fr', 'es'] as $locale) {
+            $record->setTranslations($locale, (array) $request->input("i18n.{$locale}", []));
+        }
+        $record->save();
     }
 
     public function destroy(Request $request): RedirectResponse

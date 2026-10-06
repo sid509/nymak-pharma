@@ -18,6 +18,10 @@ class CategoryRequest extends FormRequest
             'meta_title' => ['nullable', 'string', 'max:70'],
             'meta_description' => ['nullable', 'string', 'max:200'],
             'sort_order' => ['integer', 'min:0', 'max:255'],
+            // French/Spanish translations — merged into the model's i18n JSON column.
+            'i18n' => ['sometimes', 'array'],
+            'i18n.*' => ['array'],
+            'i18n.*.*' => ['nullable', 'string', 'max:100000'],
         ];
     }
 }

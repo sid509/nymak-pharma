@@ -42,12 +42,16 @@ class ProductController extends Controller
 
     public function store(ProductRequest $request): RedirectResponse
     {
-        $data = $request->safe()->except('image');
+        $data = $request->safe()->except(['image', 'i18n']);
         if ($file = $request->file('image')) {
             $data['image'] = ImageUpload::store($file, 'products', $data['slug']);
         }
 
-        Product::create($data);
+        $record = Product::create($data);
+        foreach (['fr', 'es'] as $locale) {
+            $record->setTranslations($locale, (array) $request->input("i18n.{$locale}", []));
+        }
+        $record->save();
 
         return redirect()->route('admin.products.index')->with('success', 'Product created.');
     }
@@ -57,19 +61,25 @@ class ProductController extends Controller
         return Inertia::render('Admin/Products/Form', $this->formProps() + [
             'product' => $product->only('id', 'name', 'slug', 'product_category_id', 'market_id',
                 'therapeutic_group', 'strength', 'pack_size', 'specimen', 'description',
-                'image', 'meta_title', 'meta_description', 'has_detail_page', 'sort_order'),
+                'image', 'meta_title', 'meta_description', 'has_detail_page', 'sort_order', 'i18n'),
         ]);
     }
 
     public function update(ProductRequest $request, Product $product): RedirectResponse
     {
-        $data = $request->safe()->except('image');
+        $data = $request->safe()->except(['image', 'i18n']);
         if ($file = $request->file('image')) {
             ImageUpload::delete($product->image);
             $data['image'] = ImageUpload::store($file, 'products', $data['slug']);
         }
 
         $product->update($data);
+
+        $record = $product;
+        foreach (['fr', 'es'] as $locale) {
+            $record->setTranslations($locale, (array) $request->input("i18n.{$locale}", []));
+        }
+        $record->save();
 
         return redirect()->route('admin.products.index')->with('success', 'Product updated.');
     }

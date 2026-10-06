@@ -1,6 +1,7 @@
 import { Link, useForm } from '@inertiajs/react';
 import { Loader2, Save } from 'lucide-react';
 import Field, { inputCls } from '../../../Components/Admin/Field';
+import TranslationFields from '../../../Components/Admin/TranslationFields';
 import AdminLayout from '../../../Layouts/AdminLayout';
 
 export default function PostForm({ post = null }) {
@@ -15,6 +16,7 @@ export default function PostForm({ post = null }) {
         published_at: post?.published_at ? post.published_at.slice(0, 16) : '',
         meta_title: post?.meta_title || '',
         meta_description: post?.meta_description || '',
+        i18n: post?.i18n ?? {},
         _method: isEdit ? 'PUT' : 'POST',
     });
 
@@ -61,6 +63,15 @@ export default function PostForm({ post = null }) {
                     <Field field={{ name: 'meta_title', label: 'Meta title', help: `${(form.data.meta_title || '').length}/70 — blank derives from title.` }} value={form.data.meta_title} error={form.errors.meta_title} onChange={set} />
                     <Field field={{ name: 'meta_description', label: 'Meta description', type: 'textarea', rows: 2, help: `${(form.data.meta_description || '').length}/200` }} value={form.data.meta_description} error={form.errors.meta_description} onChange={set} />
                 </section>
+
+                <TranslationFields form={form} fields={[
+                    { name: 'title', label: 'Title' },
+                    { name: 'category', label: 'Category' },
+                    { name: 'excerpt', label: 'Excerpt', type: 'textarea', rows: 2 },
+                    { name: 'body', label: 'Body', type: 'textarea', rows: 10 },
+                    { name: 'meta_title', label: 'Meta title' },
+                    { name: 'meta_description', label: 'Meta description', type: 'textarea', rows: 2 },
+                ]} />
 
                 <div className="flex items-center gap-3">
                     <button type="submit" disabled={form.processing}

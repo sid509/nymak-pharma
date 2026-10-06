@@ -51,41 +51,41 @@ await step('admin can log in', async () => {
 
 await step('new-market form shows the country picker and rich-text editor', async () => {
     await page.goto(`${BASE}/admin/markets/create`);
-    await page.getByLabel('Country / market').fill(NAME);
+    await page.getByLabel('Country / market').first().fill(NAME);
     await page.getByLabel('URL slug').fill(SLUG);
     await page.getByLabel('Country on map').selectOption(ISO);
-    await page.getByLabel('Region').fill('East Africa');
-    await page.locator('.richtext [contenteditable="true"]').waitFor();
-    expect(await page.getByRole('toolbar', { name: 'Formatting' }).isVisible(), 'toolbar visible');
+    await page.getByLabel('Region').first().fill('East Africa');
+    await page.locator('.richtext [contenteditable="true"]').first().waitFor();
+    expect(await page.getByRole('toolbar', { name: 'Formatting' }).first().isVisible(), 'toolbar visible');
 });
 
 await step('admin types formatted content and saves', async () => {
-    const editor = page.locator('.richtext [contenteditable="true"]');
+    const editor = page.locator('.richtext [contenteditable="true"]').first();
     await editor.click();
     await page.keyboard.press(process.platform === 'darwin' ? 'Meta+A' : 'Control+A');
     await page.keyboard.press('Backspace');
-    await page.getByRole('button', { name: 'Subheading' }).click();
+    await page.getByRole('button', { name: 'Subheading' }).first().click();
     await page.keyboard.type(`What we do here ${marker}`);
     await page.keyboard.press('Enter');
     await page.keyboard.type('Supplying ');
-    await page.getByRole('button', { name: 'Bold' }).click();
+    await page.getByRole('button', { name: 'Bold' }).first().click();
     await page.keyboard.type('IV fluids');
-    await page.getByRole('button', { name: 'Bold' }).click();
+    await page.getByRole('button', { name: 'Bold' }).first().click();
     await page.keyboard.type(' to county hospitals.');
     await page.keyboard.press('Enter');
-    await page.getByRole('button', { name: 'Bullet list' }).click();
+    await page.getByRole('button', { name: 'Bullet list' }).first().click();
     await page.keyboard.type('Nairobi distributor');
     await page.keyboard.press('Enter');
     await page.keyboard.type('PPB registrations');
 
-    await page.getByLabel('Short summary').fill(`Tanzania summary ${marker}`);
+    await page.getByLabel('Short summary').first().fill(`Tanzania summary ${marker}`);
     await page.getByRole('button', { name: /create market/i }).click();
     await page.waitForURL(/\/admin\/markets$/);
 });
 
 await step('saved content round-trips into the editor as HTML', async () => {
     await page.goto(`${BASE}/admin/markets/${SLUG}/edit`);
-    const editor = page.locator('.richtext [contenteditable="true"]');
+    const editor = page.locator('.richtext [contenteditable="true"]').first();
     await editor.waitFor();
     const html = await editor.innerHTML();
     expect(html.includes(`<h3>What we do here ${marker}</h3>`), `expected h3 in editor, got: ${html.slice(0, 200)}`);

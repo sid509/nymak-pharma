@@ -33,6 +33,11 @@ class FaqController extends CrudController
                 ['name' => 'category', 'label' => 'Category', 'type' => 'text', 'help' => 'e.g. General, Products, Certifications, Orders'],
                 ['name' => 'sort_order', 'label' => 'Sort order', 'type' => 'number'],
             ],
+            'translatable' => [
+                ['name' => 'question', 'label' => 'Question', 'type' => 'text'],
+                ['name' => 'answer', 'label' => 'Answer', 'type' => 'textarea', 'rows' => 4],
+                ['name' => 'category', 'label' => 'Category', 'type' => 'text'],
+            ],
         ];
     }
 }

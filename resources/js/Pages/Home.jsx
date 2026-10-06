@@ -1,4 +1,5 @@
-import { Link, usePage } from '@inertiajs/react';
+import { usePage } from '@inertiajs/react';
+import Link from '../i18n/LocaleLink';
 import { useState } from 'react';
 import { ArrowRight, ArrowUpRight, Award, BadgeCheck, Container as ContainerIcon, Factory, Globe2, HeartPulse, MapPin, Pill, Quote } from 'lucide-react';
 import { Reveal, useScrollProgress } from '../Components/Motion';
@@ -6,6 +7,7 @@ import Accordion from '../Components/Accordion';
 import { CategoryCard, CategoryIcon, PostCard, ProductCard } from '../Components/Cards';
 import { ButtonLink, Container, CountryFlag, Eyebrow, SectionHeading, Stat, WhatsAppIcon } from '../Components/Ui';
 import SiteLayout from '../Layouts/SiteLayout';
+import { useT } from '../i18n/useT';
 
 /**
  * Home — a company page, not a catalogue. Products are reached through the
@@ -13,6 +15,7 @@ import SiteLayout from '../Layouts/SiteLayout';
  * Admin → Page content → Home.
  */
 export default function Home({ seo, categories, featuredProducts = [], testimonials, certifications, posts, faqs, stats, clients = [], markets = [], content: c }) {
+    const { t } = useT();
     const { site } = usePage().props;
     const [parallaxRef, parallax] = useScrollProgress();
     const parallaxY = Math.round((parallax - 0.5) * 40); // ±20px drift; stays inside the image's overscan
@@ -124,28 +127,28 @@ export default function Home({ seo, categories, featuredProducts = [], testimoni
                                                 <Factory size={18} className="mt-0.5 shrink-0 text-brand-300" aria-hidden />
                                                 <div>
                                                     <p className="font-semibold">{site.address.city}, {site.address.country}</p>
-                                                    <p className="mt-0.5 text-sm text-ink-200">Head office &amp; manufacturing facility</p>
+                                                    <p className="mt-0.5 text-sm text-ink-200">{t('Head office & manufacturing facility')}</p>
                                                 </div>
                                             </li>
                                             <li className="flex items-start gap-3">
                                                 <BadgeCheck size={18} className="mt-0.5 shrink-0 text-brand-300" aria-hidden />
                                                 <div>
-                                                    <p className="font-semibold">WHO-GMP certified</p>
-                                                    <p className="mt-0.5 text-sm text-ink-200">ISO 13485 · in-house QC/QA &amp; regulatory teams</p>
+                                                    <p className="font-semibold">{t('WHO-GMP certified')}</p>
+                                                    <p className="mt-0.5 text-sm text-ink-200">{t('ISO 13485 · in-house QC/QA & regulatory teams')}</p>
                                                 </div>
                                             </li>
                                             <li className="flex items-start gap-3">
                                                 <Globe2 size={18} className="mt-0.5 shrink-0 text-brand-300" aria-hidden />
                                                 <div>
-                                                    <p className="font-semibold">{stats.countries} export markets</p>
-                                                    <p className="mt-0.5 text-sm text-ink-200">{stats.products} products across five segments</p>
+                                                    <p className="font-semibold">{t('{n} export markets', { n: stats.countries })}</p>
+                                                    <p className="mt-0.5 text-sm text-ink-200">{t('{n} products across five segments', { n: stats.products })}</p>
                                                 </div>
                                             </li>
                                             <li className="flex items-start gap-3">
                                                 <Award size={18} className="mt-0.5 shrink-0 text-brand-300" aria-hidden />
                                                 <div>
-                                                    <p className="font-semibold">Star Export House</p>
-                                                    <p className="mt-0.5 text-sm text-ink-200">Government of India certified exporter</p>
+                                                    <p className="font-semibold">{t('Star Export House')}</p>
+                                                    <p className="mt-0.5 text-sm text-ink-200">{t('Government of India certified exporter')}</p>
                                                 </div>
                                             </li>
                                         </ul>
@@ -217,14 +220,14 @@ export default function Home({ seo, categories, featuredProducts = [], testimoni
                                                          className="h-14 w-14 rounded-xl border border-white/15 bg-white object-contain p-1.5 transition-[transform,border-color] duration-200 ease-out group-hover/thumb:-translate-y-0.5 group-hover/thumb:border-white/40" />
                                                 </Link>
                                             ))}
-                                            <span className="t-caption text-ink-400">Registered products</span>
+                                            <span className="t-caption text-ink-400">{t('Registered products')}</span>
                                         </div>
                                     )}
                                     <div className="mt-7 flex flex-wrap gap-3">
                                         <ButtonLink href={`/product/${activeCat.slug}`} variant="light">
                                             {c.portfolio_card_label} <ArrowRight size={15} className="btn-arrow" aria-hidden />
                                         </ButtonLink>
-                                        <ButtonLink href={`/product/${activeCat.slug}/products`} variant="outlineLight">Product list</ButtonLink>
+                                        <ButtonLink href={`/product/${activeCat.slug}/products`} variant="outlineLight">{t('Product list')}</ButtonLink>
                                     </div>
                                 </div>
                             </div>

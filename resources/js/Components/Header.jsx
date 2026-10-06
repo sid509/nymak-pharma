@@ -1,4 +1,7 @@
-import { Link, usePage } from '@inertiajs/react';
+import { usePage } from '@inertiajs/react';
+import Link from '../i18n/LocaleLink';
+import LanguageSwitcher from '../i18n/LanguageSwitcher';
+import { useT } from '../i18n/useT';
 import { ArrowRight, ChevronDown, Mail, Menu, Phone, X } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import { CategoryIcon } from './Cards';
@@ -27,7 +30,8 @@ function track(contact) {
 
 export default function Header() {
     const { site = {}, nav } = usePage().props;
-    const currentUrl = usePage().url;
+    const { t } = useT();
+    const currentUrl = usePage().url.replace(/^\/(fr|es)(?=\/|$)/, '') || '/';
     const [mobileOpen, setMobileOpen] = useState(false);
     const [openMenu, setOpenMenu] = useState(null); // 'products' | 'company' | null
     const [scrolled, setScrolled] = useState(false);
@@ -68,14 +72,15 @@ export default function Header() {
                 <div>
                     <div className="mx-auto flex w-full max-w-[90rem] items-center justify-between gap-4 px-4 py-1.5 text-xs sm:px-6 lg:px-10">
                         <p className="hidden font-medium tracking-wide md:block">
-                            <span className="text-brand-300">WHO-GMP Certified</span>
-                            <span className="mx-2 text-white/25">·</span>Star Export House
-                            <span className="mx-2 text-white/25">·</span>Exporting to 24+ Countries
+                            <span className="text-brand-300">{t('WHO-GMP Certified')}</span>
+                            <span className="mx-2 text-white/25">·</span>{t('Star Export House')}
+                            <span className="mx-2 text-white/25">·</span>{t('Exporting to 24+ Countries')}
                         </p>
                         <div className="flex items-center gap-4">
+                            <LanguageSwitcher />
                             <a href={`tel:${site.phone_href}`} onClick={() => track('phone')}
                                className="inline-flex items-center gap-1.5 transition-colors hover:text-white">
-                                <Phone size={12} aria-hidden /> <span className="hidden sm:inline">{site.phone}</span><span className="sm:hidden">Call</span>
+                                <Phone size={12} aria-hidden /> <span className="hidden sm:inline">{site.phone}</span><span className="sm:hidden">{t('Call')}</span>
                             </a>
                             <a href={`mailto:${site.email}`} onClick={() => track('email')}
                                className="inline-flex items-center gap-1.5 transition-colors hover:text-white">
@@ -101,7 +106,7 @@ export default function Header() {
                                         {/* "Products" navigates; the chevron toggles the menu */}
                                         <Link href={link.href}
                                               className="t-nav rounded-l-full py-2 pl-3.5 pr-1">
-                                            {link.name}
+                                            {t(link.name)}
                                         </Link>
                                         <button
                                             type="button"
@@ -118,7 +123,7 @@ export default function Header() {
                                     <div className={`nav-drop absolute left-1/2 top-full w-[34rem] max-w-[92vw] -translate-x-1/2 rounded-2xl border border-ink-100 bg-white p-3 shadow-card ${
                                         openMenu === 'products' ? 'block' : 'hidden group-hover:block group-focus-within:block'
                                     }`}>
-                                        <p className="t-eyebrow px-3 pb-2 pt-1 text-ink-400">Product portfolio</p>
+                                        <p className="t-eyebrow px-3 pb-2 pt-1 text-ink-400">{t('Product portfolio')}</p>
                                         <div className="grid grid-cols-2 gap-1">
                                             {(nav?.categories || []).map((c) => (
                                                 <Link key={c.href} href={c.href}
@@ -128,7 +133,7 @@ export default function Header() {
                                                     </span>
                                                     <span className="min-w-0">
                                                         <span className="block t-nav leading-snug text-ink-800 transition-colors group-hover/item:text-brand-800">{c.name}</span>
-                                                        {c.count > 0 && <span className="t-caption tabular-nums text-ink-400">{c.count} products</span>}
+                                                        {c.count > 0 && <span className="t-caption tabular-nums text-ink-400">{t('{n} products', { n: c.count })}</span>}
                                                     </span>
                                                 </Link>
                                             ))}
@@ -144,7 +149,7 @@ export default function Header() {
                             ) : (
                                 <Link key={link.name} href={link.href}
                                       className={`t-nav ${pill(isActive(link.href))}`}>
-                                    {link.name}
+                                    {t(link.name)}
                                 </Link>
                             )
                         )}
@@ -159,7 +164,7 @@ export default function Header() {
                                 onClick={() => setOpenMenu((v) => (v === 'company' ? null : 'company'))}
                                 className={`t-nav inline-flex items-center gap-1 ${pill(companyActive)}`}
                             >
-                                Company
+                                {t('Company')}
                                 <ChevronDown size={14} aria-hidden className={`transition-transform duration-200 ${openMenu === 'company' ? 'rotate-180' : ''}`} />
                             </button>
                             <div className={`nav-drop absolute right-0 top-full w-52 rounded-2xl border border-ink-100 bg-white p-2 shadow-card ${
@@ -178,7 +183,7 @@ export default function Header() {
 
                         <Link href="/contact"
                               className="t-button btn-cta ml-3 rounded-full bg-brand-600 px-5 py-2.5 text-white transition-colors hover:bg-brand-700">
-                            Contact Us
+                            {t('Contact Us')}
                         </Link>
                     </nav>
 
@@ -199,7 +204,7 @@ export default function Header() {
                                     <div key={link.name}>
                                         <Link href={link.href}
                                               className={`t-nav block rounded-lg px-3 py-2.5 font-semibold ${isActive(link.href) ? 'bg-brand-50 text-brand-800' : 'text-ink-800'}`}>
-                                            {link.name}
+                                            {t(link.name)}
                                         </Link>
                                         <div className="ml-3 border-l-2 border-ink-100 pl-2">
                                             {(nav?.categories || []).map((c) => (
@@ -221,12 +226,12 @@ export default function Header() {
                             )}
 
                             <div className="pt-2">
-                                <p className="t-eyebrow px-3 pb-1 text-ink-400">Company</p>
+                                <p className="t-eyebrow px-3 pb-1 text-ink-400">{t('Company')}</p>
                                 <div className="ml-3 border-l-2 border-ink-100 pl-2">
                                     {companyLinks.map((c) => (
                                         <Link key={c.href} href={c.href}
                                               className={`t-nav block rounded-lg px-3 py-2.5 ${isActive(c.href) ? 'bg-brand-50 text-brand-800' : 'text-ink-600 hover:bg-ink-50'}`}>
-                                            {c.name}
+                                            {t(c.name)}
                                         </Link>
                                     ))}
                                 </div>
@@ -234,7 +239,7 @@ export default function Header() {
 
                             <Link href="/contact"
                                   className="t-button mt-2 block rounded-full bg-brand-600 px-3 py-2.5 text-center text-white">
-                                Contact Us
+                                {t('Contact Us')}
                             </Link>
                         </div>
                     </nav>

@@ -1,8 +1,10 @@
 import Accordion from '../Components/Accordion';
 import { ButtonLink, Container, PageHero } from '../Components/Ui';
 import SiteLayout from '../Layouts/SiteLayout';
+import { useT } from '../i18n/useT';
 
 export default function Faqs({ seo, groups, content }) {
+    const { t } = useT();
     return (
         <SiteLayout>
             <PageHero eyebrow={content.hero_eyebrow} breadcrumbs={[['Home', '/'], ['FAQs']]}
@@ -28,7 +30,7 @@ export default function Faqs({ seo, groups, content }) {
                         <p className="mt-2 max-w-xl text-sm leading-relaxed text-brand-100">
                             {content.cta_body}
                         </p>
-                        <ButtonLink href="/contact" variant="light" className="mt-5">Ask us directly</ButtonLink>
+                        <ButtonLink href="/contact" variant="light" className="mt-5">{t('Ask us directly')}</ButtonLink>
                     </div>
                 </Container>
             </section>

@@ -1,9 +1,10 @@
-import { Link } from '@inertiajs/react';
+import Link from '../../i18n/LocaleLink';
 import { ArrowRight } from 'lucide-react';
 import { Reveal } from '../../Components/Motion';
 import MemberPortrait from '../../Components/MemberPortrait';
 import { ButtonLink, Container, PageHero, SectionHeading } from '../../Components/Ui';
 import SiteLayout from '../../Layouts/SiteLayout';
+import { useT } from '../../i18n/useT';
 
 function MemberCard({ m, i }) {
     const inner = (
@@ -37,6 +38,7 @@ function MemberCard({ m, i }) {
 }
 
 export default function TeamIndex({ seo, leadership, members, content }) {
+    const { t } = useT();
     return (
         <SiteLayout>
             <PageHero eyebrow={content.hero_eyebrow} breadcrumbs={[['Home', '/'], ['Team']]}
@@ -73,13 +75,13 @@ export default function TeamIndex({ seo, leadership, members, content }) {
             {/* Closing CTA — the page shouldn't end on a grid */}
             <section className="py-14 sm:py-16">
                 <Container className="text-center">
-                    <h2 className="t-h3 text-ink-950">Partnerships start with a conversation</h2>
+                    <h2 className="t-h3 text-ink-950">{t('Partnerships start with a conversation')}</h2>
                     <p className="mx-auto mt-3 max-w-xl text-sm leading-relaxed text-ink-600">
-                        Distributors, hospitals and health programmes work directly with this team — tell us your market and requirement.
+                        {t('Distributors, hospitals and health programmes work directly with this team — tell us your market and requirement.')}
                     </p>
                     <div className="mt-6 flex flex-wrap justify-center gap-3">
-                        <ButtonLink href="/contact">Contact our team <ArrowRight size={15} className="btn-arrow" aria-hidden /></ButtonLink>
-                        <ButtonLink href="/about" variant="outline">About Nymak</ButtonLink>
+                        <ButtonLink href="/contact">{t('Contact our team')} <ArrowRight size={15} className="btn-arrow" aria-hidden /></ButtonLink>
+                        <ButtonLink href="/about" variant="outline">{t('About Nymak')}</ButtonLink>
                     </div>
                 </Container>
             </section>

@@ -4,7 +4,7 @@ Issues discovered while driving real Chrome (Playwright) through user
 workflows — not found by HTTP/feature tests. Each entry records severity, the
 affected workflow, root cause, the fix, and the regression guard.
 
-Journeys: `tests/Browser/global-presence-map.mjs`, `tests/Browser/product-hierarchy.mjs`.
+Journeys: `tests/Browser/global-presence-map.mjs`, `tests/Browser/product-hierarchy.mjs`, `tests/Browser/locale.mjs`.
 
 ## Fixed
 
@@ -79,3 +79,60 @@ Journeys: `tests/Browser/global-presence-map.mjs`, `tests/Browser/product-hierar
   keyboard users.
 - **Regression:** UAT keyboard step (Tab → Enter → Clear) passes under
   `reducedMotion: 'reduce'`, the same experience reduced-motion users get.
+
+### UAT-07 — `route()` dropped the locale on redirects (FR contact form landed back on EN)
+
+- **Severity:** high (every locale-prefixed redirect lost its prefix)
+- **Workflow:** POST `/fr/contact` → `redirect()->route('contact')` emitted
+  `/contact`, not `/fr/contact`
+- **Found by:** `LocaleTest` — the assertRedirect caught `/contact`
+- **Root cause:** route `nameList` keeps the *first* registration (`??=`), so
+  named routes resolved to the bare English URI `{no locale}` and
+  `URL::defaults('locale')` never applied.
+- **Fix:** the `{locale?}` group now registers first; bare English routes
+  second. Named routes carry `{locale?}` and generate `/fr/…` under a French
+  request, `/…` under English.
+- **Regression:** `LocaleTest` asserts `/fr/contact` and `/es/contact`
+  redirects; legacy `/fr/about-us` → `/fr/about` is covered too.
+
+### UAT-08 — `locale` route param leaked into controller arguments (500 on every bound FR page)
+
+- **Severity:** critical (`/fr/product/{cat}/{slug}`, `/fr/blog/{post}`,
+  `/fr/team/{member}` all TypeError'd)
+- **Workflow:** open any model-bound public page under `/fr` or `/es`
+- **Found by:** `LocaleTest::translated_model_content_renders…` — 500 instead
+  of 200
+- **Root cause:** `{locale?}` prefix params are passed positionally to
+  controller methods — `show(ProductCategory $c, Product $p)` received
+  `('fr', $category, $product)`.
+- **Fix:** `SetLocale` calls `Route::forgetParameter('locale')` after reading
+  it, so implicit bindings stay positional.
+- **Regression:** LocaleTest GETs a product detail page under `/fr` and `/es`.
+
+### UAT-09 — `i18n` JSON column read raw → translations never resolved; save crashed
+
+- **Severity:** high (no translated content could ever render; admin save 500'd)
+- **Workflow:** set a French product name, view `/fr/product/…`
+- **Found by:** `LocaleTest` — `Cannot access offset of type string on string`
+- **Root cause:** `getAttributeFromArray('i18n')` returns the raw JSON string
+  (casts apply on access, not storage) — `data_get` on it always missed, and
+  `setTranslations` wrote to a string offset.
+- **Fix:** `i18nArray()` decodes the raw attribute before every read/write.
+- **Regression:** LocaleTest saves FR/ES names via `setTranslations` and
+  asserts they render (plus English fallback when a locale field is blank).
+
+### UAT-10 — Global-presence page crashed client-side (`t is not defined`)
+
+- **Severity:** critical (the whole `/global-presence` page was dead in the
+  browser — white panel, no map interaction)
+- **Workflow:** visitor opens `/global-presence`
+- **Found by:** `global-presence-map.mjs` — `page errors: t is not defined`;
+  every interactive step timed out
+- **Root cause:** the i18n sweep wrapped chrome strings in `t()` inside
+  `MarketPanel`/`EmptyPanel` — module-level components that never called
+  `useT()`, so `t` was unbound.
+- **Fix:** `useT()` inside each subcomponent; also translated the two raw
+  strings missed first pass ('Supplied to {name} — {n}',
+  '{n} markets across the globe').
+- **Regression:** the map journey's "no uncaught browser errors" step plus
+  locale.mjs's per-page `pageerror` listener.

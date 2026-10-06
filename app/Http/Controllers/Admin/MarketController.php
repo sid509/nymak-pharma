@@ -32,7 +32,11 @@ class MarketController extends Controller
 
     public function store(MarketRequest $request): RedirectResponse
     {
-        Market::create($request->validated());
+        $record = Market::create($request->safe()->except('i18n'));
+        foreach (['fr', 'es'] as $locale) {
+            $record->setTranslations($locale, (array) $request->input("i18n.{$locale}", []));
+        }
+        $record->save();
 
         return redirect()->route('admin.markets.index')->with('success', 'Market created.');
     }
@@ -41,13 +45,19 @@ class MarketController extends Controller
     {
         return Inertia::render('Admin/Markets/Form', [
             'market' => $market->only('id', 'name', 'slug', 'iso_code', 'region',
-                'description', 'content', 'latitude', 'longitude', 'show_in_portfolio', 'sort_order'),
+                'description', 'content', 'latitude', 'longitude', 'show_in_portfolio', 'sort_order', 'i18n'),
         ]);
     }
 
     public function update(MarketRequest $request, Market $market): RedirectResponse
     {
-        $market->update($request->validated());
+        $market->update($request->safe()->except('i18n'));
+
+        $record = $market;
+        foreach (['fr', 'es'] as $locale) {
+            $record->setTranslations($locale, (array) $request->input("i18n.{$locale}", []));
+        }
+        $record->save();
 
         return redirect()->route('admin.markets.index')->with('success', 'Market updated.');
     }

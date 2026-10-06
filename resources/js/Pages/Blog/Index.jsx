@@ -1,10 +1,12 @@
-import { Link } from '@inertiajs/react';
+import Link from '../../i18n/LocaleLink';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { PostCard } from '../../Components/Cards';
 import { Container, PageHero } from '../../Components/Ui';
 import SiteLayout from '../../Layouts/SiteLayout';
+import { useT } from '../../i18n/useT';
 
 export default function BlogIndex({ seo, posts, content }) {
+    const { t } = useT();
     return (
         <SiteLayout>
             <PageHero eyebrow={content.hero_eyebrow} breadcrumbs={[['Home', '/'], ['Blog']]}
@@ -15,7 +17,7 @@ export default function BlogIndex({ seo, posts, content }) {
                 <Container>
                     {posts.data.length === 0 ? (
                         <div className="rounded-2xl border border-dashed border-ink-200 bg-ink-50/50 p-12 text-center">
-                            <p className="font-semibold text-ink-700">Articles are on their way.</p>
+                            <p className="font-semibold text-ink-700">{t('Articles are on their way.')}</p>
                             <p className="mt-1 text-sm text-ink-500">Check back soon for company news and product insights.</p>
                         </div>
                     ) : (

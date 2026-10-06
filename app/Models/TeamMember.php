@@ -2,14 +2,19 @@
 
 namespace App\Models;
 
+use App\Concerns\HasTranslations;
 use Illuminate\Database\Eloquent\Model;
 
 class TeamMember extends Model
 {
-    protected $fillable = ['name', 'slug', 'role', 'photo', 'bio', 'is_leadership', 'sort_order',
-        'meta_title', 'meta_description'];
+    use HasTranslations;
 
-    protected $casts = ['is_leadership' => 'boolean'];
+    protected $fillable = ['name', 'slug', 'role', 'photo', 'bio', 'is_leadership', 'sort_order',
+        'meta_title', 'meta_description', 'i18n'];
+
+    protected $translatable = ['role', 'bio', 'meta_title', 'meta_description'];
+
+    protected $casts = ['is_leadership' => 'boolean', 'i18n' => 'array'];
 
     public function getRouteKeyName(): string
     {

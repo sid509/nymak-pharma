@@ -1,5 +1,55 @@
 # Changelog
 
+## Multilingual public site — English, Français, Español
+
+The public site now runs three locales. English stays the
+canonical unprefixed variant (`/about`); French and Spanish
+live under `/fr/…` and `/es/…`. The admin panel remains
+English-only.
+
+- **Routing** — every public route registers twice: a
+  `{locale?}`-prefixed group (constrained to `fr|es`) first so
+  named routes carry the locale param, then bare English
+  routes (Laravel's optional-first-segment matching won't
+  reach `/about` through the prefixed pattern). `SetLocale`
+  middleware reads the prefix, sets `app()->setLocale`, sets
+  `URL::defaults(['locale' => …])` so `route()` generates the
+  matching prefix, and `forgetParameter('locale')` keeps
+  implicit model bindings positional. Legacy redirects
+  (`/about-us` → `/about`) preserve the prefix.
+- **Content translations** — translatable models carry an
+  `i18n` JSON column (`{fr: {name: …}, es: {name: …}}`).
+  `HasTranslations` resolves attribute reads + `toArray()`
+  through the current locale with English fallback, so
+  controllers, SEO and JSON-LD localize automatically; admin
+  (no locale set) always edits the English base. Rich-text
+  fields are sanitised on write. Applies to Product,
+  ProductCategory, Market, Post, Faq, TeamMember, Testimonial
+  and PageContent slots (text/textarea/richtext).
+- **UI chrome** — `lang/fr.json` + `lang/es.json` translate
+  via English source keys; shared `i18n`/`locale`/`locales`
+  props drive a `useT()` hook, `LocaleLink`/`ButtonLink`
+  prefix internal hrefs, and a header `LanguageSwitcher`
+  (plain anchors to the shared `locales` alternates — a full
+  reload keeps SSR + document lang in sync).
+- **SEO** — `<html lang>`, self-referencing canonicals,
+  `hreflang` alternates + `x-default`, `og:locale` +
+  alternates, locale-aware breadcrumbs/JSON-LD URLs, and a
+  sitemap emitting every path ×3 locales with alternates.
+- **Admin** — `TranslationFields` component adds FR/ES inputs
+  (WYSIWYG for richtext) to product, category, market, post
+  and generic CRUD forms; PageContent slots get inline FR/ES
+  fields; FormRequests validate `i18n.*.*`; controllers merge
+  via `setTranslations()`.
+- **Tests** — `tests/Feature/LocaleTest` (10 cases: prefixed
+  routing, 404 on bad locales, lang/hreflang, prop shape,
+  model translation + EN fallback, locale-aware redirects,
+  contact POST, sitemap); `tests/Browser/locale.mjs` (11-step
+  real-Chrome journey: chrome per locale, switcher, French
+  contact submission, admin FR-name round-trip, sitemap).
+  Three real bugs found and fixed en route — see UAT-07/08/09.
+
+
 ## Branded error pages — all common HTTP statuses
 
 - `bootstrap/app.php` `respond()` now routes **401, 402, 403,

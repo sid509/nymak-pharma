@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Middleware\SetLocale;
+
 use App\Models\Market;
 use App\Models\PageContent;
 use App\Models\SiteSetting;
@@ -21,7 +23,7 @@ class MarketController extends Controller
         $markets = Market::orderBy('sort_order')
             ->with(['products' => fn ($q) => $q->where('has_detail_page', true)
                 ->with('category:id,slug,name')
-                ->select('id', 'market_id', 'product_category_id', 'name', 'slug', 'image')])
+                ->select('id', 'market_id', 'product_category_id', 'name', 'slug', 'image', 'i18n')])
             ->get()
             ->map(fn ($m) => [
                 'name' => $m->name,
@@ -47,8 +49,8 @@ class MarketController extends Controller
                 'Global Presence — Pharmaceutical Exports to 24+ Countries',
                 'Nymak Pharma exports pharmaceuticals, IV fluids and medical supplies to 24+ countries across Africa, Central America & the South Pacific.'
             )->override('markets.index')->breadcrumbs([
-                ['Home', url('/')],
-                ['Global Presence', url('/global-presence')],
+                ['Home', SetLocale::absolute('/')],
+                ['Global Presence', SetLocale::absolute('/global-presence')],
             ])->toArray(),
             'markets' => $markets,
             'portfolio' => $markets->where('featured', true)->values(),

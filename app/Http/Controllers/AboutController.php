@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Middleware\SetLocale;
+
 use App\Models\Certification;
 use App\Models\PageContent;
 use App\Models\TeamMember;
@@ -18,17 +20,17 @@ class AboutController extends Controller
                 'About Us — WHO-GMP Pharmaceutical Manufacturer Since 1998',
                 'Founded in 1998, Nymak Pharma is a WHO-GMP certified pharmaceutical manufacturer and Star Export House serving 24+ countries from Mundra, Gujarat, India.'
             )->override('about')->breadcrumbs([
-                ['Home', url('/')],
-                ['About Us', url('/about')],
+                ['Home', SetLocale::absolute('/')],
+                ['About Us', SetLocale::absolute('/about')],
             ])->toArray(),
             'leadership' => TeamMember::where('is_leadership', true)->orderBy('sort_order')
-                ->get(['name', 'slug', 'role', 'photo', 'bio'])
+                ->get(['name', 'slug', 'role', 'photo', 'bio', 'i18n'])
                 ->map(fn ($m) => [
                     'name' => $m->name, 'slug' => $m->slug, 'role' => $m->role,
                     'photo' => $m->photo, 'has_page' => filled($m->bio),
                 ]),
             'team' => TeamMember::where('is_leadership', false)->orderBy('sort_order')
-                ->get(['name', 'slug', 'role', 'photo', 'bio'])
+                ->get(['name', 'slug', 'role', 'photo', 'bio', 'i18n'])
                 ->map(fn ($m) => [
                     'name' => $m->name, 'slug' => $m->slug, 'role' => $m->role,
                     'photo' => $m->photo, 'has_page' => filled($m->bio),

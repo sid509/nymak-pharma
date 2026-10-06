@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Middleware\SetLocale;
+
 use App\Models\Post;
 use App\Support\Seo;
 use Inertia\Inertia;
@@ -16,12 +18,12 @@ class PostController extends Controller
                 'Insights & Resources — Nymak Pharma',
                 'Company news, quality explainers and product insights from Nymak Pharma — a WHO-GMP certified pharmaceutical manufacturer and exporter.'
             )->override('posts.index')->breadcrumbs([
-                ['Home', url('/')],
-                ['Blog & Resources', url('/blog')],
+                ['Home', SetLocale::absolute('/')],
+                ['Blog & Resources', SetLocale::absolute('/blog')],
             ])->toArray(),
             'content' => \App\Models\PageContent::for('posts.index'),
             'posts' => Post::published()->latest('published_at')
-                ->paginate(9, ['title', 'slug', 'category', 'excerpt', 'cover_image', 'published_at']),
+                ->paginate(9, ['title', 'slug', 'category', 'excerpt', 'cover_image', 'published_at', 'i18n']),
         ]);
     }
 
@@ -43,16 +45,16 @@ class PostController extends Controller
                 'dateModified' => $post->updated_at->toIso8601String(),
                 'author' => ['@id' => url('/#organization')],
                 'publisher' => ['@id' => url('/#organization')],
-                'mainEntityOfPage' => url("/blog/{$post->slug}"),
+                'mainEntityOfPage' => SetLocale::absolute("/blog/{$post->slug}"),
             ])->breadcrumbs([
-                ['Home', url('/')],
-                ['Blog', url('/blog')],
-                [$post->title, url("/blog/{$post->slug}")],
+                ['Home', SetLocale::absolute('/')],
+                ['Blog', SetLocale::absolute('/blog')],
+                [$post->title, SetLocale::absolute("/blog/{$post->slug}")],
             ])->toArray(),
             'post' => $post->only('title', 'category', 'excerpt', 'body', 'cover_image', 'published_at'),
             'related' => Post::published()->where('id', '!=', $post->id)
                 ->latest('published_at')->limit(3)
-                ->get(['title', 'slug', 'category', 'excerpt', 'published_at']),
+                ->get(['title', 'slug', 'category', 'excerpt', 'published_at', 'i18n']),
         ]);
     }
 }

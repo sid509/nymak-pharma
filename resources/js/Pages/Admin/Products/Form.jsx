@@ -1,6 +1,7 @@
 import { Link, useForm } from '@inertiajs/react';
 import { Loader2, Save } from 'lucide-react';
 import Field, { inputCls } from '../../../Components/Admin/Field';
+import TranslationFields from '../../../Components/Admin/TranslationFields';
 import AdminLayout from '../../../Layouts/AdminLayout';
 
 export default function ProductForm({ product = null, categories, markets }) {
@@ -20,6 +21,7 @@ export default function ProductForm({ product = null, categories, markets }) {
         meta_title: product?.meta_title || '',
         meta_description: product?.meta_description || '',
         sort_order: product?.sort_order ?? 0,
+        i18n: product?.i18n ?? {},
         _method: isEdit ? 'PUT' : 'POST',
     });
 
@@ -92,6 +94,14 @@ export default function ProductForm({ product = null, categories, markets }) {
                     {f('meta_title', 'Meta title', { help: `${(form.data.meta_title || '').length}/70` })}
                     {f('meta_description', 'Meta description', { type: 'textarea', rows: 2, help: `${(form.data.meta_description || '').length}/200` })}
                 </section>
+
+                <TranslationFields form={form} fields={[
+                    { name: 'name', label: 'Name' },
+                    { name: 'description', label: 'Description', type: 'textarea', rows: 3 },
+                    { name: 'therapeutic_group', label: 'Therapeutic group' },
+                    { name: 'meta_title', label: 'Meta title' },
+                    { name: 'meta_description', label: 'Meta description', type: 'textarea', rows: 2 },
+                ]} />
 
                 <div className="flex items-center gap-3">
                     <button type="submit" disabled={form.processing}

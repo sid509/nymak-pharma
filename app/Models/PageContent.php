@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Concerns\HasTranslations;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -11,7 +12,16 @@ use Illuminate\Database\Eloquent\Model;
  */
 class PageContent extends Model
 {
-    protected $fillable = ['page', 'key', 'value'];
+    use HasTranslations;
+
+    protected $fillable = ['page', 'key', 'value', 'i18n'];
+
+    protected $translatable = ['value'];
+
+    protected $casts = ['i18n' => 'array'];
+
+    /** Slot types whose `value` holds visitor-facing copy. */
+    public const TRANSLATABLE_TYPES = ['text', 'textarea', 'richtext'];
 
     /**
      * page => [ [key, label, type, default, help?], ... ]
@@ -309,14 +319,18 @@ class PageContent extends Model
         'faqs' => 'FAQs',
     ];
 
-    /** Resolved slot map for a page — DB overrides merged over defaults. */
-    public static function for(string $page): array
+    /**
+     * Resolved slot map for a page — DB overrides merged over defaults.
+     * `value` is translatable, so on non-English requests the trait resolves
+     * localized text/textarea/richtext slots automatically (EN fallback).
+     */
+    public static function for(string $page, ?string $locale = null): array
     {
-        $stored = static::where('page', $page)->pluck('value', 'key');
+        $rows = static::where('page', $page)->get(['key', 'value', 'i18n'])->keyBy('key');
 
-        return collect(static::SCHEMA[$page] ?? [])->mapWithKeys(function ($f) use ($stored) {
+        return collect(static::SCHEMA[$page] ?? [])->mapWithKeys(function ($f) use ($rows) {
             [$key, , $type, $default] = $f;
-            $value = $stored->get($key);
+            $value = $rows->get($key)?->value;
             $resolved = ($value !== null && $value !== '') ? $value : $default;
 
             return [$key => match ($type) {

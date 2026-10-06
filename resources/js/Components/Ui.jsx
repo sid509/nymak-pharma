@@ -1,4 +1,5 @@
-import { Link } from '@inertiajs/react';
+import Link from '../i18n/LocaleLink';
+import { useT } from '../i18n/useT';
 import { useState } from 'react';
 import { CountUp } from './Motion';
 import { ChevronRight, Globe2 } from 'lucide-react';
@@ -62,16 +63,17 @@ export function ButtonLink({ href, children, variant = 'primary', className = ''
 }
 
 export function Breadcrumbs({ items, className = 'mb-6', dark = false, center = false }) {
+    const { t } = useT();
     return (
-        <nav aria-label="Breadcrumb" className={className}>
+        <nav aria-label={t('Breadcrumb')} className={className}>
             <ol className={`flex flex-wrap items-center gap-1.5 text-[13px] ${center ? 'justify-center' : ''} ${dark ? 'text-white/50' : 'text-ink-500'}`}>
                 {items.map(([name, href], i) => (
                     <li key={i} className="flex items-center gap-1.5">
                         {i > 0 && <ChevronRight size={13} aria-hidden className={dark ? 'text-white/25' : 'text-ink-300'} />}
                         {href ? (
-                            <Link href={href} className={`underline-offset-4 transition-colors hover:underline ${dark ? 'hover:text-brand-300' : 'hover:text-brand-700'}`}>{name}</Link>
+                            <Link href={href} className={`underline-offset-4 transition-colors hover:underline ${dark ? 'hover:text-brand-300' : 'hover:text-brand-700'}`}>{t(name)}</Link>
                         ) : (
-                            <span aria-current="page" className={`font-semibold ${dark ? 'text-white' : 'text-ink-800'}`}>{name}</span>
+                            <span aria-current="page" className={`font-semibold ${dark ? 'text-white' : 'text-ink-800'}`}>{t(name)}</span>
                         )}
                     </li>
                 ))}

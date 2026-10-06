@@ -1,4 +1,5 @@
-import { Link } from '@inertiajs/react';
+import Link from '../i18n/LocaleLink';
+import { useT } from '../i18n/useT';
 import { ArrowRight, Droplets, Pill, ScanSearch, ShieldPlus, Syringe } from 'lucide-react';
 
 export const categoryIcons = {
@@ -15,6 +16,7 @@ export function CategoryIcon({ name, size = 22, className = '' }) {
 }
 
 export function CategoryCard({ category, href, label = 'Explore category', index }) {
+    const { t } = useT();
     return (
         <Link href={href}
               className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-ink-100 bg-white p-6 shadow-card transition-[transform,border-color,box-shadow] duration-200 hover:-translate-y-0.5 hover:border-brand-200 hover:shadow-card-hover">
@@ -30,11 +32,11 @@ export function CategoryCard({ category, href, label = 'Explore category', index
             </span>
             <h3 className="mt-4 t-h4 text-pretty text-ink-900 transition-colors group-hover:text-brand-800">{category.name}</h3>
             {category.products_count > 0 && (
-                <p className="t-caption mt-1 tabular-nums text-ink-400">{category.products_count} products</p>
+                <p className="t-caption mt-1 tabular-nums text-ink-400">{t('{n} products', { n: category.products_count })}</p>
             )}
             {category.intro && <p className="mt-2 flex-1 text-sm leading-relaxed text-ink-600">{category.intro}</p>}
             <span className="mt-4 inline-flex items-center gap-1 text-[15px] font-semibold text-brand-700">
-                {label}
+                {t(label)}
                 <ArrowRight size={15} aria-hidden className="transition-transform duration-200 group-hover:translate-x-0.5" />
             </span>
         </Link>
@@ -42,6 +44,7 @@ export function CategoryCard({ category, href, label = 'Explore category', index
 }
 
 export function ProductCard({ product, url }) {
+    const { t } = useT();
     const inner = (
         <>
             <span className="block aspect-[4/3] overflow-hidden bg-ink-50">
@@ -59,7 +62,7 @@ export function ProductCard({ product, url }) {
                     <span className="mt-1 line-clamp-2 block text-xs leading-relaxed text-ink-500">{product.description}</span>
                 )}
                 <span className="t-caption mt-2 inline-flex items-center gap-1 font-semibold text-brand-700">
-                    View product <ArrowRight size={13} className="btn-arrow" aria-hidden />
+                    {t('View product')} <ArrowRight size={13} className="btn-arrow" aria-hidden />
                 </span>
             </span>
         </>
@@ -70,8 +73,9 @@ export function ProductCard({ product, url }) {
 }
 
 export function PostCard({ post }) {
+    const { locale } = useT();
     const date = post.published_at
-        ? new Date(post.published_at).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })
+        ? new Date(post.published_at).toLocaleDateString({ en: 'en-GB', fr: 'fr-FR', es: 'es-ES' }[locale] || 'en-GB', { day: 'numeric', month: 'long', year: 'numeric' })
         : null;
     return (
         <Link href={`/blog/${post.slug}`}

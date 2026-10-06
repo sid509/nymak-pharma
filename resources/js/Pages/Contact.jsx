@@ -3,9 +3,11 @@ import { Building2, Clock, Download, Mail, MapPin, Phone } from 'lucide-react';
 import EnquiryForm from '../Components/EnquiryForm';
 import { Container, PageHero, WhatsAppIcon } from '../Components/Ui';
 import SiteLayout from '../Layouts/SiteLayout';
+import { useT } from '../i18n/useT';
 
 export default function Contact({ seo, offices, products, selectedProduct, formStartedAt, honeypot, content }) {
     const { site, flash } = usePage().props;
+    const { t } = useT();
 
     return (
         <SiteLayout>
@@ -34,7 +36,7 @@ export default function Contact({ seo, offices, products, selectedProduct, formS
                     {/* Contact details — consistent NAP */}
                     <aside className="space-y-5 lg:sticky lg:top-28 lg:self-start">
                         <div className="rounded-2xl bg-ink-950 p-6 text-white">
-                            <h2 className="t-h4">Head Office & Works</h2>
+                            <h2 className="t-h4">{t('Head Office & Works')}</h2>
                             <address className="mt-4 space-y-3 text-sm not-italic">
                                 <p className="flex gap-2.5">
                                     <MapPin size={16} className="mt-0.5 shrink-0 text-brand-400" aria-hidden />
@@ -44,7 +46,7 @@ export default function Contact({ seo, offices, products, selectedProduct, formS
                                 </p>
                                 <p className="flex gap-2.5 text-ink-200">
                                     <MapPin size={16} className="mt-0.5 shrink-0 text-brand-400" aria-hidden />
-                                    <span>Branch: {site.branch_address}</span>
+                                    <span>{t('Branch')}: {site.branch_address}</span>
                                 </p>
                                 <p>
                                     <a href={`tel:${site.phone_href}`} className="flex gap-2.5 font-semibold transition-colors hover:text-white">
@@ -58,19 +60,19 @@ export default function Contact({ seo, offices, products, selectedProduct, formS
                                 </p>
                                 <p className="flex gap-2.5 text-ink-200">
                                     <Clock size={16} className="mt-0.5 shrink-0 text-brand-400" aria-hidden />
-                                    <span>Mon–Sat, 9:30–18:30 IST</span>
+                                    <span>{t('Mon–Sat, 9:30–18:30 IST')}</span>
                                 </p>
                             </address>
                             <div className="mt-5 flex flex-col gap-2.5 border-t border-ink-800 pt-5">
                                 <a href={`https://wa.me/${site.whatsapp}`} target="_blank" rel="noopener noreferrer"
                                    onClick={() => window.nymakTrack && window.nymakTrack('contact_click', { method: 'whatsapp' })}
                                    className="inline-flex items-center gap-2 text-sm font-semibold text-brand-300 transition-colors hover:text-white">
-                                    <WhatsAppIcon size={16} /> Chat on WhatsApp
+                                    <WhatsAppIcon size={16} /> {t('Chat on WhatsApp')}
                                 </a>
                                 <a href={`/${site.brochure}`} target="_blank" rel="noopener noreferrer"
                                    onClick={() => window.nymakTrack && window.nymakTrack('brochure_download')}
                                    className="inline-flex items-center gap-2 text-sm font-semibold text-brand-300 transition-colors hover:text-white">
-                                    <Download size={16} aria-hidden /> Download product brochure (PDF)
+                                    <Download size={16} aria-hidden /> {t('Download product brochure (PDF)')}
                                 </a>
                             </div>
                         </div>

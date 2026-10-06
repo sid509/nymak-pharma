@@ -1,4 +1,4 @@
-import { Link } from '@inertiajs/react';
+import Link from '../../i18n/LocaleLink';
 import { ArrowRight, ListChecks } from 'lucide-react';
 import { CategoryIcon } from '../../Components/Cards';
 import { Reveal } from '../../Components/Motion';

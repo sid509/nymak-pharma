@@ -1,21 +1,24 @@
-import { Link, usePage } from "@inertiajs/react";
+import { usePage } from "@inertiajs/react";
+import Link from '../../i18n/LocaleLink';
 import { ArrowRight, Building2, Globe2, Handshake, Mail, MapPin, MousePointerClick, Package, Phone, Route, Star, X } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import { Reveal } from '../../Components/Motion';
 import { ButtonLink, Container, CountryFlag, PageHero, SectionHeading, Stat, WhatsAppIcon } from '../../Components/Ui';
 import WorldMap from '../../Components/WorldMap';
 import SiteLayout from '../../Layouts/SiteLayout';
+import { useT } from '../../i18n/useT';
 
 /** Detail panel: what we do in the selected market — rich content, products, office. */
 function MarketPanel({ m, content, onClose }) {
+    const { t } = useT();
     return (
         <div key={m.slug} className="explorer-panel flex h-full flex-col rounded-2xl border border-ink-100 bg-white shadow-card">
             <div className="flex items-start justify-between gap-4 border-b border-ink-100 p-6 sm:p-7">
                 <div>
                     <p className="flex flex-wrap items-center gap-2 text-xs font-semibold uppercase tracking-[0.04em] text-brand-700">
                         <MapPin size={13} aria-hidden /> {m.region}
-                        {m.featured && <span className="inline-flex items-center gap-1 rounded-full bg-brand-50 px-2 py-0.5 text-xs font-semibold text-brand-800"><Star size={10} aria-hidden /> Key market</span>}
-                        {m.office && <span className="rounded-full bg-gold-100 px-2 py-0.5 text-xs font-semibold text-gold-800">Local office</span>}
+                        {m.featured && <span className="inline-flex items-center gap-1 rounded-full bg-brand-50 px-2 py-0.5 text-xs font-semibold text-brand-800"><Star size={10} aria-hidden /> {t('Key market')}</span>}
+                        {m.office && <span className="rounded-full bg-gold-100 px-2 py-0.5 text-xs font-semibold text-gold-800">{t('Local office')}</span>}
                     </p>
                     <h3 className="mt-2 flex items-center gap-2.5 t-h3 text-ink-950"><CountryFlag iso={m.iso_code} className="h-6 w-8" />{m.name}</h3>
                 </div>
@@ -44,7 +47,7 @@ function MarketPanel({ m, content, onClose }) {
                 {m.products.length > 0 && (
                     <div className="mt-6 border-t border-ink-100 pt-5">
                         <p className="mb-3 flex items-center gap-1.5 text-xs font-semibold uppercase tracking-[0.04em] text-ink-500">
-                            <Package size={12} aria-hidden /> Supplied to {m.name} — {m.products.length}
+                            <Package size={12} aria-hidden /> {t('Supplied to {name} — {n}', { name: m.name, n: m.products.length })}
                         </p>
                         <ul className="flex flex-wrap gap-2">
                             {m.products.map((p) => (
@@ -76,13 +79,14 @@ function MarketPanel({ m, content, onClose }) {
 }
 
 function EmptyPanel({ content, markets, onPick }) {
+    const { t } = useT();
     const picks = (markets.some((m) => m.featured) ? markets.filter((m) => m.featured) : markets).slice(0, 4);
     return (
         <div className="explorer-panel flex h-full min-h-[18rem] flex-col items-center justify-center rounded-2xl border border-dashed border-ink-200 bg-ink-50/50 p-8 text-center">
             <span className="flex h-12 w-12 items-center justify-center rounded-full bg-white text-brand-700 shadow-card"><MousePointerClick size={22} aria-hidden /></span>
             <h3 className="mt-4 t-h4 text-ink-900">{content.map_empty_title}</h3>
             <p className="mt-2 max-w-xs text-sm leading-relaxed text-ink-600">{content.map_empty_body}</p>
-            <p className="mt-4 text-xs font-semibold uppercase tracking-[0.04em] text-brand-700">{markets.length} markets across the globe</p>
+            <p className="mt-4 text-xs font-semibold uppercase tracking-[0.04em] text-brand-700">{t('{n} markets across the globe', { n: markets.length })}</p>
             <div className="mt-4 flex flex-wrap justify-center gap-2">
                 {picks.map((m) => (
                     <button key={m.slug} type="button" onClick={() => onPick(m.slug)}
@@ -99,6 +103,7 @@ function EmptyPanel({ content, markets, onPick }) {
 }
 
 export default function MarketsIndex({ seo, markets, offices, content }) {
+    const { t } = useT();
     const { site } = usePage().props;
     const [selected, setSelected] = useState(null);
     const panelRef = useRef(null);
@@ -135,7 +140,7 @@ export default function MarketsIndex({ seo, markets, offices, content }) {
                     {[
                         [Globe2, `${markets.length}+`, 'Countries served'],
                         [Route, regions.length, 'Regions'],
-                        [Star, markets.filter((m) => m.featured).length || markets.length, 'Key markets'],
+                        [Star, markets.filter((m) => m.featured).length || markets.length, t('Key markets')],
                         [Building2, offices.length, 'International offices'],
                     ].map(([Icon, value, label]) => (
                         <div key={label} className="rounded-xl border border-white/10 bg-white/5 px-4 py-3 backdrop-blur-sm">
@@ -158,10 +163,10 @@ export default function MarketsIndex({ seo, markets, offices, content }) {
                             <div className="rounded-3xl border border-ink-100 bg-gradient-to-b from-white to-brand-50/40 p-3 shadow-card sm:p-5">
                                 <WorldMap markets={markets} selected={selected} onSelect={select} />
                                 <ul className="mt-3 flex flex-wrap items-center gap-x-5 gap-y-1.5 px-2 text-xs font-semibold text-ink-500" aria-label="Legend">
-                                    <li className="flex items-center gap-1.5"><span className="h-2.5 w-2.5 rounded-full bg-gold-500 ring-2 ring-gold-100" aria-hidden />Mundra HQ</li>
-                                    <li className="flex items-center gap-1.5"><span className="h-2.5 w-2.5 rounded-sm bg-brand-600" aria-hidden />Key market</li>
-                                    <li className="flex items-center gap-1.5"><span className="h-2.5 w-2.5 rounded-sm bg-brand-400" aria-hidden />Export market</li>
-                                    <li className="flex items-center gap-1.5"><span className="inline-block h-0.5 w-5 rounded-full bg-gold-500" aria-hidden />Supply route</li>
+                                    <li className="flex items-center gap-1.5"><span className="h-2.5 w-2.5 rounded-full bg-gold-500 ring-2 ring-gold-100" aria-hidden />{t('Mundra HQ')}</li>
+                                    <li className="flex items-center gap-1.5"><span className="h-2.5 w-2.5 rounded-sm bg-brand-600" aria-hidden />{t('Key market')}</li>
+                                    <li className="flex items-center gap-1.5"><span className="h-2.5 w-2.5 rounded-sm bg-brand-400" aria-hidden />{t('Export market')}</li>
+                                    <li className="flex items-center gap-1.5"><span className="inline-block h-0.5 w-5 rounded-full bg-gold-500" aria-hidden />{t('Supply route')}</li>
                                     <li className="ml-auto italic text-ink-400">Drag to spin · click a country</li>
                                 </ul>
                             </div>

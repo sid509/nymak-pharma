@@ -25,7 +25,7 @@ class CategoryController extends Controller
     {
         return Inertia::render('Admin/Categories/Form', [
             'category' => $category->only('id', 'name', 'slug', 'icon', 'intro',
-                'description', 'content', 'image', 'meta_title', 'meta_description', 'sort_order'),
+                'description', 'content', 'image', 'meta_title', 'meta_description', 'sort_order', 'i18n'),
         ]);
     }
 
@@ -33,13 +33,19 @@ class CategoryController extends Controller
     {
         // Slug is intentionally not editable — category URLs are structural
         // and linked throughout the site and sitemap.
-        $data = $request->safe()->except('image');
+        $data = $request->safe()->except(['image', 'i18n']);
         if ($file = $request->file('image')) {
             ImageUpload::delete($category->image);
             $data['image'] = ImageUpload::store($file, 'categories', $category->slug);
         }
 
         $category->update($data);
+
+        $record = $category;
+        foreach (['fr', 'es'] as $locale) {
+            $record->setTranslations($locale, (array) $request->input("i18n.{$locale}", []));
+        }
+        $record->save();
 
         return redirect()->route('admin.categories.index')->with('success', 'Category updated.');
     }

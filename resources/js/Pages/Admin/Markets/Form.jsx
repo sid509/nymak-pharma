@@ -1,6 +1,7 @@
 import { Link, useForm } from '@inertiajs/react';
 import { Loader2, Save } from 'lucide-react';
 import Field from '../../../Components/Admin/Field';
+import TranslationFields from '../../../Components/Admin/TranslationFields';
 import { COUNTRIES } from '../../../data/countries';
 import AdminLayout from '../../../Layouts/AdminLayout';
 
@@ -21,6 +22,7 @@ export default function MarketForm({ market = null }) {
         longitude: market?.longitude ?? '',
         show_in_portfolio: market?.show_in_portfolio ?? false,
         sort_order: market?.sort_order ?? 0,
+        i18n: market?.i18n ?? {},
     });
 
     const set = (k, v) => form.setData(k, v);
@@ -61,6 +63,15 @@ export default function MarketForm({ market = null }) {
                         <Field field={{ name: 'sort_order', label: 'Sort order', type: 'number' }} value={form.data.sort_order} error={form.errors.sort_order} onChange={set} />
                     </div>
                 </section>
+
+                <TranslationFields form={form} fields={[
+                    { name: 'name', label: 'Country / market' },
+                    { name: 'region', label: 'Region' },
+                    { name: 'description', label: 'Short summary', type: 'textarea', rows: 2 },
+                    { name: 'content', label: 'What we do in this market', type: 'richtext' },
+                    { name: 'meta_title', label: 'Meta title' },
+                    { name: 'meta_description', label: 'Meta description', type: 'textarea', rows: 2 },
+                ]} />
 
                 <div className="flex items-center gap-3">
                     <button type="submit" disabled={form.processing}

@@ -34,6 +34,10 @@ class TestimonialController extends CrudController
                 ['name' => 'quote', 'label' => 'Quote', 'type' => 'textarea', 'required' => true, 'rows' => 4],
                 ['name' => 'sort_order', 'label' => 'Sort order', 'type' => 'number'],
             ],
+            'translatable' => [
+                ['name' => 'country', 'label' => 'Country', 'type' => 'text'],
+                ['name' => 'quote', 'label' => 'Quote', 'type' => 'textarea', 'rows' => 4],
+            ],
         ];
     }
 }

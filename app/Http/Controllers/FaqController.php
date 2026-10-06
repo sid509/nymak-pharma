@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Middleware\SetLocale;
+
 use App\Models\Faq;
 use App\Support\Seo;
 use Inertia\Inertia;
@@ -24,8 +26,8 @@ class FaqController extends Controller
                 'acceptedAnswer' => ['@type' => 'Answer', 'text' => $f->answer],
             ]),
         ])->breadcrumbs([
-            ['Home', url('/')],
-            ['FAQs', url('/faqs')],
+            ['Home', SetLocale::absolute('/')],
+            ['FAQs', SetLocale::absolute('/faqs')],
         ]);
 
         return Inertia::render('Faqs', [

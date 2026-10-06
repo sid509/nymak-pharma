@@ -59,10 +59,10 @@ await step('admin edits a category: richtext editor + intro, saved via the form'
     await page.getByRole('link', { name: 'Edit' }).first().click();
     await page.waitForURL(/\/admin\/categories\/[^/]+\/edit/);
     // The category form exposes the landing-page content in the WYSIWYG.
-    const editor = page.locator('.richtext [contenteditable="true"]');
+    const editor = page.locator('.richtext [contenteditable="true"]').first();
     await editor.waitFor();
     expect((await editor.innerHTML()).length > 50, 'category content loaded into editor');
-    const intro = page.getByLabel(/^Intro/);
+    const intro = page.getByLabel(/^Intro/).first();
     originalIntro = await intro.inputValue();
     expect(originalIntro.length > 10, 'intro was populated');
     await intro.fill(`${originalIntro} [${marker}]`);
@@ -206,10 +206,10 @@ await step('restore the category intro', async () => {
     await page.getByRole('button', { name: /sign in|log in/i }).click();
     await page.waitForURL(/\/admin\/dashboard/);
     await page.goto(`${BASE}/admin/categories/iv-fluids/edit`);
-    await page.getByLabel(/^Intro/).waitFor();
+    await page.getByLabel(/^Intro/).first().waitFor();
     // Strip this run's marker AND any left over from aborted previous runs.
-    const current = await page.getByLabel(/^Intro/).inputValue();
-    await page.getByLabel(/^Intro/).fill(current.replace(/\s*\[UAT-[^\]]*\]/g, '') || (originalIntro ?? ''));
+    const current = await page.getByLabel(/^Intro/).first().inputValue();
+    await page.getByLabel(/^Intro/).first().fill(current.replace(/\s*\[UAT-[^\]]*\]/g, '') || (originalIntro ?? ''));
     await page.getByRole('button', { name: /save/i }).click();
     await page.waitForURL(/\/admin\/categories$/);
 });

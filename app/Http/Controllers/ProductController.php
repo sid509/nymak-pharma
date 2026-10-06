@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Middleware\SetLocale;
+
 use App\Models\PageContent;
 use App\Models\Product;
 use App\Models\ProductCategory;
@@ -21,19 +23,19 @@ class ProductController extends Controller
                 'Pharmaceutical Products — IV Fluids, Formulations & More',
                 'Explore Nymak Pharma\'s export portfolio: IV fluids, finished formulations, medical devices & disposables, rapid diagnostic kits and vaccines.'
             )->override('products.index')->breadcrumbs([
-                ['Home', url('/')],
-                ['Products', url('/products')],
+                ['Home', SetLocale::absolute('/')],
+                ['Products', SetLocale::absolute('/products')],
             ])->toArray(),
             'content' => $content,
             'categories' => ProductCategory::orderBy('sort_order')
                 ->withCount('products')
-                ->get(['id', 'name', 'slug', 'icon', 'intro', 'image']),
+                ->get(['id', 'name', 'slug', 'icon', 'intro', 'image', 'i18n']),
             'branded' => $content['show_brands'] ? Product::where('has_detail_page', true)
                 ->whereNotNull('image')
                 ->with('category:id,name,slug')
                 ->orderBy('sort_order')
                 ->limit(12)
-                ->get(['id', 'name', 'slug', 'image', 'product_category_id']) : [],
+                ->get(['id', 'name', 'slug', 'image', 'product_category_id', 'i18n']) : [],
         ]);
     }
 
@@ -44,7 +46,7 @@ class ProductController extends Controller
     public function category(ProductCategory $category): Response
     {
         $category->loadCount('products')->load(['products' => fn ($q) => $q
-            ->select('id', 'product_category_id', 'name', 'slug', 'therapeutic_group', 'image', 'has_detail_page')]);
+            ->select('id', 'product_category_id', 'name', 'slug', 'therapeutic_group', 'image', 'has_detail_page', 'i18n')]);
 
         $groups = $category->products->groupBy('therapeutic_group')
             ->map(fn ($items, $group) => ['name' => $group ?: 'Products', 'count' => $items->count()])
@@ -58,14 +60,14 @@ class ProductController extends Controller
             ->schema([
                 '@type' => 'CollectionPage',
                 'name' => $category->name,
-                'url' => url("/product/{$category->slug}"),
+                'url' => SetLocale::absolute("/product/{$category->slug}"),
                 'description' => $category->meta_description ?? $category->intro,
                 'isPartOf' => ['@id' => url('/#website')],
-                'hasPart' => ['@type' => 'ItemList', 'url' => url("/product/{$category->slug}/products"), 'numberOfItems' => $category->products_count],
+                'hasPart' => ['@type' => 'ItemList', 'url' => SetLocale::absolute("/product/{$category->slug}/products"), 'numberOfItems' => $category->products_count],
             ])->breadcrumbs([
-                ['Home', url('/')],
-                ['Products', url('/products')],
-                [$category->name, url("/product/{$category->slug}")],
+                ['Home', SetLocale::absolute('/')],
+                ['Products', SetLocale::absolute('/products')],
+                [$category->name, SetLocale::absolute("/product/{$category->slug}")],
             ])->toArray(),
             'category' => $category->only('name', 'slug', 'intro', 'description', 'content', 'image') + [
                 'products_count' => $category->products_count,
@@ -81,7 +83,7 @@ class ProductController extends Controller
     public function catalogue(ProductCategory $category): Response
     {
         $category->load(['products' => fn ($q) => $q
-            ->select('id', 'product_category_id', 'name', 'slug', 'therapeutic_group', 'strength', 'pack_size', 'specimen', 'image', 'has_detail_page')]);
+            ->select('id', 'product_category_id', 'name', 'slug', 'therapeutic_group', 'strength', 'pack_size', 'specimen', 'image', 'has_detail_page', 'i18n')]);
 
         $products = $category->products->groupBy('therapeutic_group');
 
@@ -91,10 +93,10 @@ class ProductController extends Controller
                 "Complete list of {$category->name} manufactured and exported by Nymak Pharma — {$category->products->count()} products with strengths and pack sizes."
             )->image($this->categoryImage($category))
             ->breadcrumbs([
-                ['Home', url('/')],
-                ['Products', url('/products')],
-                [$category->name, url("/product/{$category->slug}")],
-                ['Product list', url("/product/{$category->slug}/products")],
+                ['Home', SetLocale::absolute('/')],
+                ['Products', SetLocale::absolute('/products')],
+                [$category->name, SetLocale::absolute("/product/{$category->slug}")],
+                ['Product list', SetLocale::absolute("/product/{$category->slug}/products")],
             ])->toArray(),
             'category' => $category->only('name', 'slug', 'intro') + [
                 'url' => "/product/{$category->slug}",
@@ -133,7 +135,7 @@ class ProductController extends Controller
             ->with('category:id,slug')
             ->inRandomOrder()
             ->limit(4)
-            ->get(['id', 'name', 'slug', 'image', 'product_category_id'])
+            ->get(['id', 'name', 'slug', 'image', 'product_category_id', 'i18n'])
             ->map(fn ($p) => [
                 'name' => $p->name,
                 'image' => $p->image,
@@ -154,10 +156,10 @@ class ProductController extends Controller
                 'manufacturer' => ['@id' => url('/#organization')],
                 'category' => $category->name,
             ])->breadcrumbs([
-                ['Home', url('/')],
-                ['Products', url('/products')],
-                [$category->name, url("/product/{$category->slug}")],
-                [$product->name, url("/product/{$category->slug}/{$product->slug}")],
+                ['Home', SetLocale::absolute('/')],
+                ['Products', SetLocale::absolute('/products')],
+                [$category->name, SetLocale::absolute("/product/{$category->slug}")],
+                [$product->name, SetLocale::absolute("/product/{$category->slug}/{$product->slug}")],
             ])->toArray(),
             'product' => [
                 'name' => $product->name,
@@ -176,7 +178,7 @@ class ProductController extends Controller
 
     private function siblings(): Collection
     {
-        return ProductCategory::orderBy('sort_order')->get(['name', 'slug', 'icon']);
+        return ProductCategory::orderBy('sort_order')->get(['name', 'slug', 'icon', 'i18n']);
     }
 
     private function categoryImage(ProductCategory $category): ?string

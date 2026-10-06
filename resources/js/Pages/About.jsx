@@ -1,8 +1,9 @@
-import { Link } from '@inertiajs/react';
+import Link from '../i18n/LocaleLink';
 import { ArrowRight, Award, BadgeCheck, FlaskConical, HeartHandshake, PackageCheck, ShieldCheck } from 'lucide-react';
 import { Reveal } from '../Components/Motion';
 import { ButtonLink, Container, PageHero, SectionHeading } from '../Components/Ui';
 import SiteLayout from '../Layouts/SiteLayout';
+import { useT } from '../i18n/useT';
 
 const ICONS = { Award, BadgeCheck, FlaskConical, HeartHandshake, PackageCheck, ShieldCheck };
 const Icon = ({ name, size = 22 }) => {
@@ -13,6 +14,7 @@ const Icon = ({ name, size = 22 }) => {
 const initials = (name) => name.replace('Mr. ', '').replace('Ms. ', '').split(' ').map((w) => w[0]).slice(0, 2).join('');
 
 export default function About({ seo, leadership, team, certifications, content }) {
+    const { t } = useT();
     return (
         <SiteLayout>
             <PageHero eyebrow={content.hero_eyebrow} breadcrumbs={[['Home', '/'], ['About Us']]}
@@ -239,7 +241,7 @@ export default function About({ seo, leadership, team, certifications, content }
                         ))}
                     </div>
                     <div className="mt-9 text-center">
-                        <ButtonLink href="/quality-certifications">Quality & certifications</ButtonLink>
+                        <ButtonLink href="/quality-certifications">{t('Quality & certifications')}</ButtonLink>
                     </div>
                 </Container>
             </section>

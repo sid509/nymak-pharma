@@ -1,6 +1,7 @@
 import { Link, useForm } from '@inertiajs/react';
 import { Loader2, Save } from 'lucide-react';
 import Field from '../../../Components/Admin/Field';
+import TranslationFields from '../../../Components/Admin/TranslationFields';
 import AdminLayout from '../../../Layouts/AdminLayout';
 
 export default function CategoryForm({ category }) {
@@ -14,6 +15,7 @@ export default function CategoryForm({ category }) {
         meta_title: category.meta_title || '',
         meta_description: category.meta_description || '',
         sort_order: category.sort_order ?? 0,
+        i18n: category.i18n ?? {},
         _method: 'PUT',
     });
 
@@ -43,6 +45,15 @@ export default function CategoryForm({ category }) {
                     <Field field={{ name: 'meta_title', label: 'Meta title', help: `${(form.data.meta_title || '').length}/70` }} value={form.data.meta_title} error={form.errors.meta_title} onChange={set} />
                     <Field field={{ name: 'meta_description', label: 'Meta description', type: 'textarea', rows: 2, help: `${(form.data.meta_description || '').length}/200` }} value={form.data.meta_description} error={form.errors.meta_description} onChange={set} />
                 </section>
+
+                <TranslationFields form={form} fields={[
+                    { name: 'name', label: 'Name' },
+                    { name: 'intro', label: 'Intro', type: 'textarea', rows: 2 },
+                    { name: 'description', label: 'Fallback description (plain text)', type: 'textarea', rows: 4 },
+                    { name: 'content', label: 'Category page content', type: 'richtext' },
+                    { name: 'meta_title', label: 'Meta title' },
+                    { name: 'meta_description', label: 'Meta description', type: 'textarea', rows: 2 },
+                ]} />
 
                 <div className="flex items-center gap-3">
                     <button type="submit" disabled={form.processing}

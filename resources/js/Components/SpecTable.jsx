@@ -1,21 +1,23 @@
-import { Link } from '@inertiajs/react';
+import Link from '../i18n/LocaleLink';
+import { useT } from '../i18n/useT';
 
 /**
  * Responsive product specification table. On small screens it scrolls
  * horizontally inside its own container rather than breaking the page.
  */
 export default function SpecTable({ products, mode = 'strength' }) {
+    const { t } = useT();
     const headers = mode === 'specimen'
         ? ['Product Name', 'Specimen']
         : ['Product Name', 'Strength', 'Pack Size'];
 
     return (
-        <div className="overflow-x-auto rounded-xl border border-ink-100" role="region" aria-label="Product list" tabIndex={0}>
+        <div className="overflow-x-auto rounded-xl border border-ink-100" role="region" aria-label={t('Product list')} tabIndex={0}>
             <table className="spec-table w-full min-w-[520px] text-sm">
                 <thead>
                     <tr>
-                        {headers.map((h) => <th key={h} scope="col">{h}</th>)}
-                        <th scope="col" className="w-24"><span className="sr-only">Details</span></th>
+                        {headers.map((h) => <th key={h} scope="col">{t(h)}</th>)}
+                        <th scope="col" className="w-24"><span className="sr-only">{t('Details')}</span></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -37,7 +39,7 @@ export default function SpecTable({ products, mode = 'strength' }) {
                             <td className="text-right">
                                 {p.url && (
                                     <Link href={p.url} className="text-xs font-semibold text-brand-700 hover:text-brand-800">
-                                        View
+                                        {t('View')}
                                     </Link>
                                 )}
                             </td>

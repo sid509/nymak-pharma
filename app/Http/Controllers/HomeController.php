@@ -28,7 +28,7 @@ class HomeController extends Controller
         )->override('home')->schema([
             '@type' => 'WebPage',
             'name' => 'Nymak Pharma — Pharmaceutical Manufacturer & Exporter',
-            'url' => url('/'),
+            'url' => \App\Http\Middleware\SetLocale::absolute('/'),
             'isPartOf' => ['@id' => url('/#website')],
             'about' => ['@id' => url('/#organization')],
         ]);
@@ -48,13 +48,13 @@ class HomeController extends Controller
             'seo' => $seo->toArray(),
             'categories' => ProductCategory::orderBy('sort_order')
                 ->withCount('products')
-                ->get(['id', 'name', 'slug', 'icon', 'intro'])
+                ->get(['id', 'name', 'slug', 'icon', 'intro', 'i18n'])
                 ->map(function ($cat) {
                     $cat->samples = $cat->products()
                         ->where('has_detail_page', true)
                         ->whereNotNull('image')->where('image', '!=', '')
                         ->orderBy('sort_order')->limit(3)
-                        ->get(['name', 'slug', 'image', 'strength']);
+                        ->get(['name', 'slug', 'image', 'strength', 'i18n']);
                     return $cat;
                 }),
             // Only queried when the admin has switched the brands grid on.
@@ -63,15 +63,15 @@ class HomeController extends Controller
                 ->with('category:id,name,slug')
                 ->inRandomOrder()
                 ->limit(8)
-                ->get(['id', 'name', 'slug', 'image', 'description', 'product_category_id']) : [],
-            'testimonials' => Testimonial::orderBy('sort_order')->get(['name', 'country', 'quote']),
+                ->get(['id', 'name', 'slug', 'image', 'description', 'product_category_id', 'i18n']) : [],
+            'testimonials' => Testimonial::orderBy('sort_order')->get(['name', 'country', 'quote', 'i18n']),
             'certifications' => Certification::orderBy('sort_order')->get(['name', 'issuer', 'image']),
             'posts' => Post::published()->latest('published_at')->limit(3)
-                ->get(['title', 'slug', 'category', 'excerpt', 'published_at']),
+                ->get(['title', 'slug', 'category', 'excerpt', 'published_at', 'i18n']),
             'faqs' => $faqs,
             'stats' => \App\Models\SiteSetting::get('stats'),
             'clients' => ClientLogo::orderBy('sort_order')->get(['name', 'image']),
-            'markets' => Market::orderBy('sort_order')->limit(9)->get(['name', 'slug', 'iso_code', 'region']),
+            'markets' => Market::orderBy('sort_order')->limit(9)->get(['name', 'slug', 'iso_code', 'region', 'i18n']),
             'content' => $content,
         ]);
     }

@@ -2,19 +2,26 @@
 
 namespace App\Models;
 
+use App\Concerns\HasTranslations;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Product extends Model
 {
+    use HasTranslations;
+
     protected $fillable = [
         'product_category_id', 'market_id', 'name', 'slug', 'therapeutic_group',
         'strength', 'pack_size', 'specimen', 'description', 'image',
-        'meta_title', 'meta_description', 'has_detail_page', 'sort_order',
+        'meta_title', 'meta_description', 'has_detail_page', 'sort_order', 'i18n',
     ];
 
-    protected $casts = ['has_detail_page' => 'boolean'];
+    protected $translatable = [
+        'name', 'description', 'therapeutic_group', 'meta_title', 'meta_description',
+    ];
+
+    protected $casts = ['has_detail_page' => 'boolean', 'i18n' => 'array'];
 
     public function getRouteKeyName(): string
     {

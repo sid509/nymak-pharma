@@ -1,10 +1,11 @@
-import { Link } from '@inertiajs/react';
+import Link from '../i18n/LocaleLink';
 import { ArrowRight, Award, BadgeCheck, Building2, Droplets, FileCheck2, FlaskConical, Globe2, MapPin, Microscope, Package, Pill, ShieldCheck, Ship, Sprout, Syringe, Tag } from 'lucide-react';
 import { useState } from 'react';
 import Markdown from '../Components/Markdown';
 import { CountUp, Reveal, useScrollProgress } from '../Components/Motion';
 import { ButtonLink, Container } from '../Components/Ui';
 import SiteLayout from '../Layouts/SiteLayout';
+import { useT } from '../i18n/useT';
 
 /**
  * Inside Nymak — the interactive company story (Experience mode).
@@ -23,6 +24,7 @@ const RINGS = [
 ];
 
 export default function Inside({ seo, content, stats, timeline, portfolio, categories, leadership }) {
+    const { t } = useT();
     const [active, setActive] = useState(0);
     const market = portfolio[active];
     const [railRef, railProgress] = useScrollProgress();
@@ -178,7 +180,7 @@ export default function Inside({ seo, content, stats, timeline, portfolio, categ
             {/* ── Act IV · What we make ────────────────────────── */}
             <section className="py-16 sm:py-24">
                 <Container>
-                    <Reveal><p className="text-xs font-semibold uppercase tracking-[0.04em] text-brand-700">The Portfolio</p></Reveal>
+                    <Reveal><p className="text-xs font-semibold uppercase tracking-[0.04em] text-brand-700">{t('The Portfolio')}</p></Reveal>
                     <div className="mt-8 divide-y divide-ink-100 border-y border-ink-100">
                         {categories.map((c, i) => (
                             <Reveal key={c.slug} delay={i * 50}>
@@ -194,7 +196,7 @@ export default function Inside({ seo, content, stats, timeline, portfolio, categ
                                         </span>
                                     </span>
                                     <span className="flex shrink-0 items-center gap-3">
-                                        <span className="text-xs font-semibold uppercase tracking-[0.04em] text-ink-400">{c.products_count} items</span>
+                                        <span className="text-xs font-semibold uppercase tracking-[0.04em] text-ink-400">{t('{n} items', { n: c.products_count })}</span>
                                         <ArrowRight size={16} className="text-ink-300 transition-transform group-hover:translate-x-1 group-hover:text-brand-700" aria-hidden />
                                     </span>
                                 </Link>
@@ -207,7 +209,7 @@ export default function Inside({ seo, content, stats, timeline, portfolio, categ
             {/* ── Act V · Leadership strip ─────────────────────── */}
             <section className="border-t border-ink-100 py-16 sm:py-20">
                 <Container>
-                    <Reveal><p className="text-xs font-semibold uppercase tracking-[0.04em] text-brand-700">Leadership</p></Reveal>
+                    <Reveal><p className="text-xs font-semibold uppercase tracking-[0.04em] text-brand-700">{t('Leadership')}</p></Reveal>
                     <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
                         {leadership.map((m, i) => (
                             <Reveal key={m.slug || m.name} delay={i * 60}>
@@ -248,7 +250,7 @@ export default function Inside({ seo, content, stats, timeline, portfolio, categ
                         <p className="mt-3 leading-relaxed text-brand-100">{content.cta_body}</p>
                     </Reveal>
                     <Reveal delay={100}>
-                        <ButtonLink href="/contact" variant="light" className="mt-8">Start a conversation <ArrowRight size={16} className="btn-arrow" aria-hidden /></ButtonLink>
+                        <ButtonLink href="/contact" variant="light" className="mt-8">{t('Start a conversation')} <ArrowRight size={16} className="btn-arrow" aria-hidden /></ButtonLink>
                     </Reveal>
                 </Container>
             </section>

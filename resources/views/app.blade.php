@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ app()->getLocale() }}">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,6 +7,8 @@
         @php($seo = $page['props']['seo'] ?? [])
         @php($siteName = \App\Models\SiteSetting::get('short_name'))
         @php($pageTitle = empty($seo['title']) ? $siteName : $seo['title'] . ' | ' . $siteName)
+        @php($locales = $page['props']['locales'] ?? [])
+        @php($ogLocaleMap = ['en' => 'en_US', 'fr' => 'fr_FR', 'es' => 'es_ES'])
 
         <title>{{ $pageTitle }}</title>
         @if (!empty($seo['description']))
@@ -14,6 +16,12 @@
         @endif
         @if (!empty($seo['canonical']))
             <link rel="canonical" href="{{ $seo['canonical'] }}">
+        @endif
+        @foreach ($locales as $altLocale => $altUrl)
+            <link rel="alternate" hreflang="{{ $altLocale }}" href="{{ $altUrl }}">
+        @endforeach
+        @if (!empty($locales['en']))
+            <link rel="alternate" hreflang="x-default" href="{{ $locales['en'] }}">
         @endif
         <meta name="robots" content="{{ $seo['robots'] ?? 'index, follow, max-image-preview:large' }}">
 
@@ -25,6 +33,12 @@
         @endif
         <meta property="og:url" content="{{ $seo['url'] ?? $seo['canonical'] ?? url()->current() }}">
         <meta property="og:site_name" content="{{ $seo['site_name'] ?? $siteName }}">
+        <meta property="og:locale" content="{{ $ogLocaleMap[app()->getLocale()] ?? 'en_US' }}">
+        @foreach ($ogLocaleMap as $code => $ogLoc)
+            @if ($code !== app()->getLocale())
+                <meta property="og:locale:alternate" content="{{ $ogLoc }}">
+            @endif
+        @endforeach
         @if (!empty($seo['image']))
             <meta property="og:image" content="{{ $seo['image'] }}">
         @endif

@@ -41,6 +41,9 @@ class PageContentController extends Controller
             'fields' => PageContent::fieldsFor($page),
             'values' => PageContent::for($page), // resolved: overrides + defaults
             'stored' => PageContent::where('page', $page)->pluck('value', 'key'),
+            // Translations per slot: {key: {fr: {value:…}, es: {value:…}}}
+            'i18nValues' => PageContent::where('page', $page)->get()
+                ->mapWithKeys(fn ($r) => [$r->key => $r->i18n ?? (object) []]),
         ]);
     }
 
@@ -59,6 +62,9 @@ class PageContentController extends Controller
                 default => ['nullable', 'string', 'max:500'],
             };
         }
+        $rules['i18n'] = ['sometimes', 'array'];
+        $rules['i18n.*'] = ['array'];
+        $rules['i18n.*.*'] = ['nullable', 'string', 'max:100000'];
         $data = $request->validate($rules);
 
         foreach (PageContent::SCHEMA[$page] as [$key, , $type]) {
@@ -82,7 +88,15 @@ class PageContentController extends Controller
             if ($value === null || $value === '') {
                 PageContent::where('page', $page)->where('key', $key)->delete();
             } else {
-                PageContent::updateOrCreate(['page' => $page, 'key' => $key], ['value' => $value]);
+                $row = PageContent::updateOrCreate(['page' => $page, 'key' => $key], ['value' => $value]);
+
+                // Translated text slots — same fall-back rules as the base value.
+                if (in_array($type, PageContent::TRANSLATABLE_TYPES, true)) {
+                    foreach (['fr', 'es'] as $locale) {
+                        $row->setTranslations($locale, ['value' => $request->input("i18n.{$key}.{$locale}")]);
+                    }
+                    $row->save();
+                }
             }
         }
 

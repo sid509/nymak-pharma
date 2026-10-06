@@ -2,6 +2,7 @@ import { usePage } from '@inertiajs/react';
 import { CheckCircle2, FileDown } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { WhatsAppIcon } from '../Components/Ui';
+import { useT } from '../i18n/useT';
 import Footer from '../Components/Footer';
 import Header from '../Components/Header';
 
@@ -30,6 +31,7 @@ function FlashToast() {
 
 export default function SiteLayout({ children }) {
     const site = usePage().props.site || {};
+    const { t } = useT();
     const url = usePage().url;
 
     // Tawk.to live chat — official embed, loaded on every page when the
@@ -54,7 +56,7 @@ export default function SiteLayout({ children }) {
         <div className="flex min-h-screen flex-col">
             <a href="#main-content"
                className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[60] focus:rounded-lg focus:bg-brand-700 focus:px-4 focus:py-2 focus:text-sm focus:font-bold focus:text-white">
-                Skip to main content
+                {t('Skip to main content')}
             </a>
             <Header />
             {/* key remounts per Inertia page → page-enter replays on each navigation */}
@@ -64,7 +66,7 @@ export default function SiteLayout({ children }) {
             {/* Brochure FAB — expands to reveal its label on hover; PDF badge cues the file type */}
             {site.brochure && (
                 <a href={`/${site.brochure}`} target="_blank" rel="noopener noreferrer"
-                   aria-label="Download Nymak Pharma product brochure (PDF)"
+                   aria-label={t('Download Nymak Pharma product brochure (PDF)')}
                    onClick={() => window.nymakTrack && window.nymakTrack('brochure_download', { placement: 'fab' })}
                    className="fab-brochure group fixed bottom-[77px] left-5 z-40 flex h-12 items-center rounded-full bg-brand-600 text-white shadow-card transition-[transform,box-shadow] duration-200 hover:-translate-y-0.5 hover:bg-brand-700 hover:shadow-card-hover">
                     <span className="relative grid h-12 w-12 shrink-0 place-items-center">
@@ -72,14 +74,14 @@ export default function SiteLayout({ children }) {
                         <span className="absolute -right-1 -top-1 rounded-full bg-red-600 px-1 py-px text-[7px] font-extrabold uppercase leading-none tracking-wide text-white ring-2 ring-white/90 transition-transform duration-200 group-hover:scale-110" aria-hidden>PDF</span>
                     </span>
                     <span className="max-w-0 overflow-hidden whitespace-nowrap text-sm font-semibold opacity-0 transition-[max-width,opacity,padding] duration-300 ease-out group-hover:max-w-32 group-hover:pr-4 group-hover:opacity-100">
-                        Brochure <span className="text-white/70">· PDF</span>
+                        {t('Brochure')} <span className="text-white/70">· PDF</span>
                     </span>
                 </a>
             )}
 
             {/* WhatsApp — B2B quick contact (tracked, requirement #2) */}
             <a href={`https://wa.me/${site.whatsapp}`} target="_blank" rel="noopener noreferrer"
-               aria-label="Chat with Nymak Pharma on WhatsApp"
+               aria-label={t('Chat with Nymak Pharma on WhatsApp')}
                onClick={() => window.nymakTrack && window.nymakTrack('contact_click', { method: 'whatsapp' })}
                className="fixed bottom-5 left-5 z-40 flex h-12 w-12 items-center justify-center rounded-full bg-[#25D366] text-white shadow-card transition-transform hover:scale-105">
                 <WhatsAppIcon size={24} />

@@ -1,11 +1,13 @@
-import { Link } from '@inertiajs/react';
+import Link from '../../i18n/LocaleLink';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { Reveal } from '../../Components/Motion';
 import MemberPortrait, { portraitTone } from '../../Components/MemberPortrait';
 import { ButtonLink, Container, Eyebrow } from '../../Components/Ui';
 import SiteLayout from '../../Layouts/SiteLayout';
+import { useT } from '../../i18n/useT';
 
 export default function TeamShow({ seo, member, others }) {
+    const { t } = useT();
     return (
         <SiteLayout>
             <section className="border-b border-ink-100 bg-gradient-to-b from-brand-50/60 to-white py-14 sm:py-20">
@@ -26,8 +28,8 @@ export default function TeamShow({ seo, member, others }) {
                                 {member.bio.split(/\n{2,}/).map((p, i) => <p key={i}>{p}</p>)}
                             </div>
                             <div className="mt-8 flex flex-wrap gap-3">
-                                <ButtonLink href="/contact">Work with us <ArrowRight size={15} className="btn-arrow" aria-hidden /></ButtonLink>
-                                <ButtonLink href="/about" variant="outline">About the company</ButtonLink>
+                                <ButtonLink href="/contact">{t('Work with us')} <ArrowRight size={15} className="btn-arrow" aria-hidden /></ButtonLink>
+                                <ButtonLink href="/about" variant="outline">{t('About the company')}</ButtonLink>
                             </div>
                         </Reveal>
                     </div>
@@ -37,7 +39,7 @@ export default function TeamShow({ seo, member, others }) {
             {others.length > 0 && (
                 <section className="py-14 sm:py-16">
                     <Container>
-                        <h2 className="t-h3 text-ink-900">More of the team</h2>
+                        <h2 className="t-h3 text-ink-900">{t('More of the team')}</h2>
                         <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
                             {others.map((m, i) => (
                                 <Reveal key={m.slug} delay={i * 50}>

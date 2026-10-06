@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Concerns\HasTranslations;
 use App\Support\Html;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
@@ -9,10 +10,18 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class ProductCategory extends Model
 {
+    use HasTranslations;
+
     protected $fillable = [
         'name', 'slug', 'icon', 'intro', 'description', 'content', 'image',
-        'meta_title', 'meta_description', 'sort_order',
+        'meta_title', 'meta_description', 'sort_order', 'i18n',
     ];
+
+    protected $translatable = [
+        'name', 'intro', 'description', 'content', 'meta_title', 'meta_description',
+    ];
+
+    protected $casts = ['i18n' => 'array'];
 
     public function getRouteKeyName(): string
     {

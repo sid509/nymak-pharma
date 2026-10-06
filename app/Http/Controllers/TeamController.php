@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Middleware\SetLocale;
+
 use App\Models\PageContent;
 use App\Models\TeamMember;
 use App\Support\Seo;
@@ -29,8 +31,8 @@ class TeamController extends Controller
                 'Our Team — Leadership & Experts | Nymak Pharma',
                 'Meet the leadership and specialists behind Nymak Pharma — exports, regulatory affairs, quality control, logistics and design.'
             )->override('team.index')->breadcrumbs([
-                ['Home', url('/')],
-                ['Team', url('/team')],
+                ['Home', SetLocale::absolute('/')],
+                ['Team', SetLocale::absolute('/team')],
             ])->toArray(),
             'leadership' => $members->where('is_leadership', true)->values(),
             'members' => $members->where('is_leadership', false)->values(),
@@ -55,9 +57,9 @@ class TeamController extends Controller
                 'image' => $member->photo ? url($member->photo) : null,
                 'worksFor' => ['@id' => url('/#organization')],
             ])->breadcrumbs([
-                ['Home', url('/')],
-                ['Team', url('/team')],
-                [$member->name, url("/team/{$member->slug}")],
+                ['Home', SetLocale::absolute('/')],
+                ['Team', SetLocale::absolute('/team')],
+                [$member->name, SetLocale::absolute("/team/{$member->slug}")],
             ])->toArray(),
             'member' => [
                 'name' => $member->name,
@@ -68,7 +70,7 @@ class TeamController extends Controller
             ],
             'others' => TeamMember::whereKeyNot($member->id)->whereNotNull('bio')
                 ->orderBy('sort_order')->take(4)
-                ->get(['name', 'slug', 'role', 'photo'])
+                ->get(['name', 'slug', 'role', 'photo', 'i18n'])
                 ->map(fn ($m) => [
                     'name' => $m->name, 'slug' => $m->slug,
                     'role' => $m->role, 'photo' => $m->photo,

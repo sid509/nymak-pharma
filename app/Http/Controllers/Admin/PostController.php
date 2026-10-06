@@ -35,12 +35,16 @@ class PostController extends Controller
 
     public function store(PostRequest $request): RedirectResponse
     {
-        $data = $request->safe()->except('cover_image');
+        $data = $request->safe()->except(['cover_image', 'i18n']);
         if ($file = $request->file('cover_image')) {
             $data['cover_image'] = ImageUpload::store($file, 'covers', $data['slug']);
         }
 
-        Post::create($data);
+        $record = Post::create($data);
+        foreach (['fr', 'es'] as $locale) {
+            $record->setTranslations($locale, (array) $request->input("i18n.{$locale}", []));
+        }
+        $record->save();
 
         return redirect()->route('admin.posts.index')->with('success', 'Article created.');
     }
@@ -49,19 +53,25 @@ class PostController extends Controller
     {
         return Inertia::render('Admin/Posts/Form', [
             'post' => $post->only('id', 'title', 'slug', 'category', 'excerpt', 'body',
-                'cover_image', 'meta_title', 'meta_description', 'published_at'),
+                'cover_image', 'meta_title', 'meta_description', 'published_at', 'i18n'),
         ]);
     }
 
     public function update(PostRequest $request, Post $post): RedirectResponse
     {
-        $data = $request->safe()->except('cover_image');
+        $data = $request->safe()->except(['cover_image', 'i18n']);
         if ($file = $request->file('cover_image')) {
             ImageUpload::delete($post->cover_image);
             $data['cover_image'] = ImageUpload::store($file, 'covers', $data['slug']);
         }
 
         $post->update($data);
+
+        $record = $post;
+        foreach (['fr', 'es'] as $locale) {
+            $record->setTranslations($locale, (array) $request->input("i18n.{$locale}", []));
+        }
+        $record->save();
 
         return redirect()->route('admin.posts.index')->with('success', 'Article updated.');
     }

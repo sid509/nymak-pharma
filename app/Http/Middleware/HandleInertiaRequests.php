@@ -48,14 +48,26 @@ class HandleInertiaRequests extends Middleware
             'nav' => fn () => [
                 'categories' => \App\Models\ProductCategory::orderBy('sort_order')
                     ->withCount('products')
-                    ->get(['id', 'name', 'slug', 'icon'])
+                    ->get(['id', 'name', 'slug', 'icon', 'i18n'])
                     ->map(fn ($c) => [
-                        'name' => $c->name,
-                        'href' => "/product/{$c->slug}",
+                        'name' => $c->trans('name'),
+                        'href' => \App\Http\Middleware\SetLocale::url("product/{$c->slug}", app()->getLocale()),
                         'icon' => $c->icon,
                         'count' => $c->products_count,
                     ]),
             ],
+            // Public-site locale (en/fr/es) — URL prefix via SetLocale.
+            'locale' => fn () => app()->getLocale(),
+            'i18n' => fn () => \App\Support\I18n::dict(app()->getLocale()),
+            // Alternate URLs of this page in every locale (switcher + hreflang).
+            'locales' => function () use ($request) {
+                $path = preg_replace('#^(fr|es)(?=/|$)#', '', trim($request->path(), '/')) ?? '';
+                $qs = $request->getQueryString();
+
+                return collect(\App\Http\Middleware\SetLocale::LOCALES)
+                    ->mapWithKeys(fn ($l) => [$l => \App\Http\Middleware\SetLocale::url($path, $l).($qs ? "?{$qs}" : '')])
+                    ->all();
+            },
             'flash' => fn () => [
                 'success' => $request->session()->get('success'),
                 'error' => $request->session()->get('error'),

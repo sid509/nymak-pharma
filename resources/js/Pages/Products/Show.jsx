@@ -1,8 +1,9 @@
-import { Link } from '@inertiajs/react';
+import Link from '../../i18n/LocaleLink';
 import { ArrowRight, Globe2, MapPin } from 'lucide-react';
 import { ProductCard } from '../../Components/Cards';
 import { Breadcrumbs, ButtonLink, Container, Eyebrow } from '../../Components/Ui';
 import SiteLayout from '../../Layouts/SiteLayout';
+import { useT } from '../../i18n/useT';
 import { fill } from './Category';
 
 /**
@@ -11,6 +12,7 @@ import { fill } from './Category';
  * pre-selects this product).
  */
 export default function ProductsShow({ seo, product, category, related = [], content: c }) {
+    const { t } = useT();
     const vars = { category: category.name, product: product.name };
 
     return (
@@ -42,14 +44,14 @@ export default function ProductsShow({ seo, product, category, related = [], con
 
                             <dl className="mt-6 divide-y divide-ink-100 rounded-2xl border border-ink-100 bg-white">
                                 {product.strength && (
-                                    <div className="flex gap-4 px-5 py-3.5 text-sm"><dt className="w-28 shrink-0 text-xs font-semibold uppercase tracking-[0.04em] text-ink-500">Strength</dt><dd className="font-medium tabular-nums text-ink-900">{product.strength}</dd></div>
+                                    <div className="flex gap-4 px-5 py-3.5 text-sm"><dt className="w-28 shrink-0 text-xs font-semibold uppercase tracking-[0.04em] text-ink-500">{t('Strength')}</dt><dd className="font-medium tabular-nums text-ink-900">{product.strength}</dd></div>
                                 )}
                                 {product.pack_size && (
-                                    <div className="flex gap-4 px-5 py-3.5 text-sm"><dt className="w-28 shrink-0 text-xs font-semibold uppercase tracking-[0.04em] text-ink-500">Pack Size</dt><dd className="font-medium tabular-nums text-ink-900">{product.pack_size}</dd></div>
+                                    <div className="flex gap-4 px-5 py-3.5 text-sm"><dt className="w-28 shrink-0 text-xs font-semibold uppercase tracking-[0.04em] text-ink-500">{t('Pack Size')}</dt><dd className="font-medium tabular-nums text-ink-900">{product.pack_size}</dd></div>
                                 )}
                                 {c.show_market && product.market && (
                                     <div className="flex gap-4 px-5 py-3.5 text-sm">
-                                        <dt className="w-28 shrink-0 text-xs font-semibold uppercase tracking-[0.04em] text-ink-500">Marketed in</dt>
+                                        <dt className="w-28 shrink-0 text-xs font-semibold uppercase tracking-[0.04em] text-ink-500">{t('Marketed in')}</dt>
                                         <dd>
                                             <Link href={`/global-presence#${product.market.slug}`} className="inline-flex items-center gap-1 font-semibold text-brand-700 underline-offset-2 hover:underline">
                                                 <MapPin size={13} aria-hidden /> {product.market.name}

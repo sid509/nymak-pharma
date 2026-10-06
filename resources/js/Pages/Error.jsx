@@ -1,6 +1,7 @@
 import { ArrowLeft } from 'lucide-react';
 import { ButtonLink, Container } from '../Components/Ui';
 import SiteLayout from '../Layouts/SiteLayout';
+import { useT } from '../i18n/useT';
 
 const copy = {
     401: {
@@ -52,28 +53,29 @@ const copy = {
 };
 
 export default function Error({ status, seo }) {
+    const { t } = useT();
     const { title, text, catalogue, actions } = copy[status] || copy[500];
 
     return (
         <SiteLayout seo={seo || { title, robots: 'noindex' }}>
             <section className="flex min-h-[60vh] items-center">
                 <Container className="py-20 text-center">
-                    <p className="text-xs font-bold uppercase tracking-widest text-ink-400">Error {status}</p>
+                    <p className="text-xs font-bold uppercase tracking-widest text-ink-400">{t('Error')} {status}</p>
                     <p className="mt-3 text-7xl font-extrabold tracking-tight text-gradient sm:text-8xl">{status}</p>
-                    <h1 className="mt-4 t-page text-ink-900">{title}</h1>
-                    <p className="mx-auto mt-3 max-w-md text-ink-600">{text}</p>
+                    <h1 className="mt-4 t-page text-ink-900">{t(title)}</h1>
+                    <p className="mx-auto mt-3 max-w-md text-ink-600">{t(text)}</p>
                     <div className="mt-8 flex flex-wrap justify-center gap-3">
                         {actions ? (
-                            actions.map((a) => <ButtonLink key={a.href} href={a.href}>{a.label}</ButtonLink>)
+                            actions.map((a) => <ButtonLink key={a.href} href={a.href}>{t(a.label)}</ButtonLink>)
                         ) : (
-                            <ButtonLink href="/">Back to home</ButtonLink>
+                            <ButtonLink href="/">{t('Back to home')}</ButtonLink>
                         )}
-                        {catalogue && <ButtonLink href="/products" variant="outline">Product catalogue</ButtonLink>}
-                        <ButtonLink href="/contact" variant={actions || catalogue ? 'ghost' : 'outline'}>Contact us</ButtonLink>
+                        {catalogue && <ButtonLink href="/products" variant="outline">{t('Product catalogue')}</ButtonLink>}
+                        <ButtonLink href="/contact" variant={actions || catalogue ? 'ghost' : 'outline'}>{t('Contact us')}</ButtonLink>
                     </div>
                     <button type="button" onClick={() => window.history.back()}
                             className="mx-auto mt-6 inline-flex items-center gap-1.5 text-xs font-semibold text-ink-400 transition-colors hover:text-ink-700">
-                        <ArrowLeft size={13} aria-hidden /> Go back to the previous page
+                        <ArrowLeft size={13} aria-hidden /> {t('Go back to the previous page')}
                     </button>
                 </Container>
             </section>

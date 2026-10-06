@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Middleware\SetLocale;
+
 use App\Http\Requests\EnquiryRequest;
 use App\Models\Enquiry;
 use App\Models\Product;
@@ -30,14 +32,14 @@ class ContactController extends Controller
                 'Contact Us — Pharmaceutical Export Enquiries',
                 'Contact Nymak Pharma for pharmaceutical exports, product enquiries, distribution and partnership — offices in India, UK, Sierra Leone & Liberia.'
             )->override('contact')->breadcrumbs([
-                ['Home', url('/')],
-                ['Contact Us', url('/contact')],
+                ['Home', SetLocale::absolute('/')],
+                ['Contact Us', SetLocale::absolute('/contact')],
             ])->toArray(),
             'offices' => \App\Models\SiteSetting::get('offices', []),
             'content' => \App\Models\PageContent::for('contact'),
             'products' => Product::where('has_detail_page', true)
                 ->orderBy('name')
-                ->get(['id', 'name'])
+                ->get(['id', 'name', 'i18n'])
                 ->map(fn ($p) => ['id' => $p->id, 'name' => $p->name]),
             'selectedProduct' => $selected,
             'formStartedAt' => now()->timestamp,
@@ -57,7 +59,7 @@ class ContactController extends Controller
             ]);
 
             return redirect()->route('contact')->with('success',
-                'Thank you — your enquiry has been received. Our team will respond shortly.');
+                __('Thank you — your enquiry has been received. Our team will respond shortly.'));
         }
 
         $enquiry = Enquiry::create([
@@ -69,6 +71,6 @@ class ContactController extends Controller
             ->notify(new EnquiryReceived($enquiry));
 
         return redirect()->route('contact')->with('success',
-            'Thank you — your enquiry has been received. Our exports team will get back to you shortly.');
+            __('Thank you — your enquiry has been received. Our exports team will get back to you shortly.'));
     }
 }
