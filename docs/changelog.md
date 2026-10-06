@@ -49,6 +49,15 @@ English-only.
   contact submission, admin FR-name round-trip, sitemap).
   Three real bugs found and fixed en route — see UAT-07/08/09.
 
+- **Flag switcher (iteration 2)** — hand-authored flat `gb`/`fr`/`es`
+  SVGs matching the existing market-flag set (the switcher previously
+  fell back to a globe for every locale). The button now shows the
+  current locale's flag + code and lives in the **main nav** next to
+  Contact — the old topbar placement was clipped by the bar's
+  `overflow:hidden` collapse animation and vanished on scroll. The
+  mobile drawer gets an inline EN/FR/ES flag row (`menu` variant).
+  Also fixed: mobile nav + company dropdown labels bypassed `t()`.
+
 
 ## Branded error pages — all common HTTP statuses
 

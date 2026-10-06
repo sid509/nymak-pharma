@@ -64,6 +64,23 @@ disappears from the map. `HEADED=1` to watch it.
 NYMAK_ADMIN_PASSWORD=… node tests/Browser/product-hierarchy.mjs   # app on :8000
 ```
 
+`tests/Browser/locale.mjs` covers the multilingual public site:
+
+```sh
+NYMAK_ADMIN_PASSWORD=… node tests/Browser/locale.mjs   # app on :8000
+```
+
+Per-locale chrome (nav/footer/`<html lang>`), hreflang + `x-default`
+alternates, nav links staying inside the locale, the flag switcher preserving
+the current path, a French contact submission landing on `/fr/contact`, an
+admin French product name round-trip (saved → live on `/fr` → cleared), and
+the trilingual sitemap.
+
+> Rate limits are real product behaviour: contact is throttled 5/min and
+> admin login 6/min, so rapid back-to-back UAT runs trip the limiter
+> (`no success flash`, login timeouts). `php artisan cache:clear` resets
+> the counters between re-runs.
+
 Admin → edits a category (WYSIWYG + intro; verified live and restored) →
 toggles the home testimonials section off/on in Page content (verified live
 each way). Visitor → home shows category cards and no product grid/quote

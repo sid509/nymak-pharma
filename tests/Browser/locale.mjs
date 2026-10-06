@@ -3,6 +3,10 @@
  *
  *   NYMAK_ADMIN_PASSWORD=… node tests/Browser/locale.mjs
  *
+ * NOTE: contact is throttled 5/min and admin login 6/min — back-to-back
+ * runs trip the limiter and fail with "no success flash" / login timeouts.
+ * Run `php artisan cache:clear` between rapid re-runs.
+ *
  * Requires the app on BASE_URL (default http://localhost:8000). Drives real
  * Chrome like a visitor + operator:
  * 1. Locale chrome — /fr and /es pages render translated UI, html lang,
@@ -88,11 +92,12 @@ await step('nav links stay inside the current locale', async () => {
 await step('language switcher preserves the current path', async () => {
     await page.goto(`${BASE}/fr/about`);
     // The switcher is a dropdown — open it, then pick the locale link.
-    await page.locator('header').getByRole('button', { name: /choose language/i }).first().click();
+    // aria-label is translated, so the hook is the data attribute.
+    await page.locator('header [data-locale-switcher]').first().click();
     await page.getByRole('link', { name: 'Español' }).first().click();
     await page.waitForURL(/\/es\/about/);
     expect(await page.locator('html').getAttribute('lang') === 'es', 'did not land on es');
-    await page.locator('header').getByRole('button', { name: /choose language/i }).first().click();
+    await page.locator('header [data-locale-switcher]').first().click();
     await page.getByRole('link', { name: 'English' }).first().click();
     await page.waitForURL(/\/about$/);
     expect(await page.locator('html').getAttribute('lang') === 'en', 'did not land back on en');

@@ -77,7 +77,6 @@ export default function Header() {
                             <span className="mx-2 text-white/25">·</span>{t('Exporting to 24+ Countries')}
                         </p>
                         <div className="flex items-center gap-4">
-                            <LanguageSwitcher />
                             <a href={`tel:${site.phone_href}`} onClick={() => track('phone')}
                                className="inline-flex items-center gap-1.5 transition-colors hover:text-white">
                                 <Phone size={12} aria-hidden /> <span className="hidden sm:inline">{site.phone}</span><span className="sm:hidden">{t('Call')}</span>
@@ -175,11 +174,13 @@ export default function Header() {
                                           className={`block rounded-xl px-3.5 py-2.5 t-nav transition-colors ${
                                               isActive(c.href) ? 'bg-brand-50 text-brand-800' : 'text-ink-700 hover:bg-ink-50 hover:text-ink-950'
                                           }`}>
-                                        {c.name}
+                                        {t(c.name)}
                                     </Link>
                                 ))}
                             </div>
                         </div>
+
+                        <LanguageSwitcher dark={false} className="ml-3" />
 
                         <Link href="/contact"
                               className="t-button btn-cta ml-3 rounded-full bg-brand-600 px-5 py-2.5 text-white transition-colors hover:bg-brand-700">
@@ -220,7 +221,7 @@ export default function Header() {
                                 ) : (
                                     <Link key={link.name} href={link.href}
                                           className={`t-nav block rounded-lg px-3 py-2.5 ${isActive(link.href) ? 'bg-brand-50 text-brand-800' : 'text-ink-800'}`}>
-                                        {link.name}
+                                        {t(link.name)}
                                     </Link>
                                 )
                             )}
@@ -241,6 +242,8 @@ export default function Header() {
                                   className="t-button mt-2 block rounded-full bg-brand-600 px-3 py-2.5 text-center text-white">
                                 {t('Contact Us')}
                             </Link>
+
+                            <LanguageSwitcher menu className="mt-3" />
                         </div>
                     </nav>
                 )}
