@@ -31,7 +31,7 @@
 - [Quality & Certifications]({{ url('/quality-certifications') }}): WHO-GMP, ISO 13485, Star Export House
 - [Products]({{ url('/products') }}): full product portfolio by segment
 @foreach($categories as $cat)
-- [{{ $cat->name }}]({{ url('/products/'.$cat->slug) }}): product catalogue
+- [{{ $cat->name }}]({{ url('/product/'.$cat->slug) }}): category overview — [full product list]({{ url('/product/'.$cat->slug.'/products') }})
 @endforeach
 - [Global Presence]({{ url('/global-presence') }}): export markets and international offices
 - [Blog]({{ url('/blog') }}): company and product insights

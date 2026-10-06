@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\PageContent;
+use App\Support\Html;
 use App\Support\ImageUpload;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -12,7 +13,7 @@ use Inertia\Response;
 
 /**
  * Editable content slots for public pages. Each page declares its slots in
- * PageContent::SCHEMA (text/textarea/image/json); stored rows override the
+ * PageContent::SCHEMA (text/textarea/richtext/image/json/toggle); stored rows override the
  * defaults. PageContent::for() is what public controllers consume.
  */
 class PageContentController extends Controller
@@ -53,6 +54,8 @@ class PageContentController extends Controller
                 'image' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:2048'],
                 'json' => ['nullable', 'json', 'max:20000'],
                 'textarea' => ['nullable', 'string', 'max:5000'],
+                'richtext' => ['nullable', 'string', 'max:100000'],
+                'toggle' => ['nullable', 'in:0,1,true,false'],
                 default => ['nullable', 'string', 'max:500'],
             };
         }
@@ -70,6 +73,12 @@ class PageContentController extends Controller
             }
 
             $value = $data[$key] ?? null;
+            if ($type === 'toggle') {
+                // Always persisted — '0' is a real choice, not "use default".
+                $value = in_array($value, ['1', 'true', true, 1], true) ? '1' : '0';
+            } elseif ($type === 'richtext') {
+                $value = Html::sanitize($value);
+            }
             if ($value === null || $value === '') {
                 PageContent::where('page', $page)->where('key', $key)->delete();
             } else {

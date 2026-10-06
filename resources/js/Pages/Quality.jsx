@@ -31,8 +31,8 @@ export default function Quality({ seo, certifications, faqs, content }) {
                                         <ShieldCheck size={36} className="text-brand-600" aria-hidden />
                                     )}
                                 </div>
-                                <h3 className="mt-4 text-base font-bold text-ink-900">{c.name}</h3>
-                                {c.issuer && <p className="text-xs font-semibold uppercase tracking-wider text-brand-700">{c.issuer}</p>}
+                                <h3 className="mt-4 t-h4 text-ink-900">{c.name}</h3>
+                                {c.issuer && <p className="text-xs font-semibold uppercase tracking-[0.04em] text-brand-700">{c.issuer}</p>}
                                 {c.description && <p className="mt-2 flex-1 text-sm leading-relaxed text-ink-600">{c.description}</p>}
                             </article>
                         ))}
@@ -58,19 +58,23 @@ export default function Quality({ seo, certifications, faqs, content }) {
 
             {/* Quality system */}
             <section className="bg-ink-50 py-16 sm:py-20">
-                <Container className="grid gap-10 lg:grid-cols-2">
-                    <div className="prose-nymak">
-                        <h2>{content.system_title}</h2>
-                        <p>{content.system_p1}</p>
-                        <p>{content.system_p2}</p>
-                        <p>{content.system_p3}</p>
+                <Container>
+                    <h2 className="mx-auto mb-10 max-w-2xl text-center t-h2 text-balance text-ink-900">{content.system_title}</h2>
+                    <div className="grid gap-10 lg:grid-cols-2">
+                    <div>
+                        <div className="prose-nymak">
+                            <p>{content.system_p1}</p>
+                            <p>{content.system_p2}</p>
+                            <p>{content.system_p3}</p>
+                        </div>
                     </div>
                     {faqs?.length > 0 && (
                         <div>
-                            <h3 className="mb-5 text-xl font-extrabold text-ink-900">{content.faq_title}</h3>
+                            <h3 className="mb-5 t-h3 text-ink-900">{content.faq_title}</h3>
                             <Accordion items={faqs} />
                         </div>
                     )}
+                    </div>
                 </Container>
             </section>
         </SiteLayout>

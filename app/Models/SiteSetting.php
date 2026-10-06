@@ -20,6 +20,7 @@ class SiteSetting extends Model
         'phone' => ['Phone (display)', 'text', 'e.g. +91 98252 25567'],
         'phone_href' => ['Phone (tel: link)', 'text', 'Digits only, e.g. +919825225567'],
         'whatsapp' => ['WhatsApp number', 'text', 'International format, no symbols — e.g. 919825225567'],
+        'tawk_property' => ['Tawk.to property/widget ID', 'text', 'From Tawk.to → Administration → Channels → Chat Widget, e.g. 6652e0f1a1b2c3/1iu4xyzab. Enables the live-chat launcher (bottom right); blank falls back to WhatsApp.'],
         'email' => ['Public email', 'email', null],
         'founded' => ['Founded year', 'text', null],
         'founder' => ['Founder name', 'text', null],

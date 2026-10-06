@@ -32,7 +32,7 @@ export default function BlogIndex({ seo, posts, content }) {
                                     l.label.includes('Next') ? <ChevronRight size={16} /> : l.label;
                                 return l.url ? (
                                     <Link key={i} href={l.url} aria-current={l.active ? 'page' : undefined}
-                                          className={`flex h-10 min-w-10 items-center justify-center rounded-lg px-3 text-sm font-bold ${
+                                          className={`flex h-10 min-w-10 items-center justify-center rounded-lg px-3 text-sm font-semibold ${
                                               l.active ? 'bg-brand-700 text-white' : 'border border-ink-200 text-ink-700 hover:border-brand-400'
                                           }`}>
                                         {label}

@@ -31,12 +31,14 @@ export function useInView({ threshold = 0.15, once = true } = {}) {
     return [ref, inView];
 }
 
-/** Scroll-reveal wrapper: children rise/settle into place on first view. */
-export function Reveal({ children, className = '', delay = 0, as: Tag = 'div' }) {
+/** Scroll-reveal wrapper: children rise/settle into place on first view.
+    variant="media" swaps the rise for a clip wipe — for big imagery. */
+export function Reveal({ children, className = '', delay = 0, as: Tag = 'div', variant }) {
     const [ref, inView] = useInView();
+    const kind = variant === 'media' ? 'reveal-media' : 'reveal';
     return (
         <Tag ref={ref}
-             className={`reveal ${inView ? 'is-visible' : ''} ${className}`}
+             className={`${kind} ${inView ? 'is-visible' : ''} ${className}`}
              style={delay ? { transitionDelay: `${delay}ms` } : undefined}>
             {children}
         </Tag>

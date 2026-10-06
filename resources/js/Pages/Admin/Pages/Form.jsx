@@ -6,13 +6,15 @@ import AdminLayout from '../../../Layouts/AdminLayout';
 /**
  * Page content editor — renders the page's slot schema. Image slots upload
  * files (stored path overrides the default); text slots save verbatim;
- * clearing a text field restores its default.
+ * clearing a text field restores its default. Toggles show/hide sections;
+ * richtext slots use the WYSIWYG editor.
  */
 export default function PageForm({ page, fields, values, stored }) {
     const initial = Object.fromEntries(fields.map((f) => [
         f.name,
         f.type === 'image' ? null
             : f.type === 'json' ? JSON.stringify(values[f.name] ?? [], null, 2)
+            : f.type === 'toggle' ? !!values[f.name]
             : values[f.name] ?? '',
     ]));
     const form = useForm({ ...initial, _method: 'PUT' });
@@ -27,14 +29,15 @@ export default function PageForm({ page, fields, values, stored }) {
             <form onSubmit={submit} className="max-w-3xl space-y-5 rounded-2xl border border-ink-200 bg-white p-6 sm:p-8">
                 <p className="text-xs text-ink-400">
                     Changes publish immediately to the live page. Clear a text field to restore its default.
+                    Where you see <code className="rounded bg-ink-50 px-1">{'{category}'}</code> or <code className="rounded bg-ink-50 px-1">{'{count}'}</code>, the live page fills in the real value.
                 </p>
                 {fields.map((f) => (
                     <Field key={f.name}
                            field={{ ...f,
-                               type: f.type === 'json' ? 'textarea' : f.type,
+                               type: f.type === 'json' ? 'textarea' : f.type === 'toggle' ? 'checkbox' : f.type,
                                rows: f.type === 'json' ? 10 : f.rows,
                                preview: f.type === 'image' ? values[f.name] : null,
-                               help: f.help || (stored[f.name] == null ? 'Default value shown.' : 'Custom value saved.') }}
+                               help: f.help || (f.type === 'toggle' ? 'Untick to hide this on the live page.' : stored[f.name] == null ? 'Default value shown.' : 'Custom value saved.') }}
                            value={form.data[f.name]}
                            error={form.errors[f.name]}
                            onChange={(k, v) => form.setData(k, v)} />

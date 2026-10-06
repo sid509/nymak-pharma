@@ -5,7 +5,7 @@ import SpecTable from '../../resources/js/Components/SpecTable';
 describe('SpecTable', () => {
     const products = [
         { name: 'Ciprofloxacin IV', strength: '200 mg/100 ml', pack_size: '100 ml', url: null },
-        { name: 'Alumak Tablets', strength: '20+120 mg', pack_size: '6 Tabs', url: '/products/finished-formulations/alumak' },
+        { name: 'Alumak Tablets', strength: '20+120 mg', pack_size: '6 Tabs', url: '/product/finished-formulations/alumak' },
     ];
 
     it('renders strength/pack columns by default', () => {
@@ -26,7 +26,7 @@ describe('SpecTable', () => {
     it('links only rows that have a detail page', () => {
         render(<SpecTable products={products} />);
         const linked = screen.getByRole('link', { name: 'Alumak Tablets' });
-        expect(linked).toHaveAttribute('href', '/products/finished-formulations/alumak');
+        expect(linked).toHaveAttribute('href', '/product/finished-formulations/alumak');
         // Unlinked product renders as plain text, not an anchor.
         expect(screen.getByText('Ciprofloxacin IV').closest('a')).toBeNull();
     });

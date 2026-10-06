@@ -8,11 +8,23 @@ Route::get('/about', Controllers\AboutController::class)->name('about');
 Route::get('/manufacturing', Controllers\ManufacturingController::class)->name('manufacturing');
 Route::get('/quality-certifications', Controllers\QualityController::class)->name('quality');
 
+// Catalogue hierarchy: overview → category landing page → full product
+// list → product detail. Category URLs match the live site (/product/{slug})
+// so existing rankings carry over without redirects.
 Route::get('/products', [Controllers\ProductController::class, 'index'])->name('products.index');
-Route::get('/products/{category}', [Controllers\ProductController::class, 'category'])->name('products.category');
-Route::get('/products/{category}/{product}', [Controllers\ProductController::class, 'show'])
+Route::get('/product/{category}', [Controllers\ProductController::class, 'category'])->name('products.category');
+Route::get('/product/{category}/products', [Controllers\ProductController::class, 'catalogue'])->name('products.catalogue');
+Route::get('/product/{category}/{product}', [Controllers\ProductController::class, 'show'])
     ->scopeBindings()
     ->name('products.show');
+
+// 301s — old-site URLs (docs/seo-page-map.md) and the interim /products/{category} paths.
+Route::permanentRedirect('/about-us', '/about');
+Route::permanentRedirect('/contact-us', '/contact');
+Route::permanentRedirect('/iv-fluid', '/product/iv-fluids');
+Route::get('/products/{category}/{product?}', fn (string $category, ?string $product = null) => redirect(
+    $product ? "/product/{$category}/{$product}" : "/product/{$category}", 301
+));
 
 Route::get('/global-presence', [Controllers\MarketController::class, 'index'])->name('markets.index');
 

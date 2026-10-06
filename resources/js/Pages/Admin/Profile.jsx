@@ -17,7 +17,7 @@ export default function Profile() {
         <AdminLayout title="Your profile">
             <div className="max-w-lg space-y-6">
                 <section className="rounded-2xl border border-ink-200 bg-white p-6 sm:p-8">
-                    <h2 className="text-sm font-extrabold uppercase tracking-wider text-ink-500">Account</h2>
+                    <h2 className="text-sm font-bold uppercase tracking-wider text-ink-500">Account</h2>
                     <dl className="mt-4 space-y-2 text-sm">
                         <div className="flex gap-4"><dt className="w-20 font-bold text-ink-500">Name</dt><dd className="text-ink-900">{auth?.user?.name}</dd></div>
                         <div className="flex gap-4"><dt className="w-20 font-bold text-ink-500">Email</dt><dd className="text-ink-900">{auth?.user?.email}</dd></div>
@@ -25,7 +25,7 @@ export default function Profile() {
                 </section>
 
                 <form onSubmit={submit} className="space-y-5 rounded-2xl border border-ink-200 bg-white p-6 sm:p-8">
-                    <h2 className="text-sm font-extrabold uppercase tracking-wider text-ink-500">Change password</h2>
+                    <h2 className="text-sm font-bold uppercase tracking-wider text-ink-500">Change password</h2>
                     <Field field={{ name: 'current_password', label: 'Current password', type: 'password', required: true }}
                            value={form.data.current_password} error={form.errors.current_password} onChange={set} />
                     <Field field={{ name: 'password', label: 'New password', type: 'password', required: true, help: 'Min 8 characters.' }}

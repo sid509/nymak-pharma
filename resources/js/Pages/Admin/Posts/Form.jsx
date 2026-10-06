@@ -28,7 +28,7 @@ export default function PostForm({ post = null }) {
         <AdminLayout title={isEdit ? `Edit: ${post.title}` : 'New article'}>
             <form onSubmit={submit} className="max-w-3xl space-y-6">
                 <section className="space-y-5 rounded-2xl border border-ink-200 bg-white p-6 sm:p-8">
-                    <h2 className="text-sm font-extrabold uppercase tracking-wider text-ink-500">Article</h2>
+                    <h2 className="text-sm font-bold uppercase tracking-wider text-ink-500">Article</h2>
                     <div className="grid gap-5 sm:grid-cols-2">
                         <Field field={{ name: 'title', label: 'Title', required: true }} value={form.data.title} error={form.errors.title} onChange={set} />
                         <Field field={{ name: 'slug', label: 'URL slug', help: 'Auto-generated from the title if blank.' }} value={form.data.slug} error={form.errors.slug} onChange={set} />
@@ -57,7 +57,7 @@ export default function PostForm({ post = null }) {
                 </section>
 
                 <section className="space-y-5 rounded-2xl border border-ink-200 bg-white p-6 sm:p-8">
-                    <h2 className="text-sm font-extrabold uppercase tracking-wider text-ink-500">SEO</h2>
+                    <h2 className="text-sm font-bold uppercase tracking-wider text-ink-500">SEO</h2>
                     <Field field={{ name: 'meta_title', label: 'Meta title', help: `${(form.data.meta_title || '').length}/70 — blank derives from title.` }} value={form.data.meta_title} error={form.errors.meta_title} onChange={set} />
                     <Field field={{ name: 'meta_description', label: 'Meta description', type: 'textarea', rows: 2, help: `${(form.data.meta_description || '').length}/200` }} value={form.data.meta_description} error={form.errors.meta_description} onChange={set} />
                 </section>

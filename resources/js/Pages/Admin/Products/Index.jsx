@@ -47,7 +47,7 @@ export default function ProductsIndex({ products, categories, filters }) {
                         <td className="px-4 py-3 text-sm text-ink-600">{p.pack_size || '—'}</td>
                         <td className="px-4 py-3">
                             {p.has_detail_page
-                                ? <Link href={`/products/${p.category.slug}/${p.slug}`} target="_blank" className="text-xs font-bold text-brand-700 hover:underline">Live ↗</Link>
+                                ? <Link href={`/product/${p.category.slug}/${p.slug}`} target="_blank" className="text-xs font-bold text-brand-700 hover:underline">Live ↗</Link>
                                 : <span className="text-xs text-ink-300">—</span>}
                         </td>
                         <td className="px-4 py-3 text-right">

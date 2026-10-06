@@ -31,7 +31,7 @@ class InsideController extends Controller
                     'name' => $p->name,
                     'image' => $p->image,
                     'category' => $p->category->name,
-                    'url' => "/products/{$p->category->slug}/{$p->slug}",
+                    'url' => "/product/{$p->category->slug}/{$p->slug}",
                 ])->values(),
             ]);
 

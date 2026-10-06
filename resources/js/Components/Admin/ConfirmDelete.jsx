@@ -38,7 +38,7 @@ export default function ConfirmDelete({ href, name = 'this record', onError = nu
                                 <TriangleAlert size={18} aria-hidden />
                             </span>
                             <div>
-                                <h2 className="text-base font-extrabold text-ink-900">Delete {name}?</h2>
+                                <h2 className="text-base font-bold text-ink-900">Delete {name}?</h2>
                                 <p className="mt-1 text-sm text-ink-500">This action cannot be undone.</p>
                                 {error && <p className="mt-2 text-xs font-semibold text-red-600" role="alert">{error}</p>}
                             </div>

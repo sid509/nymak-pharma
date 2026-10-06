@@ -4,6 +4,7 @@ import {
     Menu, Newspaper, Package, Quote, Search, Settings, Tag, Users, X,
 } from 'lucide-react';
 import { useEffect, useState } from 'react';
+import Logo from '../Components/Logo';
 
 const NAV = [
     { group: 'Overview', items: [
@@ -43,15 +44,15 @@ export default function AdminLayout({ title, children }) {
 
     const sidebar = (
         <div className="flex h-full flex-col">
-            <div className="flex items-center justify-between px-5 py-4">
-                <Link href="/admin/dashboard" className="text-base font-extrabold tracking-tight text-white">
-                    Nymak <span className="text-brand-400">Admin</span>
+            <div className="flex items-center justify-between border-b border-white/10 px-5 py-4">
+                <Link href="/admin/dashboard" className="flex items-center gap-2.5">
+                    <Logo light />
                 </Link>
                 <button type="button" onClick={() => setNavOpen(false)} className="p-1 text-ink-300 hover:text-white lg:hidden" aria-label="Close menu">
                     <X size={20} />
                 </button>
             </div>
-            <nav aria-label="Admin" className="flex-1 space-y-5 overflow-y-auto px-3 pb-6">
+            <nav aria-label="Admin" className="flex-1 space-y-5 overflow-y-auto px-3 pb-6 pt-2.5">
                 {NAV.map((section) => (
                     <div key={section.group}>
                         <p className="px-2 pb-1.5 text-[10px] font-bold uppercase tracking-widest text-ink-500">{section.group}</p>
@@ -76,25 +77,20 @@ export default function AdminLayout({ title, children }) {
                     </div>
                 ))}
             </nav>
-            <div className="border-t border-white/10 p-3">
-                <Link href="/admin/profile" className="block rounded-lg px-2.5 py-1.5 text-sm font-semibold text-ink-300 hover:bg-white/5 hover:text-white">
-                    {auth?.user?.name}
-                </Link>
-                <Link href="/" className="block rounded-lg px-2.5 py-1.5 text-xs text-ink-500 hover:text-ink-300">
-                    View public site ↗
-                </Link>
-            </div>
         </div>
     );
 
     return (
         <div className="min-h-screen bg-ink-50">
             {/* Mobile top bar */}
-            <div className="sticky top-0 z-40 flex items-center justify-between border-b border-ink-200 bg-white px-4 py-3 lg:hidden">
-                <button type="button" onClick={() => setNavOpen(true)} className="rounded-lg p-2 hover:bg-ink-100" aria-label="Open menu">
-                    <Menu size={20} />
-                </button>
-                <span className="text-sm font-extrabold text-ink-900">{title || 'Admin'}</span>
+            <div className="sticky top-0 z-40 flex items-center justify-between gap-2 border-b border-ink-200 bg-white px-3 py-2.5 lg:hidden">
+                <div className="flex items-center gap-0.5">
+                    <button type="button" onClick={() => setNavOpen(true)} className="rounded-lg p-2 hover:bg-ink-100" aria-label="Open menu">
+                        <Menu size={20} />
+                    </button>
+                    <Link href="/admin/dashboard" aria-label="Admin dashboard"><Logo size="sm" /></Link>
+                </div>
+                <span className="flex-1 truncate text-center text-sm font-bold text-ink-900">{title || 'Admin'}</span>
                 <button type="button" onClick={() => router.post('/admin/logout')} className="rounded-lg p-2 text-ink-500 hover:bg-ink-100" aria-label="Log out">
                     <LogOut size={18} />
                 </button>
@@ -108,7 +104,7 @@ export default function AdminLayout({ title, children }) {
 
             <div className="lg:pl-64">
                 <header className="sticky top-0 z-30 hidden items-center justify-between border-b border-ink-200 bg-white px-8 py-3.5 lg:flex">
-                    <h1 className="text-lg font-extrabold text-ink-900">{title}</h1>
+                    <h1 className="text-lg font-bold text-ink-900">{title}</h1>
                     <div className="flex items-center gap-4">
                         <Link href="/admin/profile" className="text-sm font-semibold text-ink-600 hover:text-ink-900">{auth?.user?.name}</Link>
                         <button type="button" onClick={() => router.post('/admin/logout')}
@@ -126,6 +122,17 @@ export default function AdminLayout({ title, children }) {
                     )}
                     {children}
                 </main>
+
+                <footer className="mx-auto max-w-6xl px-4 pb-8 sm:px-8">
+                    <div className="flex flex-col items-center justify-center gap-2 border-t border-ink-200 pt-6 sm:flex-row sm:gap-3">
+                        <a href="https://hitee.ai" target="_blank" rel="noopener noreferrer"
+                           className="inline-flex items-center gap-1.5 text-xs font-semibold text-ink-500 transition-colors hover:text-ink-800">
+                            Crafted by
+                            <img src="/images/brand/hitee-logo.png" alt="hitee.ai" width="61" height="16"
+                                 className="h-4 w-auto" />
+                        </a>
+                    </div>
+                </footer>
             </div>
         </div>
     );

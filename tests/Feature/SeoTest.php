@@ -47,7 +47,7 @@ class SeoTest extends TestCase
     {
         $titles = [];
         foreach (['iv-fluids', 'finished-formulations', 'rapid-diagnostic-kits'] as $slug) {
-            $html = $this->get("/products/{$slug}")->assertOk()->getContent();
+            $html = $this->get("/product/{$slug}")->assertOk()->getContent();
             preg_match('/<title[^>]*>([^<]+)<\/title>/', $html, $m);
             $titles[] = $m[1];
             $this->assertStringContainsString('name="description"', $html);
@@ -66,6 +66,10 @@ class SeoTest extends TestCase
         $xml->registerXPathNamespace('s', 'http://www.sitemaps.org/schemas/sitemap/0.9');
         $urls = array_map('strval', $xml->xpath('//s:loc'));
         $this->assertGreaterThan(50, count($urls));
+
+        // Both levels of the catalogue hierarchy are indexed.
+        $this->assertContains(url('/product/iv-fluids'), $urls);
+        $this->assertContains(url('/product/iv-fluids/products'), $urls);
     }
 
     #[Test]
@@ -86,7 +90,7 @@ class SeoTest extends TestCase
     #[Test]
     public function meta_descriptions_stay_within_limit(): void
     {
-        foreach (['/', '/about', '/contact', '/products/iv-fluids'] as $url) {
+        foreach (['/', '/about', '/contact', '/product/iv-fluids'] as $url) {
             $html = $this->get($url)->assertOk()->getContent();
             preg_match('/name="description" content="([^"]+)"/', $html, $m);
             $this->assertNotEmpty($m[1], "Missing meta description on {$url}");

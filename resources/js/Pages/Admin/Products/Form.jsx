@@ -38,7 +38,7 @@ export default function ProductForm({ product = null, categories, markets }) {
         <AdminLayout title={isEdit ? `Edit: ${product.name}` : 'New product'}>
             <form onSubmit={submit} className="max-w-3xl space-y-6">
                 <section className="space-y-5 rounded-2xl border border-ink-200 bg-white p-6 sm:p-8">
-                    <h2 className="text-sm font-extrabold uppercase tracking-wider text-ink-500">Basics</h2>
+                    <h2 className="text-sm font-bold uppercase tracking-wider text-ink-500">Basics</h2>
                     <div className="grid gap-5 sm:grid-cols-2">
                         {f('name', 'Product name', { required: true })}
                         {f('slug', 'URL slug', { help: 'Auto-generated from the name if left blank.' })}
@@ -55,7 +55,7 @@ export default function ProductForm({ product = null, categories, markets }) {
                 </section>
 
                 <section className="space-y-5 rounded-2xl border border-ink-200 bg-white p-6 sm:p-8">
-                    <h2 className="text-sm font-extrabold uppercase tracking-wider text-ink-500">Specifications</h2>
+                    <h2 className="text-sm font-bold uppercase tracking-wider text-ink-500">Specifications</h2>
                     <div className="grid gap-5 sm:grid-cols-2">
                         {f('therapeutic_group', 'Therapeutic group')}
                         {f('strength', 'Strength')}
@@ -65,7 +65,7 @@ export default function ProductForm({ product = null, categories, markets }) {
                 </section>
 
                 <section className="space-y-5 rounded-2xl border border-ink-200 bg-white p-6 sm:p-8">
-                    <h2 className="text-sm font-extrabold uppercase tracking-wider text-ink-500">Image & visibility</h2>
+                    <h2 className="text-sm font-bold uppercase tracking-wider text-ink-500">Image & visibility</h2>
                     {product?.image && (
                         <div className="flex items-center gap-3">
                             <img src={`/${product.image}`} alt="" className="h-16 w-16 rounded-lg border border-ink-100 bg-white object-contain" />
@@ -87,7 +87,7 @@ export default function ProductForm({ product = null, categories, markets }) {
                 </section>
 
                 <section className="space-y-5 rounded-2xl border border-ink-200 bg-white p-6 sm:p-8">
-                    <h2 className="text-sm font-extrabold uppercase tracking-wider text-ink-500">SEO</h2>
+                    <h2 className="text-sm font-bold uppercase tracking-wider text-ink-500">SEO</h2>
                     <p className="-mt-2 text-xs text-ink-400">Leave blank to auto-derive from name and description.</p>
                     {f('meta_title', 'Meta title', { help: `${(form.data.meta_title || '').length}/70` })}
                     {f('meta_description', 'Meta description', { type: 'textarea', rows: 2, help: `${(form.data.meta_description || '').length}/200` })}

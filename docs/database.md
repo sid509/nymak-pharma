@@ -18,8 +18,9 @@ users (admin auth) · jobs · cache (Laravel scaffold)
 ## Table notes
 
 **product_categories** — `slug` unique, `icon` (lucide name), `intro`,
-`description`, `meta_title`, `meta_description`, `sort_order`.
-Index on `sort_order`.
+`description` (plain-text fallback), `content` (sanitised WYSIWYG HTML —
+the landing-page body), `image`, `meta_title`, `meta_description`,
+`sort_order`. Index on `sort_order`.
 
 **products** — the catalog (~317 rows). Fields:
 `product_category_id` FK cascade, `market_id` FK nullOnDelete, `name`,
@@ -29,8 +30,11 @@ Index on `sort_order`.
 Indexes: `(product_category_id, sort_order)`, `therapeutic_group`,
 `has_detail_page`, `slug` unique.
 
-**markets** — `slug` unique, `iso_code`, `region`, `description`,
-`has_page` (only content-rich markets get pages), `sort_order`.
+**markets** — `slug` unique, `iso_code` (ISO 3166-1 alpha-2, drives the
+world-map highlight), `region`, `description` (short plain summary — hover
+card), `content` (sanitised WYSIWYG HTML — map detail panel), `latitude` /
+`longitude` (optional pin for multi-country regions or centroid override),
+`show_in_portfolio` ("key market"), `sort_order`.
 
 **posts** — `slug` unique, `category`, `excerpt`, `body` (markdown),
 `cover_image`, `meta_*`, `published_at` nullable. Index on `published_at`.
@@ -54,8 +58,11 @@ Indexes: `(product_category_id, sort_order)`, `therapeutic_group`,
 - Relationship loads are eager (`with`, `withCount`, constrained `load`) —
   verified no N+1 on category/market pages.
 - Public lookups bind by `slug` (`getRouteKeyName()`), not IDs.
-- Scoped bindings on `/products/{category}/{product}` — a product URL 404s
-  under the wrong category.
+- Scoped bindings on `/product/{category}/{product}` — a product URL 404s
+  under the wrong category. The catalogue hierarchy is
+  `/products` → `/product/{category}` (landing) → `/product/{category}/products`
+  (full list) → product detail. `NormalizeUrls` middleware 301s trailing
+  slashes, and `/products/{category}` interim URLs 301 onward.
 - Pagination: posts (9/page), admin enquiries (20/page) — `paginate()`.
 - Random ordering (`inRandomOrder`) used only for featured-product carousels
   where order doesn't matter — small N (≤8).

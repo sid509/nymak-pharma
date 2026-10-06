@@ -48,6 +48,8 @@ class EnquiryRequest extends FormRequest
         $started = (int) $this->input('form_started_at', 0);
         $elapsed = now()->timestamp - $started;
 
-        return $started > 0 && $elapsed < (int) config('nymak.enquiry.min_seconds', 3);
+        // Negative elapsed means the client clock runs ahead of the server —
+        // clock skew is not a spam signal, so only flag positive short gaps.
+        return $started > 0 && $elapsed >= 0 && $elapsed < (int) config('nymak.enquiry.min_seconds', 3);
     }
 }

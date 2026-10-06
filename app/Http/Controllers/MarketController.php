@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Market;
+use App\Models\PageContent;
+use App\Models\SiteSetting;
 use App\Support\Seo;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -11,14 +13,34 @@ class MarketController extends Controller
 {
     public function index(): Response
     {
-        // Portfolio model: markets show *what we actually did* there — the
-        // products supplied — instead of thin per-country pages.
-        $markets = Market::where('show_in_portfolio', true)
-            ->orderBy('sort_order')
+        // Every market is a country on the interactive map. Selecting one
+        // reveals *what we actually do* there — the rich content panel plus
+        // the products supplied — instead of thin per-country pages.
+        $offices = collect(SiteSetting::get('offices', []));
+
+        $markets = Market::orderBy('sort_order')
             ->with(['products' => fn ($q) => $q->where('has_detail_page', true)
-                ->with('category:id,slug')
+                ->with('category:id,slug,name')
                 ->select('id', 'market_id', 'product_category_id', 'name', 'slug', 'image')])
-            ->get();
+            ->get()
+            ->map(fn ($m) => [
+                'name' => $m->name,
+                'slug' => $m->slug,
+                'iso_code' => $m->iso_code,
+                'region' => $m->region,
+                'description' => $m->description,
+                'content' => $m->content,
+                'latitude' => $m->latitude,
+                'longitude' => $m->longitude,
+                'featured' => $m->show_in_portfolio,
+                'office' => $offices->first(fn ($o) => strtoupper($o['country_code'] ?? '') === strtoupper($m->iso_code ?? '')),
+                'products' => $m->products->map(fn ($p) => [
+                    'name' => $p->name,
+                    'image' => $p->image,
+                    'category' => $p->category->name,
+                    'url' => "/product/{$p->category->slug}/{$p->slug}",
+                ])->values(),
+            ])->values();
 
         return Inertia::render('Markets/Index', [
             'seo' => Seo::make(
@@ -28,23 +50,10 @@ class MarketController extends Controller
                 ['Home', url('/')],
                 ['Global Presence', url('/global-presence')],
             ])->toArray(),
-            'markets' => Market::orderBy('sort_order')->get(),
-            'portfolio' => $markets->map(fn ($m) => [
-                'name' => $m->name,
-                'slug' => $m->slug,
-                'region' => $m->region,
-                'description' => $m->description,
-                'office' => collect(\App\Models\SiteSetting::get('offices', []))
-                    ->first(fn ($o) => strtoupper($o['country_code'] ?? '') === strtoupper($m->iso_code ?? '')),
-                'products' => $m->products->map(fn ($p) => [
-                    'name' => $p->name,
-                    'image' => $p->image,
-                    'category' => $p->category->name,
-                    'url' => "/products/{$p->category->slug}/{$p->slug}",
-                ])->values(),
-            ]),
-            'offices' => \App\Models\SiteSetting::get('offices', []),
-            'content' => \App\Models\PageContent::for('markets.index'),
+            'markets' => $markets,
+            'portfolio' => $markets->where('featured', true)->values(),
+            'offices' => $offices->values(),
+            'content' => PageContent::for('markets.index'),
         ]);
     }
 }

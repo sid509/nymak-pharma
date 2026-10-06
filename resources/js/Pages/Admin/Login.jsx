@@ -17,7 +17,7 @@ export default function AdminLogin() {
             <div className="w-full max-w-sm">
                 <div className="mb-6 flex justify-center"><Logo /></div>
                 <form onSubmit={submit} className="rounded-2xl border border-ink-100 bg-white p-7 shadow-card">
-                    <h1 className="text-lg font-extrabold text-ink-900">Admin sign in</h1>
+                    <h1 className="text-lg font-bold text-ink-900">Admin sign in</h1>
                     <p className="mt-1 text-sm text-ink-500">Nymak Pharma administration.</p>
 
                     <div className="mt-6 space-y-4">
@@ -42,6 +42,14 @@ export default function AdminLogin() {
                         </button>
                     </div>
                 </form>
+                <p className="mt-6 flex items-center justify-center gap-1.5 text-xs font-semibold text-ink-400">
+                    Crafted by
+                    <a href="https://hitee.ai" target="_blank" rel="noopener noreferrer"
+                       className="inline-flex items-center transition-opacity hover:opacity-80">
+                        <img src="/images/brand/hitee-logo.png" alt="hitee.ai" width="61" height="16"
+                             className="h-4 w-auto" />
+                    </a>
+                </p>
             </div>
         </div>
     );

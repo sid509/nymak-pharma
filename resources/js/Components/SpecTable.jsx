@@ -36,7 +36,7 @@ export default function SpecTable({ products, mode = 'strength' }) {
                             )}
                             <td className="text-right">
                                 {p.url && (
-                                    <Link href={p.url} className="text-xs font-bold text-brand-700 hover:text-brand-800">
+                                    <Link href={p.url} className="text-xs font-semibold text-brand-700 hover:text-brand-800">
                                         View
                                     </Link>
                                 )}

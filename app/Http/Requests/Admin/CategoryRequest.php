@@ -13,6 +13,8 @@ class CategoryRequest extends FormRequest
             'icon' => ['nullable', 'string', 'max:60'],
             'intro' => ['nullable', 'string', 'max:300'],
             'description' => ['nullable', 'string', 'max:5000'],
+            'content' => ['nullable', 'string', 'max:100000'],
+            'image' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:2048'],
             'meta_title' => ['nullable', 'string', 'max:70'],
             'meta_description' => ['nullable', 'string', 'max:200'],
             'sort_order' => ['integer', 'min:0', 'max:255'],

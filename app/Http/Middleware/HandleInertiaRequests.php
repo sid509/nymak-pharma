@@ -39,7 +39,7 @@ class HandleInertiaRequests extends Middleware
             ...parent::share($request),
             'site' => fn () => collect(\App\Models\SiteSetting::merged())->only(
                 'short_name', 'legal_name', 'tagline', 'phone', 'phone_href',
-                'whatsapp', 'email', 'address', 'branch_address', 'offices', 'socials',
+                'whatsapp', 'tawk_property', 'email', 'address', 'branch_address', 'offices', 'socials',
                 'founded', 'founder', 'logo', 'brochure'
             )->put('name', \App\Models\SiteSetting::get('short_name'))
                 ->put('socials', array_filter(\App\Models\SiteSetting::get('socials', [])))
@@ -47,8 +47,14 @@ class HandleInertiaRequests extends Middleware
                 ->all(),
             'nav' => fn () => [
                 'categories' => \App\Models\ProductCategory::orderBy('sort_order')
-                    ->get(['name', 'slug'])
-                    ->map(fn ($c) => ['name' => $c->name, 'href' => "/products/{$c->slug}"]),
+                    ->withCount('products')
+                    ->get(['id', 'name', 'slug', 'icon'])
+                    ->map(fn ($c) => [
+                        'name' => $c->name,
+                        'href' => "/product/{$c->slug}",
+                        'icon' => $c->icon,
+                        'count' => $c->products_count,
+                    ]),
             ],
             'flash' => fn () => [
                 'success' => $request->session()->get('success'),

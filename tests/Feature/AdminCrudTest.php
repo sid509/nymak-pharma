@@ -208,6 +208,48 @@ class AdminCrudTest extends TestCase
     }
 
     #[Test]
+    public function category_landing_content_is_editable_and_sanitised(): void
+    {
+        $category = ProductCategory::firstOrFail();
+
+        $this->actingAs($this->admin)->put("/admin/categories/{$category->slug}", [
+            'name' => $category->name,
+            'content' => '<p>About this range.</p><script>alert(1)</script><p><a href="javascript:x()">bad</a></p>',
+            'image' => UploadedFile::fake()->image('cat.png', 400, 300),
+            'sort_order' => $category->sort_order,
+        ])->assertRedirect('/admin/categories');
+
+        $fresh = $category->fresh();
+        $this->assertStringContainsString('About this range.', $fresh->content);
+        $this->assertStringNotContainsString('<script', $fresh->content);
+        $this->assertStringNotContainsString('javascript:', $fresh->content);
+        $this->assertStringStartsWith('images/categories/', $fresh->image);
+        $this->assertFileExists(public_path($fresh->image));
+
+        unlink(public_path($fresh->image)); // cleanup
+    }
+
+    #[Test]
+    public function page_content_toggles_and_text_are_editable(): void
+    {
+        // Toggle off the home product grid + rename a label.
+        $this->actingAs($this->admin)->put('/admin/pages/home', [
+            'show_brands' => '0',
+            'portfolio_title' => 'Segments we manufacture',
+        ])->assertRedirect('/admin/pages/home/edit');
+
+        $this->assertFalse(\App\Models\PageContent::for('home')['show_brands']);
+        $this->assertEquals('Segments we manufacture', \App\Models\PageContent::for('home')['portfolio_title']);
+        $this->assertDatabaseHas('page_contents', ['page' => 'home', 'key' => 'show_brands', 'value' => '0']);
+
+        // products.show copy — the detail-page CTA label.
+        $this->actingAs($this->admin)->put('/admin/pages/products.show', [
+            'cta_button' => 'Ask about this product',
+        ]);
+        $this->assertEquals('Ask about this product', \App\Models\PageContent::for('products.show')['cta_button']);
+    }
+
+    #[Test]
     public function team_member_crud(): void
     {
         $this->actingAs($this->admin)->post('/admin/team-members', [

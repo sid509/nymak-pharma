@@ -41,7 +41,7 @@ class MarketController extends Controller
     {
         return Inertia::render('Admin/Markets/Form', [
             'market' => $market->only('id', 'name', 'slug', 'iso_code', 'region',
-                'description', 'show_in_portfolio', 'sort_order'),
+                'description', 'content', 'latitude', 'longitude', 'show_in_portfolio', 'sort_order'),
         ]);
     }
 

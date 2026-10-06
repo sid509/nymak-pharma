@@ -85,6 +85,20 @@ class EnquiryTest extends TestCase
     }
 
     #[Test]
+    public function future_form_timestamp_is_not_treated_as_spam(): void
+    {
+        // A client clock running ahead of the server yields negative elapsed
+        // time — clock skew is not a spam signal, the enquiry must store.
+        Notification::fake();
+
+        $this->post('/contact', $this->payload([
+            'form_started_at' => now()->addMinutes(5)->timestamp,
+        ]))->assertSessionHas('success');
+
+        $this->assertDatabaseCount('enquiries', 1);
+    }
+
+    #[Test]
     public function malformed_input_is_rejected(): void
     {
         $this->post('/contact', $this->payload([

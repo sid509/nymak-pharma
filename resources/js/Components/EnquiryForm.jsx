@@ -2,7 +2,7 @@ import { useForm, usePage } from '@inertiajs/react';
 import { Loader2, Send } from 'lucide-react';
 
 const inputCls = 'w-full rounded-lg border border-ink-200 bg-white px-3.5 py-2.5 text-sm text-ink-900 placeholder:text-ink-400 transition-colors focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-100';
-const labelCls = 'mb-1.5 block text-xs font-bold uppercase tracking-wider text-ink-700';
+const labelCls = 'mb-1.5 block t-eyebrow text-ink-700';
 
 function Field({ label, error, required, children }) {
     return (
@@ -41,6 +41,7 @@ export default function EnquiryForm({ products = [], formStartedAt, honeypot = '
             <div aria-hidden="true" className="absolute -left-[9999px] h-0 w-0 overflow-hidden">
                 <label htmlFor={honeypot}>Website</label>
                 <input id={honeypot} name={honeypot} type="text" tabIndex={-1} autoComplete="off"
+                       data-1p-ignore data-lpignore="true" data-form-type="other"
                        value={form.data[honeypot]} onChange={(e) => form.setData(honeypot, e.target.value)} />
             </div>
 
@@ -108,7 +109,7 @@ export default function EnquiryForm({ products = [], formStartedAt, honeypot = '
             </div>
 
             <button type="submit" disabled={form.processing}
-                    className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-brand-700 px-5 py-3 text-sm font-bold text-white transition-colors hover:bg-brand-800 disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto">
+                    className="btn-cta inline-flex w-full items-center justify-center gap-2 rounded-full bg-brand-600 px-6 py-2.5 t-button text-white transition-colors hover:bg-brand-700 disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto">
                 {form.processing ? <Loader2 size={16} className="animate-spin" aria-hidden /> : <Send size={16} aria-hidden />}
                 {form.processing ? 'Sending…' : 'Send Enquiry'}
             </button>

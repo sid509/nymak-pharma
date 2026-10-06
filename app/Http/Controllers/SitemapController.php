@@ -26,17 +26,16 @@ class SitemapController extends Controller
             ['/contact', '0.9', 'monthly'],
         ])->map(fn ($u) => ['loc' => url($u[0]), 'priority' => $u[1], 'freq' => $u[2], 'lastmod' => null]);
 
+        // Category landing page + its full product list — both indexable.
         $categories = ProductCategory::orderBy('sort_order')->get()
-            ->map(fn ($c) => [
-                'loc' => url("/products/{$c->slug}"),
-                'priority' => '0.9',
-                'freq' => 'weekly',
-                'lastmod' => $c->updated_at,
+            ->flatMap(fn ($c) => [
+                ['loc' => url("/product/{$c->slug}"), 'priority' => '0.9', 'freq' => 'weekly', 'lastmod' => $c->updated_at],
+                ['loc' => url("/product/{$c->slug}/products"), 'priority' => '0.8', 'freq' => 'weekly', 'lastmod' => $c->updated_at],
             ]);
 
         $products = Product::where('has_detail_page', true)->with('category:id,slug')->get()
             ->map(fn ($p) => [
-                'loc' => url("/products/{$p->category->slug}/{$p->slug}"),
+                'loc' => url("/product/{$p->category->slug}/{$p->slug}"),
                 'priority' => '0.7',
                 'freq' => 'monthly',
                 'lastmod' => $p->updated_at,

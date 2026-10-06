@@ -19,7 +19,8 @@ class HomeController extends Controller
 {
     public function __invoke(): Response
     {
-        $faqs = Faq::orderBy('sort_order')->limit(6)->get();
+        $content = PageContent::for('home');
+        $faqs = $content['show_faqs'] ? Faq::orderBy('sort_order')->limit(6)->get() : collect();
 
         $seo = Seo::make(
             'Pharmaceutical Manufacturer & Exporter in India',
@@ -47,13 +48,22 @@ class HomeController extends Controller
             'seo' => $seo->toArray(),
             'categories' => ProductCategory::orderBy('sort_order')
                 ->withCount('products')
-                ->get(['id', 'name', 'slug', 'icon', 'intro']),
-            'featuredProducts' => Product::where('has_detail_page', true)
+                ->get(['id', 'name', 'slug', 'icon', 'intro'])
+                ->map(function ($cat) {
+                    $cat->samples = $cat->products()
+                        ->where('has_detail_page', true)
+                        ->whereNotNull('image')->where('image', '!=', '')
+                        ->orderBy('sort_order')->limit(3)
+                        ->get(['name', 'slug', 'image', 'strength']);
+                    return $cat;
+                }),
+            // Only queried when the admin has switched the brands grid on.
+            'featuredProducts' => $content['show_brands'] ? Product::where('has_detail_page', true)
                 ->whereNotNull('image')
                 ->with('category:id,name,slug')
                 ->inRandomOrder()
                 ->limit(8)
-                ->get(['id', 'name', 'slug', 'image', 'description', 'product_category_id']),
+                ->get(['id', 'name', 'slug', 'image', 'description', 'product_category_id']) : [],
             'testimonials' => Testimonial::orderBy('sort_order')->get(['name', 'country', 'quote']),
             'certifications' => Certification::orderBy('sort_order')->get(['name', 'issuer', 'image']),
             'posts' => Post::published()->latest('published_at')->limit(3)
@@ -61,8 +71,8 @@ class HomeController extends Controller
             'faqs' => $faqs,
             'stats' => \App\Models\SiteSetting::get('stats'),
             'clients' => ClientLogo::orderBy('sort_order')->get(['name', 'image']),
-            'markets' => Market::orderBy('sort_order')->limit(9)->get(['name']),
-            'content' => PageContent::for('home'),
+            'markets' => Market::orderBy('sort_order')->limit(9)->get(['name', 'slug', 'iso_code', 'region']),
+            'content' => $content,
         ]);
     }
 }

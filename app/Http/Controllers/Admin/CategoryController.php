@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\CategoryRequest;
 use App\Models\ProductCategory;
+use App\Support\ImageUpload;
 use Illuminate\Http\RedirectResponse;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -24,7 +25,7 @@ class CategoryController extends Controller
     {
         return Inertia::render('Admin/Categories/Form', [
             'category' => $category->only('id', 'name', 'slug', 'icon', 'intro',
-                'description', 'meta_title', 'meta_description', 'sort_order'),
+                'description', 'content', 'image', 'meta_title', 'meta_description', 'sort_order'),
         ]);
     }
 
@@ -32,7 +33,13 @@ class CategoryController extends Controller
     {
         // Slug is intentionally not editable — category URLs are structural
         // and linked throughout the site and sitemap.
-        $category->update($request->validated());
+        $data = $request->safe()->except('image');
+        if ($file = $request->file('image')) {
+            ImageUpload::delete($category->image);
+            $data['image'] = ImageUpload::store($file, 'categories', $category->slug);
+        }
+
+        $category->update($data);
 
         return redirect()->route('admin.categories.index')->with('success', 'Category updated.');
     }

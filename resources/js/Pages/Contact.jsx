@@ -1,7 +1,7 @@
 import { usePage } from '@inertiajs/react';
-import { Building2, Clock, Download, Mail, MapPin, MessageCircle, Phone } from 'lucide-react';
+import { Building2, Clock, Download, Mail, MapPin, Phone } from 'lucide-react';
 import EnquiryForm from '../Components/EnquiryForm';
-import { Container, PageHero } from '../Components/Ui';
+import { Container, PageHero, WhatsAppIcon } from '../Components/Ui';
 import SiteLayout from '../Layouts/SiteLayout';
 
 export default function Contact({ seo, offices, products, selectedProduct, formStartedAt, honeypot, content }) {
@@ -23,7 +23,7 @@ export default function Contact({ seo, offices, products, selectedProduct, formS
                             </div>
                         )}
                         <div className="rounded-2xl border border-ink-100 bg-white p-6 shadow-card sm:p-8">
-                            <h2 className="text-xl font-extrabold text-ink-900">{content.form_title}</h2>
+                            <h2 className="t-h3 text-ink-900">{content.form_title}</h2>
                             <p className="mt-1 text-sm text-ink-500">{content.form_lead}</p>
                             <div className="mt-6">
                                 <EnquiryForm products={products} selectedProduct={selectedProduct} formStartedAt={formStartedAt} honeypot={honeypot} />
@@ -34,7 +34,7 @@ export default function Contact({ seo, offices, products, selectedProduct, formS
                     {/* Contact details — consistent NAP */}
                     <aside className="space-y-5 lg:sticky lg:top-28 lg:self-start">
                         <div className="rounded-2xl bg-ink-950 p-6 text-white">
-                            <h2 className="text-base font-extrabold">Head Office & Works</h2>
+                            <h2 className="t-h4">Head Office & Works</h2>
                             <address className="mt-4 space-y-3 text-sm not-italic">
                                 <p className="flex gap-2.5">
                                     <MapPin size={16} className="mt-0.5 shrink-0 text-brand-400" aria-hidden />
@@ -47,12 +47,12 @@ export default function Contact({ seo, offices, products, selectedProduct, formS
                                     <span>Branch: {site.branch_address}</span>
                                 </p>
                                 <p>
-                                    <a href={`tel:${site.phone_href}`} className="flex gap-2.5 font-semibold hover:text-white">
+                                    <a href={`tel:${site.phone_href}`} className="flex gap-2.5 font-semibold transition-colors hover:text-white">
                                         <Phone size={16} className="mt-0.5 shrink-0 text-brand-400" aria-hidden />{site.phone}
                                     </a>
                                 </p>
                                 <p>
-                                    <a href={`mailto:${site.email}`} className="flex gap-2.5 font-semibold hover:text-white">
+                                    <a href={`mailto:${site.email}`} className="flex gap-2.5 font-semibold transition-colors hover:text-white">
                                         <Mail size={16} className="mt-0.5 shrink-0 text-brand-400" aria-hidden />{site.email}
                                     </a>
                                 </p>
@@ -64,12 +64,12 @@ export default function Contact({ seo, offices, products, selectedProduct, formS
                             <div className="mt-5 flex flex-col gap-2.5 border-t border-ink-800 pt-5">
                                 <a href={`https://wa.me/${site.whatsapp}`} target="_blank" rel="noopener noreferrer"
                                    onClick={() => window.nymakTrack && window.nymakTrack('contact_click', { method: 'whatsapp' })}
-                                   className="inline-flex items-center gap-2 text-sm font-bold text-brand-300 hover:text-white">
-                                    <MessageCircle size={16} aria-hidden /> Chat on WhatsApp
+                                   className="inline-flex items-center gap-2 text-sm font-semibold text-brand-300 transition-colors hover:text-white">
+                                    <WhatsAppIcon size={16} /> Chat on WhatsApp
                                 </a>
                                 <a href={`/${site.brochure}`} target="_blank" rel="noopener noreferrer"
                                    onClick={() => window.nymakTrack && window.nymakTrack('brochure_download')}
-                                   className="inline-flex items-center gap-2 text-sm font-bold text-brand-300 hover:text-white">
+                                   className="inline-flex items-center gap-2 text-sm font-semibold text-brand-300 transition-colors hover:text-white">
                                     <Download size={16} aria-hidden /> Download product brochure (PDF)
                                 </a>
                             </div>
@@ -77,7 +77,7 @@ export default function Contact({ seo, offices, products, selectedProduct, formS
 
                         {offices.map((o) => (
                             <address key={o.name} className="rounded-2xl border border-ink-100 bg-white p-5 not-italic shadow-card">
-                                <h3 className="flex items-center gap-2 text-sm font-bold text-ink-900">
+                                <h3 className="flex items-center gap-2 text-sm font-semibold text-ink-900">
                                     <Building2 size={15} className="text-brand-700" aria-hidden />{o.name}
                                 </h3>
                                 <p className="mt-2 text-sm leading-relaxed text-ink-600">{o.address}</p>

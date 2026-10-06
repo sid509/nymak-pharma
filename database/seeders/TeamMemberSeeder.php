@@ -18,8 +18,8 @@ class TeamMemberSeeder extends Seeder
                 'Haresh Advani brings over 20 years of expertise in exports and marketing to Nymak Pharma. His strategic insights and deep understanding of international markets have played a pivotal role in expanding our global footprint and driving export growth.'],
             ['Mr. Dimendra Patel', 'Technical Head', true,
                 'Dimendra Patel leverages 15 years of experience in regulatory affairs and quality assurance within the pharmaceutical sector. His meticulous approach ensures that all products by Nymak Pharma adhere to stringent regulatory standards, guaranteeing safety, efficacy, and compliance.'],
-            ['Mr. Murtaza Naqvi', 'Business Development Manager', true,
-                'Murtaza Naqvi is an experienced Business Development Manager with a rich background in marketing and business expansion, particularly in the African market. With over a decade of living and working in Africa, he has developed a profound understanding of the region\'s business landscape, consumer behavior, and market dynamics.'],
+            ['Mr. Murtuza Naqvi', 'Business Development Manager', true,
+                'Murtuza Naqvi is an experienced Business Development Manager with a rich background in marketing and business expansion, particularly in the African market. With over a decade of living and working in Africa, he has developed a profound understanding of the region\'s business landscape, consumer behavior, and market dynamics.'],
             ['Mr. Jobe John', 'International Business Development — FWA', false,
                 'Jobe John is an experienced Business Development Manager with a rich background in marketing and business expansion, particularly in French-speaking West African markets. With over a decade of living and working in Africa, Jobe has developed a profound understanding of the region\'s business landscape, consumer behavior, and market dynamics.'],
             ['Mr. Narendra Hirani', 'Logistics & Warehouse Head', false,
@@ -37,11 +37,13 @@ class TeamMemberSeeder extends Seeder
         ];
 
         foreach ($team as $i => [$name, $role, $leadership, $bio]) {
+            $slug = Str::slug(Str::remove(['Mr.', 'Ms.', 'Dr.'], $name));
             TeamMember::updateOrCreate(['name' => $name], [
-                'slug' => Str::slug(Str::remove(['Mr.', 'Ms.', 'Dr.'], $name)),
+                'slug' => $slug,
                 'role' => $role,
                 'is_leadership' => $leadership,
                 'bio' => $bio,
+                'photo' => file_exists(public_path("images/team/{$slug}.png")) ? "images/team/{$slug}.png" : null,
                 'sort_order' => $i,
             ]);
         }

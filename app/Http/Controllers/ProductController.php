@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\PageContent;
 use App\Models\Product;
 use App\Models\ProductCategory;
 use App\Support\Seo;
+use Illuminate\Support\Collection;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -12,6 +14,8 @@ class ProductController extends Controller
 {
     public function index(): Response
     {
+        $content = PageContent::for('products.index');
+
         return Inertia::render('Products/Index', [
             'seo' => Seo::make(
                 'Pharmaceutical Products — IV Fluids, Formulations & More',
@@ -20,40 +24,82 @@ class ProductController extends Controller
                 ['Home', url('/')],
                 ['Products', url('/products')],
             ])->toArray(),
-            'content' => \App\Models\PageContent::for('products.index'),
+            'content' => $content,
             'categories' => ProductCategory::orderBy('sort_order')
                 ->withCount('products')
-                ->with(['featuredProducts' => fn ($q) => $q->whereNotNull('image')->limit(4)
-                    ->select('id', 'product_category_id', 'name', 'slug', 'image')])
-                ->get(),
-            'branded' => Product::where('has_detail_page', true)
+                ->get(['id', 'name', 'slug', 'icon', 'intro', 'image']),
+            'branded' => $content['show_brands'] ? Product::where('has_detail_page', true)
                 ->whereNotNull('image')
                 ->with('category:id,name,slug')
                 ->orderBy('sort_order')
                 ->limit(12)
-                ->get(['id', 'name', 'slug', 'image', 'product_category_id']),
+                ->get(['id', 'name', 'slug', 'image', 'product_category_id']) : [],
         ]);
     }
 
+    /**
+     * Category landing page — indexable content about the range plus a
+     * summary of what it covers. The full table lives on catalogue().
+     */
     public function category(ProductCategory $category): Response
+    {
+        $category->loadCount('products')->load(['products' => fn ($q) => $q
+            ->select('id', 'product_category_id', 'name', 'slug', 'therapeutic_group', 'image', 'has_detail_page')]);
+
+        $groups = $category->products->groupBy('therapeutic_group')
+            ->map(fn ($items, $group) => ['name' => $group ?: 'Products', 'count' => $items->count()])
+            ->values();
+
+        return Inertia::render('Products/Category', [
+            'seo' => Seo::make(
+                $category->meta_title ?? $category->name,
+                $category->meta_description ?? $category->intro ?? ''
+            )->image($this->categoryImage($category))
+            ->schema([
+                '@type' => 'CollectionPage',
+                'name' => $category->name,
+                'url' => url("/product/{$category->slug}"),
+                'description' => $category->meta_description ?? $category->intro,
+                'isPartOf' => ['@id' => url('/#website')],
+                'hasPart' => ['@type' => 'ItemList', 'url' => url("/product/{$category->slug}/products"), 'numberOfItems' => $category->products_count],
+            ])->breadcrumbs([
+                ['Home', url('/')],
+                ['Products', url('/products')],
+                [$category->name, url("/product/{$category->slug}")],
+            ])->toArray(),
+            'category' => $category->only('name', 'slug', 'intro', 'description', 'content', 'image') + [
+                'products_count' => $category->products_count,
+                'catalogue_url' => "/product/{$category->slug}/products",
+            ],
+            'groups' => $groups,
+            'siblings' => $this->siblings(),
+            'content' => PageContent::for('products.category'),
+        ]);
+    }
+
+    /** Full product list for a category — grouped spec tables with search. */
+    public function catalogue(ProductCategory $category): Response
     {
         $category->load(['products' => fn ($q) => $q
             ->select('id', 'product_category_id', 'name', 'slug', 'therapeutic_group', 'strength', 'pack_size', 'specimen', 'image', 'has_detail_page')]);
 
         $products = $category->products->groupBy('therapeutic_group');
 
-        return Inertia::render('Products/Category', [
+        return Inertia::render('Products/Catalogue', [
             'seo' => Seo::make(
-                $category->meta_title ?? $category->name,
-                $category->meta_description ?? $category->intro ?? ''
-            )->image($category->products->firstWhere('image')?->image
-                ? url($category->products->firstWhere('image')->image) : null)
+                "{$category->name} Product List — Strengths & Pack Sizes",
+                "Complete list of {$category->name} manufactured and exported by Nymak Pharma — {$category->products->count()} products with strengths and pack sizes."
+            )->image($this->categoryImage($category))
             ->breadcrumbs([
                 ['Home', url('/')],
                 ['Products', url('/products')],
-                [$category->name, url("/products/{$category->slug}")],
+                [$category->name, url("/product/{$category->slug}")],
+                ['Product list', url("/product/{$category->slug}/products")],
             ])->toArray(),
-            'category' => $category->only('name', 'slug', 'intro', 'description'),
+            'category' => $category->only('name', 'slug', 'intro') + [
+                'url' => "/product/{$category->slug}",
+                'products_count' => $category->products->count(),
+            ],
             'groups' => $products->map(fn ($items, $group) => [
                 'name' => $group ?: 'Products',
                 'products' => $items->map(fn ($p) => [
@@ -64,10 +110,11 @@ class ProductController extends Controller
                     'specimen' => $p->specimen,
                     'image' => $p->image,
                     'url' => $p->has_detail_page
-                        ? url("/products/{$category->slug}/{$p->slug}") : null,
+                        ? "/product/{$category->slug}/{$p->slug}" : null,
                 ])->values(),
             ])->values(),
-            'siblings' => ProductCategory::orderBy('sort_order')->get(['name', 'slug', 'icon']),
+            'siblings' => $this->siblings(),
+            'content' => PageContent::for('products.catalogue'),
         ]);
     }
 
@@ -76,19 +123,21 @@ class ProductController extends Controller
         abort_unless($product->has_detail_page, 404);
 
         $product->load('market:id,name,slug');
+        $content = PageContent::for('products.show');
 
-        $related = Product::where('has_detail_page', true)
+        $related = ! $content['show_related'] ? [] : Product::where('has_detail_page', true)
             ->where('id', '!=', $product->id)
             ->where(fn ($q) => $q->where('market_id', $product->market_id)
                 ->orWhere('therapeutic_group', $product->therapeutic_group))
             ->whereNotNull('image')
+            ->with('category:id,slug')
             ->inRandomOrder()
             ->limit(4)
             ->get(['id', 'name', 'slug', 'image', 'product_category_id'])
             ->map(fn ($p) => [
                 'name' => $p->name,
                 'image' => $p->image,
-                'url' => url("/products/{$category->slug}/{$p->slug}"),
+                'url' => "/product/{$p->category->slug}/{$p->slug}",
             ]);
 
         return Inertia::render('Products/Show', [
@@ -107,8 +156,8 @@ class ProductController extends Controller
             ])->breadcrumbs([
                 ['Home', url('/')],
                 ['Products', url('/products')],
-                [$category->name, url("/products/{$category->slug}")],
-                [$product->name, url("/products/{$category->slug}/{$product->slug}")],
+                [$category->name, url("/product/{$category->slug}")],
+                [$product->name, url("/product/{$category->slug}/{$product->slug}")],
             ])->toArray(),
             'product' => [
                 'name' => $product->name,
@@ -119,8 +168,24 @@ class ProductController extends Controller
                 'strength' => $product->strength,
                 'pack_size' => $product->pack_size,
             ],
-            'category' => $category->only('name', 'slug'),
+            'category' => $category->only('name', 'slug') + ['url' => "/product/{$category->slug}"],
             'related' => $related,
+            'content' => $content,
         ]);
+    }
+
+    private function siblings(): Collection
+    {
+        return ProductCategory::orderBy('sort_order')->get(['name', 'slug', 'icon']);
+    }
+
+    private function categoryImage(ProductCategory $category): ?string
+    {
+        if ($category->image) {
+            return url($category->image);
+        }
+        $first = $category->products->firstWhere('image');
+
+        return $first ? url($first->image) : null;
     }
 }

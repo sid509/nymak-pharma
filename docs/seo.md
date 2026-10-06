@@ -59,18 +59,24 @@ Clean, hyphenated, keyword-forward (requirement #7):
 /about                                   company
 /manufacturing                           facility
 /quality-certifications                  quality
-/products                                index
-/products/{category}                     e.g. /products/iv-fluids
-/products/{category}/{product}           branded products only
-/global-presence                         markets index
-/global-presence/{market}                content-rich markets only
+/products                                index — category overview
+/product/{category}                      category landing (editorial content)
+/product/{category}/products             full grouped product list
+/product/{category}/{product}            detail — detail-enabled products only
+/global-presence                         markets index (interactive map)
 /blog, /blog/{post}
 /faqs, /contact
 /privacy-policy, /terms
 /sitemap.xml, /robots.txt, /llms.txt
 ```
 
-Scoped route model binding on `/products/{category}/{product}` enforces that
+`/product/{category}` preserves the live site's established category URLs.
+Interim `/products/{category}` URLs 301 to `/product/{category}`;
+`NormalizeUrls` middleware also strips trailing slashes (`/product/iv-fluids/`
+→ `/product/iv-fluids`) and one-hops known legacy paths (`/about-us/` → `/about`,
+`/iv-fluid/` → `/product/iv-fluids`).
+
+Scoped route model binding on `/product/{category}/{product}` enforces that
 a product URL only resolves under its own category — no orphan/duplicate URLs.
 
 ## Page inventory & keyword mapping
@@ -78,15 +84,15 @@ a product URL only resolves under its own category — no orphan/duplicate URLs.
 | Page | Focus keyword | Intent |
 |---|---|---|
 | `/` | pharmaceutical manufacturer & exporter india | brand + category |
-| `/products/iv-fluids` | iv fluids manufacturer india | category |
-| `/products/finished-formulations` | pharmaceutical finished formulations | category |
-| `/products/medical-devices-and-disposables` | medical devices supplier india | category |
-| `/products/rapid-diagnostic-kits` | rapid diagnostic kits manufacturer | category |
-| `/products/vaccines` | vaccines & antisera exporter | category |
+| `/product/iv-fluids` | iv fluids manufacturer india | category |
+| `/product/finished-formulations` | pharmaceutical finished formulations | category |
+| `/product/medical-devices-and-disposables` | medical devices supplier india | category |
+| `/product/rapid-diagnostic-kits` | rapid diagnostic kits manufacturer | category |
+| `/product/vaccines` | vaccines & antisera exporter | category |
+| `/product/{category}/products` | {category} product list | catalogue |
 | `/manufacturing` | pharmaceutical manufacturing facility gujarat | capability |
 | `/quality-certifications` | who-gmp certified pharmaceutical | trust |
 | `/global-presence` | pharmaceutical exports 24 countries | reach |
-| `/global-presence/{market}` | pharmaceutical exports to {market} | market |
 | `/contact` | pharmaceutical export enquiry | conversion |
 | `/blog/*` | informational | authority |
 

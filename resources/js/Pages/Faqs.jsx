@@ -15,7 +15,7 @@ export default function Faqs({ seo, groups, content }) {
                         {groups.map((g) => (
                             <section key={g.category} aria-labelledby={`faq-${g.category.toLowerCase().replace(/\W+/g, '-')}`}>
                                 <h2 id={`faq-${g.category.toLowerCase().replace(/\W+/g, '-')}`}
-                                    className="mb-5 text-xl font-extrabold text-ink-900">
+                                    className="mb-5 t-h3 text-ink-900">
                                     {g.category}
                                 </h2>
                                 <Accordion items={g.faqs} />
@@ -23,8 +23,8 @@ export default function Faqs({ seo, groups, content }) {
                         ))}
                     </div>
 
-                    <div className="mt-14 rounded-2xl bg-brand-700 p-8 text-white">
-                        <h2 className="text-xl font-extrabold">{content.cta_title}</h2>
+                    <div className="mt-14 rounded-2xl bg-gradient-to-br from-brand-700 to-brand-900 p-8 text-white">
+                        <h2 className="t-h3">{content.cta_title}</h2>
                         <p className="mt-2 max-w-xl text-sm leading-relaxed text-brand-100">
                             {content.cta_body}
                         </p>

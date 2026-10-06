@@ -1,20 +1,20 @@
 @import 'tailwindcss';
 
 @theme {
-    --font-sans: 'Manrope Variable', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+    --font-sans: 'Inter', Arial, ui-sans-serif, system-ui, -apple-system, sans-serif;
 
-    /* Nymak brand — deep clinical teal */
-    --color-brand-50: #eefcfb;
-    --color-brand-100: #d5f6f4;
-    --color-brand-200: #b0ece9;
-    --color-brand-300: #7ededa;
-    --color-brand-400: #45c6c2;
-    --color-brand-500: #28aba8;
-    --color-brand-600: #1e8d8b;
-    --color-brand-700: #0e7a72;
-    --color-brand-800: #12605c;
-    --color-brand-900: #134f4d;
-    --color-brand-950: #06302f;
+    /* Nymak brand — the logo's green, scaled (primary) */
+    --color-brand-50: #f0fdf1;
+    --color-brand-100: #dcf9de;
+    --color-brand-200: #bbf0c1;
+    --color-brand-300: #8ae396;
+    --color-brand-400: #4fd658;
+    --color-brand-500: #31c43d;
+    --color-brand-600: #22a52e;
+    --color-brand-700: #1c8a2a;
+    --color-brand-800: #1d6826;
+    --color-brand-900: #195523;
+    --color-brand-950: #072e10;
 
     --color-ink-50: #f4f7f8;
     --color-ink-100: #e4eaec;
@@ -28,12 +28,21 @@
     --color-ink-900: #16293a;
     --color-ink-950: #0a1c29;
 
-    --color-gold-400: #e8b95c;
-    --color-gold-500: #d9a03f;
-    --color-gold-600: #b97f26;
+    /* Accent — the logo's azure blue (kept on the gold-* tokens so
+       supply arcs, badges and highlights retheme in one place) */
+    --color-gold-50: #f0f9ff;
+    --color-gold-100: #e0f2fe;
+    --color-gold-400: #36bdfb;
+    --color-gold-500: #0086d4;
+    --color-gold-600: #0072b5;
+    --color-gold-800: #065b8f;
 
     --shadow-card: 0 1px 2px rgb(10 28 41 / 0.05), 0 8px 24px -12px rgb(10 28 41 / 0.12);
-    --shadow-card-hover: 0 2px 4px rgb(10 28 41 / 0.06), 0 16px 40px -16px rgb(14 122 114 / 0.22);
+    --shadow-card-hover: 0 2px 4px rgb(10 28 41 / 0.06), 0 16px 40px -16px rgb(34 165 46 / 0.22);
+
+    /* Motion — strong ease-out as the house curve */
+    --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+    --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
 }
 
 html {
@@ -52,6 +61,14 @@ html {
 
 body {
     text-rendering: optimizeLegibility;
+    caret-color: var(--color-brand-600);
+}
+
+/* Uniform focus treatment — brand ring everywhere interactive */
+:focus-visible {
+    outline: 2px solid var(--color-brand-600);
+    outline-offset: 2px;
+    border-radius: 4px;
 }
 
 ::selection {
@@ -59,9 +76,73 @@ body {
     color: var(--color-ink-950);
 }
 
+/* ── Typography system ──────────────────────────────────────────
+   Single source of truth for the site's type scale (Inter).
+   Components/pages compose `.t-*` with color/spacing utilities.
+   Headings: semibold 600 — the clinical, editorial read.
+   Mobile-first sizes step up at sm (640) and lg (1024). */
+@layer components {
+    /* Home + Inside hero */
+    .t-hero {
+        font-size: 2.25rem; line-height: 1.1; font-weight: 600; letter-spacing: -0.02em;
+    }
+    /* Page titles (PageHero, blog/product/team detail h1) */
+    .t-page {
+        font-size: 2rem; line-height: 1.15; font-weight: 600; letter-spacing: -0.02em;
+    }
+    /* Section headings */
+    .t-h2 {
+        font-size: 1.875rem; line-height: 1.2; font-weight: 600; letter-spacing: -0.015em;
+    }
+    /* Sub-headings, panel titles, CTA bands */
+    .t-h3 {
+        font-size: 1.4375rem; line-height: 1.3; font-weight: 600; letter-spacing: -0.01em;
+    }
+    /* Card titles */
+    .t-h4 {
+        font-size: 1.3125rem; line-height: 1.35; font-weight: 600;
+    }
+    /* Introductory paragraphs under headings */
+    .t-lead {
+        font-size: 1.125rem; line-height: 1.6; font-weight: 400;
+    }
+    /* Reading copy */
+    .t-body {
+        font-size: 1.0625rem; line-height: 1.6; font-weight: 400;
+    }
+    /* Captions, meta rows, small labels */
+    .t-caption {
+        font-size: .875rem; line-height: 1.5; font-weight: 500;
+    }
+    /* Uppercase section labels — restrained tracking */
+    .t-eyebrow {
+        font-size: .8125rem; line-height: 1.4; font-weight: 600;
+        letter-spacing: .04em; text-transform: uppercase;
+    }
+    .t-nav    { font-size: 1rem; font-weight: 500; }
+    .t-button { font-size: 1rem; font-weight: 600; }
+    /* Display numerals — stats, avatars, counts */
+    .t-figure { font-size: 2rem; line-height: 1.1; font-weight: 700; letter-spacing: -0.02em; }
+
+    @media (min-width: 640px) {
+        .t-hero { font-size: 2.625rem; }
+        .t-page { font-size: 2.125rem; }
+        .t-h2   { font-size: 2rem; }
+        .t-lead { font-size: 1.1875rem; }
+        .t-figure { font-size: 2.5rem; }
+    }
+    @media (min-width: 1024px) {
+        .t-hero   { font-size: 3.5rem; }     /* 56px */
+        .t-page   { font-size: 2.875rem; }   /* 46px */
+        .t-h2     { font-size: 2.375rem; }   /* 38px */
+        .t-h3     { font-size: 1.6875rem; }  /* 27px */
+        .t-figure { font-size: 3rem; }       /* 48px */
+    }
+}
+
 /* Product / spec tables */
 .spec-table th {
-    @apply bg-ink-50 text-left text-xs font-bold uppercase tracking-wider text-ink-600;
+    @apply bg-ink-50 text-left text-xs font-semibold uppercase tracking-[0.04em] text-ink-600;
 }
 .spec-table th, .spec-table td {
     @apply border-b border-ink-100 px-4 py-3;
@@ -70,18 +151,23 @@ body {
     @apply border-b-0;
 }
 
+/* Spec tables align like data: tabular figures keep columns readable */
+.spec-table td {
+    @apply tabular-nums;
+}
+
 /* Long-form content (blog/legal) */
 .prose-nymak h2 {
-    @apply mt-10 mb-4 text-2xl font-extrabold tracking-tight text-ink-900;
+    @apply mt-10 mb-4 text-2xl font-semibold tracking-tight text-ink-900;
 }
 .prose-nymak h3 {
-    @apply mt-8 mb-3 text-xl font-bold text-ink-900;
+    @apply mt-8 mb-3 text-xl font-semibold text-ink-900;
 }
 .prose-nymak p {
-    @apply mb-4 leading-relaxed text-ink-700;
+    @apply mb-4 text-[1.0625rem] leading-[1.6] text-ink-700;
 }
 .prose-nymak ul {
-    @apply mb-4 list-disc space-y-1 pl-6 text-ink-700;
+    @apply mb-4 list-disc space-y-1 pl-6 text-[1.0625rem] text-ink-700;
 }
 .prose-nymak strong {
     @apply font-semibold text-ink-900;
@@ -92,11 +178,19 @@ body {
    transform/opacity only so they stay on the compositor. Content
    is visible by default when JS or the observer never fires. */
 
+/* Gradient display text — deep azure through azure to the logo green */
+.text-gradient {
+    background: linear-gradient(100deg, var(--color-gold-800) 0%, var(--color-gold-500) 48%, var(--color-brand-400) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
 .reveal {
     opacity: 0;
-    transform: translateY(18px);
-    transition: opacity .55s cubic-bezier(.16, 1, .3, 1),
-                transform .55s cubic-bezier(.16, 1, .3, 1);
+    transform: translateY(14px);
+    transition: opacity .55s var(--ease-out),
+                transform .55s var(--ease-out);
 }
 .reveal.is-visible {
     opacity: 1;
@@ -104,9 +198,72 @@ body {
 }
 .reveal-clip {
     clip-path: inset(0 0 100% 0);
-    transition: clip-path .7s cubic-bezier(.16, 1, .3, 1);
+    transition: clip-path .7s var(--ease-out);
 }
 .reveal-clip.is-visible { clip-path: inset(0 0 0 0); }
+
+/* Inertia page swaps — a soft settle so navigation feels intentional.
+   Opacity only: child reveals/staggers own the movement. */
+.page-enter {
+    animation: page-in .4s var(--ease-out);
+}
+@keyframes page-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Dropdown + mobile menu — entrance from their anchor (plays whenever the
+   display-toggled panel appears, with or without JS). */
+.nav-drop { transform-origin: top left; animation: nav-in .18s var(--ease-out); }
+@keyframes nav-in {
+    from { opacity: 0; transform: translateY(-6px) scale(.98); }
+    to { opacity: 1; transform: none; }
+}
+.nav-mobile { animation: nav-in .22s var(--ease-out); transform-origin: top; }
+
+/* Editorial image reveal — clip wipe with a slight settle inside. */
+.reveal-media {
+    overflow: hidden;
+    clip-path: inset(0 0 12% 0);
+    opacity: 0;
+    transition: clip-path .8s var(--ease-out), opacity .5s ease;
+}
+.reveal-media img {
+    transform: scale(1.05);
+    transition: transform 1s var(--ease-out);
+}
+.reveal-media.is-visible { clip-path: inset(0 0 0 0); opacity: 1; }
+.reveal-media.is-visible img { transform: none; }
+
+/* Brochure FAB — soft attention ring + periodic sheen so it stays discoverable. */
+.fab-brochure { isolation: isolate; } /* already fixed-positioned via Tailwind */
+.fab-brochure::before {
+    content: '';
+    position: absolute;
+    inset: -3px;
+    z-index: -1;
+    border-radius: inherit;
+    border: 2px solid rgb(49 196 61 / 0.55);
+    animation: fab-ring 2.8s var(--ease-out) infinite;
+    pointer-events: none;
+}
+@keyframes fab-ring {
+    0%   { transform: scale(0.92); opacity: 0.9; }
+    60%, 100% { transform: scale(1.35); opacity: 0; }
+}
+.fab-brochure svg { animation: fab-bob 2.8s ease-in-out infinite; }
+@keyframes fab-bob {
+    0%, 55%, 100% { transform: translateY(0); }
+    28% { transform: translateY(2.5px); }
+}
+/* On hover the file icon does a quick download dip — reinforces the action. */
+.fab-brochure:hover .fab-file { animation: fab-dip .5s var(--ease-out); }
+@keyframes fab-dip {
+    0%   { transform: translateY(0); }
+    45%  { transform: translateY(4px); }
+    70%  { transform: translateY(-1px); }
+    100% { transform: translateY(0); }
+}
 
 /* CTA buttons: sheen sweep + arrow travel on hover/focus */
 .btn-cta {
@@ -207,9 +364,12 @@ body {
 .market-chip[data-active="true"] { transform: translateY(-2px); }
 
 @media (prefers-reduced-motion: reduce) {
-    .reveal, .reveal-clip { opacity: 1; transform: none; clip-path: none; transition: none; }
+    .reveal, .reveal-clip, .reveal-media { opacity: 1; transform: none; clip-path: none; transition: none; }
     .btn-cta, .btn-cta::after, .btn-cta .btn-arrow, .market-chip { transition: none; }
     .btn-cta:hover { transform: none; }
+    .page-enter, .nav-drop, .nav-mobile { animation: none; }
+    .fab-brochure::before, .fab-brochure svg { animation: none; }
+    .reveal-media img { transform: none; transition: none; }
 }
 
 /* ── Motion system, pass 2 ─────────────────────────────────── */
@@ -241,6 +401,19 @@ body {
     box-shadow: 0 1px 0 rgb(16 24 40 / .06), 0 8px 24px -12px rgb(16 24 40 / .18);
 }
 
+/* Utility bar folds away on scroll — the grid-rows 1fr→0fr trick
+   animates the collapse without measuring height in JS. */
+.topbar {
+    display: grid;
+    grid-template-rows: 1fr;
+    transition: grid-template-rows .3s var(--ease-out), opacity .22s ease;
+}
+.site-header[data-scrolled="true"] .topbar {
+    grid-template-rows: 0fr;
+    opacity: 0;
+}
+.topbar > div { overflow: hidden; min-height: 0; }
+
 /* Card imagery breathes on hover — bounded transform only. */
 .card-media img { transition: transform .5s cubic-bezier(.16, 1, .3, 1); }
 .card-media:hover img, a.card-media:focus-visible img { transform: scale(1.04); }
@@ -266,10 +439,131 @@ body {
 .marquee:focus-within .marquee-track { animation-play-state: paused; }
 @keyframes marquee { to { transform: translateX(-100%); } }
 
+/* Certification carousel — same mechanism, larger tiles, slightly quicker. */
+.marquee-track--certs { gap: 1.25rem; padding-right: 1.25rem; align-items: stretch; animation-duration: 26s; }
+
 @media (prefers-reduced-motion: reduce) {
     .enter > * { animation: none; opacity: 1; transform: none; }
     .story-rail::before { transform: none; transition: none; }
     .explorer-panel, .marquee-track { animation: none; }
     .marquee { overflow-x: auto; }
     .card-media img { transition: none; }
+    .topbar { transition: none; }
 }
+
+/* ── Global Presence map ───────────────────────────────────────
+   Inert countries sit back; markets lift forward in brand teal;
+   the selection goes gold. Fills transition so a click feels like
+   a highlight sweeping in rather than a hard swap. */
+.map-base path {
+    fill: var(--color-ink-200);
+    stroke: #fff;
+    stroke-width: .6;
+}
+.map-active path {
+    fill: var(--color-brand-400);
+    stroke: #fff;
+    stroke-width: .8;
+    cursor: pointer;
+    outline: none;
+    transition: fill .22s ease, filter .22s ease;
+}
+.map-active path[data-featured="true"] { fill: var(--color-brand-600); }
+.map-active path:hover,
+.map-active path:focus-visible { fill: var(--color-brand-700); filter: drop-shadow(0 2px 6px rgb(34 165 46 / .35)); }
+.map-active path[data-selected="true"],
+.map-active path[data-selected="true"]:hover { fill: var(--color-gold-500); filter: drop-shadow(0 2px 8px rgb(0 134 212 / .45)); }
+.map-active path:focus-visible { stroke: var(--color-ink-900); stroke-width: 1.4; }
+
+.map-pin { pointer-events: none; }
+.map-pin [role="button"] { pointer-events: all; outline: none; }
+.map-pin-dot { fill: var(--color-brand-700); stroke: #fff; stroke-width: 1.5; transition: fill .22s ease, r .22s ease; }
+.map-pin-ring {
+    fill: var(--color-brand-500);
+    opacity: .35;
+    transform-origin: center;
+    transform-box: fill-box;
+    animation: pin-pulse 2.4s cubic-bezier(.16, 1, .3, 1) infinite;
+    transition: fill .22s ease, r .22s ease;
+}
+.map-pin[data-selected="true"] .map-pin-dot { fill: var(--color-gold-600); }
+.map-pin[data-selected="true"] .map-pin-ring { fill: var(--color-gold-500); animation-duration: 1.6s; }
+.map-pin:focus-within .map-pin-dot { stroke: var(--color-ink-900); }
+@keyframes pin-pulse {
+    0% { transform: scale(.6); opacity: .55; }
+    70%, 100% { transform: scale(1.6); opacity: 0; }
+}
+.map-tip { animation: panel-in .18s cubic-bezier(.16, 1, .3, 1); }
+
+/* Globe — airline-style hub view centred on India. */
+.globe-svg { cursor: grab; touch-action: pan-y; }
+.globe-svg.is-dragging { cursor: grabbing; }
+.globe-ocean { filter: drop-shadow(0 22px 45px rgb(7 42 48 / .16)); }
+.globe-atmos { fill: none; stroke: var(--color-brand-100); stroke-width: 22; opacity: .5; }
+.globe-grat { fill: none; stroke: rgb(100 116 139 / .18); stroke-width: .5; }
+.globe-hq-land { fill: var(--color-gold-100); stroke: var(--color-gold-500); stroke-width: 1; }
+.globe-arc { fill: none; stroke: var(--color-gold-500); stroke-width: 1.25; opacity: .55; }
+.globe-arc-run {
+    fill: none;
+    stroke: var(--color-gold-600);
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-dasharray: .1 .9;
+    stroke-dashoffset: 1;
+    animation: arc-fly 3.6s linear infinite;
+}
+.globe-routes .is-selected .globe-arc { opacity: .85; stroke-width: 1.6; }
+@keyframes arc-fly { to { stroke-dashoffset: 0; } }
+.globe-hq { pointer-events: none; }
+.globe-hq-dot { fill: var(--color-gold-600); stroke: #fff; stroke-width: 1.5; }
+.globe-hq-ring {
+    fill: var(--color-gold-400);
+    opacity: .35;
+    transform-origin: center;
+    transform-box: fill-box;
+    animation: pin-pulse 2.4s cubic-bezier(.16, 1, .3, 1) infinite;
+}
+.globe-hq-label {
+    font-size: 11.5px;
+    font-weight: 700;
+    letter-spacing: .04em;
+    fill: var(--color-ink-700);
+    stroke: #fff;
+    stroke-width: 3;
+    paint-order: stroke;
+}
+
+/* Market list under the map — mirrors the selection state. */
+.map-list-btn { transition: background-color .15s ease, color .15s ease, border-color .15s ease, transform .15s cubic-bezier(.16, 1, .3, 1); }
+.map-list-btn:hover { transform: translateY(-1px); }
+
+@media (prefers-reduced-motion: reduce) {
+    .map-active path, .map-pin-dot, .map-pin-ring, .map-list-btn { transition: none; }
+    .map-pin-ring, .globe-hq-ring { animation: none; transform: scale(1.15); opacity: .3; }
+    .globe-arc-run { animation: none; display: none; }
+    .globe-arc { opacity: .6; }
+    .map-tip { animation: none; }
+    .map-list-btn:hover { transform: none; }
+}
+
+/* Admin WYSIWYG */
+.richtext-body:empty::before,
+.richtext-body > p.is-editor-empty:first-child::before {
+    content: attr(data-placeholder);
+    color: var(--color-ink-400);
+    float: left;
+    height: 0;
+    pointer-events: none;
+}
+.richtext-body p { margin-bottom: .75rem; }
+.richtext-body h2 { margin-top: 1.25rem; font-size: 1.25rem; font-weight: 600; line-height: 1.35; }
+.richtext-body h3 { margin-top: 1rem; font-size: 1.05rem; font-weight: 600; line-height: 1.4; }
+.richtext-body ol { @apply mb-4 list-decimal space-y-1 pl-6 text-ink-700; }
+.richtext-body blockquote, .prose-nymak blockquote {
+    @apply my-4 border-l-4 border-brand-300 pl-4 italic text-ink-600;
+}
+.richtext-body hr, .prose-nymak hr { @apply my-6 border-ink-100; }
+.richtext-body a, .prose-nymak a { @apply font-semibold text-brand-700 underline underline-offset-2; }
+.prose-nymak ol { @apply mb-4 list-decimal space-y-1 pl-6 text-ink-700; }
+.prose-nymak h4 { @apply mt-6 mb-2 text-lg font-semibold text-ink-900; }
+.prose-nymak li > p, .richtext-body li > p { margin-bottom: 0; }

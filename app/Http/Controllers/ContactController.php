@@ -47,8 +47,15 @@ class ContactController extends Controller
 
     public function store(EnquiryRequest $request): RedirectResponse
     {
-        // Honeypot/min-time gate: fake success, store nothing.
+        // Honeypot/min-time gate: fake success, store nothing — but log why
+        // so real submissions caught by the gate stay diagnosable.
         if ($request->looksLikeSpam()) {
+            \Log::info('Enquiry discarded by spam gate', [
+                'reason' => $request->filled(config('nymak.enquiry.honeypot')) ? 'honeypot' : 'min_time',
+                'email' => $request->input('email'),
+                'ip' => $request->ip(),
+            ]);
+
             return redirect()->route('contact')->with('success',
                 'Thank you — your enquiry has been received. Our team will respond shortly.');
         }

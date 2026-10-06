@@ -1,3 +1,9 @@
+import { lazy, Suspense } from 'react';
+
+// Loaded on demand — TipTap is heavy and only rich-text forms need it.
+const RichText = lazy(() => import('./RichText'));
+const richtextFallback = <div className="min-h-[17rem] animate-pulse rounded-lg border border-ink-200 bg-ink-50" aria-hidden />;
+
 export const inputCls = 'w-full rounded-lg border border-ink-200 bg-white px-3.5 py-2.5 text-sm text-ink-900 placeholder:text-ink-400 transition-colors focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-100';
 const labelCls = 'mb-1.5 block text-xs font-bold uppercase tracking-wider text-ink-600';
 
@@ -66,15 +72,19 @@ export default function Field({ field, value, error, onChange }) {
     }
 
     const control =
-        type === 'textarea' ? (
-            <textarea rows={rows} value={value ?? ''} onChange={(e) => onChange(name, e.target.value)} className={inputCls} />
+        type === 'richtext' ? (
+            <Suspense fallback={richtextFallback}>
+                <RichText id={`f-${name}`} value={value ?? ''} onChange={(v) => onChange(name, v)} placeholder={field.placeholder} />
+            </Suspense>
+        ) : type === 'textarea' ? (
+            <textarea id={`f-${name}`} rows={rows} value={value ?? ''} onChange={(e) => onChange(name, e.target.value)} className={inputCls} />
         ) : type === 'select' ? (
-            <select value={value ?? ''} onChange={(e) => onChange(name, e.target.value)} className={inputCls}>
+            <select id={`f-${name}`} value={value ?? ''} onChange={(e) => onChange(name, e.target.value)} className={inputCls}>
                 <option value="">—</option>
                 {options.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
             </select>
         ) : (
-            <input type={type} value={value ?? ''} onChange={(e) => onChange(name, e.target.value)} className={inputCls} />
+            <input id={`f-${name}`} type={type} value={value ?? ''} onChange={(e) => onChange(name, e.target.value)} className={inputCls} />
         );
 
     return (
@@ -82,7 +92,7 @@ export default function Field({ field, value, error, onChange }) {
             <label htmlFor={`f-${name}`} className={labelCls}>
                 {label}{required && <span className="ml-0.5 text-red-600" aria-hidden>*</span>}
             </label>
-            <span id={`f-${name}`} className="block">{control}</span>
+            {control}
             {help && <p className="mt-1.5 text-xs text-ink-400">{help}</p>}
             {error && <p className="mt-1.5 text-xs font-semibold text-red-600" role="alert">{error}</p>}
         </div>
