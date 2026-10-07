@@ -136,3 +136,15 @@ Journeys: `tests/Browser/global-presence-map.mjs`, `tests/Browser/product-hierar
   '{n} markets across the globe').
 - **Regression:** the map journey's "no uncaught browser errors" step plus
   locale.mjs's per-page `pageerror` listener.
+
+## UAT-11 — Translated related names silent on FR/ES product pages
+- **Severity:** medium (translations stored but never rendered)
+- **Workflow:** visitor opens `/fr/product/{cat}/products` or a detail page
+- **Found by:** manual verification after seeding — category names stayed
+  English despite `i18n.fr.name` being set
+- **Root cause:** `with('category:id,name,slug')` column lists omitted
+  `i18n`; `HasTranslations` can't resolve a locale the model never loaded.
+- **Fix:** added `i18n` to the four eager-load selects across Home,
+  Inside, Market and Product controllers.
+- **Regression:** verified via Inertia props (`Comprimés` under /fr,
+  `IV Fluids` under /) + real-browser screenshots.

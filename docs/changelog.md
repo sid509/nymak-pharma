@@ -769,3 +769,20 @@ Pharma corporate website, engineered for SEO-first B2B lead generation.
 - Honeypot input gets 1Password/LastPass/autofill ignore attributes so
   form-fillers can't trip it for real users.
 - Regression test: future form_started_at timestamps still store.
+
+### FR/ES content seeding + label sweep
+- `ContentTranslationsSeeder` writes authored French and Spanish for all
+  existing content: every page-content slot (including schema-default
+  slots materialised into `page_contents`), categories, markets, posts,
+  FAQs, team members, testimonials and all 317 products. Product names
+  translate via a pharma stem/dosage-form rule table (`stems.fr/es.php`)
+  that preserves INN molecules, strengths and units; therapeutic groups
+  and descriptions use authored dictionaries. JSON slots write directly
+  into `i18n` — routing them through `setTranslations` would HTML-escape
+  the encoded quotes and break `for()`'s `json_decode`.
+- Eager-loaded `category` relations now select `i18n` — previously the
+  column list dropped it, so related category names silently resolved
+  English on FR/ES product pages even with translations stored.
+- Remaining literal labels on Inside (hero stats), Markets (hero stats)
+  and Quality (certificate scans) route through `t()`; missing
+  dictionary keys added to `fr.json`/`es.json`.
