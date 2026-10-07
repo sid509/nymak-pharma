@@ -1,12 +1,14 @@
 import { FileText, ShieldCheck } from 'lucide-react';
 import Accordion from '../Components/Accordion';
+import { useT } from '../i18n/useT';
 import { Container, PageHero, SectionHeading } from '../Components/Ui';
 import SiteLayout from '../Layouts/SiteLayout';
 
 export default function Quality({ seo, certifications, faqs, content }) {
+    const { t } = useT();
     const certScans = [
-        { image: content.cert_iso_image, label: 'ISO 13485:2016 Certificate' },
-        { image: content.cert_star_image, label: 'Star Export House Certificate of Recognition' },
+        { image: content.cert_iso_image, label: t('ISO 13485:2016 Certificate') },
+        { image: content.cert_star_image, label: t('Star Export House Certificate of Recognition') },
     ].filter((c) => c.image);
 
     return (

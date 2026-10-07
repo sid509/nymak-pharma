@@ -48,9 +48,9 @@ export default function Inside({ seo, content, stats, timeline, portfolio, categ
                         <p className="mt-6 max-w-xl t-lead text-ink-300">{content.hero_lead}</p>
                     </Reveal>
                     <Reveal delay={260}>
-                        <dl className="mt-12 grid max-w-2xl grid-cols-2 gap-8 sm:grid-cols-4">
-                            {[['years', 'Years of Lifecare'], ['countries', 'Export Countries'],
-                              ['containers_fy', 'Containers in FY 23–24'], ['products', 'Products in Portfolio']]
+                        <dl className="mx-auto mt-12 grid max-w-2xl grid-cols-2 gap-8 text-center sm:grid-cols-4">
+                            {[['years', t('Years of Lifecare')], ['countries', t('Export Countries')],
+                              ['containers_fy', t('Containers in FY 23–24')], ['products', t('Products in Portfolio')]]
                                 .map(([key, label]) => (
                                     <div key={key}>
                                         <dt className="sr-only">{label}</dt>

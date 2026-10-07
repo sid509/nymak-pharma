@@ -32,7 +32,7 @@ class ProductController extends Controller
                 ->get(['id', 'name', 'slug', 'icon', 'intro', 'image', 'i18n']),
             'branded' => $content['show_brands'] ? Product::where('has_detail_page', true)
                 ->whereNotNull('image')
-                ->with('category:id,name,slug')
+                ->with('category:id,name,slug,i18n')
                 ->orderBy('sort_order')
                 ->limit(12)
                 ->get(['id', 'name', 'slug', 'image', 'product_category_id', 'i18n']) : [],

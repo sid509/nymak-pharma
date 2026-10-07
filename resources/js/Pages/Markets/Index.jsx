@@ -138,10 +138,10 @@ export default function MarketsIndex({ seo, markets, offices, content }) {
                 lead={content.hero_lead} tone="dark" align="center">
                 <dl className="mx-auto mt-10 grid max-w-3xl grid-cols-2 gap-3 text-left sm:grid-cols-4">
                     {[
-                        [Globe2, `${markets.length}+`, 'Countries served'],
-                        [Route, regions.length, 'Regions'],
+                        [Globe2, `${markets.length}+`, t('Countries served')],
+                        [Route, regions.length, t('Regions')],
                         [Star, markets.filter((m) => m.featured).length || markets.length, t('Key markets')],
-                        [Building2, offices.length, 'International offices'],
+                        [Building2, offices.length, t('International offices')],
                     ].map(([Icon, value, label]) => (
                         <div key={label} className="rounded-xl border border-white/10 bg-white/5 px-4 py-3 backdrop-blur-sm">
                             <p className="flex items-center gap-2 text-lg font-semibold text-white">

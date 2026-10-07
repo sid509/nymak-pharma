@@ -60,7 +60,7 @@ class HomeController extends Controller
             // Only queried when the admin has switched the brands grid on.
             'featuredProducts' => $content['show_brands'] ? Product::where('has_detail_page', true)
                 ->whereNotNull('image')
-                ->with('category:id,name,slug')
+                ->with('category:id,name,slug,i18n')
                 ->inRandomOrder()
                 ->limit(8)
                 ->get(['id', 'name', 'slug', 'image', 'description', 'product_category_id', 'i18n']) : [],

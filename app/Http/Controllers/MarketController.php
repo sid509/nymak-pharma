@@ -22,7 +22,7 @@ class MarketController extends Controller
 
         $markets = Market::orderBy('sort_order')
             ->with(['products' => fn ($q) => $q->where('has_detail_page', true)
-                ->with('category:id,slug,name')
+                ->with('category:id,slug,name,i18n')
                 ->select('id', 'market_id', 'product_category_id', 'name', 'slug', 'image', 'i18n')])
             ->get()
             ->map(fn ($m) => [
