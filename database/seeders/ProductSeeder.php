@@ -275,17 +275,20 @@ class ProductSeeder extends Seeder
             [$md, 'Surgical & Wound Care', 'Crepe Bandage', null, null],
         ];
 
+        // Keyed on slug (index-stable) so re-seeding updates instead of duplicating.
         foreach ($catalog as $i => [$category, $group, $name, $strength, $pack]) {
-            Product::create([
-                'product_category_id' => $category,
-                'therapeutic_group' => $group,
-                'name' => $name,
-                'slug' => Str::slug($name.'-'.($strength ?? '').'-'.$i),
-                'strength' => $strength,
-                'pack_size' => $pack,
-                'sort_order' => $i,
-                'has_detail_page' => false,
-            ]);
+            Product::updateOrCreate(
+                ['slug' => Str::slug($name.'-'.($strength ?? '').'-'.$i)],
+                [
+                    'product_category_id' => $category,
+                    'therapeutic_group' => $group,
+                    'name' => $name,
+                    'strength' => $strength,
+                    'pack_size' => $pack,
+                    'sort_order' => $i,
+                    'has_detail_page' => false,
+                ]
+            );
         }
 
         // Rapid diagnostic kits use the `specimen` column instead of strength/pack.
@@ -313,14 +316,16 @@ class ProductSeeder extends Seeder
         ];
 
         foreach ($kits as $i => [$name, $specimen]) {
-            Product::create([
-                'product_category_id' => $rk,
-                'therapeutic_group' => 'Rapid Tests',
-                'name' => $name,
-                'slug' => Str::slug($name.'-kit-'.$i),
-                'specimen' => $specimen,
-                'sort_order' => $i,
-            ]);
+            Product::updateOrCreate(
+                ['slug' => Str::slug($name.'-kit-'.$i)],
+                [
+                    'product_category_id' => $rk,
+                    'therapeutic_group' => 'Rapid Tests',
+                    'name' => $name,
+                    'specimen' => $specimen,
+                    'sort_order' => $i,
+                ]
+            );
         }
 
         // Vaccines & antisera — description column carries the presentation detail.
@@ -332,15 +337,17 @@ class ProductSeeder extends Seeder
         ];
 
         foreach ($vaccines as $i => [$name, $desc, $pack]) {
-            Product::create([
-                'product_category_id' => $vx,
-                'therapeutic_group' => 'Antisera & Immunoglobulins',
-                'name' => $name,
-                'slug' => Str::slug($name.'-'.$i),
-                'description' => $desc,
-                'pack_size' => $pack,
-                'sort_order' => $i,
-            ]);
+            Product::updateOrCreate(
+                ['slug' => Str::slug($name.'-'.$i)],
+                [
+                    'product_category_id' => $vx,
+                    'therapeutic_group' => 'Antisera & Immunoglobulins',
+                    'name' => $name,
+                    'description' => $desc,
+                    'pack_size' => $pack,
+                    'sort_order' => $i,
+                ]
+            );
         }
 
         $this->seedBrandedProducts($ff);
@@ -417,18 +424,20 @@ class ProductSeeder extends Seeder
         ];
 
         foreach ($products as $i => [$marketId, $file, $name, $note]) {
-            Product::create([
-                'product_category_id' => $ff,
-                'market_id' => $marketId,
-                'therapeutic_group' => 'Nymak Branded Range',
-                'name' => $name,
+            Product::updateOrCreate(
                 // '/' → '-' before slugging so "20/120" becomes "20-120", not "20120"
-                'slug' => Str::slug(str_replace('/', '-', $name).'-'.$marketSlug[$marketId]),
-                'description' => $note.' Manufactured under WHO-GMP conditions and supplied as part of the Nymak Pharma branded portfolio.',
-                'image' => 'images/products/'.$marketFolder[$marketId].'/'.$file.'.webp',
-                'has_detail_page' => true,
-                'sort_order' => 500 + $i,
-            ]);
+                ['slug' => Str::slug(str_replace('/', '-', $name).'-'.$marketSlug[$marketId])],
+                [
+                    'product_category_id' => $ff,
+                    'market_id' => $marketId,
+                    'therapeutic_group' => 'Nymak Branded Range',
+                    'name' => $name,
+                    'description' => $note.' Manufactured under WHO-GMP conditions and supplied as part of the Nymak Pharma branded portfolio.',
+                    'image' => 'images/products/'.$marketFolder[$marketId].'/'.$file.'.webp',
+                    'has_detail_page' => true,
+                    'sort_order' => 500 + $i,
+                ]
+            );
         }
     }
 }

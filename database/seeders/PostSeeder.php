@@ -58,7 +58,7 @@ Partners evaluating Nymak Pharma consistently note the same things in facility f
 
 Certifications held by the company include WHO-GMP, ISO 13485:2016, Star Export House recognition, Pharmexcil RCMC membership, IEC registration and GST compliance — each one verifiable, each one maintained.
 MD,
-                'meta_title' => 'WHO-GMP Certified Pharmaceutical Manufacturer | Nymak',
+                'meta_title' => 'WHO-GMP Certified Pharmaceutical Manufacturer',
                 'meta_description' => 'What WHO-GMP and ISO 13485 certification mean in practice at Nymak Pharma — and why they matter to importers, distributors and health programmes.',
                 'published_at' => '2026-08-02 09:00:00',
             ],
@@ -86,7 +86,7 @@ Beyond hydration, the range carries ready-to-infuse antibacterials — ciproflox
 
 All IV fluids are manufactured under WHO-GMP conditions at the Mundra facility and exported across Nymak's 24+ markets, with registration support from the in-house regulatory team.
 MD,
-                'meta_title' => 'IV Fluids & Large-Volume Parenterals | Nymak Pharma',
+                'meta_title' => 'IV Fluids & Large-Volume Parenterals',
                 'meta_description' => 'Inside Nymak Pharma\'s IV fluids range — saline, dextrose, RL, multi-electrolyte and therapeutic infusions manufactured under WHO-GMP for 24+ markets.',
                 'published_at' => '2026-08-20 09:00:00',
             ],
@@ -112,14 +112,15 @@ The Star Export House recognition sits alongside WHO-GMP and ISO 13485:2016 cert
 
 For a company that began in 1998 with a single product shipped to the South Pacific, the recognition marks how far disciplined, quality-first exporting can reach.
 MD,
-                'meta_title' => 'Star Export House Certified Pharma Exporter | Nymak',
+                'meta_title' => 'Star Export House Certified Pharma Exporter',
                 'meta_description' => 'Nymak Pharma is a Government of India certified Star Export House — what the recognition means for importers, distributors and partners.',
                 'published_at' => '2026-09-01 09:00:00',
             ],
         ];
 
+        // Keyed on slug so re-seeding updates in place instead of duplicating.
         foreach ($posts as $post) {
-            Post::create($post);
+            Post::updateOrCreate(['slug' => $post['slug']], $post);
         }
     }
 }

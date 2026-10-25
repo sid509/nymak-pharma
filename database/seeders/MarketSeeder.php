@@ -9,6 +9,10 @@ class MarketSeeder extends Seeder
 {
     public function run(): void
     {
+        // Client review (content plan, change log): Ghana is not a verified
+        // active market — keep it out of the seeded list and the live DB.
+        Market::where('slug', 'ghana')->delete();
+
         // Only markets with verified presence are seeded. The brochure cites
         // 24+ countries overall; named markets are listed here rather than
         // fabricating the remainder.
@@ -28,22 +32,23 @@ class MarketSeeder extends Seeder
                 'show_in_portfolio' => true, 'sort_order' => 3],
 
             // Named markets without dedicated pages (requirement #9 — no thin duplicates).
-            ['name' => 'Ghana', 'slug' => 'ghana', 'iso_code' => 'GH', 'region' => 'West Africa', 'sort_order' => 4],
-            ['name' => 'Somalia', 'slug' => 'somalia', 'iso_code' => 'SO', 'region' => 'East Africa', 'sort_order' => 5],
-            ['name' => 'Kenya', 'slug' => 'kenya', 'iso_code' => 'KE', 'region' => 'East Africa', 'sort_order' => 6],
-            ['name' => 'DR Congo', 'slug' => 'dr-congo', 'iso_code' => 'CD', 'region' => 'Central Africa', 'sort_order' => 7],
-            ['name' => 'Cameroon', 'slug' => 'cameroon', 'iso_code' => 'CM', 'region' => 'Central Africa', 'sort_order' => 8],
-            ['name' => 'Mauritania', 'slug' => 'mauritania', 'iso_code' => 'MR', 'region' => 'West Africa', 'sort_order' => 9],
-            ['name' => 'Honduras', 'slug' => 'honduras', 'iso_code' => 'HN', 'region' => 'Central America', 'sort_order' => 10],
+            ['name' => 'Somalia', 'slug' => 'somalia', 'iso_code' => 'SO', 'region' => 'East Africa', 'sort_order' => 4],
+            ['name' => 'Kenya', 'slug' => 'kenya', 'iso_code' => 'KE', 'region' => 'East Africa', 'sort_order' => 5],
+            ['name' => 'DR Congo', 'slug' => 'dr-congo', 'iso_code' => 'CD', 'region' => 'Central Africa', 'sort_order' => 6],
+            ['name' => 'Cameroon', 'slug' => 'cameroon', 'iso_code' => 'CM', 'region' => 'Central Africa', 'sort_order' => 7],
+            ['name' => 'Mauritania', 'slug' => 'mauritania', 'iso_code' => 'MR', 'region' => 'West Africa', 'sort_order' => 8],
+            ['name' => 'Honduras', 'slug' => 'honduras', 'iso_code' => 'HN', 'region' => 'Central America', 'sort_order' => 9],
             // Multi-country region: no single ISO code, so it is pinned on the map by coordinates.
             ['name' => 'South Pacific Islands', 'slug' => 'south-pacific', 'iso_code' => null, 'region' => 'Oceania',
                 'latitude' => -17.7, 'longitude' => 178.0,
                 'description' => 'Nymak Pharma\'s first export region — the company began by supplying Sterilized Water for Injections BP to island markets across the South Pacific in 1998.',
-                'sort_order' => 11],
+                'sort_order' => 10],
         ];
 
+        // Keyed on slug so re-seeding (deploy runs `migrate --force --seed`)
+        // updates rows instead of duplicating them.
         foreach ($markets as $market) {
-            Market::create($market);
+            Market::updateOrCreate(['slug' => $market['slug']], $market);
         }
     }
 }

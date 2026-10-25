@@ -30,9 +30,9 @@ class CertificationSeeder extends Seeder
                 null],
         ];
 
+        // Keyed on name so re-seeding updates in place instead of duplicating.
         foreach ($certifications as $i => [$name, $issuer, $description, $image]) {
-            Certification::create([
-                'name' => $name,
+            Certification::updateOrCreate(['name' => $name], [
                 'issuer' => $issuer,
                 'description' => $description,
                 'image' => $image,

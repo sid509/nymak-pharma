@@ -23,7 +23,7 @@ return [
         'es' => 'Su socio fiable en soluciones de lifecare eficaces — presente en 24 países y en crecimiento. Fabricante farmacéutico certificado WHO-GMP y Star Export House que suministra fluidos IV, formas farmacéuticas terminadas, dispositivos médicos, pruebas de diagnóstico rápido y vacunas.',
     ],
     'home.hero_primary_label' => ['fr' => 'Découvrir nos produits', 'es' => 'Explorar nuestros productos'],
-    'home.hero_secondary_label' => ['fr' => 'Devenir partenaire', 'es' => 'Asóciese con nosotros'],
+    'home.hero_secondary_label' => ['fr' => 'Contactez-nous', 'es' => 'Contáctenos'],
     'home.stats_years_label' => ['fr' => 'Années de lifecare', 'es' => 'Años de lifecare'],
     'home.stats_countries_label' => ['fr' => 'Pays d’exportation', 'es' => 'Países de exportación'],
     'home.stats_containers_label' => ['fr' => 'Conteneurs par exercice', 'es' => 'Contenedores por ejercicio'],

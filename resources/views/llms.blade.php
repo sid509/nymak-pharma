@@ -17,12 +17,11 @@
 ## Product segments
 
 @foreach($categories as $cat)
-- {{ $cat->name }}@if($cat->intro) — {{ $cat->intro }}@endif
-@endforeach
+- {!! $cat->name !!}@if($cat->intro) — {!! $cat->intro !!}@endif{!! "\n" !!}@endforeach
 
 ## Export markets
 
-{{ $markets->count() }}+ markets including {{ $markets->take(11)->implode(', ') }} and more.
+{{ $c['stats']['countries'] }} country markets — named markets include {{ $markets->implode(', ') }}.
 
 ## Important pages
 
@@ -31,7 +30,7 @@
 - [Quality & Certifications]({{ url('/quality-certifications') }}): WHO-GMP, ISO 13485, Star Export House
 - [Products]({{ url('/products') }}): full product portfolio by segment
 @foreach($categories as $cat)
-- [{{ $cat->name }}]({{ url('/product/'.$cat->slug) }}): category overview — [full product list]({{ url('/product/'.$cat->slug.'/products') }})
+- [{!! $cat->name !!}]({{ url('/product/'.$cat->slug) }}): category overview — [full product list]({{ url('/product/'.$cat->slug.'/products') }})
 @endforeach
 - [Global Presence]({{ url('/global-presence') }}): export markets and international offices
 - [Blog]({{ url('/blog') }}): company and product insights

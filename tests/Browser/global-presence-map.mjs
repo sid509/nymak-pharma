@@ -99,7 +99,10 @@ await step('visitor sees the map with clickable countries and an empty-state pan
     await page.goto(`${BASE}/global-presence`);
     await page.locator('.world-map svg').waitFor();
     const countries = page.locator('.map-active path[role="button"]');
-    expect((await countries.count()) >= 10, `expected ≥10 clickable countries, got ${await countries.count()}`);
+    // Only the facing hemisphere renders clickable countries — Honduras sits
+    // behind the horizon at the home view, so the floor is the 8 visible
+    // seeded markets (+1 for the UAT market the run creates).
+    expect((await countries.count()) >= 8, `expected ≥8 clickable countries, got ${await countries.count()}`);
     expect(await page.locator('.globe-arc').count() >= 10, 'supply-route arcs from Mundra rendered');
     expect(await page.locator('.globe-hq').isVisible(), 'Mundra HQ marker shown');
     expect(await page.getByText('Spin the globe — pick a country').isVisible(), 'placeholder panel shown');
@@ -155,9 +158,9 @@ await step('pinned region (no ISO code) is selectable — list pick spins the gl
 await step('keyboard: Tab to a country, Enter selects, close button clears', async () => {
     await page.getByRole('button', { name: 'Clear selection' }).click();
     await page.getByText('Spin the globe — pick a country').waitFor();
-    await page.getByRole('button', { name: /^Ghana — view/ }).focus();
+    await page.getByRole('button', { name: /^Nigeria — view/ }).focus();
     await page.keyboard.press('Enter');
-    await page.locator('.explorer-panel').getByRole('heading', { name: 'Ghana', level: 3 }).waitFor();
+    await page.locator('.explorer-panel').getByRole('heading', { name: 'Nigeria', level: 3 }).waitFor();
 });
 
 await step('deep link opens the market directly', async () => {

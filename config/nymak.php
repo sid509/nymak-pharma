@@ -120,7 +120,7 @@ return [
         'years' => '25+',
         'countries' => '24+',
         'containers_fy' => '200+',
-        'products' => '150+',
+        'products' => '300+',
     ],
 
 ];

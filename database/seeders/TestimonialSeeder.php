@@ -18,8 +18,9 @@ class TestimonialSeeder extends Seeder
                 'Manufacturing facility is good. Focused on innovation and up-gradation of existing facilities, quality conscious.'],
         ];
 
+        // Keyed on name so re-seeding updates in place instead of duplicating.
         foreach ($testimonials as $i => [$name, $country, $quote]) {
-            Testimonial::create(compact('name', 'country', 'quote') + ['sort_order' => $i]);
+            Testimonial::updateOrCreate(['name' => $name], compact('country', 'quote') + ['sort_order' => $i]);
         }
     }
 }

@@ -2,9 +2,9 @@
 
 namespace Tests\Feature;
 
-use App\Models\Market;
-use App\Models\TeamMember;
 use App\Models\PageMeta;
+use App\Models\Post;
+use App\Models\TeamMember;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
@@ -20,8 +20,7 @@ class AdminSeoTest extends TestCase
     #[Test]
     public function page_meta_override_replaces_public_title_and_description(): void
     {
-        PageMeta::create([
-            'key' => 'products.index',
+        PageMeta::updateOrCreate(['key' => 'products.index'], [
             'meta_title' => 'Custom Product Page Title',
             'meta_description' => 'A custom description for the products index.',
         ]);
@@ -34,7 +33,8 @@ class AdminSeoTest extends TestCase
     #[Test]
     public function empty_page_meta_falls_back_to_defaults(): void
     {
-        PageMeta::create(['key' => 'home']); // row exists, fields null
+        // Row exists (seeded with plan meta) — clear it so controller defaults win.
+        PageMeta::where('key', 'home')->update(['meta_title' => null, 'meta_description' => null]);
 
         $this->get('/')->assertOk()
             ->assertSee('Pharmaceutical Manufacturer', false);
@@ -101,7 +101,7 @@ class AdminSeoTest extends TestCase
     public function post_cover_image_uploads_and_serves_in_schema(): void
     {
         $admin = User::factory()->create();
-        $post = \App\Models\Post::firstOrFail();
+        $post = Post::firstOrFail();
 
         $this->actingAs($admin)->put("/admin/posts/{$post->slug}", [
             'title' => $post->title,

@@ -20,6 +20,8 @@ class PageMeta extends Model
         'quality' => 'Quality & Certifications',
         'products.index' => 'Products (overview)',
         'markets.index' => 'Global Presence',
+        'team.index' => 'Team',
+        'inside' => 'Inside Nymak (interactive)',
         'posts.index' => 'Blog / Resources',
         'faqs' => 'FAQs',
         'contact' => 'Contact Us',

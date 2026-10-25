@@ -2,13 +2,14 @@
 
 namespace Tests\Feature;
 
+use App\Models\Certification;
 use App\Models\ClientLogo;
 use App\Models\PageContent;
 use App\Models\SiteSetting;
+use App\Models\TeamMember;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 
 class AdminCmsTest extends TestCase
@@ -58,7 +59,7 @@ class AdminCmsTest extends TestCase
 
     public function test_blank_page_content_restores_default(): void
     {
-        PageContent::create(['page' => 'home', 'key' => 'hero_title', 'value' => 'Override']);
+        PageContent::updateOrCreate(['page' => 'home', 'key' => 'hero_title'], ['value' => 'Override']);
 
         $this->actingAs($this->admin())->put('/admin/pages/home', [
             'hero_title' => '',
@@ -162,7 +163,7 @@ class AdminCmsTest extends TestCase
             'sort_order' => 1,
         ])->assertRedirect();
 
-        $member = \App\Models\TeamMember::where('name', 'Ms. Test Person')->first();
+        $member = TeamMember::where('name', 'Ms. Test Person')->first();
         $this->assertNotNull($member->photo);
         $this->assertFileExists(public_path($member->photo));
         unlink(public_path($member->photo));
@@ -183,7 +184,7 @@ class AdminCmsTest extends TestCase
             'sort_order' => 99,
         ])->assertRedirect();
 
-        $cert = \App\Models\Certification::where('name', 'Test Cert')->first();
+        $cert = Certification::where('name', 'Test Cert')->first();
         $this->assertStringEndsWith('.webp', $cert->image);
         unlink(public_path($cert->image));
         $this->get('/quality-certifications')->assertInertia(fn ($p) => $p->component('Quality')

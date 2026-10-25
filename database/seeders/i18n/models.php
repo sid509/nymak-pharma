@@ -144,7 +144,6 @@ return [
                 'es' => '<p>Nymak Pharma entró en el mercado nigeriano en 2000 — un hito que elevó los volúmenes de exportación un 25 % y abrió la expansión de la empresa por el continente africano.</p><h3>Lo que hacemos aquí</h3><ul><li>Formas terminadas y fluidos IV suministrados a través de distribuidores establecidos</li><li>Soporte de registro NAFDAC de nuestro equipo regulatorio interno</li><li>Relaciones de larga data con grupos hospitalarios y organismos de compras</li></ul>',
             ],
         ],
-        'ghana' => ['region' => ['fr' => 'Afrique de l’Ouest', 'es' => 'África Occidental']],
         'somalia' => ['region' => ['fr' => 'Afrique de l’Est', 'es' => 'África Oriental']],
         'kenya' => ['region' => ['fr' => 'Afrique de l’Est', 'es' => 'África Oriental']],
         'dr-congo' => ['region' => ['fr' => 'Afrique centrale', 'es' => 'África Central']],
@@ -331,8 +330,8 @@ return [
         10 => [
             'question' => ['fr' => 'Quels pays Nymak Pharma dessert-elle ?', 'es' => '¿A qué países sirve Nymak Pharma?'],
             'answer' => [
-                'fr' => 'Nymak Pharma opère dans plus de 24 pays. Parmi les marchés nommés : Nigeria, Sierra Leone, Liberia, Ghana, Somalie, Kenya, RD Congo, Cameroun, Mauritanie, Honduras et des marchés insulaires du Pacifique Sud, soutenus par des bureaux au Royaume-Uni, en Sierra Leone et au Liberia.',
-                'es' => 'Nymak Pharma opera en más de 24 países. Entre los mercados nombrados: Nigeria, Sierra Leona, Liberia, Ghana, Somalia, Kenia, RD Congo, Camerún, Mauritania, Honduras y mercados insulares del Pacífico Sur, con el apoyo de oficinas en el Reino Unido, Sierra Leona y Liberia.',
+                'fr' => 'Nymak Pharma opère dans plus de 24 pays. Parmi les marchés nommés : Nigeria, Sierra Leone, Liberia, Somalie, Kenya, RD Congo, Cameroun, Mauritanie, Honduras et des marchés insulaires du Pacifique Sud, soutenus par des bureaux au Royaume-Uni, en Sierra Leone et au Liberia.',
+                'es' => 'Nymak Pharma opera en más de 24 países. Entre los mercados nombrados: Nigeria, Sierra Leona, Liberia, Somalia, Kenia, RD Congo, Camerún, Mauritania, Honduras y mercados insulares del Pacífico Sur, con el apoyo de oficinas en el Reino Unido, Sierra Leona y Liberia.',
             ],
             'category' => ['fr' => 'Exportations', 'es' => 'Exportaciones'],
         ],

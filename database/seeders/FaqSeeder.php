@@ -29,17 +29,17 @@ class FaqSeeder extends Seeder
             ['Quality', 'How does Nymak assure product quality?',
                 'Quality is managed by an in-house QC/QA structure: batches are analysed by the quality control laboratory and released only after quality assurance review. The company also maintains an in-house regulatory team for dossier and registration support, and an in-house design team for compliant packaging and labelling.'],
             ['Exports', 'Which countries does Nymak Pharma serve?',
-                'Nymak Pharma operates in more than 24 countries. Named markets include Nigeria, Sierra Leone, Liberia, Ghana, Somalia, Kenya, DR Congo, Cameroon, Mauritania, Honduras and island markets across the South Pacific, supported by offices in the UK, Sierra Leone and Liberia.'],
+                'Nymak Pharma operates in more than 24 countries. Named markets include Nigeria, Sierra Leone, Liberia, Somalia, Kenya, DR Congo, Cameroon, Mauritania, Honduras and island markets across the South Pacific, supported by offices in the UK, Sierra Leone and Liberia.'],
             ['Exports', 'How can I become a distributor for Nymak Pharma products?',
                 'Distributors, importers, NGOs and public health procurement teams can reach the exports team through the contact page, by email at info@nymakpharma.com, or via the regional offices in Sierra Leone and Liberia. The regulatory team supports product registration and dossier requirements in the destination market.'],
             ['Exports', 'Does Nymak Pharma supply to tenders and public health programmes?',
                 'Yes. The portfolio — particularly IV fluids, antimalarials, antiretrovirals, rapid diagnostic kits and medical disposables — is supplied to hospitals, distributors and public health programmes across its export markets. Enquiries for institutional and tender supply are welcome through the contact page.'],
         ];
 
+        // Keyed on question so re-seeding updates in place instead of duplicating.
         foreach ($faqs as $i => [$category, $question, $answer]) {
-            Faq::create([
+            Faq::updateOrCreate(['question' => $question], [
                 'category' => $category,
-                'question' => $question,
                 'answer' => $answer,
                 'sort_order' => $i,
             ]);

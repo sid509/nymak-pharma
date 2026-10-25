@@ -38,7 +38,7 @@ class PageContent extends Model
             ['hero_image', 'Hero background image', 'image', 'images/hero/facility-aerial.webp'],
             ['hero_primary_label', 'Hero: primary button label', 'text', 'Explore Our Products'],
             ['hero_primary_url', 'Hero: primary button link', 'text', '/products'],
-            ['hero_secondary_label', 'Hero: secondary button label', 'text', 'Partner With Us'],
+            ['hero_secondary_label', 'Hero: secondary button label', 'text', 'Contact Us'],
             ['hero_secondary_url', 'Hero: secondary button link', 'text', '/contact'],
             // Stats
             ['show_stats', 'Show stats band', 'toggle', '1'],

@@ -38,10 +38,13 @@ class GlobalPresenceMapTest extends TestCase
     {
         $this->get('/global-presence')
             ->assertInertia(fn (Assert $p) => $p
-                ->where('markets.10.slug', 'south-pacific')
-                ->where('markets.10.iso_code', null)
-                ->where('markets.10.latitude', fn ($v) => abs($v - -17.7) < 0.0001)
-                ->where('markets.10.longitude', fn ($v) => abs($v - 178.0) < 0.0001)
+                ->where('markets', function ($markets) {
+                    $sp = collect($markets)->firstWhere('slug', 'south-pacific');
+
+                    return $sp && $sp['iso_code'] === null
+                        && abs($sp['latitude'] - -17.7) < 0.0001
+                        && abs($sp['longitude'] - 178.0) < 0.0001;
+                })
             );
     }
 

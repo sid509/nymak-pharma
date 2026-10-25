@@ -20,6 +20,9 @@ class DatabaseSeeder extends Seeder
             CertificationSeeder::class,
             TeamMemberSeeder::class,
             ClientLogoSeeder::class,
+            PageMetaSeeder::class,
+            // Last: writes FR/ES translations onto the seeded content.
+            ContentTranslationsSeeder::class,
         ]);
 
         // Admin user for the enquiry inbox. Credentials come from the
