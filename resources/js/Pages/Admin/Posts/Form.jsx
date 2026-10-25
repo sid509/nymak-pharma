@@ -47,7 +47,7 @@ export default function PostForm({ post = null }) {
                     {post?.cover_image && (
                         <div className="flex items-center gap-3">
                             <img src={`/${post.cover_image}`} alt="" className="h-14 w-24 rounded-lg border border-ink-100 object-cover" />
-                            <p className="text-xs text-ink-400">Current cover — upload to replace.</p>
+                            <p className="text-xs text-ink-400">Current cover. Upload to replace.</p>
                         </div>
                     )}
                     <div>
@@ -62,7 +62,7 @@ export default function PostForm({ post = null }) {
 
                 <section className="space-y-5 rounded-2xl border border-ink-200 bg-white p-6 sm:p-8">
                     <h2 className="text-sm font-bold uppercase tracking-wider text-ink-500">SEO</h2>
-                    <Field field={{ name: 'meta_title', label: 'Meta title', help: `${(form.data.meta_title || '').length}/70 — blank derives from title.` }} value={form.data.meta_title} error={form.errors.meta_title} onChange={set} />
+                    <Field field={{ name: 'meta_title', label: 'Meta title', help: `${(form.data.meta_title || '').length}/70, blank derives from title.` }} value={form.data.meta_title} error={form.errors.meta_title} onChange={set} />
                     <Field field={{ name: 'meta_description', label: 'Meta description', type: 'textarea', rows: 2, help: `${(form.data.meta_description || '').length}/200` }} value={form.data.meta_description} error={form.errors.meta_description} onChange={set} />
                 </section>
 

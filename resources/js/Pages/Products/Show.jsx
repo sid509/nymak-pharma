@@ -9,7 +9,7 @@ import { useT } from '../../i18n/useT';
 import { fill } from './Category';
 
 /**
- * Product detail — specification and context, with a contact CTA (no
+ * Product detail - specification and context, with a contact CTA (no
  * quote/cart affordance: enquiries go through the contact form, which
  * pre-selects this product).
  */
@@ -29,7 +29,7 @@ export default function ProductsShow({ seo, product, category, related = [], con
                     <div className="grid items-start gap-10 lg:grid-cols-2">
                         <div className="overflow-hidden rounded-2xl border border-ink-100 bg-white shadow-card">
                             {product.image ? (
-                                <img src={`/${product.image}`} alt={`${product.name} — Nymak Pharma ${product.market?.name || ''}`.trim()}
+                                <img src={`/${product.image}`} alt={`${product.name}, Nymak Pharma ${product.market?.name || ''}`.trim()}
                                      width="800" height="600" fetchPriority="high"
                                      className="w-full object-contain" />
                             ) : (

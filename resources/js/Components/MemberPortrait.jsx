@@ -1,5 +1,5 @@
 /**
- * Team portrait tile — brand duotone + the site's concentric-ring motif.
+ * Team portrait tile - brand duotone + the site's concentric-ring motif.
  * Shows the member's photo as a centred circle (the format their assets ship
  * in), falling back to initials when no photo is uploaded. Tone alternates
  * per member (stable by slug) so grids carry rhythm.
@@ -17,7 +17,7 @@ export function portraitTone(member) {
 export default function MemberPortrait({ member, tone, className = '', initialClass = 'text-4xl', photoClass = 'h-28 w-28 sm:h-36 sm:w-36' }) {
     return (
         <div className={`relative grid h-full w-full place-items-center overflow-hidden bg-gradient-to-br ${TONES[tone ?? portraitTone(member)]} ${className}`}>
-            {/* concentric rings — the site's route-map motif, bottom-right */}
+            {/* concentric rings - the site's route-map motif, bottom-right */}
             <svg className="absolute -bottom-12 -right-12 h-48 w-48 text-white/[0.12]" viewBox="0 0 200 200" fill="none" aria-hidden>
                 {[97, 74, 51, 28].map((r) => <circle key={r} cx="100" cy="100" r={r} stroke="currentColor" strokeWidth="1.25" />)}
             </svg>

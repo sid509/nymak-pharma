@@ -4,7 +4,7 @@ namespace App\Support;
 
 /**
  * UI-chrome translations use Laravel's JSON translation files (lang/fr.json,
- * lang/es.json) where English source text is the key — the same files power
+ * lang/es.json) where English source text is the key - the same files power
  * __() server-side and the shared `i18n` prop client-side, so SSR and the
  * browser always agree.
  */

@@ -4,7 +4,7 @@ export default function Logo({ className = '', light = false, size = 'md' }) {
     const { site } = usePage().props;
     const sm = size === 'sm';
 
-    // Dark surfaces: the favicon N monogram + light wordmark text — the
+    // Dark surfaces: the favicon N monogram + light wordmark text - the
     // horizontal logo only works on light backgrounds, and a white chip
     // reads as a pasted overlay.
     if (light) {

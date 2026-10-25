@@ -33,7 +33,7 @@ class CertificationController extends CrudController
                 ['name' => 'issuer', 'label' => 'Issuer', 'type' => 'text'],
                 ['name' => 'description', 'label' => 'Description', 'type' => 'textarea', 'rows' => 3],
                 ['name' => 'image', 'label' => 'Logo / badge', 'type' => 'image', 'dir' => 'certifications',
-                    'help' => 'Optional — shown on Quality and About pages.'],
+                    'help' => 'Optional. Shown on Quality and About pages.'],
                 ['name' => 'sort_order', 'label' => 'Sort order', 'type' => 'number'],
             ],
         ];

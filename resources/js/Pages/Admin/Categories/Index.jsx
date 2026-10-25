@@ -5,7 +5,7 @@ export default function CategoriesIndex({ categories }) {
     return (
         <AdminLayout title="Categories">
             <p className="mb-5 text-sm text-ink-500">
-                Product categories are structural — names and content are editable here; adding/removing
+                Product categories are structural. Names and content are editable here; adding/removing
                 categories is a developer task since they map to public URLs and navigation.
             </p>
             <div className="overflow-x-auto rounded-xl border border-ink-200 bg-white">

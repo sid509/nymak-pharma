@@ -10,7 +10,7 @@ class TeamMemberSeeder extends Seeder
 {
     public function run(): void
     {
-        // Bios mirror nymakpharma.com/team — the canonical content source.
+        // Bios mirror nymakpharma.com/team, the canonical content source.
         $team = [
             ['Mr. Ranjit Advani', 'Founder & Mentor', true,
                 'With over 50 years of invaluable experience in the pharmaceutical industry, Ranjit Advani serves as the visionary leader and mentor at Nymak Pharma. His extensive expertise and adept administration have been instrumental in shaping the company\'s growth and success.'],
@@ -20,7 +20,7 @@ class TeamMemberSeeder extends Seeder
                 'Dimendra Patel leverages 15 years of experience in regulatory affairs and quality assurance within the pharmaceutical sector. His meticulous approach ensures that all products by Nymak Pharma adhere to stringent regulatory standards, guaranteeing safety, efficacy, and compliance.'],
             ['Mr. Murtuza Naqvi', 'Business Development Manager', true,
                 'Murtuza Naqvi is an experienced Business Development Manager with a rich background in marketing and business expansion, particularly in the African market. With over a decade of living and working in Africa, he has developed a profound understanding of the region\'s business landscape, consumer behavior, and market dynamics.'],
-            ['Mr. Jobe John', 'International Business Development — FWA', false,
+            ['Mr. Jobe John', 'International Business Development, FWA', false,
                 'Jobe John is an experienced Business Development Manager with a rich background in marketing and business expansion, particularly in French-speaking West African markets. With over a decade of living and working in Africa, Jobe has developed a profound understanding of the region\'s business landscape, consumer behavior, and market dynamics.'],
             ['Mr. Narendra Hirani', 'Logistics & Warehouse Head', false,
                 'Narendra Hirani is a seasoned hand in logistics and warehousing with two decades of experience in logistics and related fields. His extensive career has equipped him with comprehensive knowledge and expertise in managing logistics operations, warehouse management, and supply chain optimization.'],

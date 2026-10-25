@@ -18,7 +18,7 @@ describe('mdToHtml', () => {
         expect(mdToHtml('text **bold** end')).toContain('<strong>bold</strong>');
     });
 
-    it('escapes raw HTML — content is author-controlled but never trusted', () => {
+    it('escapes raw HTML - content is author-controlled but never trusted', () => {
         const html = mdToHtml('Safe <script>alert(1)</script>');
         expect(html).not.toContain('<script>');
         expect(html).toContain('&lt;script&gt;');

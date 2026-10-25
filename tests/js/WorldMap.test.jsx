@@ -47,7 +47,7 @@ describe('placeMarkets', () => {
 describe('WorldMap globe', () => {
     it('renders visible market countries as buttons, with the selected one pressed', () => {
         render(<WorldMap markets={markets} selected="nigeria" onSelect={() => {}} />);
-        // The opening view centres on the Indian Ocean — African markets are
+        // The opening view centres on the Indian Ocean - African markets are
         // in frame; South Pacific is on the far side and reaches the user via
         // the list (selecting it spins the globe round).
         expect(screen.getByRole('button', { name: /Nigeria/ })).toHaveAttribute('aria-pressed', 'true');
@@ -64,7 +64,7 @@ describe('WorldMap globe', () => {
         expect(container.querySelector('.globe-hq')).not.toBeNull(); // Mundra HQ marker
     });
 
-    // Found in browser UAT: the arcs are painted over country shapes — without
+    // Found in browser UAT: the arcs are painted over country shapes - without
     // pointer-events:none they swallowed clicks aimed at markets beneath them.
     it('keeps decorative route arcs out of the hit target', () => {
         const { container } = render(<WorldMap markets={markets} selected={null} onSelect={() => {}} />);

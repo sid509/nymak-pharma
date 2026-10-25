@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 
 /**
- * Motion primitives — IntersectionObserver-driven reveals and counters.
+ * Motion primitives - IntersectionObserver-driven reveals and counters.
  * All states render fully visible without JS and respect
  * prefers-reduced-motion (handled in app.css).
  */
@@ -32,7 +32,7 @@ export function useInView({ threshold = 0.15, once = true } = {}) {
 }
 
 /** Scroll-reveal wrapper: children rise/settle into place on first view.
-    variant="media" swaps the rise for a clip wipe — for big imagery. */
+    variant="media" swaps the rise for a clip wipe - for big imagery. */
 export function Reveal({ children, className = '', delay = 0, as: Tag = 'div', variant }) {
     const [ref, inView] = useInView();
     const kind = variant === 'media' ? 'reveal-media' : 'reveal';
@@ -46,7 +46,7 @@ export function Reveal({ children, className = '', delay = 0, as: Tag = 'div', v
 }
 
 /**
- * Scroll-progress through an element — 0 at top-of-viewport entry,
+ * Scroll-progress through an element - 0 at top-of-viewport entry,
  * 1 when the element's bottom reaches the viewport bottom. Used for
  * scroll-driven motion where the scroll relationship carries meaning.
  */

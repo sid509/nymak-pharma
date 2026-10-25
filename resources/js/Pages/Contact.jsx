@@ -35,7 +35,7 @@ export default function Contact({ seo, offices, products, selectedProduct, formS
                         </div>
                     </div>
 
-                    {/* Contact details — consistent NAP */}
+                    {/* Contact details - consistent NAP */}
                     <aside className="space-y-5 lg:sticky lg:top-28 lg:self-start">
                         <div className="rounded-2xl bg-ink-950 p-6 text-white">
                             <h2 className="t-h4">{t('Head Office & Works')}</h2>
@@ -43,7 +43,7 @@ export default function Contact({ seo, offices, products, selectedProduct, formS
                                 <p className="flex gap-2.5">
                                     <FontAwesomeIcon style={{ fontSize: 16 }} icon={faLocationDot} className="mt-0.5 shrink-0 text-brand-400" aria-hidden />
                                     <span className="text-ink-200">
-                                        {site.address.street}, {site.address.city}, {site.address.region} — {site.address.postal_code}, {site.address.country}
+                                        {site.address.street}, {site.address.city}, {site.address.region}, {site.address.postal_code}, {site.address.country}
                                     </span>
                                 </p>
                                 <p className="flex gap-2.5 text-ink-200">

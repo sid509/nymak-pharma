@@ -34,6 +34,6 @@ describe('Header', () => {
 
     it('has a reachable brand link', () => {
         render(<Header />);
-        expect(screen.getByRole('link', { name: /nymak pharma — home/i })).toHaveAttribute('href', '/');
+        expect(screen.getByRole('link', { name: /nymak pharma home/i })).toHaveAttribute('href', '/');
     });
 });

@@ -27,8 +27,8 @@ export default function DataTable({
                 : <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-ink-50 text-[9px] font-bold uppercase text-ink-300">none</span>;
         }
         if (col.truncate && typeof v === 'string' && v.length > col.truncate) v = `${v.slice(0, col.truncate)}…`;
-        if (col.type === 'bool') return v ? <span className="font-semibold text-brand-700">Yes</span> : <span className="text-ink-400">—</span>;
-        if (v == null || v === '') return <span className="text-ink-300">—</span>;
+        if (col.type === 'bool') return v ? <span className="font-semibold text-brand-700">Yes</span> : <span className="text-ink-400">-</span>;
+        if (v == null || v === '') return <span className="text-ink-300">-</span>;
         return String(v);
     };
 

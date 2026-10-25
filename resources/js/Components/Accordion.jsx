@@ -3,7 +3,7 @@ import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 
 import { useState } from 'react';
 
-/** Accessible FAQ accordion — single-open, keyboard friendly, semantic buttons. */
+/** Accessible FAQ accordion - single-open, keyboard friendly, semantic buttons. */
 export default function Accordion({ items }) {
     const [open, setOpen] = useState(0);
 

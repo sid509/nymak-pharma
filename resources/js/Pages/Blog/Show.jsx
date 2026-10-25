@@ -37,7 +37,7 @@ export default function BlogShow({ seo, post, related }) {
                         <div className="mt-12 rounded-2xl bg-gradient-to-br from-brand-700 to-brand-900 p-7 text-white">
                             <h2 className="t-h4">{t('Work with a WHO-GMP certified manufacturer')}</h2>
                             <p className="mt-2 text-sm text-brand-100">
-                                {t('Product enquiries, distribution and partnership — talk to our exports team.')}
+                                {t('Product enquiries, distribution and partnership. Talk to our exports team.')}
                             </p>
                             <ButtonLink href="/contact" variant="light" className="mt-4">{t('Contact us')}</ButtonLink>
                         </div>

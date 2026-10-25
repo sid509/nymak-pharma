@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\Enquiry;
+use App\Models\Product;
 use App\Notifications\EnquiryReceived;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Notification;
@@ -88,7 +89,7 @@ class EnquiryTest extends TestCase
     public function future_form_timestamp_is_not_treated_as_spam(): void
     {
         // A client clock running ahead of the server yields negative elapsed
-        // time — clock skew is not a spam signal, the enquiry must store.
+        // time - clock skew is not a spam signal, the enquiry must store.
         Notification::fake();
 
         $this->post('/contact', $this->payload([
@@ -116,7 +117,7 @@ class EnquiryTest extends TestCase
     public function enquiry_can_be_linked_to_a_product(): void
     {
         Notification::fake();
-        $product = \App\Models\Product::firstOrFail();
+        $product = Product::firstOrFail();
 
         $this->post('/contact', $this->payload(['product_id' => $product->id]))
             ->assertSessionHas('success');
@@ -127,7 +128,7 @@ class EnquiryTest extends TestCase
     #[Test]
     public function product_query_param_preselects_the_product(): void
     {
-        $product = \App\Models\Product::where('has_detail_page', true)->firstOrFail();
+        $product = Product::where('has_detail_page', true)->firstOrFail();
 
         $this->get("/contact?product={$product->slug}")
             ->assertOk()

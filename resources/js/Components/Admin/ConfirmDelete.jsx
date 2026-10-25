@@ -18,7 +18,7 @@ export default function ConfirmDelete({ href, name = 'this record', onError = nu
             onFinish: () => setBusy(false),
             onSuccess: () => setOpen(false),
             onError: (errors) => {
-                setError(Object.values(errors)[0] || 'Delete failed — the record may be in use.');
+                setError(Object.values(errors)[0] || 'Delete failed. The record may be in use.');
                 onError?.(errors);
             },
         });

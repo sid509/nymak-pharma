@@ -2,13 +2,16 @@
 
 use App\Http\Controllers;
 use App\Http\Middleware\SetLocale;
+use App\Models\Market;
+use App\Models\ProductCategory;
+use App\Models\SiteSetting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-// Public site — localised: English unprefixed (canonical), /fr/…, /es/…
+// Public site - localised: English unprefixed (canonical), /fr/…, /es/…
 // The same routes register twice. The {locale?} group registers FIRST so
 // named routes resolve to the locale-carrying URI (nameList keeps the first
-// registration) — route() then honours URL::defaults('locale') set by
+// registration) - route() then honours URL::defaults('locale') set by
 // SetLocale. Bare EN routes register second: {locale?}/x fails to match a
 // plain /x (Laravel's greedy first-segment quirk), so English requests fall
 // through to these.
@@ -28,7 +31,7 @@ $public = function () {
         ->scopeBindings()
         ->name('products.show');
 
-    // 301s — old-site URLs (docs/seo-page-map.md) and the interim /products/{category}
+    // 301s - old-site URLs (docs/seo-page-map.md) and the interim /products/{category}
     // paths. Redirects preserve the locale prefix.
     $redir = fn (string $to) => function () use ($to) {
         $prefix = ($l = app()->getLocale()) === 'en' ? '' : "/{$l}";
@@ -77,12 +80,12 @@ Route::middleware(SetLocale::class)->group($public);
 
 Route::get('/sitemap.xml', Controllers\SitemapController::class)->name('sitemap');
 
-// llms.txt — generated from site settings + catalogue so admin edits reach AI crawlers.
+// llms.txt - generated from site settings + catalogue so admin edits reach AI crawlers.
 Route::get('/llms.txt', function () {
     return response(view('llms', [
-        'c' => \App\Models\SiteSetting::merged(),
-        'categories' => \App\Models\ProductCategory::orderBy('sort_order')->get(['name', 'slug', 'intro']),
-        'markets' => \App\Models\Market::orderBy('sort_order')->pluck('name'),
+        'c' => SiteSetting::merged(),
+        'categories' => ProductCategory::orderBy('sort_order')->get(['name', 'slug', 'intro']),
+        'markets' => Market::orderBy('sort_order')->pluck('name'),
     ]))->header('Content-Type', 'text/plain; charset=utf-8');
 });
 

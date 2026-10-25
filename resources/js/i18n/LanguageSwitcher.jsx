@@ -13,7 +13,7 @@ const LANGS = [
 ];
 
 /**
- * Locale switcher — plain anchors to the current page's alternate URLs
+ * Locale switcher - plain anchors to the current page's alternate URLs
  * (shared `locales` prop), so a switch reloads shared props + document lang
  * in one pass. `dark` suits the ink-950 topbar; `menu` renders the mobile
  * drawer's inline flag row instead of a dropdown.

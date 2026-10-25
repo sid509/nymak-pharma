@@ -4,7 +4,7 @@ import tailwindcss from '@tailwindcss/vite';
 import react from '@vitejs/plugin-react';
 
 // While Vite is hot, laravel/inertia POSTs SSR requests to
-// {vite-hot-url}/__inertia_ssr — an endpoint the dev server doesn't ship.
+// {vite-hot-url}/__inertia_ssr - an endpoint the dev server doesn't ship.
 // The standalone SSR server (php artisan inertia:start-ssr) answers /render;
 // bridge the two so server-side rendering still runs for Pest tests and any
 // local SSR checks. Browsers shouldn't hydrate this markup (dev React ≠ the

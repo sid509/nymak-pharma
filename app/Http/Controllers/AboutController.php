@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\Middleware\SetLocale;
-
 use App\Models\Certification;
 use App\Models\PageContent;
 use App\Models\TeamMember;
@@ -17,7 +16,7 @@ class AboutController extends Controller
     {
         return Inertia::render('About', [
             'seo' => Seo::make(
-                'About Us — WHO-GMP Pharmaceutical Manufacturer Since 1998',
+                'About Us: WHO-GMP Pharmaceutical Manufacturer Since 1998',
                 'Founded in 1998, Nymak Pharma is a WHO-GMP certified pharmaceutical manufacturer and Star Export House serving 24+ countries from Mundra, Gujarat, India.'
             )->override('about')->breadcrumbs([
                 ['Home', SetLocale::absolute('/')],

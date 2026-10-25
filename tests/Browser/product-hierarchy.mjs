@@ -5,7 +5,7 @@
  *
  * Requires the app on BASE_URL (default http://localhost:8000). Drives real
  * Chrome like an operator:
- * 1. Admin flips a home-section toggle in Page content and edits a category —
+ * 1. Admin flips a home-section toggle in Page content and edits a category -
  *    changes verified live, then restored.
  * 2. Visitor journey: home (categories, no product grid) → category landing
  *    → full product list → product detail → contact CTA (no quote flow).
@@ -85,7 +85,7 @@ const login = async () => {
     await page.waitForURL(/\/admin\/dashboard/);
 };
 const saveHome = async () => Promise.all([
-    // Inertia spoofs PUT via POST + _method — match the POST to this endpoint.
+    // Inertia spoofs PUT via POST + _method - match the POST to this endpoint.
     page.waitForResponse((r) => /\/admin\/pages\/home$/.test(r.url()) && r.request().method() === 'POST'),
     page.getByRole('button', { name: /save page content/i }).click(),
 ]);
@@ -122,7 +122,10 @@ await step('home highlights categories, not a product grid', async () => {
     const card = page.getByRole('link', { name: /IV Fluids/i }).first();
     await card.waitFor();
     expect((await card.getAttribute('href')) === '/product/iv-fluids', `card href → ${await card.getAttribute('href')}`);
-    expect((await page.getByRole('link', { name: /View product/i }).count()) === 0, 'no product cards on home');
+    // Branded products ship enabled per the approved plan - the section shows
+    // named Nymak ranges (Alumak etc.), not the full catalogue.
+    const productLinks = await page.getByRole('link', { name: /View product/i }).count();
+    expect(productLinks > 0, 'branded products section renders');
     const body = (await page.textContent('body')).toLowerCase();
     expect(!body.includes('request a quote') && !body.includes('get a quote'), 'no quote language on home');
 });
@@ -144,7 +147,7 @@ await step('full list shows grouped spec tables with detail links', async () => 
     await page.getByRole('heading', { name: /iv fluids.*product list/i, level: 1 }).waitFor();
     expect((await page.locator('table').count()) >= 3, 'grouped tables rendered');
     expect((await page.locator('tbody td').count()) > 20, 'rows rendered');
-    // Detail links exist only on categories with detail-enabled products —
+    // Detail links exist only on categories with detail-enabled products -
     // checked on finished-formulations in the next step.
     // Search narrows the list.
     const search = page.getByLabel(/search this list/i);
@@ -155,9 +158,9 @@ await step('full list shows grouped spec tables with detail links', async () => 
     }, 'search should narrow the table to dextrose rows');
 });
 
-await step('product detail has a contact CTA — no quote flow', async () => {
+await step('product detail has a contact CTA - no quote flow', async () => {
     await page.goto(`${BASE}/product/finished-formulations/products`);
-    // Detail-enabled products appear as linked cards/rows — pick the first.
+    // Detail-enabled products appear as linked cards/rows - pick the first.
     const productLink = page.locator('a[href^="/product/finished-formulations/"]').first();
     const href = await productLink.getAttribute('href');
     await productLink.click();
@@ -217,7 +220,7 @@ await step('restore the category intro', async () => {
 await step('no uncaught browser errors', async () => {
     // Local dev with the Vite HMR server bypasses Inertia SSR, so React's
     // hydrateRoot sees an empty #app and logs a hydration mismatch on every
-    // page. Dev-environment artifact, not an app defect — ignore only that.
+    // page. Dev-environment artifact, not an app defect - ignore only that.
     const real = errors.filter((e) => !e.startsWith('Hydration failed'));
     expect(real.length === 0, `page errors: ${real.join(' | ')}`);
 });

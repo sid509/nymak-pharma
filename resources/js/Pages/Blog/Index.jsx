@@ -28,7 +28,7 @@ export default function BlogIndex({ seo, posts, content }) {
                         </div>
                     )}
 
-                    {/* Pagination — crawlable links (requirement: SEO-friendly pagination) */}
+                    {/* Pagination - crawlable links (requirement: SEO-friendly pagination) */}
                     {posts.last_page > 1 && (
                         <nav aria-label="Pagination" className="mt-12 flex items-center justify-center gap-2">
                             {posts.links.map((l, i) => {

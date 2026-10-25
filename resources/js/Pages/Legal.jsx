@@ -3,11 +3,11 @@ import SiteLayout from '../Layouts/SiteLayout';
 
 const content = {
     privacy: [
-        ['Information we collect', 'When you submit an enquiry through this website, we collect the details you provide — name, company, email address, phone number, country and your message — along with your IP address for abuse prevention.'],
+        ['Information we collect', 'When you submit an enquiry through this website, we collect the details you provide: name, company, email address, phone number, country and your message, along with your IP address for abuse prevention.'],
         ['How we use it', 'We use this information solely to respond to your enquiry, discuss potential business, and comply with legal obligations. We do not sell, rent or share your personal data with third parties for marketing.'],
         ['Email & contact data', 'Contact details published on this site are for genuine business enquiries. We may limit, filter or protect published addresses to reduce spam, while keeping them accessible to real partners.'],
         ['Data retention', 'Enquiry records are retained as long as needed to serve the enquiry and maintain business records. You may request deletion of your enquiry data by emailing us.'],
-        ['Cookies & analytics', 'Where analytics are enabled, we use them to understand aggregate site usage and improve the site — not to identify individuals.'],
+        ['Cookies & analytics', 'Where analytics are enabled, we use them to understand aggregate site usage and improve the site, not to identify individuals.'],
         ['Contact', 'For privacy questions, write to info@nymakpharma.com or use our contact page.'],
     ],
     terms: [

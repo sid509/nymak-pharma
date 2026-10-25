@@ -43,13 +43,14 @@ class ContentTranslationsSeeder extends Seeder
             ->mapWithKeys(fn ($fields, $page) => [$page => collect($fields)->keyBy(0)]);
 
         foreach ($translations as $slot => $locales) {
-            // Page keys can contain dots (products.index, team.index) — find
+            // Page keys can contain dots (products.index, team.index); find
             // the schema page that prefixes this slot.
             $page = $schema->keys()->first(fn ($p) => str_starts_with($slot, $p.'.'));
             $key = $page ? substr($slot, strlen($page) + 1) : null;
             $field = $key ? $schema->get($page)?->get($key) : null;
             if (! $field) {
                 $this->command?->warn("Unknown page slot skipped: {$slot}");
+
                 continue;
             }
 
@@ -61,9 +62,11 @@ class ContentTranslationsSeeder extends Seeder
             );
 
             foreach (['fr', 'es'] as $locale) {
-                if (! isset($locales[$locale])) continue;
+                if (! isset($locales[$locale])) {
+                    continue;
+                }
                 $v = $locales[$locale];
-                // JSON slots: write the encoded array straight into i18n —
+                // JSON slots: write the encoded array straight into i18n;
                 // Html::sanitize inside setTranslations would entity-encode
                 // the quotes and break json_decode in PageContent::for().
                 if ($field[2] === 'json') {
@@ -100,6 +103,7 @@ class ContentTranslationsSeeder extends Seeder
                 $row = $class::where($idField, $id)->first();
                 if (! $row) {
                     $this->command?->warn("{$model} not found: {$id}");
+
                     continue;
                 }
                 foreach (['fr', 'es'] as $locale) {
@@ -151,11 +155,12 @@ class ContentTranslationsSeeder extends Seeder
         foreach (static::forms($locale) as $suffix => $tpl) {
             if (preg_match('/\b'.preg_quote($suffix, '/').'$/i', $en)) {
                 $mol = trim(substr($en, 0, strlen($en) - strlen($suffix)));
+
                 return sprintf($tpl, static::molecule($mol, $locale));
             }
         }
 
-        return static::molecule($en, $locale); // no form suffix — translate stems only
+        return static::molecule($en, $locale); // no form suffix; translate stems only
     }
 
     private static function forms(string $locale): array
@@ -203,7 +208,7 @@ class ContentTranslationsSeeder extends Seeder
 
     private static function compounds(string $locale): array
     {
-        // Whole-phrase replacements — order matters (longest first).
+        // Whole-phrase replacements: order matters (longest first).
         return $locale === 'fr' ? [
             "Multiple Electrolytes 'P' & Dextrose Intravenous Infusion" => 'Perfusion intraveineuse de multi-électrolytes « P » et glucose',
             "Multiple Electrolytes 'G' & Dextrose Intravenous Infusion" => 'Perfusion intraveineuse de multi-électrolytes « G » et glucose',
@@ -214,7 +219,7 @@ class ContentTranslationsSeeder extends Seeder
             'Dextromethorphan, Phenylephrine & Chlorpheniramine Syrup' => 'Sirop de dextrométhorphane, phényléphrine et chlorphéniramine',
             'Aluminium Hydroxide + Magnesium Trisilicate Tablets' => "Comprimés d'hydroxyde d'aluminium + trisilicate de magnésium",
             'Enteric Coated Rabeprazole and Domperidone SR Capsules' => 'Gélules LP de rabéprazole gastrorésistant et dompéridone',
-            'Bupivacaine Hydrochloride in Dextrose Injection' => "Injection de chlorhydrate de bupivacaïne dans le glucose",
+            'Bupivacaine Hydrochloride in Dextrose Injection' => 'Injection de chlorhydrate de bupivacaïne dans le glucose',
             'Vitamin B Complex Injection' => 'Injection de complexe vitamine B',
             'Multivitamin Mineral Syrup' => 'Sirop multivitamines-minéraux',
             'Multivitamin Mineral Lysine Drops' => 'Gouttes de multivitamines-minéraux-lysine',

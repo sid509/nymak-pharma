@@ -6,7 +6,7 @@ import { Reveal } from '../../Components/Motion';
 import { ButtonLink, Container, PageHero, SectionHeading } from '../../Components/Ui';
 import SiteLayout from '../../Layouts/SiteLayout';
 
-/** Products overview — categories first; each card opens its landing page. */
+/** Products overview - categories first; each card opens its landing page. */
 export default function ProductsIndex({ seo, categories, branded = [], content: c }) {
     return (
         <SiteLayout>

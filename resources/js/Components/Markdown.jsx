@@ -1,5 +1,5 @@
 /**
- * Minimal markdown renderer for post bodies — handles ##/### headings,
+ * Minimal markdown renderer for post bodies - handles ##/### headings,
  * paragraphs, - lists and **bold** inline. Content is authored by us in
  * seeders, so HTML is escaped first and only our transforms apply.
  */

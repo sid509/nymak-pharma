@@ -16,9 +16,9 @@ php artisan config:cache && php artisan route:cache && php artisan view:cache
 ## Processes to supervise
 
 ```bash
-# 1. PHP — via php-fpm behind nginx, or `php artisan serve` for small deploys
+# 1. PHP - via php-fpm behind nginx, or `php artisan serve` for small deploys
 
-# 2. SSR (required for full SEO) — systemd example:
+# 2. SSR (required for full SEO) - systemd example:
 php artisan inertia:start-ssr    # listens on 127.0.0.1:13714
 
 # 3. Queue worker (for enquiry notification emails):
@@ -50,7 +50,7 @@ NYMAK_ADMIN_PASSWORD=...   # set before first --seed
 ## Web server notes
 
 - Serve `public/` as docroot; all non-file requests → `index.php`.
-- **HTTPS required** (requirement #14) — redirect http→https, set HSTS.
+- **HTTPS required** (requirement #14) - redirect http→https, set HSTS.
 - Long-cache `public/build/` and `public/images/` (they're content-hashed /
   immutable). Gzip/brotli text assets.
 - `robots.txt`, `llms.txt`, `favicon.svg`, `images/` are static files under `public/`.
@@ -59,9 +59,9 @@ NYMAK_ADMIN_PASSWORD=...   # set before first --seed
 
 Verify on the domain provider (outside this codebase):
 
-- **SPF** — `v=spf1` including the sending host/provider.
-- **DKIM** — enabled on the mail provider for `nymakpharma.com`.
-- **DMARC** — `v=DMARC1; p=quarantine` (or stricter) with a `rua` mailbox.
+- **SPF** - `v=spf1` including the sending host/provider.
+- **DKIM** - enabled on the mail provider for `nymakpharma.com`.
+- **DMARC** - `v=DMARC1; p=quarantine` (or stricter) with a `rua` mailbox.
 - Keep `info@nymakpharma.com` and `nymakpharma.com` on an authenticated sender.
 
 ## Post-deploy SEO checklist
@@ -70,6 +70,6 @@ Verify on the domain provider (outside this codebase):
 - [ ] `/sitemap.xml` returns XML with absolute production URLs (APP_URL drives them)
 - [ ] Submit sitemap in Google Search Console; add `NYMAK_GSC_VERIFICATION`
 - [ ] Set `NYMAK_GA4_ID`; verify `contact_click`/`generate_lead` events in GA4
-- [ ] Run PageSpeed Insights mobile — target 90+ (WebP assets are already optimized)
+- [ ] Run PageSpeed Insights mobile - target 90+ (WebP assets are already optimized)
 - [ ] Confirm `curl -A "Googlebot" https://…/` returns content (SSR running)
 - [ ] Create/verify LinkedIn, then set social URLs in `config/nymak.php`

@@ -26,10 +26,10 @@ Open http://localhost:8000. Login: `/admin` (env `NYMAK_ADMIN_*`).
 
 ## Dev loop
 
-- `npm run dev` — Vite dev server + HMR (SSR keeps using the built bundle)
-- `npm run build` — production assets (`vite build && vite build --ssr`)
-- `php artisan test` — PHP feature suite
-- `npm run test` — Vitest React suite
+- `npm run dev` - Vite dev server + HMR (SSR keeps using the built bundle)
+- `npm run build` - production assets (`vite build && vite build --ssr`)
+- `php artisan test` - PHP feature suite
+- `npm run test` - Vitest React suite
 
 ## Env vars that matter
 
@@ -56,12 +56,12 @@ offices, socials, stats, enquiry spam settings and analytics IDs.
 
 ## Conventions
 
-- One controller per page concern; controllers stay thin — SEO payload via
+- One controller per page concern; controllers stay thin - SEO payload via
   `App\Support\Seo`, queries eager-loaded.
 - Shared props (`site`, `nav`, `flash`, `auth`) come from
-  `HandleInertiaRequests` — don't re-fetch them per controller.
+  `HandleInertiaRequests` - don't re-fetch them per controller.
 - React pages live under `resources/js/Pages/{Area}/`, shared UI under
   `Components/`. Tailwind 4 tokens in `resources/css/app.css` (`@theme`).
-- Don't add `<Head>` meta in React — Blade owns meta (ADR-002). Pages just
+- Don't add `<Head>` meta in React - Blade owns meta (ADR-002). Pages just
   pass a `seo` prop.
 - Icons: lucide-react for UI; `Components/SocialIcons.jsx` for brands.

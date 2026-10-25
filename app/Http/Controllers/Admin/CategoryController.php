@@ -31,7 +31,7 @@ class CategoryController extends Controller
 
     public function update(CategoryRequest $request, ProductCategory $category): RedirectResponse
     {
-        // Slug is intentionally not editable — category URLs are structural
+        // Slug is intentionally not editable - category URLs are structural
         // and linked throughout the site and sitemap.
         $data = $request->safe()->except(['image', 'i18n']);
         if ($file = $request->file('image')) {

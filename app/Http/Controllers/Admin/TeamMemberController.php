@@ -32,10 +32,10 @@ class TeamMemberController extends CrudController
             'fields' => [
                 ['name' => 'name', 'label' => 'Name', 'type' => 'text', 'required' => true],
                 ['name' => 'slug', 'label' => 'URL slug', 'type' => 'text',
-                    'help' => 'Auto-generated from name if blank — drives /team/{slug}.'],
+                    'help' => 'Auto-generated from name if blank; drives /team/{slug}.'],
                 ['name' => 'role', 'label' => 'Role / title', 'type' => 'text', 'required' => true],
                 ['name' => 'photo', 'label' => 'Photo', 'type' => 'image', 'dir' => 'team',
-                    'help' => 'Optional — initials shown when empty.'],
+                    'help' => 'Optional; initials shown when empty.'],
                 ['name' => 'bio', 'label' => 'Bio (detail page body)', 'type' => 'textarea', 'rows' => 6,
                     'help' => 'Public profile page exists only when a bio is set.'],
                 ['name' => 'is_leadership', 'label' => 'Show in leadership section', 'type' => 'checkbox'],

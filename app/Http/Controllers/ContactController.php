@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Http\Middleware\SetLocale;
-
 use App\Http\Requests\EnquiryRequest;
 use App\Models\Enquiry;
+use App\Models\PageContent;
 use App\Models\Product;
+use App\Models\SiteSetting;
 use App\Notifications\EnquiryReceived;
 use App\Support\Seo;
 use Illuminate\Http\RedirectResponse;
@@ -18,7 +19,7 @@ class ContactController extends Controller
 {
     public function create(): Response
     {
-        // ?product={slug-or-id} pre-selects a product in the enquiry form —
+        // ?product={slug-or-id} pre-selects a product in the enquiry form -
         // product detail CTAs deep-link here.
         $selected = request('product')
             ? Product::where('has_detail_page', true)
@@ -29,14 +30,14 @@ class ContactController extends Controller
 
         return Inertia::render('Contact', [
             'seo' => Seo::make(
-                'Contact Us — Pharmaceutical Export Enquiries',
-                'Contact Nymak Pharma for pharmaceutical exports, product enquiries, distribution and partnership — offices in India, UK, Sierra Leone & Liberia.'
+                'Contact Us: Pharmaceutical Export Enquiries',
+                'Contact Nymak Pharma for pharmaceutical exports, product enquiries, distribution and partnership. Offices in India, UK, Sierra Leone & Liberia.'
             )->override('contact')->breadcrumbs([
                 ['Home', SetLocale::absolute('/')],
                 ['Contact Us', SetLocale::absolute('/contact')],
             ])->toArray(),
-            'offices' => \App\Models\SiteSetting::get('offices', []),
-            'content' => \App\Models\PageContent::for('contact'),
+            'offices' => SiteSetting::get('offices', []),
+            'content' => PageContent::for('contact'),
             'products' => Product::where('has_detail_page', true)
                 ->orderBy('name')
                 ->get(['id', 'name', 'i18n'])
@@ -49,7 +50,7 @@ class ContactController extends Controller
 
     public function store(EnquiryRequest $request): RedirectResponse
     {
-        // Honeypot/min-time gate: fake success, store nothing — but log why
+        // Honeypot/min-time gate: fake success, store nothing - but log why
         // so real submissions caught by the gate stay diagnosable.
         if ($request->looksLikeSpam()) {
             \Log::info('Enquiry discarded by spam gate', [
@@ -59,7 +60,7 @@ class ContactController extends Controller
             ]);
 
             return redirect()->route('contact')->with('success',
-                __('Thank you — your enquiry has been received. Our team will respond shortly.'));
+                __('Thank you. Your enquiry has been received. Our team will respond shortly.'));
         }
 
         $enquiry = Enquiry::create([
@@ -71,6 +72,6 @@ class ContactController extends Controller
             ->notify(new EnquiryReceived($enquiry));
 
         return redirect()->route('contact')->with('success',
-            __('Thank you — your enquiry has been received. Our exports team will get back to you shortly.'));
+            __('Thank you. Your enquiry has been received. Our exports team will get back to you shortly.'));
     }
 }

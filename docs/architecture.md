@@ -19,7 +19,7 @@ Laravel 12 (routes → controllers → Eloquent models → SQLite)
 
 The key architectural property: **all meaningful content is present in the
 first HTML response.** Meta tags and JSON-LD are rendered by Blade directly
-from the `seo` page prop — they exist even if the SSR service is down.
+from the `seo` page prop - they exist even if the SSR service is down.
 SSR additionally renders the page body (React → HTML) so crawlers and AI
 readers see full content without executing JavaScript.
 
@@ -85,14 +85,14 @@ docs/                         # this documentation set
 
 Detail-page granularity: only products with `has_detail_page` (the ~46 branded
 marketed products that have images and real copy) get URLs. The ~270 generic
-catalog rows render inside category tables — giving each a page would produce
+catalog rows render inside category tables - giving each a page would produce
 thin/duplicate content, which the requirements explicitly warn against.
 Same logic for `markets.has_page`.
 
 ## Admin area
 
 `/admin` is a minimal session-authenticated enquiry inbox (login, list,
-expand, mark-read, delete). It's deliberately tiny — not a CMS. Login is
+expand, mark-read, delete). It's deliberately tiny - not a CMS. Login is
 rate-limited (6/min) and all admin responses carry `noindex`.
 
 ## Failure modes

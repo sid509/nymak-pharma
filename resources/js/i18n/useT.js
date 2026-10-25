@@ -3,7 +3,7 @@ import { usePage } from '@inertiajs/react';
 /**
  * Public-site i18n. `i18n` is the shared prop: {englishKey: translated} for
  * the current locale (empty for en). Keys are the English source strings, so
- * calls read naturally — t('Contact us'), t('{n} products', { n }).
+ * calls read naturally - t('Contact us'), t('{n} products', { n }).
  */
 export function useT() {
     const { i18n = {}, locale = 'en' } = usePage().props;

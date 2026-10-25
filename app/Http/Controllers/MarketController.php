@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\Middleware\SetLocale;
-
 use App\Models\Market;
 use App\Models\PageContent;
 use App\Models\SiteSetting;
@@ -16,8 +15,8 @@ class MarketController extends Controller
     public function index(): Response
     {
         // Every market is a country on the interactive map. Selecting one
-        // reveals *what we actually do* there — the rich content panel plus
-        // the products supplied — instead of thin per-country pages.
+        // reveals *what we actually do* there - the rich content panel plus
+        // the products supplied - instead of thin per-country pages.
         $offices = collect(SiteSetting::get('offices', []));
 
         $markets = Market::orderBy('sort_order')
@@ -46,7 +45,7 @@ class MarketController extends Controller
 
         return Inertia::render('Markets/Index', [
             'seo' => Seo::make(
-                'Global Presence — Pharmaceutical Exports to 24+ Countries',
+                'Global Presence: Pharmaceutical Exports to 24+ Countries',
                 'Nymak Pharma exports pharmaceuticals, IV fluids and medical supplies to 24+ countries across Africa, Central America & the South Pacific.'
             )->override('markets.index')->breadcrumbs([
                 ['Home', SetLocale::absolute('/')],

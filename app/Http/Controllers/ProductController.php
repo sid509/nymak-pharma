@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\Middleware\SetLocale;
-
 use App\Models\PageContent;
 use App\Models\Product;
 use App\Models\ProductCategory;
@@ -20,7 +19,7 @@ class ProductController extends Controller
 
         return Inertia::render('Products/Index', [
             'seo' => Seo::make(
-                'Pharmaceutical Products — IV Fluids, Formulations & More',
+                'Pharmaceutical Products: IV Fluids, Formulations & More',
                 'Explore Nymak Pharma\'s export portfolio: IV fluids, finished formulations, medical devices & disposables, rapid diagnostic kits and vaccines.'
             )->override('products.index')->breadcrumbs([
                 ['Home', SetLocale::absolute('/')],
@@ -40,7 +39,7 @@ class ProductController extends Controller
     }
 
     /**
-     * Category landing page — indexable content about the range plus a
+     * Category landing page - indexable content about the range plus a
      * summary of what it covers. The full table lives on catalogue().
      */
     public function category(ProductCategory $category): Response
@@ -57,14 +56,14 @@ class ProductController extends Controller
                 $category->meta_title ?? $category->name,
                 $category->meta_description ?? $category->intro ?? ''
             )->image($this->categoryImage($category))
-            ->schema([
-                '@type' => 'CollectionPage',
-                'name' => $category->name,
-                'url' => SetLocale::absolute("/product/{$category->slug}"),
-                'description' => $category->meta_description ?? $category->intro,
-                'isPartOf' => ['@id' => url('/#website')],
-                'hasPart' => ['@type' => 'ItemList', 'url' => SetLocale::absolute("/product/{$category->slug}/products"), 'numberOfItems' => $category->products_count],
-            ])->breadcrumbs([
+                ->schema([
+                    '@type' => 'CollectionPage',
+                    'name' => $category->name,
+                    'url' => SetLocale::absolute("/product/{$category->slug}"),
+                    'description' => $category->meta_description ?? $category->intro,
+                    'isPartOf' => ['@id' => url('/#website')],
+                    'hasPart' => ['@type' => 'ItemList', 'url' => SetLocale::absolute("/product/{$category->slug}/products"), 'numberOfItems' => $category->products_count],
+                ])->breadcrumbs([
                 ['Home', SetLocale::absolute('/')],
                 ['Products', SetLocale::absolute('/products')],
                 [$category->name, SetLocale::absolute("/product/{$category->slug}")],
@@ -79,7 +78,7 @@ class ProductController extends Controller
         ]);
     }
 
-    /** Full product list for a category — grouped spec tables with search. */
+    /** Full product list for a category - grouped spec tables with search. */
     public function catalogue(ProductCategory $category): Response
     {
         $category->load(['products' => fn ($q) => $q
@@ -89,15 +88,15 @@ class ProductController extends Controller
 
         return Inertia::render('Products/Catalogue', [
             'seo' => Seo::make(
-                "{$category->name} Product List — Strengths & Pack Sizes",
-                "Complete list of {$category->name} manufactured and exported by Nymak Pharma — {$category->products->count()} products with strengths and pack sizes."
+                "{$category->name} Product List: Strengths & Pack Sizes",
+                "Complete list of {$category->name} manufactured and exported by Nymak Pharma: {$category->products->count()} products with strengths and pack sizes."
             )->image($this->categoryImage($category))
-            ->breadcrumbs([
-                ['Home', SetLocale::absolute('/')],
-                ['Products', SetLocale::absolute('/products')],
-                [$category->name, SetLocale::absolute("/product/{$category->slug}")],
-                ['Product list', SetLocale::absolute("/product/{$category->slug}/products")],
-            ])->toArray(),
+                ->breadcrumbs([
+                    ['Home', SetLocale::absolute('/')],
+                    ['Products', SetLocale::absolute('/products')],
+                    [$category->name, SetLocale::absolute("/product/{$category->slug}")],
+                    ['Product list', SetLocale::absolute("/product/{$category->slug}/products")],
+                ])->toArray(),
             'category' => $category->only('name', 'slug', 'intro') + [
                 'url' => "/product/{$category->slug}",
                 'products_count' => $category->products->count(),
@@ -147,15 +146,15 @@ class ProductController extends Controller
                 $product->meta_title ?? $product->name,
                 $product->meta_description ?? $product->description ?? ''
             )->type('product')->image($product->image ? url($product->image) : null)
-            ->schema([
-                '@type' => 'Product',
-                'name' => $product->name,
-                'image' => $product->image ? url($product->image) : null,
-                'description' => $product->description,
-                'brand' => ['@type' => 'Brand', 'name' => config('nymak.short_name')],
-                'manufacturer' => ['@id' => url('/#organization')],
-                'category' => $category->name,
-            ])->breadcrumbs([
+                ->schema([
+                    '@type' => 'Product',
+                    'name' => $product->name,
+                    'image' => $product->image ? url($product->image) : null,
+                    'description' => $product->description,
+                    'brand' => ['@type' => 'Brand', 'name' => config('nymak.short_name')],
+                    'manufacturer' => ['@id' => url('/#organization')],
+                    'category' => $category->name,
+                ])->breadcrumbs([
                 ['Home', SetLocale::absolute('/')],
                 ['Products', SetLocale::absolute('/products')],
                 [$category->name, SetLocale::absolute("/product/{$category->slug}")],

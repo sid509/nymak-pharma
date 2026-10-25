@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\SiteSetting;
+use App\Support\ImageUpload;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
@@ -11,7 +12,7 @@ use Inertia\Inertia;
 use Inertia\Response;
 
 /**
- * Company facts (identity, NAP, socials, stats, offices) — stored overrides
+ * Company facts (identity, NAP, socials, stats, offices) - stored overrides
  * merged over config/nymak.php defaults via SiteSetting::merged().
  */
 class SiteSettingsController extends Controller
@@ -21,7 +22,7 @@ class SiteSettingsController extends Controller
         $merged = SiteSetting::merged();
 
         return Inertia::render('Admin/Settings/Form', [
-            // input names are underscored (address_street) — JSON posts don't
+            // input names are underscored (address_street) - JSON posts don't
             // parse bracket syntax; mapped back to dotted keys on save.
             'fields' => collect(SiteSetting::FIELDS)->map(fn ($f, $key) => [
                 'name' => str_replace('.', '_', $key),
@@ -56,10 +57,10 @@ class SiteSettingsController extends Controller
                 continue;
             }
             if ($file = $request->file($input)) {
-                \App\Support\ImageUpload::delete(SiteSetting::where('key', $key)->value('value'));
+                ImageUpload::delete(SiteSetting::where('key', $key)->value('value'));
                 $path = $type === 'image'
-                    ? \App\Support\ImageUpload::store($file, 'brand', $key)
-                    : \App\Support\ImageUpload::storeFile($file);
+                    ? ImageUpload::store($file, 'brand', $key)
+                    : ImageUpload::storeFile($file);
                 SiteSetting::updateOrCreate(['key' => $key], ['value' => $path]);
             }
         }

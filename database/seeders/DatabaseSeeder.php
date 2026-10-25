@@ -26,7 +26,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         // Admin user for the enquiry inbox. Credentials come from the
-        // environment — set NYMAK_ADMIN_EMAIL / NYMAK_ADMIN_PASSWORD.
+        // environment: set NYMAK_ADMIN_EMAIL / NYMAK_ADMIN_PASSWORD.
         $email = env('NYMAK_ADMIN_EMAIL', 'admin@nymakpharma.com');
         User::updateOrCreate(
             ['email' => $email],

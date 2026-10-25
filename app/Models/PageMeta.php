@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * Admin-editable SEO overrides for static/list pages, keyed by page id.
- * Used by Seo::override() — empty fields fall back to controller defaults.
+ * Used by Seo::override() - empty fields fall back to controller defaults.
  */
 class PageMeta extends Model
 {

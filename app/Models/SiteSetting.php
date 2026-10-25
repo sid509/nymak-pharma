@@ -7,7 +7,7 @@ use Illuminate\Support\Arr;
 
 /**
  * Company facts editable from /admin/settings. Rows are flat dotted keys that
- * override config('nymak') — SiteSetting::merged() is the single source used
+ * override config('nymak') - SiteSetting::merged() is the single source used
  * by Inertia shared props, schema.org output and controllers.
  */
 class SiteSetting extends Model
@@ -19,7 +19,7 @@ class SiteSetting extends Model
         'tagline' => ['Tagline', 'text', 'Used in header/footer and schema.'],
         'phone' => ['Phone (display)', 'text', 'e.g. +91 98252 25567'],
         'phone_href' => ['Phone (tel: link)', 'text', 'Digits only, e.g. +919825225567'],
-        'whatsapp' => ['WhatsApp number', 'text', 'International format, no symbols — e.g. 919825225567'],
+        'whatsapp' => ['WhatsApp number', 'text', 'International format, no symbols, e.g. 919825225567'],
         'tawk_property' => ['Tawk.to property/widget ID', 'text', 'From Tawk.to → Administration → Channels → Chat Widget, e.g. 6652e0f1a1b2c3/1iu4xyzab. Enables the live-chat launcher (bottom right); blank falls back to WhatsApp.'],
         'email' => ['Public email', 'email', null],
         'founded' => ['Founded year', 'text', null],
@@ -40,8 +40,8 @@ class SiteSetting extends Model
         'socials.x' => ['X (Twitter) URL', 'text', 'Blank hides the icon.'],
         'socials.facebook' => ['Facebook URL', 'text', 'Blank hides the icon.'],
         'socials.youtube' => ['YouTube URL', 'text', 'Blank hides the icon.'],
-        'logo' => ['Logo image', 'image', 'PNG/JPG — replaces the built-in SVG wordmark in header/footer and feeds schema.org. Blank keeps the SVG.'],
-        'brochure' => ['Product brochure', 'file', 'PDF up to 10 MB — linked from Home, Contact and footer.'],
+        'logo' => ['Logo image', 'image', 'PNG/JPG. Replaces the built-in SVG wordmark in header/footer and feeds schema.org. Blank keeps the SVG.'],
+        'brochure' => ['Product brochure', 'file', 'PDF up to 10 MB, linked from Home, Contact and footer.'],
         'offices' => ['Overseas offices (JSON)', 'json', 'Array of {name, address, phone, phone_alt?, email?, country_code}.'],
     ];
 

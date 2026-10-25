@@ -2,12 +2,13 @@
 
 namespace Tests\Feature;
 
+use App\Models\Enquiry;
 use App\Models\Faq;
 use App\Models\Market;
+use App\Models\PageContent;
 use App\Models\Post;
 use App\Models\Product;
 use App\Models\ProductCategory;
-use App\Models\TeamMember;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
@@ -125,7 +126,7 @@ class AdminCrudTest extends TestCase
     public function product_delete_blocked_when_enquiries_reference_it(): void
     {
         $product = Product::firstOrFail();
-        \App\Models\Enquiry::create([
+        Enquiry::create([
             'name' => 'X', 'email' => 'x@x.test', 'message' => 'msg', 'product_id' => $product->id,
         ]);
 
@@ -238,15 +239,15 @@ class AdminCrudTest extends TestCase
             'portfolio_title' => 'Segments we manufacture',
         ])->assertRedirect('/admin/pages/home/edit');
 
-        $this->assertFalse(\App\Models\PageContent::for('home')['show_brands']);
-        $this->assertEquals('Segments we manufacture', \App\Models\PageContent::for('home')['portfolio_title']);
+        $this->assertFalse(PageContent::for('home')['show_brands']);
+        $this->assertEquals('Segments we manufacture', PageContent::for('home')['portfolio_title']);
         $this->assertDatabaseHas('page_contents', ['page' => 'home', 'key' => 'show_brands', 'value' => '0']);
 
-        // products.show copy — the detail-page CTA label.
+        // products.show copy - the detail-page CTA label.
         $this->actingAs($this->admin)->put('/admin/pages/products.show', [
             'cta_button' => 'Ask about this product',
         ]);
-        $this->assertEquals('Ask about this product', \App\Models\PageContent::for('products.show')['cta_button']);
+        $this->assertEquals('Ask about this product', PageContent::for('products.show')['cta_button']);
     }
 
     #[Test]
@@ -301,8 +302,8 @@ class AdminCrudTest extends TestCase
     #[Test]
     public function enquiry_search_and_unread_filter(): void
     {
-        \App\Models\Enquiry::create(['name' => 'Amina Sesay', 'email' => 'a@a.test', 'message' => 'x', 'country' => 'Sierra Leone']);
-        \App\Models\Enquiry::create(['name' => 'Bob K', 'email' => 'b@b.test', 'message' => 'x', 'read_at' => now()]);
+        Enquiry::create(['name' => 'Amina Sesay', 'email' => 'a@a.test', 'message' => 'x', 'country' => 'Sierra Leone']);
+        Enquiry::create(['name' => 'Bob K', 'email' => 'b@b.test', 'message' => 'x', 'read_at' => now()]);
 
         $this->actingAs($this->admin)->get('/admin/enquiries?q=Amina')
             ->assertInertia(fn ($p) => $p->has('enquiries.data', 1));

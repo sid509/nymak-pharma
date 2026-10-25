@@ -69,7 +69,7 @@ export default function Header() {
 
     return (
         <header className="site-header sticky top-0 z-50" data-scrolled={scrolled}>
-            {/* Utility bar — folds away once the page scrolls */}
+            {/* Utility bar - folds away once the page scrolls */}
             <div className="topbar bg-ink-950 text-white/70">
                 <div>
                     <div className="mx-auto flex w-full max-w-[90rem] items-center justify-between gap-4 px-4 py-1.5 text-xs sm:px-6 lg:px-10">
@@ -95,7 +95,7 @@ export default function Header() {
             {/* Main nav */}
             <div className="border-b border-ink-100 bg-white/95 backdrop-blur">
                 <div className="mx-auto flex max-w-[90rem] items-center justify-between px-4 py-2 sm:px-6 lg:px-10">
-                    <Link href="/" aria-label="Nymak Pharma — home"><Logo /></Link>
+                    <Link href="/" aria-label="Nymak Pharma home"><Logo /></Link>
 
                     <nav aria-label="Primary" className="hidden items-center gap-0.5 xl:flex">
                         {links.map((link) =>
@@ -162,7 +162,7 @@ export default function Header() {
                             )
                         )}
 
-                        {/* Company — secondary pages grouped to keep the bar compact */}
+                        {/* Company - secondary pages grouped to keep the bar compact */}
                         <div className="group relative" ref={companyRef}>
                             <button
                                 type="button"

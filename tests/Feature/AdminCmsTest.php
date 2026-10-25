@@ -16,7 +16,7 @@ class AdminCmsTest extends TestCase
 {
     use RefreshDatabase;
 
-    // migrate:fresh --seed is decided by the first test class in the run —
+    // migrate:fresh --seed is decided by the first test class in the run -
     // every suite in this project must declare $seed or it starves the rest.
     protected $seed = true;
 

@@ -23,7 +23,7 @@ class Html
         $clean = trim(static::sanitizer()->sanitize($html));
 
         // Editors leave trailing empty paragraphs behind; an empty editor is
-        // nothing but them — drop the tail, and store null if nothing remains.
+        // nothing but them - drop the tail, and store null if nothing remains.
         $clean = preg_replace('/(\s*<p>(\s|&nbsp;|<br\s*\/?>)*<\/p>)+$/', '', $clean);
 
         return $clean === '' ? null : $clean;

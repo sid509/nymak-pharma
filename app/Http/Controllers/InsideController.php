@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\Middleware\SetLocale;
-
 use App\Models\Market;
 use App\Models\PageContent;
 use App\Models\ProductCategory;
@@ -17,7 +16,7 @@ class InsideController extends Controller
 {
     public function __invoke(): Response
     {
-        // Portfolio markets with the products supplied in each — the market
+        // Portfolio markets with the products supplied in each - the market
         // explorer's data source.
         $portfolio = Market::where('show_in_portfolio', true)
             ->orderBy('sort_order')
@@ -39,8 +38,8 @@ class InsideController extends Controller
 
         return Inertia::render('Inside', [
             'seo' => Seo::make(
-                'Inside Nymak — An Interactive Story | Nymak Pharma',
-                'An interactive walk through Nymak Pharma — from a 1998 startup in Mundra to an exporter trusted across 24+ countries.'
+                'Inside Nymak: An Interactive Story',
+                'An interactive walk through Nymak Pharma, from a 1998 startup in Mundra to an exporter trusted across 24+ countries.'
             )->override('inside')->breadcrumbs([
                 ['Home', SetLocale::absolute('/')],
                 ['Inside Nymak', SetLocale::absolute('/inside-nymak')],

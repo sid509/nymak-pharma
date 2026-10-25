@@ -15,7 +15,7 @@ class SecurityHeaders
     public function handle(Request $request, Closure $next): Response
     {
         // X-Powered-By is emitted by PHP core (expose_php), outside the
-        // Symfony response — must be cleared at the raw header layer.
+        // Symfony response - must be cleared at the raw header layer.
         if (function_exists('header_remove')) {
             header_remove('X-Powered-By');
         }

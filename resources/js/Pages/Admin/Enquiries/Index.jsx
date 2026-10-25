@@ -50,8 +50,8 @@ export default function EnquiriesIndex({ enquiries, filters, unreadCount }) {
                                     </div>
                                 </div>
                             </td>
-                            <td className="max-w-[200px] truncate px-4 py-3 text-sm text-ink-700">{e.subject || '—'}</td>
-                            <td className="px-4 py-3 text-sm text-ink-700">{e.country || '—'}</td>
+                            <td className="max-w-[200px] truncate px-4 py-3 text-sm text-ink-700">{e.subject || '-'}</td>
+                            <td className="px-4 py-3 text-sm text-ink-700">{e.country || '-'}</td>
                             <td className="whitespace-nowrap px-4 py-3 text-xs text-ink-500">{fmt(e.created_at)}</td>
                             <td className="px-4 py-3 text-right" onClick={(ev) => ev.stopPropagation()}>
                                 <div className="flex items-center justify-end gap-3">
@@ -68,12 +68,12 @@ export default function EnquiriesIndex({ enquiries, filters, unreadCount }) {
                                 <td colSpan={5} className="px-6 py-5">
                                     <dl className="grid gap-x-8 gap-y-2 text-sm sm:grid-cols-2">
                                         <div><dt className="text-xs font-bold uppercase text-ink-400">Name</dt><dd className="text-ink-800">{e.name}</dd></div>
-                                        <div><dt className="text-xs font-bold uppercase text-ink-400">Company</dt><dd className="text-ink-800">{e.company || '—'}</dd></div>
+                                        <div><dt className="text-xs font-bold uppercase text-ink-400">Company</dt><dd className="text-ink-800">{e.company || '-'}</dd></div>
                                         <div><dt className="text-xs font-bold uppercase text-ink-400">Email</dt>
                                             <dd><a href={`mailto:${e.email}?subject=Re: ${e.subject || 'Your enquiry'}`} className="font-semibold text-brand-700 hover:underline">{e.email}</a></dd></div>
                                         <div><dt className="text-xs font-bold uppercase text-ink-400">Phone</dt>
-                                            <dd>{e.phone ? <a href={`tel:${e.phone}`} className="inline-flex items-center gap-1 font-semibold text-brand-700 hover:underline"><FontAwesomeIcon style={{ fontSize: 12 }} icon={faPhone} aria-hidden />{e.phone}</a> : '—'}</dd></div>
-                                        <div><dt className="text-xs font-bold uppercase text-ink-400">Country</dt><dd className="text-ink-800">{e.country || '—'}</dd></div>
+                                            <dd>{e.phone ? <a href={`tel:${e.phone}`} className="inline-flex items-center gap-1 font-semibold text-brand-700 hover:underline"><FontAwesomeIcon style={{ fontSize: 12 }} icon={faPhone} aria-hidden />{e.phone}</a> : '-'}</dd></div>
+                                        <div><dt className="text-xs font-bold uppercase text-ink-400">Country</dt><dd className="text-ink-800">{e.country || '-'}</dd></div>
                                         <div><dt className="text-xs font-bold uppercase text-ink-400">Product</dt>
                                             <dd className="text-ink-800">{e.product ? e.product.name : 'General enquiry'}</dd></div>
                                     </dl>
@@ -81,7 +81,7 @@ export default function EnquiriesIndex({ enquiries, filters, unreadCount }) {
                                         <p className="text-xs font-bold uppercase text-ink-400">Message</p>
                                         <p className="mt-1 whitespace-pre-line text-sm leading-relaxed text-ink-800">{e.message}</p>
                                     </div>
-                                    <p className="mt-4 text-xs text-ink-400">IP: {e.ip_address || '—'} · {fmt(e.created_at)}</p>
+                                    <p className="mt-4 text-xs text-ink-400">IP: {e.ip_address || '-'} · {fmt(e.created_at)}</p>
                                 </td>
                             </tr>
                         )}

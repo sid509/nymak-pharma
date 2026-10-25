@@ -51,7 +51,7 @@ export function ProductCard({ product, url }) {
         <>
             <span className="block aspect-[4/3] overflow-hidden bg-ink-50">
                 {product.image ? (
-                    <img src={`/${product.image}`} alt={`${product.name} — Nymak Pharma`}
+                    <img src={`/${product.image}`} alt={`${product.name}, Nymak Pharma`}
                          width="800" height="600" loading="lazy"
                          className="h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03]" />
                 ) : (

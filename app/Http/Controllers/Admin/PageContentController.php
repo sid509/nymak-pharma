@@ -75,12 +75,13 @@ class PageContentController extends Controller
                     PageContent::updateOrCreate(['page' => $page, 'key' => $key],
                         ['value' => ImageUpload::store($file, 'pages', "{$page}-{$key}")]);
                 }
+
                 continue; // no upload → existing image/default stays
             }
 
             $value = $data[$key] ?? null;
             if ($type === 'toggle') {
-                // Always persisted — '0' is a real choice, not "use default".
+                // Always persisted - '0' is a real choice, not "use default".
                 $value = in_array($value, ['1', 'true', true, 1], true) ? '1' : '0';
             } elseif ($type === 'richtext') {
                 $value = Html::sanitize($value);
@@ -90,7 +91,7 @@ class PageContentController extends Controller
             } else {
                 $row = PageContent::updateOrCreate(['page' => $page, 'key' => $key], ['value' => $value]);
 
-                // Translated text slots — same fall-back rules as the base value.
+                // Translated text slots - same fall-back rules as the base value.
                 if (in_array($type, PageContent::TRANSLATABLE_TYPES, true)) {
                     foreach (['fr', 'es'] as $locale) {
                         $row->setTranslations($locale, ['value' => $request->input("i18n.{$key}.{$locale}")]);

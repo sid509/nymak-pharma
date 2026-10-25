@@ -5,7 +5,7 @@ import world from 'world-atlas/countries-110m.json';
 import { numericId } from '../data/countries';
 
 /**
- * Interactive globe — an airline-style view of the supply network. India is
+ * Interactive globe - an airline-style view of the supply network. India is
  * the hub: a gold marker at Mundra sends a great-circle route arc to every
  * market. The globe slowly auto-rotates, can be dragged, and swings around to
  * any market picked on the map or from the list. Pure SVG + d3-geo: it
@@ -16,7 +16,7 @@ import { numericId } from '../data/countries';
 const SIZE = 760;
 const CENTER = SIZE / 2;
 const RADIUS = 315;
-const HQ = [69.72, 22.74]; // Mundra, Gujarat — Nymak's manufacturing base
+const HQ = [69.72, 22.74]; // Mundra, Gujarat - Nymak's manufacturing base
 const HOME = { lambda: 52, phi: 16 }; // opening view: India hub right-of-centre, Africa in frame
 const AUTO_SPEED = 0.06; // degrees per tick (~1.8°/s)
 const RESUME_DELAY = 2600; // ms after drag before auto-rotation resumes
@@ -53,8 +53,8 @@ export default function WorldMap({ markets, selected, onSelect, className = '' }
     const moved = useRef(false); // survives pointerup so the trailing click can check it
     const resumeAt = useRef(0);
     const flyRef = useRef(null);
-    const pointerIn = useRef(false); // pointer over the globe — inspecting, don't rotate
-    const focusIn = useRef(false); // focus inside the globe — keyboard users need a still target
+    const pointerIn = useRef(false); // pointer over the globe - inspecting, don't rotate
+    const focusIn = useRef(false); // focus inside the globe - keyboard users need a still target
 
     const placed = useMemo(() => placeMarkets(markets), [markets]);
     const byCountry = useMemo(() => new Map(placed.filter((m) => m.countryId).map((m) => [m.countryId, m])), [placed]);
@@ -71,7 +71,7 @@ export default function WorldMap({ markets, selected, onSelect, className = '' }
         .map((f) => ({ id: f.id, name: f.properties.name, d: path(f) }))
         .filter((c) => c.d), [path]);
 
-    // Great-circle supply routes from Mundra to every market — the horizon
+    // Great-circle supply routes from Mundra to every market - the horizon
     // clips them naturally as the globe turns.
     const routes = useMemo(() => placed.filter((m) => m.point).map((m) => {
         const fly = geoInterpolate(HQ, m.point);
@@ -83,7 +83,7 @@ export default function WorldMap({ markets, selected, onSelect, className = '' }
     const pins = placed.filter((m) => m.point && visible(m.point)).map((m) => ({ m, xy: projection(m.point) }));
     const showIndia = ! byCountry.has('356');
 
-    // Slow auto-rotation — pauses while dragging, while the pointer or focus
+    // Slow auto-rotation - pauses while dragging, while the pointer or focus
     // is on the globe, while animating, or while a market is selected so the
     // portfolio stays in view.
     useEffect(() => {
@@ -101,7 +101,7 @@ export default function WorldMap({ markets, selected, onSelect, className = '' }
     }, [hover, selected]);
 
     // Selecting a market flies the globe round to it (shortest longitude arc);
-    // clearing the selection returns to the hub view — India stays the story.
+    // clearing the selection returns to the hub view - India stays the story.
     useEffect(() => {
         const from = viewRef.current;
         let aimLon = HOME.lambda;
@@ -214,7 +214,7 @@ export default function WorldMap({ markets, selected, onSelect, className = '' }
                         const isSel = m.slug === selected;
                         return (
                             <path key={c.id} d={c.d} role="button" tabIndex={0}
-                                  aria-label={`${m.name} — view what we do here`} aria-pressed={isSel}
+                                  aria-label={`${m.name}, view what we do here`} aria-pressed={isSel}
                                   data-featured={m.featured ? 'true' : undefined} data-selected={isSel ? 'true' : undefined}
                                   onClick={toggle(m)} onKeyDown={key(m)}
                                   onMouseEnter={tip(m)} onMouseMove={tip(m)}
@@ -226,9 +226,9 @@ export default function WorldMap({ markets, selected, onSelect, className = '' }
                     })}
                 </g>
 
-                {/* Supply routes — base arc plus a travelling dash, airline style.
+                {/* Supply routes - base arc plus a travelling dash, airline style.
                     pointerEvents=none: the arcs sit on top of country shapes but
-                    are decorative — they must never steal a click from a market. */}
+                    are decorative - they must never steal a click from a market. */}
                 <g className="globe-routes" aria-hidden style={{ pointerEvents: 'none' }}>
                     {routes.map((r, i) => (
                         <g key={r.slug} className={r.slug === selected ? 'is-selected' : undefined}>
@@ -238,7 +238,7 @@ export default function WorldMap({ markets, selected, onSelect, className = '' }
                     ))}
                 </g>
 
-                {/* Market markers — dots on every visible market, clickable pin for coordinate-only regions */}
+                {/* Market markers - dots on every visible market, clickable pin for coordinate-only regions */}
                 <g className="map-pins">
                     {pins.map(({ m, xy }) => {
                         const [x, y] = xy;
@@ -252,7 +252,7 @@ export default function WorldMap({ markets, selected, onSelect, className = '' }
                                 <circle r={isSel ? 4.5 : 3.5} className="map-pin-dot" />
                                 {pinned && (
                                     <circle r="14" fill="transparent" role="button" tabIndex={0}
-                                            aria-label={`${m.name} — view what we do here`} aria-pressed={isSel}
+                                            aria-label={`${m.name}, view what we do here`} aria-pressed={isSel}
                                             onClick={toggle(m)} onKeyDown={key(m)}
                                             onMouseEnter={tip(m)} onMouseMove={tip(m)}
                                             onFocus={() => tipAt(m, xy)}
@@ -265,7 +265,7 @@ export default function WorldMap({ markets, selected, onSelect, className = '' }
                     })}
                 </g>
 
-                {/* HQ — the origin of every route */}
+                {/* HQ - the origin of every route */}
                 <g className="globe-hq" transform={`translate(${projection(HQ).map((n) => n.toFixed(1)).join(' ')})`}>
                     <circle r="20" fill="url(#globe-glow)" className="globe-hq-glow" />
                     <circle r="7" className="globe-hq-ring" />
@@ -274,7 +274,7 @@ export default function WorldMap({ markets, selected, onSelect, className = '' }
                 </g>
             </svg>
 
-            {/* Hover card — sits above the pointer so it never covers the neighbouring countries; drops below near the top edge */}
+            {/* Hover card - sits above the pointer so it never covers the neighbouring countries; drops below near the top edge */}
             {hovered && (
                 <div role="tooltip" className="map-tip pointer-events-none absolute z-10 w-56 rounded-xl border border-ink-100 bg-white/95 p-3 shadow-card backdrop-blur"
                      style={{ left: `${Math.min(Math.max(hover.x, 14), 86)}%`, top: `${hover.y}%`, transform: `translate(-50%, ${hover.y < 30 ? '18px' : 'calc(-100% - 18px)'})` }}>

@@ -45,7 +45,7 @@ export default function MarketForm({ market = null }) {
                         <Field field={{ name: 'iso_code', label: 'Country on map', type: 'select', options: countryOptions, help: 'Highlights this country on the Global Presence map. Leave blank for a multi-country region and set a pin below.' }} value={form.data.iso_code} error={form.errors.iso_code} onChange={set} />
                         <Field field={{ name: 'region', label: 'Region', help: 'e.g. West Africa' }} value={form.data.region} error={form.errors.region} onChange={set} />
                     </div>
-                    <Field field={{ name: 'description', label: 'Short summary', type: 'textarea', rows: 2, help: 'One or two plain sentences — shown on hover and in the market list.' }} value={form.data.description} error={form.errors.description} onChange={set} />
+                    <Field field={{ name: 'description', label: 'Short summary', type: 'textarea', rows: 2, help: 'One or two plain sentences. Shown on hoverhown on hover and in the market list.' }} value={form.data.description} error={form.errors.description} onChange={set} />
                     <Field field={{ name: 'content', label: 'What we do in this market', type: 'richtext', placeholder: 'Describe the work, partners, registrations and products in this country…', help: 'Shown in the detail panel when the country is selected on the map. Headings, lists, bold and links are supported.' }} value={form.data.content} error={form.errors.content} onChange={set} />
                 </section>
 

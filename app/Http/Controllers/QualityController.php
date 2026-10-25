@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Middleware\SetLocale;
-
 use App\Models\Certification;
 use App\Models\Faq;
+use App\Models\PageContent;
 use App\Support\Seo;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -17,8 +17,8 @@ class QualityController extends Controller
         $qualityFaqs = Faq::where('category', 'Quality')->orderBy('sort_order')->get();
 
         $seo = Seo::make(
-            'Quality & Certifications — WHO-GMP, ISO 13485',
-            'Nymak Pharma\'s quality credentials: WHO-GMP certified facility, ISO 13485:2016, Star Export House, Pharmexcil RCMC — with in-house QC/QA oversight.'
+            'Quality & Certifications: WHO-GMP, ISO 13485',
+            'Nymak Pharma\'s quality credentials: WHO-GMP certified facility, ISO 13485:2016, Star Export House, Pharmexcil RCMC, with in-house QC/QA oversight.'
         )->override('quality')->breadcrumbs([
             ['Home', SetLocale::absolute('/')],
             ['Quality & Certifications', SetLocale::absolute('/quality-certifications')],
@@ -36,7 +36,7 @@ class QualityController extends Controller
         }
 
         return Inertia::render('Quality', [
-            'content' => \App\Models\PageContent::for('quality'),
+            'content' => PageContent::for('quality'),
             'seo' => $seo->toArray(),
             'certifications' => Certification::orderBy('sort_order')->get(),
             'faqs' => $qualityFaqs,

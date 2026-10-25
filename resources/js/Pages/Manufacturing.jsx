@@ -19,7 +19,7 @@ export default function Manufacturing({ seo, content }) {
                 title={content.hero_title}
                 lead={content.hero_lead} />
 
-            {/* Facility overview — copy beside a rich Mundra fact panel */}
+            {/* Facility overview - copy beside a rich Mundra fact panel */}
             <section className="py-16 sm:py-20">
                 <Container>
                     <h2 className="mx-auto mb-10 max-w-2xl text-center t-h2 text-balance text-ink-950">{content.overview_title}</h2>
@@ -37,7 +37,7 @@ export default function Manufacturing({ seo, content }) {
                                  width="960" height="640" loading="lazy"
                                  className="w-full object-cover" />
                         </Reveal>
-                        {/* Mundra fact panel — certifications, logistics and location
+                        {/* Mundra fact panel - certifications, logistics and location
                             in one dark card so the column carries its weight. */}
                         <div className="relative mt-5 overflow-hidden rounded-2xl bg-gradient-to-br from-brand-800 via-brand-900 to-ink-950 p-6 text-white shadow-card sm:p-7">
                             <div className="absolute -right-14 -top-14 h-44 w-44 rounded-full border border-white/10" aria-hidden />
@@ -72,7 +72,7 @@ export default function Manufacturing({ seo, content }) {
                 </Container>
             </section>
 
-            {/* Capabilities — dark band with alternating accent tiles so the
+            {/* Capabilities - dark band with alternating accent tiles so the
                 page has real visual rhythm instead of three white card grids. */}
             <section className="relative overflow-hidden bg-ink-950 py-16 text-white sm:py-20">
                 <div className="absolute -right-24 -top-24 h-80 w-80 rounded-full border border-white/10" aria-hidden />
@@ -104,7 +104,7 @@ export default function Manufacturing({ seo, content }) {
                 </Container>
             </section>
 
-            {/* Dosage forms — a framed register list, not another card grid */}
+            {/* Dosage forms - a framed register list, not another card grid */}
             <section className="py-16 sm:py-20">
                 <Container>
                     <div className="grid items-start gap-10 lg:grid-cols-[minmax(0,24rem)_1fr]">

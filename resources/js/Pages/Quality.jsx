@@ -52,7 +52,7 @@ export default function Quality({ seo, certifications, faqs, content }) {
                         <div className="mt-12 grid gap-5 sm:grid-cols-2">
                             {certScans.map((c) => (
                                 <figure key={c.label} className="card-hover rounded-2xl border border-ink-100 bg-white p-4 shadow-card">
-                                    <img src={`/${c.image}`} alt={`${c.label} — Nymak Pharma`}
+                                    <img src={`/${c.image}`} alt={`${c.label}, Nymak Pharma`}
                                          width="1200" height="1600" loading="lazy"
                                          className="w-full rounded-xl border border-ink-100 object-contain" />
                                     <figcaption className="mt-3 flex items-center gap-2 text-sm font-semibold text-ink-700">

@@ -2,7 +2,7 @@ import '@testing-library/jest-dom/vitest';
 import React from 'react';
 import { vi } from 'vitest';
 
-// jsdom lacks these — stub for components that use them.
+// jsdom lacks these - stub for components that use them.
 window.scrollTo = window.scrollTo || (() => {});
 
 // Inertia's Link/usePage need an app context; provide lightweight mocks so

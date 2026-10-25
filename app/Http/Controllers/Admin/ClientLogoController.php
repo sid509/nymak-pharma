@@ -29,7 +29,7 @@ class ClientLogoController extends CrudController
             'searchable' => ['name'],
             'fields' => [
                 ['name' => 'name', 'label' => 'Client name', 'type' => 'text', 'required' => true,
-                    'help' => 'Used as the alt text — not shown on the page.'],
+                    'help' => 'Used as the alt text, not shown on the page.'],
                 ['name' => 'image', 'label' => 'Logo', 'type' => 'image', 'dir' => 'clients', 'required' => true],
                 ['name' => 'sort_order', 'label' => 'Sort order', 'type' => 'number'],
             ],

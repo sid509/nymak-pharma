@@ -37,13 +37,13 @@ export default function PostsIndex({ posts, filters }) {
                         <td className="max-w-[260px] px-4 py-3">
                             <p className="truncate font-semibold text-ink-900">{p.title}</p>
                         </td>
-                        <td className="px-4 py-3 text-sm text-ink-600">{p.category || '—'}</td>
+                        <td className="px-4 py-3 text-sm text-ink-600">{p.category || '-'}</td>
                         <td className="px-4 py-3">
                             {p.published_at
                                 ? <span className="rounded-full bg-brand-50 px-2 py-0.5 text-xs font-bold text-brand-800">Published</span>
                                 : <span className="rounded-full bg-ink-100 px-2 py-0.5 text-xs font-bold text-ink-500">Draft</span>}
                         </td>
-                        <td className="px-4 py-3 text-sm text-ink-600">{fmt(p.published_at) || '—'}</td>
+                        <td className="px-4 py-3 text-sm text-ink-600">{fmt(p.published_at) || '-'}</td>
                         <td className="px-4 py-3 text-right">
                             <div className="flex justify-end gap-3">
                                 {p.published_at && <Link href={`/blog/${p.slug}`} target="_blank" className="text-xs font-bold text-ink-400 hover:underline">View</Link>}

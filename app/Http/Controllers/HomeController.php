@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Middleware\SetLocale;
 use App\Models\Certification;
 use App\Models\ClientLogo;
 use App\Models\Faq;
@@ -10,6 +11,7 @@ use App\Models\PageContent;
 use App\Models\Post;
 use App\Models\Product;
 use App\Models\ProductCategory;
+use App\Models\SiteSetting;
 use App\Models\Testimonial;
 use App\Support\Seo;
 use Inertia\Inertia;
@@ -24,11 +26,11 @@ class HomeController extends Controller
 
         $seo = Seo::make(
             'Pharmaceutical Manufacturer & Exporter in India',
-            'Nymak Pharma — WHO-GMP certified pharmaceutical manufacturer and Star Export House supplying IV fluids, finished formulations, medical devices, rapid test kits and vaccines to 24+ countries.'
+            'Nymak Pharma: WHO-GMP certified pharmaceutical manufacturer and Star Export House supplying IV fluids, finished formulations, medical devices, rapid test kits and vaccines to 24+ countries.'
         )->override('home')->schema([
             '@type' => 'WebPage',
-            'name' => 'Nymak Pharma — Pharmaceutical Manufacturer & Exporter',
-            'url' => \App\Http\Middleware\SetLocale::absolute('/'),
+            'name' => 'Nymak Pharma: Pharmaceutical Manufacturer & Exporter',
+            'url' => SetLocale::absolute('/'),
             'isPartOf' => ['@id' => url('/#website')],
             'about' => ['@id' => url('/#organization')],
         ]);
@@ -55,6 +57,7 @@ class HomeController extends Controller
                         ->whereNotNull('image')->where('image', '!=', '')
                         ->orderBy('sort_order')->limit(3)
                         ->get(['name', 'slug', 'image', 'strength', 'i18n']);
+
                     return $cat;
                 }),
             // Only queried when the admin has switched the brands grid on.
@@ -69,7 +72,7 @@ class HomeController extends Controller
             'posts' => Post::published()->latest('published_at')->limit(3)
                 ->get(['title', 'slug', 'category', 'excerpt', 'published_at', 'i18n']),
             'faqs' => $faqs,
-            'stats' => \App\Models\SiteSetting::get('stats'),
+            'stats' => SiteSetting::get('stats'),
             'clients' => ClientLogo::orderBy('sort_order')->get(['name', 'image']),
             'markets' => Market::orderBy('sort_order')->limit(9)->get(['name', 'slug', 'iso_code', 'region', 'i18n']),
             'content' => $content,

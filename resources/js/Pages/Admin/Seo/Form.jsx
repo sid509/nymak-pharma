@@ -24,7 +24,7 @@ export default function SeoForm({ page }) {
             <form onSubmit={submit} className="max-w-2xl space-y-6">
                 <section className="space-y-5 rounded-2xl border border-ink-200 bg-white p-6 sm:p-8">
                     <p className="text-xs text-ink-400">
-                        Blank fields use the built-in defaults — which are already tuned per page.
+                        Blank fields use the built-in defaults, which are already tuned per page.
                         Title ≤70 chars; description ≤300 chars (search snippets trim ~150).
                     </p>
                     <Field field={{ name: 'meta_title', label: 'Meta title',
@@ -37,7 +37,7 @@ export default function SeoForm({ page }) {
                     {page.og_image && (
                         <div className="flex items-center gap-3">
                             <img src={`/${page.og_image}`} alt="" className="h-14 w-24 rounded-lg border border-ink-100 object-cover" />
-                            <p className="text-xs text-ink-400">Current social image — upload to replace.</p>
+                            <p className="text-xs text-ink-400">Current social image. Upload to replace.</p>
                         </div>
                     )}
                     <div>

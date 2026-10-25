@@ -36,7 +36,7 @@ export default function SiteLayout({ children }) {
     const { t } = useT();
     const url = usePage().url;
 
-    // Tawk.to live chat — official embed, loaded on every page when the
+    // Tawk.to live chat - official embed, loaded on every page when the
     // property/widget ID is set in Admin → Settings. Tawk renders its own
     // default bubble bottom-right ("we're here" greeting, online status
     // etc. are configured in the Tawk dashboard, not here).
@@ -65,7 +65,7 @@ export default function SiteLayout({ children }) {
             <main id="main-content" key={url} className="page-enter flex-1">{children}</main>
             <Footer />
 
-            {/* Brochure FAB — expands to reveal its label on hover; PDF badge cues the file type */}
+            {/* Brochure FAB - expands to reveal its label on hover; PDF badge cues the file type */}
             {site.brochure && (
                 <a href={`/${site.brochure}`} target="_blank" rel="noopener noreferrer"
                    aria-label={t('Download Nymak Pharma product brochure (PDF)')}
@@ -81,7 +81,7 @@ export default function SiteLayout({ children }) {
                 </a>
             )}
 
-            {/* WhatsApp — B2B quick contact (tracked, requirement #2) */}
+            {/* WhatsApp - B2B quick contact (tracked, requirement #2) */}
             <a href={`https://wa.me/${site.whatsapp}`} target="_blank" rel="noopener noreferrer"
                aria-label={t('Chat with Nymak Pharma on WhatsApp')}
                onClick={() => window.nymakTrack && window.nymakTrack('contact_click', { method: 'whatsapp' })}

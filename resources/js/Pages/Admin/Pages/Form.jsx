@@ -9,7 +9,7 @@ const TRANSLATABLE = ['text', 'textarea', 'richtext'];
 const LOCALES = [['fr', 'FR'], ['es', 'ES']];
 
 /**
- * Page content editor — renders the page's slot schema. Image slots upload
+ * Page content editor - renders the page's slot schema. Image slots upload
  * files (stored path overrides the default); text slots save verbatim;
  * clearing a text field restores its default. Toggles show/hide sections;
  * richtext slots use the WYSIWYG editor. Text/textarea/richtext slots also
@@ -41,7 +41,7 @@ export default function PageForm({ page, fields, values, stored, i18nValues = {}
                 <p className="text-xs text-ink-400">
                     Changes publish immediately to the live page. Clear a text field to restore its default.
                     Where you see <code className="rounded bg-ink-50 px-1">{'{category}'}</code> or <code className="rounded bg-ink-50 px-1">{'{count}'}</code>, the live page fills in the real value.
-                    FR/ES fields are optional — blank falls back to English.
+                    FR/ES fields are optional; blank falls back to English.
                 </p>
                 {fields.map((f) => (
                     <div key={f.name}>

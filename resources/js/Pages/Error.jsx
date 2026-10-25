@@ -46,7 +46,7 @@ const copy = {
     },
     500: {
         title: 'Something went wrong',
-        text: 'An unexpected error occurred. Please try again in a moment — or reach us directly by phone or email.',
+        text: 'An unexpected error occurred. Please try again in a moment, or reach us directly by phone or email.',
     },
     503: {
         title: 'Under maintenance',

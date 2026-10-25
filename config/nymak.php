@@ -4,7 +4,7 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Nymak Pharma — site identity & NAP
+    | Nymak Pharma: site identity & NAP
     |--------------------------------------------------------------------------
     |
     | Single source of truth for company facts used across pages, schema.org
@@ -50,14 +50,14 @@ return [
     */
     'offices' => [
         [
-            'name' => 'Nymak Pharma — United Kingdom',
+            'name' => 'Nymak Pharma, United Kingdom',
             'address' => '39, Moat Drive, Harrow, Middlesex, HA1 4RY, United Kingdom',
             'phone' => '+44 7943 534797',
             'email' => 'paresh.wadhwani@nymakpharma.com',
             'country_code' => 'GB',
         ],
         [
-            'name' => 'Core Africa — Sierra Leone',
+            'name' => 'Core Africa, Sierra Leone',
             'address' => '1st Floor, 39 Liverpool Street (UP), Off Pademba Road, Freetown, Sierra Leone',
             'phone' => '+232 90855049',
             'email' => 'sierraleone@coreafrica.net',
@@ -75,7 +75,7 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Social profiles (linked only when active — requirement #26)
+    | Social profiles (linked only when active, requirement #26)
     |--------------------------------------------------------------------------
     */
     'socials' => [
@@ -113,7 +113,7 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Stats shown on marketing pages (kept factual — brochure/audit sourced)
+    | Stats shown on marketing pages (kept factual, brochure/audit sourced)
     |--------------------------------------------------------------------------
     */
     'stats' => [

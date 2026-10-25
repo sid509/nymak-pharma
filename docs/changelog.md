@@ -1,13 +1,13 @@
 # Changelog
 
-## Multilingual public site — English, Français, Español
+## Multilingual public site - English, Français, Español
 
 The public site now runs three locales. English stays the
 canonical unprefixed variant (`/about`); French and Spanish
 live under `/fr/…` and `/es/…`. The admin panel remains
 English-only.
 
-- **Routing** — every public route registers twice: a
+- **Routing** - every public route registers twice: a
   `{locale?}`-prefixed group (constrained to `fr|es`) first so
   named routes carry the locale param, then bare English
   routes (Laravel's optional-first-segment matching won't
@@ -17,7 +17,7 @@ English-only.
   matching prefix, and `forgetParameter('locale')` keeps
   implicit model bindings positional. Legacy redirects
   (`/about-us` → `/about`) preserve the prefix.
-- **Content translations** — translatable models carry an
+- **Content translations** - translatable models carry an
   `i18n` JSON column (`{fr: {name: …}, es: {name: …}}`).
   `HasTranslations` resolves attribute reads + `toArray()`
   through the current locale with English fallback, so
@@ -26,40 +26,40 @@ English-only.
   fields are sanitised on write. Applies to Product,
   ProductCategory, Market, Post, Faq, TeamMember, Testimonial
   and PageContent slots (text/textarea/richtext).
-- **UI chrome** — `lang/fr.json` + `lang/es.json` translate
+- **UI chrome** - `lang/fr.json` + `lang/es.json` translate
   via English source keys; shared `i18n`/`locale`/`locales`
   props drive a `useT()` hook, `LocaleLink`/`ButtonLink`
   prefix internal hrefs, and a header `LanguageSwitcher`
-  (plain anchors to the shared `locales` alternates — a full
+  (plain anchors to the shared `locales` alternates - a full
   reload keeps SSR + document lang in sync).
-- **SEO** — `<html lang>`, self-referencing canonicals,
+- **SEO** - `<html lang>`, self-referencing canonicals,
   `hreflang` alternates + `x-default`, `og:locale` +
   alternates, locale-aware breadcrumbs/JSON-LD URLs, and a
   sitemap emitting every path ×3 locales with alternates.
-- **Admin** — `TranslationFields` component adds FR/ES inputs
+- **Admin** - `TranslationFields` component adds FR/ES inputs
   (WYSIWYG for richtext) to product, category, market, post
   and generic CRUD forms; PageContent slots get inline FR/ES
   fields; FormRequests validate `i18n.*.*`; controllers merge
   via `setTranslations()`.
-- **Tests** — `tests/Feature/LocaleTest` (10 cases: prefixed
+- **Tests** - `tests/Feature/LocaleTest` (10 cases: prefixed
   routing, 404 on bad locales, lang/hreflang, prop shape,
   model translation + EN fallback, locale-aware redirects,
   contact POST, sitemap); `tests/Browser/locale.mjs` (11-step
   real-Chrome journey: chrome per locale, switcher, French
   contact submission, admin FR-name round-trip, sitemap).
-  Three real bugs found and fixed en route — see UAT-07/08/09.
+  Three real bugs found and fixed en route - see UAT-07/08/09.
 
-- **Flag switcher (iteration 2)** — hand-authored flat `gb`/`fr`/`es`
+- **Flag switcher (iteration 2)** - hand-authored flat `gb`/`fr`/`es`
   SVGs matching the existing market-flag set (the switcher previously
   fell back to a globe for every locale). The button now shows the
   current locale's flag + code and lives in the **main nav** next to
-  Contact — the old topbar placement was clipped by the bar's
+  Contact - the old topbar placement was clipped by the bar's
   `overflow:hidden` collapse animation and vanished on scroll. The
   mobile drawer gets an inline EN/FR/ES flag row (`menu` variant).
   Also fixed: mobile nav + company dropdown labels bypassed `t()`.
 
 
-## Branded error pages — all common HTTP statuses
+## Branded error pages - all common HTTP statuses
 
 - `bootstrap/app.php` `respond()` now routes **401, 402, 403,
   404, 405, 408, 419, 422, 429, 500, 503** to the Inertia
@@ -80,18 +80,18 @@ English-only.
   in, 404→catalogue), "go back to previous page" link.
 - Self-contained Blade fallbacks `resources/views/errors/
   500.blade.php` + `503.blade.php` (shared `_shell` partial,
-  inline styles, no DB deps) — Laravel uses these when the
+  inline styles, no DB deps) - Laravel uses these when the
   Inertia render itself can't run (e.g. DB down).
 - In dev, real 500s still show the framework's debug page
-  (`APP_DEBUG` + not testing) — Ignition stays usable.
-- New `tests/Feature/ErrorPagesTest.php` — 7 cases: branded
+  (`APP_DEBUG` + not testing) - Ignition stays usable.
+- New `tests/Feature/ErrorPagesTest.php` - 7 cases: branded
   SSR markup for 404/403/419/429/500, Blade fallback for
   non-HTTP exceptions, JSON pass-through.
 
-## Admin branding — Nymak logo + Hitee credit
+## Admin branding - Nymak logo + Hitee credit
 
 - `AdminLayout` sidebar header now renders the shared `Logo`
-  component (`light` variant) — same markup drives the mobile
+  component (`light` variant) - same markup drives the mobile
   drawer.
 - Every admin page gets a footer credit: "Crafted by [Hitee
   logo]" linking to https://hitee.ai with `target="_blank"
@@ -101,27 +101,27 @@ English-only.
 - Mobile top bar shows the Nymak logo beside the hamburger
   (`Logo` gained a `size="sm"` compact variant for bars).
 - `Logo light` (dark surfaces: admin sidebar, site footer)
-  reworked — the favicon N monogram + white wordmark text
+  reworked - the favicon N monogram + white wordmark text
   instead of the horizontal logo on a white chip, which read
   as a pasted overlay.
 - Hitee wordmark assets sized for web at
   `public/images/brand/hitee-logo.png` (dark, for light
   surfaces) and `hitee-logo-white.png` (spare, dark surfaces).
 
-## Admin dashboard — informative, charted, SSR-safe
+## Admin dashboard - informative, charted, SSR-safe
 
 - Rebuilt `Admin/Dashboard` around insight panels: 4 KPI cards
   (unread enquiries with accent state, 30-day enquiries with
   period-over-period delta pill, products with detail-page
   count, markets served with category count), secondary stat
   chips (published/draft articles, team, detail pages missing
-  images), then six panels — 30-day enquiry trend area chart
+  images), then six panels - 30-day enquiry trend area chart
   with hover crosshair + tooltip, enquiries by country ranked
   bars, product-mix donut with legend, branded-range-by-market
   bars with flags, content-health progress (images / detail
   pages / published articles), latest enquiries with unread
   dots, most-enquired products.
-- Charts are hand-rolled SVG (`TrendChart`, `DonutChart`) —
+- Charts are hand-rolled SVG (`TrendChart`, `DonutChart`) -
   deterministic markup under SSR, no library, brand-styled
   (`#22a52e`/`#0086d4` palette), `role="img"` + aria labels.
   Recharts was tried and removed: its prebundled copy resolves
@@ -133,73 +133,73 @@ English-only.
 - Enquiry timestamps formatted server-side (`when` attr) so
   SSR/client markup is identical across timezones.
 
-## Dev-SSR hydration — root cause found and fixed
+## Dev-SSR hydration - root cause found and fixed
 
 - **Bug:** every page logged a hydration mismatch, and under
-  one configuration every page went dead — clicks did nothing.
+  one configuration every page went dead - clicks did nothing.
 - **Why:** with Vite hot, `laravel/inertia` sends SSR requests
   to `{vite}/__inertia_ssr`, which the vite dev server never
   serves → SSR silently skipped → empty `#app` → `hydrateRoot`
   mismatch. Making SSR answer anyway was worse: the built SSR
   bundle is *production* React while Vite serves *development*
-  React — hydrating prod markup with dev React suspends
+  React - hydrating prod markup with dev React suspends
   hydration permanently (events captured, never dispatched).
-- **Fix:** `INERTIA_SSR_ENABLED=false` in `.env` (dev only —
+- **Fix:** `INERTIA_SSR_ENABLED=false` in `.env` (dev only -
   production deploys set it true where both bundles share the
   same production React), `app.jsx` now mounts with
   `createRoot` when `#app` has no `data-server-rendered` and
-  `hydrateRoot` when it does — zero console errors either way.
+  `hydrateRoot` when it does - zero console errors either way.
 - Also restarted the months-stale SSR daemon + vite dev
   servers (they held pre-change bundles), and guarded
-  `SiteLayout`'s `site` prop (`site?.tawk_property`) — a real
+  `SiteLayout`'s `site` prop (`site?.tawk_property`) - a real
   SSR crash on error pages without shared props.
 - Removed stray `package.json`/`package-lock.json` files the
   earlier Recharts attempts left in the repo's parent dir.
 
-## Rebrand — theme recolored to the official logo
+## Rebrand - theme recolored to the official logo
 
-- `brand-*` scale is now the logo's **green** (primary —
+- `brand-*` scale is now the logo's **green** (primary -
   buttons, nav pills, eyebrows, FABs, hovers) and `gold-*`
-  holds the logo's **azure blue** (accent — supply arcs,
+  holds the logo's **azure blue** (accent - supply arcs,
   selected map states, badges). One CSS-vars change recolors
   every component.
 - `.text-gradient` is now `blue → azure → green` (logo order)
-  and is the **default for all `SectionHeading` titles** — every
+  and is the **default for all `SectionHeading` titles** - every
   section subtitle renders the brand gradient.
-- Chat FAB is Tawk.to only (no WhatsApp fallback — goes to
+- Chat FAB is Tawk.to only (no WhatsApp fallback - goes to
   /contact until `tawk_property` is set in Settings).
 - Map copy: "Every gold arc…" → "Every arc…" (arcs are now
   brand blue, not gold).
 - `--shadow-card-hover` and map focus/selected glows shifted to
   the new palette.
 
-## Brand refresh — real logo, bigger type, new FAB layout
+## Brand refresh - real logo, bigger type, new FAB layout
 
-- **Official logo** — `Nymak Pharma rgb.png` (from the client
+- **Official logo** - `Nymak Pharma rgb.png` (from the client
   brand pack, same asset as nymakpharma.com) copied to
   `public/images/brand/nymak-logo.png` and set via the
   `logo` site setting (Admin → Settings can still override).
   The `Logo` component wraps it in a white chip on dark
   surfaces so the dark wordmark stays readable in the footer.
-- **Favicon** — the blue/green N symbol cropped from the
+- **Favicon** - the blue/green N symbol cropped from the
   transparent logo → `public/favicon.png` (replaces favicon.svg).
-- **Type scale bump** — `t-*` tokens stepped up: hero 56px,
+- **Type scale bump** - `t-*` tokens stepped up: hero 56px,
   page titles 46px, H2 38px, H3 27px, H4 21px, lead 19px,
-  body 17px, captions 14px, eyebrows 13px, nav/buttons 16px —
+  body 17px, captions 14px, eyebrows 13px, nav/buttons 16px -
   all inside the client's spec ranges; `.prose-nymak` body
   copy at 17px.
-- **FAB layout** — brochure + WhatsApp moved to bottom-LEFT;
+- **FAB layout** - brochure + WhatsApp moved to bottom-LEFT;
   new teal "Live chat" FAB bottom-RIGHT: opens the Tawk.to
   widget when `tawk_property` is set in Settings
   (lazy-loads `embed.tawk.to` on first click), otherwise
   falls back to WhatsApp.
-- **Content** — quality_body refreshed with the live site's
+- **Content** - quality_body refreshed with the live site's
   certification copy ("Each accolade reflects our deep-rooted
   commitment…"); hero subtitle already carries their tagline.
 
 ## Gradient display text
 
-- New `.text-gradient` utility — `brand-800 → brand-500 →
+- New `.text-gradient` utility - `brand-800 → brand-500 →
   gold-500` (deep teal through vivid teal to export gold,
   matching the globe's supply-route gold), `background-clip:
   text`.
@@ -207,31 +207,31 @@ English-only.
   title ("A pharmaceutical manufacturer India has exported
   through since 1998") uses it.
 
-## Global presence — dark hero
+## Global presence - dark hero
 
-- `PageHero` gains an opt-in `tone="dark"` variant — deep
+- `PageHero` gains an opt-in `tone="dark"` variant - deep
   `brand-950 → ink-950` gradient, ring motif + teal radial glow
   (same dark-panel language as About/CTA), and a `children` slot
-  for extra content. Also gains `align="center"` — centered
+  for extra content. Also gains `align="center"` - centered
   breadcrumbs, eyebrow, title, lead and children.
 - `Eyebrow` and `Breadcrumbs` gain `dark` (and `center`) props
   adapting their colors/layout for dark canvases.
 - The Global Presence hero uses it, plus a live-facts strip
-  (countries / regions / key markets / offices — all computed
+  (countries / regions / key markets / offices - all computed
   from real props, not duplicated copy) filling the dead space
   under the lead.
-- "Don't see your market?" CTA band — centered, ring motif +
+- "Don't see your market?" CTA band - centered, ring motif +
   top glow that scales on card hover, handshake badge, two
   channels: primary "Start the conversation" → /contact and a
   WhatsApp outline pill (site.whatsapp). New fields
   `cta_label`, `cta_alt_label`.
 
-## Global presence — empty states get context + CTAs
+## Global presence - empty states get context + CTAs
 
 - No-selection panel: quick-pick chips for up to four markets
   (featured first, else first listed) jump straight into the
   detail view, plus a "Your market not listed? Ask us →" contact
-  CTA — the placeholder panel now guides instead of sitting
+  CTA - the placeholder panel now guides instead of sitting
   empty.
 - Empty-country state: replaces the bare "registrations in
   progress" line with a brand-tinted card carrying an editable
@@ -245,13 +245,13 @@ English-only.
 
 ## Centered section headers (Cipla-style)
 
-- `SectionHeading` default `align` flipped to `center` — every
+- `SectionHeading` default `align` flipped to `center` - every
   consumer (portfolio, testimonials, credentials, capabilities,
   dosage, offices, journey, map, brands…) now centers.
 - Split sections restructured so the eyebrow+title span the full
   width centered above the two-column content (About preview,
   Global presence, Markets footprint, About/Manufacturing/Quality
-  overviews) — the Cipla pattern, rather than centering a title
+  overviews) - the Cipla pattern, rather than centering a title
   inside a half-width column.
 - Quality strip, certifications band and footprint tiles widened
   to full-width grids with centered CTAs; FAQ accordion centers
@@ -263,16 +263,16 @@ English-only.
 
 - The home Quality & Compliance strip is now a **carousel of
   bigger tiles** (w-64/72, `h-28` cert art, name + issuer, card
-  shadow + hover lift) reusing the `.marquee` infrastructure —
+  shadow + hover lift) reusing the `.marquee` infrastructure -
   seamless duplicated loop, auto-scrolls at 26s, pauses on
   hover/focus, `overflow-x: auto` fallback under
   `prefers-reduced-motion`.
-- All five certs show (was `slice(0,4)` — the IEC tile was
+- All five certs show (was `slice(0,4)` - the IEC tile was
   silently dropped).
 
-## Hero — back to full-bleed image, blended
+## Hero - back to full-bleed image, blended
 
-- Facility photo is once again the **full hero background** —
+- Facility photo is once again the **full hero background** -
   this time blended instead of slabbed: a directional scrim
   (`ink-950/85 → 50 → 15`, left→right) keeps the copy readable
   while the photo still reads through on the right, and a bottom
@@ -290,7 +290,7 @@ English-only.
 - Brochure download is now a **global FAB** in `SiteLayout`:
   teal `brand-600` circle stacked above the WhatsApp bubble
   (bottom-right), expanding on hover to reveal the "Brochure"
-  label — animated via `max-width`/`padding`/`opacity`, tracked
+  label - animated via `max-width`/`padding`/`opacity`, tracked
   as `brochure_download` with `placement: 'fab'`. Rendered only
   when the admin brochure upload exists (Settings → Product
   brochure controls it).
@@ -298,14 +298,14 @@ English-only.
   `show_hero_brochure`/`hero_brochure_label` admin fields retired
   from `PageContent` defs. Footer + Contact context links remain.
 - FAB is **highlighted**: a soft `brand-500` ring pulses outward
-  every 2.8s and the download icon gently bobs — both disabled
+  every 2.8s and the download icon gently bobs - both disabled
   under `prefers-reduced-motion`. Hover still expands to the
   "Brochure" label and deepens to `brand-700`.
 
 ## Button system → pills
 
 - `ButtonLink` variants restyled: `rounded-lg px-5 py-3` →
-  `rounded-full px-6 py-2.5` — pill shape matches the nav pills
+  `rounded-full px-6 py-2.5` - pill shape matches the nav pills
   and hero badge, killing the "default AI template" boxy look.
 - Outline hover gains a soft `brand-50/60` fill for clearer
   feedback.
@@ -314,35 +314,35 @@ English-only.
   one pill language with the `btn-cta` sheen + arrow-travel
   micro-interaction.
 
-## Header consolidation — Company dropdown + xl breakpoint
+## Header consolidation - Company dropdown + xl breakpoint
 
 - Nine flat links → **6 primary items + a "Company" dropdown**
   (Our Team / Inside Nymak / Blog) + Contact pill. Dropdown is
   tap-toggleable, hover/focus-open, and gets the active pill when
   on a company page.
-- Desktop nav breakpoint `lg` → `xl` — the 1024–1280px range now
+- Desktop nav breakpoint `lg` → `xl` - the 1024–1280px range now
   gets the hamburger instead of a cramped bar.
 - Mobile menu gains a "Company" eyebrow section with the three
   links under the same bordered-sublist style as Products.
 - `dropOpen` state generalised to `openMenu` ('products'|'company')
   with per-dropdown refs for outside-click.
 
-## Header redesign — pill nav
+## Header redesign - pill nav
 
-- Nav links now use **pill states** — hover `ink-50`, active
-  `brand-50` + `brand-800` — replacing the underline-sweep
+- Nav links now use **pill states** - hover `ink-50`, active
+  `brand-50` + `brand-800` - replacing the underline-sweep
   animation (`.nav-link::after` removed; CSS cleaned incl. the
   reduced-motion rule). Same language as the mobile menu and
   mega-menu tiles, applied to the split Products trigger too.
 - Topbar recoloured `ink-950` → `brand-950` (deep teal) with a
   `brand-300` "WHO-GMP Certified" highlight and hairline
-  separators — brand-tinted chrome instead of generic black.
+  separators - brand-tinted chrome instead of generic black.
 - "Contact Us" CTA is now a `rounded-full` pill.
 
 ## Header width + footer shell
 
 - Header chrome (utility bar, main nav, mobile nav) and footer now
-  use a wider `max-w-[90rem]` shell with `lg:px-10` — the header
+  use a wider `max-w-[90rem]` shell with `lg:px-10` - the header
   spans the viewport like modern corporate sites while page content
   stays at `max-w-7xl`.
 - Mega-menu category names wrap to two lines instead of truncating
@@ -354,14 +354,14 @@ English-only.
   pharma-relevant icon tile (HeartPulse lifecare, Globe2 exports,
   Container shipping, Pill products) that inverts to brand fill on
   hover; the cell lifts with a soft `brand-50` tint and the figure
-  steps to `brand-800`. `Stat` gains an `icon` prop — dark Markets
+  steps to `brand-800`. `Stat` gains an `icon` prop - dark Markets
   stats unchanged.
 - Segment explorer preview now shows up to 3 **real product
   packshots** per category (name-tooltip links to each detail page)
-  via a new `samples` payload in `HomeController` — actual Nymak
+  via a new `samples` payload in `HomeController` - actual Nymak
   products on the landing page without turning it into a catalogue.
 - Stat label shortened to "Containers per FY" (DB + `PageContent`
-  default) — the old value wrapped mid-year leaving "24" orphaned.
+  default) - the old value wrapped mid-year leaving "24" orphaned.
 
 ## Products nav → mega-menu
 
@@ -373,7 +373,7 @@ English-only.
 - Mobile menu's category sublist gains the same teal icons + counts.
 - Dropdown still works pre-hydration (CSS hover/focus) and on tap.
 - Header compacted: nav bar `py-3→py-2` (61px) and the topbar collapse
-  now truly reaches 0 — its `py-1.5` padding counted toward the grid
+  now truly reaches 0 - its `py-1.5` padding counted toward the grid
   item's min-content, leaving a 12px sliver; padding moved to a
   grandchild so `0fr` collapses fully.
 
@@ -385,14 +385,14 @@ English-only.
   arrow slides in) and the sticky preview panel on the right swaps to
   that segment's icon, name, count, intro and two CTAs
   ("Explore category" → landing page, "Product list" → catalogue).
-  Rows stay real links — click navigates directly, no dead interaction.
+  Rows stay real links - click navigates directly, no dead interaction.
 - Preview replays the existing `.explorer-panel` fade-rise on each
   change (`key` remount); already covered by the reduced-motion reset.
-- Below `lg` the existing numbered card grid remains — the explorer's
+- Below `lg` the existing numbered card grid remains - the explorer's
   two-column split doesn't fit a phone.
 - Rows carry `data-segment` for unambiguous browser targeting.
 
-## Section modernisation — floating stats, decorated dark sections
+## Section modernisation - floating stats, decorated dark sections
 
 - **Stats band → floating card:** the flat teal strip became a white
   `rounded-3xl` card lifted into the hero/about seam (`-mt` + `z-10`),
@@ -400,36 +400,36 @@ English-only.
   brand-700 captions) while the dark Markets stats keep the default.
 - **Ring motif as a system:** the faint concentric-ring decoration
   from the About fact panel now carries through the Global presence
-  section (rings + a soft `brand-500` radial glow) and the CTA band —
+  section (rings + a soft `brand-500` radial glow) and the CTA band -
   the site's dark moments now share one visual language.
 - **Hover depth:** market chips, certification tiles and testimonial
   cards get `-translate-y-0.5` + border/shadow transitions
-  (transform/shadow only, explicit properties — no `transition-all`).
+  (transform/shadow only, explicit properties - no `transition-all`).
 
 ## Header condense, hero parallax, de-duplicated imagery
 
 - **Header:** the utility topbar folds away on scroll
-  (`grid-template-rows: 1fr→0fr` transition — no JS height measuring),
+  (`grid-template-rows: 1fr→0fr` transition - no JS height measuring),
   leaving a compact pinned nav with the existing floor shadow. Contact
   button picks up the `btn-cta` sheen. Reduced-motion: collapse is
   instant.
 - **Hero scroll effect:** the facility image drifts ±20px inside its
   frame via `useScrollProgress` (transform-only, overscanned at
   scale-1.15 so edges never show; reduced-motion parks it covered). A
-  faint offset `brand-200` ring sits behind the frame — editorial
+  faint offset `brand-200` ring sits behind the frame - editorial
   detail.
 - **Duplicate imagery fixed:** `facility-aerial.webp` was the default
-  for hero, about, overview and facility images — appearing twice on
+  for hero, about, overview and facility images - appearing twice on
   the homepage alone. The About preview now shows a photo card only
   when `about_image` differs from `hero_image` (admin-uploaded
-  distinct photo); otherwise it renders a **company fact panel** —
+  distinct photo); otherwise it renders a **company fact panel** -
   "Since 1998" figure plus facility/cert/market facts on a
   `brand-800→ink-950` gradient. Admin field stays meaningful, the
   page stops repeating itself.
 - Inner pages (About, Manufacturing) keep the aerial in facility
-  context — admin can swap any slot from Page content.
+  context - admin can swap any slot from Page content.
 
-## Homepage composition — editorial split hero, indexed categories
+## Homepage composition - editorial split hero, indexed categories
 
 - Hero reworked from full-bleed photo + heavy scrim to a **split
   editorial layout**: content on the left over a light
@@ -437,7 +437,7 @@ English-only.
   `rounded-3xl` card with a `MapPin` location chip
   (`{city}, {country}`). The real photo now reads as an asset instead
   of a dimmed backdrop.
-- `CategoryCard` gains an `index` prop — cards show a muted two-digit
+- `CategoryCard` gains an `index` prop - cards show a muted two-digit
   editorial index (`01`–`05`) top-right, icon tile shrinks to 11×11,
   product count moves beneath the title as a caption. Applied on both
   the home portfolio grid and the products index.
@@ -449,17 +449,17 @@ English-only.
   to the `prefers-reduced-motion` reset so media reveals collapse
   cleanly with the rest of the motion system.
 
-## Theme refinement — cleaner teal, brighter CTAs, fixed blank button
+## Theme refinement - cleaner teal, brighter CTAs, fixed blank button
 
-- Brand teal ramp recalibrated for cleaner chroma (`brand-50–950` —
+- Brand teal ramp recalibrated for cleaner chroma (`brand-50–950` -
   same hue family, less grey/mud). Identity preserved.
 - Primary CTAs step up to `bg-brand-600 → hover:brand-700` (was
-  `700 → 800`) — brighter, more confident actions sitewide.
+  `700 → 800`) - brighter, more confident actions sitewide.
 - Large teal fills get subtle directional depth: home CTA band, stats
   band and Inside CTA use `brand-700→900` gradients; product/blog/FAQ/
   market CTA cards use `brand-700→900` diagonal gradients. Flat slabs
   gone.
-- **Bug fixed:** the home CTA "WhatsApp us" button rendered blank —
+- **Bug fixed:** the home CTA "WhatsApp us" button rendered blank -
   `variant="outline"` painted `bg-white` while the override set
   `text-white`, hiding the label. New `outlineLight` ButtonLink variant
   (transparent bg, white border/text) is the correct dark-surface style;
@@ -468,7 +468,7 @@ English-only.
 ## Inter typography system
 
 - Sitewide font swapped from Manrope to **Inter** (`@fontsource/inter`,
-  self-hosted weights 400/500/600/700 — no external requests).
+  self-hosted weights 400/500/600/700 - no external requests).
   `--font-sans` is now `'Inter', Arial, sans-serif`.
 - New `.t-*` scale in `app.css` is the single source of truth:
   `t-hero` (34→54px), `t-page` (30→44), `t-h2` (28→36), `t-h3` (22→26),
@@ -479,19 +479,19 @@ English-only.
   700 kept only for display numerals/initials. Uppercase label tracking
   tightened to `0.04em` (was 0.1–0.28em); label size floor is 12px.
 - `prose-nymak`/`richtext-body`, spec-table headers, nav, buttons,
-  cards, forms and footer all consume the same tokens — no
+  cards, forms and footer all consume the same tokens - no
   page-specific type declarations remain.
-- Client spec: Cipla-reference restraint — hierarchy from weight and
+- Client spec: Cipla-reference restraint - hierarchy from weight and
   scale, not decoration. No layout/palette/structure changes.
 
 ## Airline-style globe + site-wide design polish
 
 - `/global-presence` rebuilt as an **interactive globe**: orthographic
   projection centred on the Indian Ocean with India as the visual hub,
-  Mundra HQ marker, and animated gold supply-route arcs to every market —
+  Mundra HQ marker, and animated gold supply-route arcs to every market -
   the airline-map read. Auto-rotates slowly (paused on hover/focus and for
-  `prefers-reduced-motion`), draggable, and clicking a country — or a
-  region-list row — flies the globe to it while the portfolio panel opens.
+  `prefers-reduced-motion`), draggable, and clicking a country - or a
+  region-list row - flies the globe to it while the portfolio panel opens.
   Clearing a selection returns to the India hub view.
 - Site-wide polish pass (clinical palette + Manrope preserved):
   consistent `:focus-visible` ring; nav underline sweep + active state;
@@ -508,9 +508,9 @@ English-only.
   the globe facing away from keyboard targets. Both fixed with Vitest +
   UAT coverage.
 
-## Product catalogue restructure — company home page, content-led categories
+## Product catalogue restructure - company home page, content-led categories
 
-- The homepage no longer leads with a product grid: it is a company page —
+- The homepage no longer leads with a product grid: it is a company page -
   hero, stats, about, **category cards**, quality, global presence,
   testimonials, clients, FAQs, journal, contact CTA. The branded-products
   section still exists but ships **off by default** behind a Page content
@@ -520,7 +520,7 @@ English-only.
   WYSIWYG-authored body, range summary, link to the list) →
   `/product/{category}/products` (grouped spec tables + in-page search) →
   `/product/{category}/{product}` (detail pages, `has_detail_page` only).
-- Product detail pages dropped "Request a Quote" — the CTA is
+- Product detail pages dropped "Request a Quote" - the CTA is
   **"Contact us about this product"**, deep-linking to `/contact?product=…`
   which pre-selects the enquiry form. CTA labels, the related-products block
   and the support banner are Page content slots.
@@ -536,7 +536,7 @@ English-only.
   301 to `/product/…`. Sitemap lists category + product-list URLs; llms.txt
   links both levels.
 - Related-product links now point at each product's own category (was the
-  current category — could 404 under scoped bindings).
+  current category - could 404 under scoped bindings).
 - Tests: `PagesTest` grew to 14 (redirects, toggles, catalogue, no-quote
   detail); `AdminCrudTest` covers category rich-content sanitisation +
   page-content toggles; new real-Chrome journey
@@ -545,7 +545,7 @@ English-only.
 ## Interactive Global Presence map + admin WYSIWYG
 
 - `/global-presence` is now built around a live world map (SVG, d3-geo +
-  world-atlas — no tiles or API keys, server-rendered). Countries we work in
+  world-atlas - no tiles or API keys, server-rendered). Countries we work in
   are highlighted (key markets stronger), hover shows a summary card, and
   clicking a country opens a detail panel with **what we do there**: rich
   content, supplied products and the local office. Region list mirrors the
@@ -564,7 +564,7 @@ English-only.
 - Tests: `GlobalPresenceMapTest` (7), `WorldMap.test` (7), and a real-Chrome
   UAT journey `tests/Browser/global-presence-map.mjs` (15 steps).
 
-## 2026-09 — Initial build
+## 2026-09 - Initial build
 
 Production Laravel 12 + Inertia React + SSR + SQLite rebuild of the Nymak
 Pharma corporate website, engineered for SEO-first B2B lead generation.
@@ -605,18 +605,18 @@ Pharma corporate website, engineered for SEO-first B2B lead generation.
 
 ### Tests
 - 25 PHP feature tests (pages, SEO, enquiries, admin) + 17 React tests
-  (Vitest) — all green.
+  (Vitest) - all green.
 
 ### Docs
 - architecture, decisions, database, seo, testing, deployment, development,
   changelog, requirements-mapping.
 
-## Phase 2 — Lead funnel + admin panel
+## Phase 2 - Lead funnel + admin panel
 
 ### Lead funnel
 - `?product={slug}` deep-link pre-selects a product in the enquiry form;
   product pages carry "Request a Quote".
-- Brochure PDF download (hero, footer, contact sidebar) — tracked.
+- Brochure PDF download (hero, footer, contact sidebar) - tracked.
 - Security headers middleware (strips `X-Powered-By`, adds nosniff/SAMEORIGIN/
   Referrer-Policy). LinkedIn URL corrected to the real profile.
 
@@ -637,16 +637,16 @@ Pharma corporate website, engineered for SEO-first B2B lead generation.
   `page_metas` overrides for all static/list pages via `/admin/seo-pages`.
 
 ### Tests
-- 49 PHP + 18 React tests — all green.
+- 49 PHP + 18 React tests - all green.
 
-## Unreleased — CMS layer
+## Unreleased - CMS layer
 
 - Page content editor (`/admin/pages`): every public page's copy and images
   editable via `page_contents` slot overrides with schema defaults; JSON
   slots cover repeating lists (timeline, capability cards, dosage forms).
 - Site settings (`/admin/settings`): tagline, NAP, socials, stats and
   overseas offices merged over `config/nymak.php` via `SiteSetting::merged()`
-  — feeds layout NAP, Organization schema, Contact and llms.txt.
+  - feeds layout NAP, Organization schema, Contact and llms.txt.
 - Client logos (`/admin/clients`): new `client_logos` entity; home strip now
   renders from DB instead of a hardcoded filename list.
 - Team photos + certification badge uploads via new `image` field type in the
@@ -655,12 +655,12 @@ Pharma corporate website, engineered for SEO-first B2B lead generation.
   `config('nymak…')` public reads now resolve through `SiteSetting::merged()`.
 
 ### Tests
-- 62 PHP + 18 React tests — all green.
+- 62 PHP + 18 React tests - all green.
 
 ### Team pages & interactive story
-- `/team` index + `/team/{slug}` profile pages (Person schema, bio-gated —
+- `/team` index + `/team/{slug}` profile pages (Person schema, bio-gated -
   no thin profiles), seeded with real bios from nymakpharma.com.
-- `/inside-nymak`: interactive company story — authored journey rail,
+- `/inside-nymak`: interactive company story - authored journey rail,
   scroll-reveal motion, animated stat counters, and a market explorer
   (country selector → supplied-products panel).
 - Global Presence is now a portfolio: markets render as expandable
@@ -674,7 +674,7 @@ Pharma corporate website, engineered for SEO-first B2B lead generation.
 
 ### Tawk.to live chat wired to client property
 - `tawk_property` site setting set to the client's widget
-  (`6ac51d4850bdca34caf61447/1k48vkpms`) — the right-side FAB lazily
+  (`6ac51d4850bdca34caf61447/1k48vkpms`) - the right-side FAB lazily
   embeds the official Tawk.to loader on first click, maximizes the
   chat, and hides Tawk's own bubble on minimize so the themed FAB
   stays the single launcher. Falls back to `/contact` if the setting
@@ -715,19 +715,19 @@ Pharma corporate website, engineered for SEO-first B2B lead generation.
 
 ### Centered, tighter page heroes
 - `PageHero` now centers by default (breadcrumbs, eyebrow, title,
-  lead) on every page — was left-aligned; vertical padding reduced
+  lead) on every page - was left-aligned; vertical padding reduced
   from py-14/20 to py-9/12 to remove the dead space under the
   breadcrumb.
 
 ### Breadcrumb left, title center
 - PageHero breadcrumbs moved out of the centered block to the
-  container's left edge — eyebrow/title/lead stay centered (light
+  container's left edge - eyebrow/title/lead stay centered (light
   and dark heroes alike).
 
 ### Team page redesign + portrait placeholders
 - `MemberPortrait` component: member photo when uploaded, else a
   designed duotone tile (alternating brand green/logo blue by
-  index, concentric-ring motif, big initials, top sheen) — reads as
+  index, concentric-ring motif, big initials, top sheen) - reads as
   art direction, not missing imagery. Same tile on the profile page
   hero and gradient initials circles in "More of the team".
 - Cards are now full-bleed 4:5 portraits with a bottom gradient
@@ -748,7 +748,7 @@ Pharma corporate website, engineered for SEO-first B2B lead generation.
   Naqvi (slug updated to `murtuza-naqvi`).
 
 ### About: founder story section
-- New "Our Story" block on /about — archival photographs downloaded from
+- New "Our Story" block on /about - archival photographs downloaded from
   nymakpharma.com: the founder at the first office (c. 1998), an early
   consignment bound for Lae PNG, and the first container dispatch.
 - Narrative + signature card (links to /team/ranjit-advani) sit beside the
@@ -761,7 +761,7 @@ Pharma corporate website, engineered for SEO-first B2B lead generation.
   lightly rotated polaroid cards (badge text is admin-editable).
 
 ### Enquiry spam-gate hardening
-- `looksLikeSpam()` no longer treats negative elapsed time as spam —
+- `looksLikeSpam()` no longer treats negative elapsed time as spam -
   a client clock ahead of the server (skew) previously flagged every
   such submission, returning fake success while storing nothing.
 - Spam-gate discards now Log::info the reason (honeypot vs min_time),
@@ -778,9 +778,9 @@ Pharma corporate website, engineered for SEO-first B2B lead generation.
   translate via a pharma stem/dosage-form rule table (`stems.fr/es.php`)
   that preserves INN molecules, strengths and units; therapeutic groups
   and descriptions use authored dictionaries. JSON slots write directly
-  into `i18n` — routing them through `setTranslations` would HTML-escape
+  into `i18n` - routing them through `setTranslations` would HTML-escape
   the encoded quotes and break `for()`'s `json_decode`.
-- Eager-loaded `category` relations now select `i18n` — previously the
+- Eager-loaded `category` relations now select `i18n` - previously the
   column list dropped it, so related category names silently resolved
   English on FR/ES product pages even with translations stored.
 - Remaining literal labels on Inside (hero stats), Markets (hero stats)

@@ -4,7 +4,7 @@ import ConfirmDelete from '../../../Components/Admin/ConfirmDelete';
 import AdminLayout from '../../../Layouts/AdminLayout';
 
 /**
- * Generic list page for simple content entities — columns and routes are
+ * Generic list page for simple content entities - columns and routes are
  * driven by the controller's module config.
  */
 export default function CrudIndex({ module, columns, rows, filters }) {

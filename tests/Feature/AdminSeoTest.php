@@ -33,7 +33,7 @@ class AdminSeoTest extends TestCase
     #[Test]
     public function empty_page_meta_falls_back_to_defaults(): void
     {
-        // Row exists (seeded with plan meta) — clear it so controller defaults win.
+        // Row exists (seeded with plan meta) - clear it so controller defaults win.
         PageMeta::where('key', 'home')->update(['meta_title' => null, 'meta_description' => null]);
 
         $this->get('/')->assertOk()

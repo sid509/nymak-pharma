@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex">
-    <title>{{ $code }} · {{ $title }} — Nymak Pharma</title>
+    <title>{{ $code }} · {{ $title }} | Nymak Pharma</title>
     <style>
         * { margin: 0; box-sizing: border-box; }
         body { font-family: Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;

@@ -22,13 +22,13 @@ Source: `Requirements/requirements.md`. Status: ✅ done · 🔶 partial · ⏭ 
 | 16 | OG + X cards | Full tag set emitted per page | ✅ |
 | 17 | NAP consistency | `config/nymak.php` single source → footer/contact/schema | ✅ |
 | 18 | SPF/DKIM/DMARC | Infrastructure; checklist in `deployment.md` | 🔶 infra task |
-| 19 | Hreflang | Deferred — single-language site | ⏭ |
+| 19 | Hreflang | Deferred - single-language site | ⏭ |
 | 20 | Email exposure review | Contact form is primary; published emails are role/public addresses | ✅ |
 | 21 | AMP | Skipped per requirements (mobile perf prioritized) | ⏭ |
 | 22 | Backlinks/PR | Out of code scope; noted for marketing | ⏭ |
 | 23 | Social profiles | Config-driven `sameAs` + footer icons (suppress empty) | ✅ |
 | 24 | Contact form → lead gen | `EnquiryRequest` validation + storage + queued mail + admin inbox; `?product=` deep-link pre-selects the product; brochure download + WhatsApp + tel/mailto all tracked | ✅ |
-| 24b | Admin panel | Full `/admin` panel: dashboard, enquiries inbox w/ search+filter, CRUD for products/categories/markets/posts/faqs/testimonials/certifications/team/users, image upload→WebP, single-role auth, delete guards — `docs/admin.md` | ✅ |
+| 24b | Admin panel | Full `/admin` panel: dashboard, enquiries inbox w/ search+filter, CRUD for products/categories/markets/posts/faqs/testimonials/certifications/team/users, image upload→WebP, single-role auth, delete guards - `docs/admin.md` | ✅ |
 | 25 | Responsive across devices | Mobile-first Tailwind; hamburger nav; scrollable tables; tap targets | ✅ |
 | 26 | Laravel backend | Laravel 12 | ✅ |
 | 27 | React frontend | Inertia React + SSR | ✅ |
@@ -38,11 +38,11 @@ Source: `Requirements/requirements.md`. Status: ✅ done · 🔶 partial · ⏭ 
 
 ## Ambiguities resolved (documented, not invented)
 
-- **"24+ countries"** — brochure says 24+, one page said 22; standardized on 24+.
-- **"25+ years"** — founded 1998; "25+" accurate now, kept consistent.
-- **Which countries get pages** — only Sierra Leone, Liberia, Nigeria have
+- **"24+ countries"** - brochure says 24+, one page said 22; standardized on 24+.
+- **"25+ years"** - founded 1998; "25+" accurate now, kept consistent.
+- **Which countries get pages** - only Sierra Leone, Liberia, Nigeria have
   real distinct content (offices/products/history); others list but don't page.
-- **Admin scope** — requirements say "store + notify leads"; built minimal
+- **Admin scope** - requirements say "store + notify leads"; built minimal
   inbox, not a CMS.
-- **Product detail coverage** — only branded products with images/copy get
+- **Product detail coverage** - only branded products with images/copy get
   pages; generic rows live in tables (thin-content rule).

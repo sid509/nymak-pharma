@@ -6,7 +6,7 @@ import Field from '../../../Components/Admin/Field';
 import AdminLayout from '../../../Layouts/AdminLayout';
 
 /**
- * Site-wide company facts — feeds header/footer NAP, Contact page,
+ * Site-wide company facts - feeds header/footer NAP, Contact page,
  * Organization schema and llms.txt. Blank fields restore config defaults.
  */
 export default function SettingsForm({ fields }) {
@@ -25,7 +25,7 @@ export default function SettingsForm({ fields }) {
         <AdminLayout title="Site settings">
             <form onSubmit={submit} className="max-w-2xl space-y-5 rounded-2xl border border-ink-200 bg-white p-6 sm:p-8">
                 <p className="text-xs text-ink-400">
-                    These values appear across the whole site — contact page, footer, structured
+                    These values appear across the whole site: contact page, footer, structured
                     data and llms.txt. Keep them consistent with official company records.
                 </p>
                 {fields.map((f) => (

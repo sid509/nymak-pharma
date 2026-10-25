@@ -2,6 +2,8 @@
 
 namespace App\Support;
 
+use App\Models\PageMeta;
+use App\Models\SiteSetting;
 use Illuminate\Support\Str;
 
 /**
@@ -69,11 +71,11 @@ class Seo
 
     /**
      * Apply admin-managed overrides for a page key (page_metas table).
-     * Only non-empty fields override — controller defaults remain otherwise.
+     * Only non-empty fields override - controller defaults remain otherwise.
      */
     public function override(string $key): self
     {
-        $meta = \App\Models\PageMeta::where('key', $key)->first();
+        $meta = PageMeta::where('key', $key)->first();
 
         if ($meta?->meta_title) {
             $this->title = $meta->meta_title;
@@ -111,14 +113,14 @@ class Seo
             'type' => $this->type,
             'schema' => $this->schema,
             'url' => url()->current(),
-            'site_name' => \App\Models\SiteSetting::get('short_name'),
+            'site_name' => SiteSetting::get('short_name'),
         ];
     }
 
-    /** Organization + WebSite schema — emitted on every page from the Blade shell. */
+    /** Organization + WebSite schema - emitted on every page from the Blade shell. */
     public static function organizationSchema(): array
     {
-        $c = \App\Models\SiteSetting::merged();
+        $c = SiteSetting::merged();
         $socials = array_values(array_filter($c['socials']));
 
         return [
@@ -150,7 +152,7 @@ class Seo
                 'areaServed' => 'Worldwide',
                 'availableLanguage' => ['English'],
             ]],
-            'award' => ['Star Export House — Government of India', 'WHO-GMP Certified', 'ISO 13485:2016'],
+            'award' => ['Star Export House, Government of India', 'WHO-GMP Certified', 'ISO 13485:2016'],
         ];
     }
 
@@ -160,7 +162,7 @@ class Seo
             '@type' => 'WebSite',
             '@id' => url('/#website'),
             'url' => url('/'),
-            'name' => \App\Models\SiteSetting::get('name'),
+            'name' => SiteSetting::get('name'),
             'publisher' => ['@id' => url('/#organization')],
         ];
     }

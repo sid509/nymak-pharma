@@ -9,7 +9,7 @@ use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
 /**
- * Multilingual public site — English canonical unprefixed, /fr and /es
+ * Multilingual public site - English canonical unprefixed, /fr and /es
  * prefixed, model translations with English fallback, locale-aware SEO.
  */
 class LocaleTest extends TestCase

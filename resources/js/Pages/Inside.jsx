@@ -11,7 +11,7 @@ import SiteLayout from '../Layouts/SiteLayout';
 import { useT } from '../i18n/useT';
 
 /**
- * Inside Nymak — the interactive company story (Experience mode).
+ * Inside Nymak - the interactive company story (Experience mode).
  * Focal moment: the journey rail + the market explorer crossfade.
  * Every visible value comes from DB: content slots, stats, timeline,
  * portfolio markets, categories, leadership.
@@ -116,7 +116,7 @@ export default function Inside({ seo, content, stats, timeline, portfolio, categ
                     <Reveal delay={110}><p className="mx-auto mt-4 max-w-xl text-center text-ink-600">{content.explorer_lead}</p></Reveal>
 
                     <div className="mt-10 grid gap-8 lg:grid-cols-[minmax(0,22rem)_1fr]">
-                        {/* Selector rail — keyboard-navigable buttons */}
+                        {/* Selector rail - keyboard-navigable buttons */}
                         <Reveal>
                             <div className="flex flex-wrap gap-2 lg:flex-col lg:gap-1.5" role="tablist" aria-label="Markets">
                                 {portfolio.map((m, i) => (
@@ -137,7 +137,7 @@ export default function Inside({ seo, content, stats, timeline, portfolio, categ
                             </div>
                         </Reveal>
 
-                        {/* Detail panel — crossfades on selection */}
+                        {/* Detail panel - crossfades on selection */}
                         <Reveal delay={80}>
                             {market && (
                                 <div key={market.name}
@@ -154,7 +154,7 @@ export default function Inside({ seo, content, stats, timeline, portfolio, categ
                                     {market.products.length > 0 ? (
                                         <div className="mt-6 border-t border-ink-100 pt-5">
                                             <p className="mb-3 flex items-center gap-1.5 text-xs font-semibold uppercase tracking-[0.04em] text-ink-500">
-                                                <FontAwesomeIcon style={{ fontSize: 13 }} icon={faBox} aria-hidden /> Products supplied — {market.products.length}
+                                                <FontAwesomeIcon style={{ fontSize: 13 }} icon={faBox} aria-hidden /> Products supplied: {market.products.length}
                                             </p>
                                             <ul className="grid gap-2 sm:grid-cols-2">
                                                 {market.products.map((p) => (
@@ -170,7 +170,7 @@ export default function Inside({ seo, content, stats, timeline, portfolio, categ
                                         </div>
                                     ) : (
                                         <p className="mt-5 rounded-lg bg-ink-50 px-4 py-3 text-sm text-ink-500">
-                                            Relationship active — product registrations in progress.
+                                            Relationship active. Product registrations in progress.
                                         </p>
                                     )}
                                 </div>
@@ -245,7 +245,7 @@ export default function Inside({ seo, content, stats, timeline, portfolio, categ
     );
 }
 
-/** Leadership card — portrait band over name/role, matching the About
+/** Leadership card - portrait band over name/role, matching the About
     and Team treatments; whole card links to the profile when one exists. */
 function LeaderCard({ m, i }) {
     const body = (

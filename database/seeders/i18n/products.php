@@ -20,8 +20,8 @@ return [
         'Antiasthmatics' => ['fr' => 'Antiasthmatiques', 'es' => 'Antiasmáticos'],
         'Antibacterial Infusions' => ['fr' => 'Perfusions antibactériennes', 'es' => 'Perfusiones antibacterianas'],
         'Antibacterials' => ['fr' => 'Antibactériens', 'es' => 'Antibacterianos'],
-        'Antibiotics — Quinolones' => ['fr' => 'Antibiotiques — quinolones', 'es' => 'Antibióticos — quinolonas'],
-        'Antibiotics — β-Lactam' => ['fr' => 'Antibiotiques — bêta-lactamines', 'es' => 'Antibióticos — betalactámicos'],
+        'Antibiotics: Quinolones' => ['fr' => 'Antibiotiques: quinolones', 'es' => 'Antibióticos: quinolonas'],
+        'Antibiotics: β-Lactam' => ['fr' => 'Antibiotiques: bêta-lactamines', 'es' => 'Antibióticos: betalactámicos'],
         'Anticoagulants' => ['fr' => 'Anticoagulants', 'es' => 'Anticoagulantes'],
         'Antidiarrhoeals' => ['fr' => 'Antidiarrhéiques', 'es' => 'Antidiarreicos'],
         'Antiemetics' => ['fr' => 'Antiémétiques', 'es' => 'Antieméticos'],
@@ -263,7 +263,7 @@ return [
         ],
     ],
 
-    // Names that don't follow "<Molecule> <Form>" — devices, kits, specials.
+    // Names that don't follow "<Molecule> <Form>": devices, kits, specials.
     'names' => [
         'Intraperitoneal Dialysis Fluid' => ['fr' => 'Liquide de dialyse intrapéritonéale', 'es' => 'Líquido de diálisis intraperitoneal'],
         'Methadone Oral Concentrate' => ['fr' => 'Concentré oral de méthadone', 'es' => 'Concentrado oral de metadona'],

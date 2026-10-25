@@ -2,6 +2,10 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\Enquiry;
+use App\Models\ProductCategory;
+use App\Models\SiteSetting;
+use App\Support\I18n;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 
@@ -37,35 +41,35 @@ class HandleInertiaRequests extends Middleware
     {
         return [
             ...parent::share($request),
-            'site' => fn () => collect(\App\Models\SiteSetting::merged())->only(
+            'site' => fn () => collect(SiteSetting::merged())->only(
                 'short_name', 'legal_name', 'tagline', 'phone', 'phone_href',
                 'whatsapp', 'tawk_property', 'email', 'address', 'branch_address', 'offices', 'socials',
                 'founded', 'founder', 'logo', 'brochure'
-            )->put('name', \App\Models\SiteSetting::get('short_name'))
-                ->put('socials', array_filter(\App\Models\SiteSetting::get('socials', [])))
-                ->put('logo_uploaded', \App\Models\SiteSetting::where('key', 'logo')->exists())
+            )->put('name', SiteSetting::get('short_name'))
+                ->put('socials', array_filter(SiteSetting::get('socials', [])))
+                ->put('logo_uploaded', SiteSetting::where('key', 'logo')->exists())
                 ->all(),
             'nav' => fn () => [
-                'categories' => \App\Models\ProductCategory::orderBy('sort_order')
+                'categories' => ProductCategory::orderBy('sort_order')
                     ->withCount('products')
                     ->get(['id', 'name', 'slug', 'icon', 'i18n'])
                     ->map(fn ($c) => [
                         'name' => $c->trans('name'),
-                        'href' => \App\Http\Middleware\SetLocale::url("product/{$c->slug}", app()->getLocale()),
+                        'href' => SetLocale::url("product/{$c->slug}", app()->getLocale()),
                         'icon' => $c->icon,
                         'count' => $c->products_count,
                     ]),
             ],
-            // Public-site locale (en/fr/es) — URL prefix via SetLocale.
+            // Public-site locale (en/fr/es) - URL prefix via SetLocale.
             'locale' => fn () => app()->getLocale(),
-            'i18n' => fn () => \App\Support\I18n::dict(app()->getLocale()),
+            'i18n' => fn () => I18n::dict(app()->getLocale()),
             // Alternate URLs of this page in every locale (switcher + hreflang).
             'locales' => function () use ($request) {
                 $path = preg_replace('#^(fr|es)(?=/|$)#', '', trim($request->path(), '/')) ?? '';
                 $qs = $request->getQueryString();
 
-                return collect(\App\Http\Middleware\SetLocale::LOCALES)
-                    ->mapWithKeys(fn ($l) => [$l => \App\Http\Middleware\SetLocale::url($path, $l).($qs ? "?{$qs}" : '')])
+                return collect(SetLocale::LOCALES)
+                    ->mapWithKeys(fn ($l) => [$l => SetLocale::url($path, $l).($qs ? "?{$qs}" : '')])
                     ->all();
             },
             'flash' => fn () => [
@@ -75,9 +79,9 @@ class HandleInertiaRequests extends Middleware
             'auth' => fn () => [
                 'user' => $request->user()?->only('name', 'email'),
             ],
-            // Admin chrome data — guest requests short-circuit before the query.
+            // Admin chrome data - guest requests short-circuit before the query.
             'admin' => fn () => [
-                'unreadEnquiries' => $request->user() ? \App\Models\Enquiry::unread()->count() : 0,
+                'unreadEnquiries' => $request->user() ? Enquiry::unread()->count() : 0,
             ],
         ];
     }

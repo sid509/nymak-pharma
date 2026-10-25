@@ -19,7 +19,7 @@ return new class extends Migration
             $table->unique(['page', 'key']);
         });
 
-        // Company facts (NAP, socials, stats, offices) — flat keys merged over
+        // Company facts (NAP, socials, stats, offices) - flat keys merged over
         // config/nymak.php defaults via SiteSetting::merged().
         Schema::create('site_settings', function (Blueprint $table) {
             $table->id();

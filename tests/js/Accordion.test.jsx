@@ -31,7 +31,7 @@ describe('Accordion', () => {
         const btn = screen.getByRole('button', { name: items[1].question });
         fireEvent.click(btn);
         fireEvent.click(btn);
-        // Content stays mounted for the height transition — assert collapsed state.
+        // Content stays mounted for the height transition - assert collapsed state.
         const region = screen.getByText(items[1].answer).closest('[role="region"]');
         expect(btn).toHaveAttribute('aria-expanded', 'false');
         expect(region).toHaveAttribute('aria-hidden', 'true');

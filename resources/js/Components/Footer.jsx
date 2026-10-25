@@ -24,7 +24,7 @@ export default function Footer() {
                 <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-4">
                     {/* Brand + NAP */}
                     <div>
-                        <Link href="/" aria-label="Nymak Pharma — home"><Logo light /></Link>
+                        <Link href="/" aria-label="Nymak Pharma home"><Logo light /></Link>
                         <p className="mt-4 text-sm leading-relaxed text-ink-300">
                             {t('25+ years of efficacy-driven lifecare. WHO-GMP certified pharmaceutical manufacturer and exporter serving 24+ countries.')}
                         </p>
@@ -68,7 +68,7 @@ export default function Footer() {
                         </ul>
                     </nav>
 
-                    {/* Contact / NAP — consistent name+address+phone (requirement #17) */}
+                    {/* Contact / NAP - consistent name+address+phone (requirement #17) */}
                     <div>
                         <p className="t-eyebrow text-gold-400">{t('Get in Touch')}</p>
                         <address className="mt-4 space-y-3 text-sm not-italic">

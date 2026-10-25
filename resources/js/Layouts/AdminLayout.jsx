@@ -95,7 +95,7 @@ export default function AdminLayout({ title, children }) {
                 </button>
             </div>
 
-            {/* Sidebar — fixed on desktop, drawer on mobile */}
+            {/* Sidebar - fixed on desktop, drawer on mobile */}
             <aside className={`fixed inset-y-0 left-0 z-50 w-64 bg-ink-950 transition-transform lg:translate-x-0 ${navOpen ? 'translate-x-0' : '-translate-x-full'}`}>
                 {sidebar}
             </aside>

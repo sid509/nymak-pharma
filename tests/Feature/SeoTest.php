@@ -7,7 +7,7 @@ use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
 /**
- * Verifies the SSR'd HTML carries the SEO essentials — the whole point of the
+ * Verifies the SSR'd HTML carries the SEO essentials - the whole point of the
  * architecture is that crawlers see real content without executing JS.
  */
 class SeoTest extends TestCase
@@ -75,7 +75,7 @@ class SeoTest extends TestCase
     #[Test]
     public function robots_txt_and_llms_txt_exist_and_are_correct(): void
     {
-        // Static files are served by the web server, not the app kernel —
+        // Static files are served by the web server, not the app kernel -
         // so we assert on the shipped files directly.
         $robots = file_get_contents(public_path('robots.txt'));
         $this->assertStringContainsString('Sitemap:', $robots);

@@ -2,12 +2,14 @@
 
 namespace App\Concerns;
 
+use App\Support\Html;
+
 /**
  * Per-record field translations stored in an `i18n` JSON column:
  *
  *   { "fr": { "name": "…" }, "es": { "name": "…" } }
  *
- * Models declare `protected array $translatable = ['name', ...]` — the list of
+ * Models declare `protected array $translatable = ['name', ...]` - the list of
  * attributes visitors may translate. On non-English requests (locale set by the
  * SetLocale middleware on public routes) attribute reads and toArray()
  * serialization resolve through the translation with an English fallback, so
@@ -50,7 +52,7 @@ trait HasTranslations
     }
 
     /**
-     * Explicit translation lookup — falls back to the base (English) value.
+     * Explicit translation lookup - falls back to the base (English) value.
      */
     public function trans(string $field, ?string $locale = null): mixed
     {
@@ -86,7 +88,7 @@ trait HasTranslations
         foreach (array_intersect_key($fields, $allowed) as $field => $value) {
             // Rich-text fields are sanitised just like their base attribute.
             $existing[$field] = $value !== null && in_array($field, self::HTML_FIELDS, true)
-                ? \App\Support\Html::sanitize($value)
+                ? Html::sanitize($value)
                 : $value;
         }
 
@@ -113,7 +115,7 @@ trait HasTranslations
     }
 
     /**
-     * The i18n column as an array — reads the raw attribute and decodes, so it
+     * The i18n column as an array - reads the raw attribute and decodes, so it
      * works on partially-hydrated models regardless of the cast.
      */
     private function i18nArray(): array

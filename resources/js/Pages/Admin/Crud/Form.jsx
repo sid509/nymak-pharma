@@ -7,7 +7,7 @@ import TranslationFields from '../../../Components/Admin/TranslationFields';
 import AdminLayout from '../../../Layouts/AdminLayout';
 
 /**
- * Generic create/edit form for simple entities — fields come from the
+ * Generic create/edit form for simple entities - fields come from the
  * controller's module config; Laravel form requests remain authoritative.
  * `translatable` config adds French/Spanish inputs merged into the model's
  * i18n JSON column.

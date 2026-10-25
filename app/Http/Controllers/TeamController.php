@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Middleware\SetLocale;
-
 use App\Models\PageContent;
 use App\Models\TeamMember;
 use App\Support\Seo;
+use Illuminate\Support\Str;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -23,13 +23,13 @@ class TeamController extends Controller
                 'initials' => $m->initials(),
                 'is_leadership' => $m->is_leadership,
                 'has_page' => filled($m->bio),
-                'excerpt' => $m->bio ? \Illuminate\Support\Str::limit($m->bio, 140) : null,
+                'excerpt' => $m->bio ? Str::limit($m->bio, 140) : null,
             ]);
 
         return Inertia::render('Team/Index', [
             'seo' => Seo::make(
-                'Our Team — Leadership & Experts | Nymak Pharma',
-                'Meet the leadership and specialists behind Nymak Pharma — exports, regulatory affairs, quality control, logistics and design.'
+                'Our Team: Leadership & Experts',
+                'Meet the leadership and specialists behind Nymak Pharma: exports, regulatory affairs, quality control, logistics and design.'
             )->override('team.index')->breadcrumbs([
                 ['Home', SetLocale::absolute('/')],
                 ['Team', SetLocale::absolute('/team')],
@@ -42,14 +42,14 @@ class TeamController extends Controller
 
     public function show(TeamMember $member): Response
     {
-        // Detail page exists only for members with a bio — thin profiles
+        // Detail page exists only for members with a bio - thin profiles
         // would just duplicate the team index.
         abort_unless(filled($member->bio), 404);
 
         return Inertia::render('Team/Show', [
             'seo' => Seo::make(
-                $member->meta_title ?? "{$member->name} — {$member->role} | Nymak Pharma",
-                $member->meta_description ?? \Illuminate\Support\Str::limit($member->bio, 155)
+                $member->meta_title ?? "{$member->name}, {$member->role}",
+                $member->meta_description ?? Str::limit($member->bio, 155)
             )->schema([
                 '@type' => 'Person',
                 'name' => $member->name,

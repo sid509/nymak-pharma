@@ -31,10 +31,10 @@ const step = async (name, fn) => {
 };
 const expect = (cond, msg) => { if (!cond) throw new Error(msg); };
 
-// Real Chrome (not the bundled headless shell) — what users actually run.
+// Real Chrome (not the bundled headless shell) - what users actually run.
 const browser = await chromium.launch({ channel: process.env.BROWSER_CHANNEL ?? 'chrome', headless: !process.env.HEADED });
 // reducedMotion keeps the globe's auto-rotation/fly animations off so
-// hover/focus actionability checks see a still, deterministic target —
+// hover/focus actionability checks see a still, deterministic target -
 // the same experience users with prefers-reduced-motion get.
 const page = await browser.newPage({ viewport: { width: 1360, height: 900 }, reducedMotion: 'reduce' });
 const errors = [];
@@ -99,16 +99,16 @@ await step('visitor sees the map with clickable countries and an empty-state pan
     await page.goto(`${BASE}/global-presence`);
     await page.locator('.world-map svg').waitFor();
     const countries = page.locator('.map-active path[role="button"]');
-    // Only the facing hemisphere renders clickable countries — Honduras sits
+    // Only the facing hemisphere renders clickable countries - Honduras sits
     // behind the horizon at the home view, so the floor is the 8 visible
     // seeded markets (+1 for the UAT market the run creates).
     expect((await countries.count()) >= 8, `expected ≥8 clickable countries, got ${await countries.count()}`);
     expect(await page.locator('.globe-arc').count() >= 10, 'supply-route arcs from Mundra rendered');
     expect(await page.locator('.globe-hq').isVisible(), 'Mundra HQ marker shown');
-    expect(await page.getByText('Spin the globe — pick a country').isVisible(), 'placeholder panel shown');
+    expect(await page.getByText('Spin the globe, pick a country').isVisible(), 'placeholder panel shown');
 });
 
-const target = () => page.getByRole('button', { name: new RegExp(`^${NAME} — view`) });
+const target = () => page.getByRole('button', { name: new RegExp(`^${NAME}, view`) });
 
 await step('hovering a country shows a summary card', async () => {
     await target().hover();
@@ -130,7 +130,7 @@ await step('clicking the country highlights it and shows the admin-authored cont
 });
 
 await step('key markets show their supplied products and local office', async () => {
-    await page.getByRole('button', { name: /^Sierra Leone — view/ }).click();
+    await page.getByRole('button', { name: /^Sierra Leone, view/ }).click();
     const panel = page.locator('.explorer-panel');
     await panel.getByRole('heading', { name: 'Sierra Leone', level: 3 }).waitFor();
     expect(await panel.getByText('Key market').isVisible(), 'key market badge');
@@ -142,23 +142,23 @@ await step('the region list mirrors and drives the same selection', async () => 
     const nigeria = page.locator('.map-list-btn', { hasText: 'Nigeria' });
     await nigeria.click();
     expect(await nigeria.getAttribute('aria-pressed') === 'true', 'list button pressed');
-    expect(await page.getByRole('button', { name: /^Nigeria — view/ }).getAttribute('aria-pressed') === 'true', 'map path pressed');
+    expect(await page.getByRole('button', { name: /^Nigeria, view/ }).getAttribute('aria-pressed') === 'true', 'map path pressed');
     await page.locator('.explorer-panel').getByRole('heading', { name: 'Nigeria', level: 3 }).waitFor();
 });
 
-await step('pinned region (no ISO code) is selectable — list pick spins the globe to it', async () => {
-    // South Pacific is on the far side at the opening view — a real user picks
+await step('pinned region (no ISO code) is selectable - list pick spins the globe to it', async () => {
+    // South Pacific is on the far side at the opening view - a real user picks
     // it from the list, which rotates the globe until its pin appears.
     await page.locator('.map-list-btn', { hasText: 'South Pacific Islands' }).click();
-    const pin = page.getByRole('button', { name: /^South Pacific Islands — view/ });
+    const pin = page.getByRole('button', { name: /^South Pacific Islands, view/ });
     await pin.waitFor();
     await page.locator('.explorer-panel').getByRole('heading', { name: 'South Pacific Islands', level: 3 }).waitFor();
 });
 
 await step('keyboard: Tab to a country, Enter selects, close button clears', async () => {
     await page.getByRole('button', { name: 'Clear selection' }).click();
-    await page.getByText('Spin the globe — pick a country').waitFor();
-    await page.getByRole('button', { name: /^Nigeria — view/ }).focus();
+    await page.getByText('Spin the globe, pick a country').waitFor();
+    await page.getByRole('button', { name: /^Nigeria, view/ }).focus();
     await page.keyboard.press('Enter');
     await page.locator('.explorer-panel').getByRole('heading', { name: 'Nigeria', level: 3 }).waitFor();
 });
@@ -172,7 +172,7 @@ await step('mobile: selecting scrolls the panel into view', async () => {
     await page.setViewportSize({ width: 390, height: 844 });
     await page.goto(`${BASE}/global-presence`);
     await page.locator('.world-map svg').waitFor();
-    await page.getByRole('button', { name: /^Nigeria — view/ }).click({ force: true });
+    await page.getByRole('button', { name: /^Nigeria, view/ }).click({ force: true });
     await page.locator('.explorer-panel').getByRole('heading', { name: 'Nigeria', level: 3 }).waitFor();
     await page.waitForTimeout(700);
     const box = await page.locator('.explorer-panel').boundingBox();
@@ -204,7 +204,7 @@ await step('no uncaught browser errors', async () => {
     // Local dev with the Vite HMR server bypasses Inertia SSR, so React's
     // hydrateRoot sees an empty #app and logs a hydration mismatch on every
     // page. That is a dev-environment artifact (SSR is on in production), not
-    // an app defect — ignore only that message.
+    // an app defect - ignore only that message.
     const real = errors.filter((e) => !e.startsWith('Hydration failed'));
     expect(real.length === 0, `page errors: ${real.join(' | ')}`);
 });

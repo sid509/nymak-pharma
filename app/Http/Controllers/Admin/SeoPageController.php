@@ -7,13 +7,12 @@ use App\Models\PageMeta;
 use App\Support\ImageUpload;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
 use Inertia\Inertia;
 use Inertia\Response;
 
 /**
  * Per-page SEO overrides for static/list pages (page_metas keyed by page id).
- * Schema markup stays auto-derived — admins edit titles, descriptions and OG
+ * Schema markup stays auto-derived - admins edit titles, descriptions and OG
  * images, which the schema builder consumes; JSON-LD is never hand-edited.
  */
 class SeoPageController extends Controller

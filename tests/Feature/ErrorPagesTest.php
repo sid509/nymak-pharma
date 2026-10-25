@@ -8,7 +8,7 @@ use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
 /**
- * HTTP errors must render the branded Inertia `Error` page — never the
+ * HTTP errors must render the branded Inertia `Error` page - never the
  * framework's default grey Symfony page. JSON/API callers still get JSON.
  */
 class ErrorPagesTest extends TestCase
@@ -67,7 +67,7 @@ class ErrorPagesTest extends TestCase
     public function unhandled_error_statuses_fall_back_to_branded_blade(): void
     {
         // 500s from non-HTTP exceptions (or when Inertia render fails, e.g. DB down)
-        // must still be branded — the errors/500.blade.php self-contained fallback.
+        // must still be branded - the errors/500.blade.php self-contained fallback.
         config(['app.debug' => false]);
         Route::get('/__test-boom', fn () => throw new \RuntimeException('boom'));
 

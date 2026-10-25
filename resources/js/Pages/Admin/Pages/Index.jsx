@@ -2,7 +2,7 @@ import { Link } from '@inertiajs/react';
 import AdminLayout from '../../../Layouts/AdminLayout';
 
 /**
- * Editable content pages — each public page's copy and images are slots
+ * Editable content pages - each public page's copy and images are slots
  * declared in PageContent::SCHEMA; stored rows override defaults.
  */
 export default function PagesIndex({ pages }) {

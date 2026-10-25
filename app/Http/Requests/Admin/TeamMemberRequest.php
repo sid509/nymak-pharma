@@ -3,6 +3,8 @@
 namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
 
 class TeamMemberRequest extends FormRequest
 {
@@ -10,7 +12,7 @@ class TeamMemberRequest extends FormRequest
     {
         $this->merge([
             'is_leadership' => $this->boolean('is_leadership'),
-            'slug' => \Illuminate\Support\Str::slug((string) $this->slug
+            'slug' => Str::slug((string) $this->slug
                 ?: preg_replace('/^(Mr\.|Ms\.|Dr\.)\s+/i', '', (string) $this->name)),
         ]);
     }
@@ -20,7 +22,7 @@ class TeamMemberRequest extends FormRequest
         return [
             'name' => ['required', 'string', 'max:120'],
             'slug' => ['required', 'string', 'max:140',
-                \Illuminate\Validation\Rule::unique('team_members', 'slug')->ignore($this->route('team_member'))],
+                Rule::unique('team_members', 'slug')->ignore($this->route('team_member'))],
             'role' => ['required', 'string', 'max:120'],
             'photo' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:2048'],
             'bio' => ['nullable', 'string', 'max:10000'],
@@ -28,7 +30,7 @@ class TeamMemberRequest extends FormRequest
             'meta_title' => ['nullable', 'string', 'max:70'],
             'meta_description' => ['nullable', 'string', 'max:300'],
             'sort_order' => ['integer', 'min:0', 'max:65535'],
-            // French/Spanish translations — merged into the model's i18n JSON column.
+            // French/Spanish translations - merged into the model's i18n JSON column.
             'i18n' => ['sometimes', 'array'],
             'i18n.*' => ['array'],
             'i18n.*.*' => ['nullable', 'string', 'max:100000'],

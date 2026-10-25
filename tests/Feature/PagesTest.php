@@ -2,10 +2,16 @@
 
 namespace Tests\Feature;
 
+use App\Http\Middleware\NormalizeUrls;
+use App\Models\PageContent;
+use App\Models\Post;
+use App\Models\Product;
 use App\Models\TeamMember;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Http\Request;
 use Inertia\Testing\AssertableInertia as Assert;
 use PHPUnit\Framework\Attributes\Test;
+use Symfony\Component\HttpFoundation\Response;
 use Tests\TestCase;
 
 class PagesTest extends TestCase
@@ -42,7 +48,7 @@ class PagesTest extends TestCase
     public function product_category_pages_render(): void
     {
         foreach (['iv-fluids', 'finished-formulations', 'medical-devices-and-disposables', 'rapid-diagnostic-kits', 'vaccines'] as $slug) {
-            // Landing page — content-led, links through to the full list.
+            // Landing page - content-led, links through to the full list.
             $this->get("/product/{$slug}")
                 ->assertOk()
                 ->assertInertia(fn (Assert $page) => $page
@@ -52,7 +58,7 @@ class PagesTest extends TestCase
                     ->where('category.catalogue_url', "/product/{$slug}/products")
                 );
 
-            // Full product list — the grouped tables live here now.
+            // Full product list - the grouped tables live here now.
             $this->get("/product/{$slug}/products")
                 ->assertOk()
                 ->assertInertia(fn (Assert $page) => $page
@@ -93,15 +99,15 @@ class PagesTest extends TestCase
     {
         // MakesHttpRequests trims trailing slashes off test URIs, so the
         // middleware is exercised directly with real trailing-slash requests.
-        $middleware = new \App\Http\Middleware\NormalizeUrls;
-        $next = fn () => new \Symfony\Component\HttpFoundation\Response('OK');
+        $middleware = new NormalizeUrls;
+        $next = fn () => new Response('OK');
 
         foreach ([
             '/product/iv-fluids/' => '/product/iv-fluids',
             '/product/iv-fluids/products/' => '/product/iv-fluids/products',
             '/team/' => '/team',
         ] as $from => $to) {
-            $res = $middleware->handle(\Illuminate\Http\Request::create($from, 'GET'), $next);
+            $res = $middleware->handle(Request::create($from, 'GET'), $next);
             $this->assertSame(301, $res->getStatusCode());
             $this->assertSame($to, parse_url($res->headers->get('Location'), PHP_URL_PATH));
         }
@@ -112,45 +118,45 @@ class PagesTest extends TestCase
             '/contact-us/' => '/contact',
             '/iv-fluid/' => '/product/iv-fluids',
         ] as $from => $to) {
-            $res = $middleware->handle(\Illuminate\Http\Request::create($from, 'GET'), $next);
+            $res = $middleware->handle(Request::create($from, 'GET'), $next);
             $this->assertSame(301, $res->getStatusCode());
             $this->assertSame($to, parse_url($res->headers->get('Location'), PHP_URL_PATH));
         }
 
         // Query string is preserved; root and non-GET are untouched.
-        $res = $middleware->handle(\Illuminate\Http\Request::create('/team/?x=1', 'GET'), $next);
+        $res = $middleware->handle(Request::create('/team/?x=1', 'GET'), $next);
         $this->assertSame('x=1', parse_url($res->headers->get('Location'), PHP_URL_QUERY));
-        $this->assertSame('OK', $middleware->handle(\Illuminate\Http\Request::create('/', 'GET'), $next)->getContent());
-        $this->assertSame('OK', $middleware->handle(\Illuminate\Http\Request::create('/contact', 'POST'), $next)->getContent());
+        $this->assertSame('OK', $middleware->handle(Request::create('/', 'GET'), $next)->getContent());
+        $this->assertSame('OK', $middleware->handle(Request::create('/contact', 'POST'), $next)->getContent());
     }
 
     #[Test]
-    public function homepage_hides_product_grid_unless_admin_enables_it(): void
+    public function homepage_branded_grid_follows_the_admin_toggle(): void
     {
-        // Default: company page — categories are shown, no product cards.
+        // Seeded plan ships the branded range enabled; the toggle still controls it.
         $this->get('/')->assertOk()
             ->assertInertia(fn (Assert $page) => $page
                 ->component('Home')
-                ->where('content.show_brands', false)
-                ->where('featuredProducts', [])
+                ->where('content.show_brands', true)
+                ->has('featuredProducts.0')
                 ->has('categories', 5)
             );
 
-        // Admin flips the toggle — the grid's data appears.
-        \App\Models\PageContent::updateOrCreate(
-            ['page' => 'home', 'key' => 'show_brands'], ['value' => '1']);
+        // Admin flips the toggle off - the grid's data disappears.
+        PageContent::updateOrCreate(
+            ['page' => 'home', 'key' => 'show_brands'], ['value' => '0']);
 
         $this->get('/')->assertOk()
             ->assertInertia(fn (Assert $page) => $page
-                ->where('content.show_brands', true)
-                ->has('featuredProducts.0')
+                ->where('content.show_brands', false)
+                ->where('featuredProducts', [])
             );
     }
 
     #[Test]
     public function global_presence_is_a_portfolio_not_per_country_pages(): void
     {
-        // No thin/duplicate country pages — markets live as portfolio entries.
+        // No thin/duplicate country pages - markets live as portfolio entries.
         $this->get('/global-presence')->assertOk()
             ->assertInertia(fn ($p) => $p->component('Markets/Index')->has('portfolio'));
         $this->get('/global-presence/sierra-leone')->assertNotFound();
@@ -175,7 +181,7 @@ class PagesTest extends TestCase
                 ->has('seo.schema')
             );
 
-        // Slug must be readable — "20/120" → "20-120", not "20120".
+        // Slug must be readable - "20/120" → "20-120", not "20120".
         $this->assertDatabaseHas('products', ['slug' => 'alumak-20-120-tablets-liberia']);
     }
 
@@ -190,7 +196,7 @@ class PagesTest extends TestCase
     #[Test]
     public function generic_catalog_products_have_no_detail_page(): void
     {
-        $product = \App\Models\Product::where('has_detail_page', false)->firstOrFail();
+        $product = Product::where('has_detail_page', false)->firstOrFail();
         $category = $product->category;
 
         $this->get("/product/{$category->slug}/{$product->slug}")->assertNotFound();
@@ -210,16 +216,16 @@ class PagesTest extends TestCase
 
         // The whole products.show schema contains no "quote" copy.
         $this->assertStringNotContainsStringIgnoringCase('quote',
-            json_encode(\App\Models\PageContent::for('products.show')));
+            json_encode(PageContent::for('products.show')));
     }
 
     #[Test]
     public function related_products_link_under_their_own_category(): void
     {
         // Browser UAT caught related links built with the *current* page's
-        // category slug — a cross-category match 404'd under scoped bindings.
+        // category slug - a cross-category match 404'd under scoped bindings.
         // Every emitted related URL must resolve on its own.
-        $products = \App\Models\Product::where('has_detail_page', true)
+        $products = Product::where('has_detail_page', true)
             ->with('category:id,slug')->get();
 
         $checked = 0;
@@ -238,10 +244,10 @@ class PagesTest extends TestCase
     #[Test]
     public function published_blog_posts_render_and_drafts_do_not(): void
     {
-        $post = \App\Models\Post::published()->firstOrFail();
+        $post = Post::published()->firstOrFail();
         $this->get("/blog/{$post->slug}")->assertOk();
 
-        $draft = \App\Models\Post::create([
+        $draft = Post::create([
             'title' => 'Draft', 'slug' => 'draft-post', 'published_at' => null,
         ]);
         $this->get("/blog/{$draft->slug}")->assertNotFound();

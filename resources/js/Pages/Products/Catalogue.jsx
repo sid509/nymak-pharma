@@ -13,7 +13,7 @@ import { CategoryNav, fill } from './Category';
 const groupId = (name) => `group-${name.replace(/\W+/g, '-').toLowerCase()}`;
 
 /**
- * Full product list for a category — grouped spec tables with in-page
+ * Full product list for a category - grouped spec tables with in-page
  * search. Rows with a detail page link through; everything else is listed
  * for completeness (and SEO) without a buy/quote affordance.
  */
@@ -23,7 +23,7 @@ export default function ProductsCatalogue({ seo, category, groups, siblings, con
     const isKitCategory = category.slug === 'rapid-diagnostic-kits';
     const vars = { category: category.name, count: category.products_count, query };
 
-    // Client-side filter across all groups — keeps the table usable at 200+ rows.
+    // Client-side filter across all groups - keeps the table usable at 200+ rows.
     const filtered = useMemo(() => {
         if (!query.trim()) return groups;
         const q = query.toLowerCase();

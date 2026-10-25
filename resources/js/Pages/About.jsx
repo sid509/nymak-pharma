@@ -42,7 +42,7 @@ export default function About({ seo, leadership, team, certifications, content }
                     </Reveal>
                     </div>
 
-                    {/* Key strengths — in-house teams that own quality end to end */}
+                    {/* Key strengths - in-house teams that own quality end to end */}
                     <div className="mt-12 grid gap-5 sm:grid-cols-3">
                         {(content.capabilities || []).map((cap, i) => (
                             <Reveal key={cap.title} delay={i * 70} className="h-full">
@@ -200,7 +200,7 @@ export default function About({ seo, leadership, team, certifications, content }
                 </Container>
             </section>
 
-            {/* Certifications — a light credential wall, deliberately distinct
+            {/* Certifications - a light credential wall, deliberately distinct
                 from the dark footer: framed band, uniform cards, large marks. */}
             <section className="border-t border-ink-100 bg-gradient-to-b from-brand-50/60 via-white to-white py-16 sm:py-24">
                 <Container>
@@ -231,7 +231,7 @@ export default function About({ seo, leadership, team, certifications, content }
     );
 }
 
-/** Leadership card — portrait band on top, identity below; links to the
+/** Leadership card - portrait band on top, identity below; links to the
     member's profile page when one exists. */
 function MemberCard({ m, i }) {
     const member = { ...m, initials: m.initials || initials(m.name) };

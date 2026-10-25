@@ -75,12 +75,12 @@ export default function TeamIndex({ seo, leadership, members, content }) {
                 </section>
             )}
 
-            {/* Closing CTA — the page shouldn't end on a grid */}
+            {/* Closing CTA - the page shouldn't end on a grid */}
             <section className="py-14 sm:py-16">
                 <Container className="text-center">
                     <h2 className="t-h3 text-ink-950">{t('Partnerships start with a conversation')}</h2>
                     <p className="mx-auto mt-3 max-w-xl text-sm leading-relaxed text-ink-600">
-                        {t('Distributors, hospitals and health programmes work directly with this team — tell us your market and requirement.')}
+                        {t('Distributors, hospitals and health programmes work directly with this team. Tell us your market and requirement.')}
                     </p>
                     <div className="mt-6 flex flex-wrap justify-center gap-3">
                         <ButtonLink href="/contact">{t('Contact our team')} <FontAwesomeIcon style={{ fontSize: 15 }} icon={faArrowRight} className="btn-arrow" aria-hidden /></ButtonLink>

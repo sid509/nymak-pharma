@@ -16,7 +16,7 @@ class CertificationSeeder extends Seeder
             ['ISO 13485:2016', 'International Management Certification',
                 'Quality management system certification covering medical devices and pharmaceutical manufacturing operations.',
                 'images/certifications/iso.webp'],
-            ['Star Export House', 'Government of India — DGFT',
+            ['Star Export House', 'Government of India, DGFT',
                 'Certificate of Recognition as a Star Export House, awarded for sustained export performance.',
                 'images/certifications/star-export-house.webp'],
             ['Pharmexcil RCMC', 'Pharmaceuticals Export Promotion Council of India',

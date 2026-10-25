@@ -14,7 +14,7 @@ return new class extends Migration
             // WYSIWYG; `description` stays as the short plain summary.
             $table->longText('content')->nullable()->after('description');
             // Pin position for markets that are not a single ISO country
-            // (e.g. "South Pacific Islands") — or to override the centroid.
+            // (e.g. "South Pacific Islands") - or to override the centroid.
             $table->decimal('latitude', 8, 5)->nullable()->after('content');
             $table->decimal('longitude', 8, 5)->nullable()->after('latitude');
         });

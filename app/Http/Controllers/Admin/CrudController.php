@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Support\ImageUpload;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -14,7 +15,7 @@ use Inertia\Response;
 /**
  * Shared CRUD for simple content entities (FAQs, testimonials,
  * certifications, team members). Each subclass declares its model, form
- * request and field definitions — one implementation, one place to fix.
+ * request and field definitions - one implementation, one place to fix.
  */
 abstract class CrudController extends Controller
 {
@@ -35,7 +36,7 @@ abstract class CrudController extends Controller
 
     protected function validated(Request $request): array
     {
-        /** @var \Illuminate\Foundation\Http\FormRequest $form */
+        /** @var FormRequest $form */
         $form = app($this->request());
         $form->setContainer(app())->setRedirector(app('redirect'));
         $form->merge($request->all());
@@ -72,7 +73,7 @@ abstract class CrudController extends Controller
         ]);
     }
 
-    /** Fields of type 'image' — file uploads converted to WebP via ImageUpload. */
+    /** Fields of type 'image' - file uploads converted to WebP via ImageUpload. */
     protected function imageFields(): array
     {
         return collect($this->config()['fields'])

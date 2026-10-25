@@ -15,7 +15,7 @@ return new class extends Migration
             $table->string('meta_description')->nullable();
         });
 
-        // Markets no longer get standalone pages — they appear as portfolio
+        // Markets no longer get standalone pages - they appear as portfolio
         // entries on /global-presence instead.
         Schema::table('markets', function (Blueprint $table) {
             $table->renameColumn('has_page', 'show_in_portfolio');

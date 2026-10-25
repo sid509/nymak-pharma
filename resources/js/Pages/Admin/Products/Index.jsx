@@ -43,12 +43,12 @@ export default function ProductsIndex({ products, categories, filters }) {
                             {p.therapeutic_group && <p className="text-xs text-ink-400">{p.therapeutic_group}</p>}
                         </td>
                         <td className="px-4 py-3 text-sm text-ink-600">{p.category?.name}</td>
-                        <td className="px-4 py-3 text-sm text-ink-600">{p.strength || '—'}</td>
-                        <td className="px-4 py-3 text-sm text-ink-600">{p.pack_size || '—'}</td>
+                        <td className="px-4 py-3 text-sm text-ink-600">{p.strength || '-'}</td>
+                        <td className="px-4 py-3 text-sm text-ink-600">{p.pack_size || '-'}</td>
                         <td className="px-4 py-3">
                             {p.has_detail_page
                                 ? <Link href={`/product/${p.category.slug}/${p.slug}`} target="_blank" className="text-xs font-bold text-brand-700 hover:underline">Live ↗</Link>
-                                : <span className="text-xs text-ink-300">—</span>}
+                                : <span className="text-xs text-ink-300">-</span>}
                         </td>
                         <td className="px-4 py-3 text-right">
                             <div className="flex justify-end gap-3">

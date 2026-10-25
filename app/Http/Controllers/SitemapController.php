@@ -27,7 +27,7 @@ class SitemapController extends Controller
             ['/contact', '0.9', 'monthly'],
         ])->map(fn ($u) => ['path' => $u[0], 'priority' => $u[1], 'freq' => $u[2], 'lastmod' => null]);
 
-        // Category landing page + its full product list — both indexable.
+        // Category landing page + its full product list - both indexable.
         $categories = ProductCategory::orderBy('sort_order')->get()
             ->flatMap(fn ($c) => [
                 ['path' => "/product/{$c->slug}", 'priority' => '0.9', 'freq' => 'weekly', 'lastmod' => $c->updated_at],
@@ -42,7 +42,7 @@ class SitemapController extends Controller
                 'lastmod' => $p->updated_at,
             ]);
 
-        // Team member detail pages — one URL each, gated on bio presence.
+        // Team member detail pages - one URL each, gated on bio presence.
         $members = TeamMember::whereNotNull('bio')->get()
             ->map(fn ($m) => [
                 'path' => "/team/{$m->slug}",

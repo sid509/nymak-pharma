@@ -3,19 +3,19 @@
  *
  *   NYMAK_ADMIN_PASSWORD=… node tests/Browser/locale.mjs
  *
- * NOTE: contact is throttled 5/min and admin login 6/min — back-to-back
+ * NOTE: contact is throttled 5/min and admin login 6/min - back-to-back
  * runs trip the limiter and fail with "no success flash" / login timeouts.
  * Run `php artisan cache:clear` between rapid re-runs.
  *
  * Requires the app on BASE_URL (default http://localhost:8000). Drives real
  * Chrome like a visitor + operator:
- * 1. Locale chrome — /fr and /es pages render translated UI, html lang,
+ * 1. Locale chrome - /fr and /es pages render translated UI, html lang,
  *    hreflang alternates and locale-prefixed nav links.
  * 2. Language switcher preserves the current path across locales.
  * 3. Contact form posts from /fr/contact and lands back on /fr/contact with
  *    the localized success message.
  * 4. Admin saves a French product name → it renders on the live /fr page,
- *    English stays canonical — then the translation is cleared again so the
+ *    English stays canonical - then the translation is cleared again so the
  *    run is non-destructive.
  */
 import { chromium } from 'playwright';
@@ -91,7 +91,7 @@ await step('nav links stay inside the current locale', async () => {
 // ── Language switcher ───────────────────────────────────────────────
 await step('language switcher preserves the current path', async () => {
     await page.goto(`${BASE}/fr/about`);
-    // The switcher is a dropdown — open it, then pick the locale link.
+    // The switcher is a dropdown - open it, then pick the locale link.
     // aria-label is translated, so the hook is the data attribute.
     await page.locator('header [data-locale-switcher]').first().click();
     await page.getByRole('link', { name: 'Español' }).first().click();
@@ -112,7 +112,7 @@ await step('contact form posts and returns in French', async () => {
     await page.locator('#f-phone').fill('+33 600 000 000');
     await page.locator('#f-country').fill('France');
     await page.locator('#f-subject').fill('Demande UAT');
-    await page.locator('#f-message').fill('Bonjour — ceci est un test UAT depuis la page française.');
+    await page.locator('#f-message').fill('Bonjour, ceci est un test UAT depuis la page française.');
     const cb = page.locator('form input[type="checkbox"]').first();
     if (await cb.count()) await cb.check();
     await page.getByRole('button', { name: /envoyer|send|soumettre/i }).first().click();
@@ -130,7 +130,7 @@ await step('admin saves a French product name (restored after)', async () => {
     await page.getByRole('button', { name: /sign in|log in/i }).click();
     await page.waitForURL(/\/admin\/dashboard/);
 
-    // The index paginates at 25 — walk the pages via the shared session
+    // The index paginates at 25 - walk the pages via the shared session
     // until a detail-page product turns up (page 1 may have none).
     let live = null, editHref = null;
     for (let pg = 1; pg <= 20 && !live; pg++) {

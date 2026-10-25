@@ -26,7 +26,7 @@ function smoothPath(pts) {
     return d;
 }
 
-/** 30-day enquiry trend — hand-rolled SVG so SSR output is deterministic. */
+/** 30-day enquiry trend - hand-rolled SVG so SSR output is deterministic. */
 function TrendChart({ data }) {
     const ref = useRef(null);
     const [hover, setHover] = useState(null);
@@ -93,7 +93,7 @@ function TrendChart({ data }) {
     );
 }
 
-/** Product-mix donut — SVG segments, deterministic under SSR. */
+/** Product-mix donut - SVG segments, deterministic under SSR. */
 function DonutChart({ segments }) {
     const total = Math.max(segments.reduce((s, c) => s + c.products_count, 0), 1);
     const R = 56;
@@ -202,7 +202,7 @@ export default function Dashboard({ stats, enquiryTrend, enquiriesByCountry, pro
 
             {/* Trend + geography */}
             <div className="mt-6 grid gap-4 lg:grid-cols-3">
-                <Panel title="Enquiries — last 30 days" className="lg:col-span-2"
+                <Panel title="Enquiries (last 30 days)" className="lg:col-span-2"
                        action={<span className="text-xs font-semibold text-ink-400">{stats.enquiries_30d} this period</span>}>
                     <div className="px-3 py-4">
                         <TrendChart data={enquiryTrend} />

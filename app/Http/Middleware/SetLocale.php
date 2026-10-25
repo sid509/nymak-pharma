@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\URL;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Public-site locale from the URL prefix: `/fr/…`, `/es/…` — English is the
+ * Public-site locale from the URL prefix: `/fr/…`, `/es/…` - English is the
  * canonical unprefixed variant. URL::defaults makes every `route()` call in
  * this request emit the matching prefix automatically (links, redirects,
  * canonicals, sitemap).
@@ -25,7 +25,7 @@ class SetLocale
         app()->setLocale($locale);
         URL::defaults(['locale' => $locale === 'en' ? null : $locale]);
 
-        // Strip the prefix param so implicit model bindings stay positional —
+        // Strip the prefix param so implicit model bindings stay positional -
         // otherwise show(ProductCategory $category) receives 'fr' as arg 1.
         $request->route()?->forgetParameter('locale');
 
@@ -41,7 +41,7 @@ class SetLocale
         $locale ??= app()->getLocale();
         $path = trim($path, '/');
 
-        return $locale === 'en' ? "/{$path}" : "/{$locale}" . ($path !== '' ? "/{$path}" : '');
+        return $locale === 'en' ? "/{$path}" : "/{$locale}".($path !== '' ? "/{$path}" : '');
     }
 
     /** Absolute URL for `$path` in `$locale` (default: current locale). */

@@ -41,7 +41,7 @@ export default function EnquiryForm({ products = [], formStartedAt, honeypot = '
 
     return (
         <form onSubmit={submit} noValidate={false} className="space-y-4">
-            {/* Honeypot — hidden from humans, bots fill it */}
+            {/* Honeypot - hidden from humans, bots fill it */}
             <div aria-hidden="true" className="absolute -left-[9999px] h-0 w-0 overflow-hidden">
                 <label htmlFor={honeypot}>Website</label>
                 <input id={honeypot} name={honeypot} type="text" tabIndex={-1} autoComplete="off"
@@ -93,13 +93,13 @@ export default function EnquiryForm({ products = [], formStartedAt, honeypot = '
             <Field label={t('Subject')} error={form.errors.subject}>
                 <input id="f-subject" type="text"
                        value={form.data.subject} onChange={(e) => form.setData('subject', e.target.value)}
-                       className={inputCls} placeholder={t('e.g. Distribution enquiry — IV fluids')} />
+                       className={inputCls} placeholder={t('e.g. Distribution enquiry: IV fluids')} />
             </Field>
 
             <Field label={t('Message')} error={form.errors.message} required>
                 <textarea id="f-message" rows={compact ? 4 : 5} required
                           value={form.data.message} onChange={(e) => form.setData('message', e.target.value)}
-                          className={inputCls} placeholder={t('Tell us about your requirement — products, quantities, destination market...')} />
+                          className={inputCls} placeholder={t('Tell us about your requirement: products, quantities, destination market...')} />
             </Field>
 
             <div>

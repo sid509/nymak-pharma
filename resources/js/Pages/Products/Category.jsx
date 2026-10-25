@@ -10,7 +10,7 @@ import SiteLayout from '../../Layouts/SiteLayout';
 /** Fill {category} / {count} placeholders in admin-authored copy. */
 export const fill = (text, vars) => String(text ?? '').replace(/\{(\w+)\}/g, (_, k) => vars[k] ?? '');
 
-/** Sibling category nav — shared by the category landing + list pages. */
+/** Sibling category nav - shared by the category landing + list pages. */
 export function CategoryNav({ siblings, current, title, allLabel }) {
     const itemCls = (active) => `group/navitem flex items-center gap-3 rounded-xl border px-3 py-2.5 text-sm font-semibold transition-all duration-200 ${
         active
@@ -50,7 +50,7 @@ export function CategoryNav({ siblings, current, title, allLabel }) {
 }
 
 /**
- * Category landing page — what the range is and who it serves (indexable
+ * Category landing page - what the range is and who it serves (indexable
  * content), a summary of what it covers, and the way through to the full
  * product list. No tables here: this page sells the category, the list
  * page lists it.
@@ -75,13 +75,13 @@ export default function ProductsCategory({ seo, category, groups, siblings, cont
                         <div className="min-w-0">
                             {category.image && (
                                 <Reveal variant="media" className="mb-10 rounded-2xl shadow-card">
-                                    <img src={`/${category.image}`} alt={`${category.name} — Nymak Pharma`}
+                                    <img src={`/${category.image}`} alt={`${category.name}, Nymak Pharma`}
                                          width="1200" height="600" fetchPriority="high"
                                          className="aspect-[2/1] w-full object-cover" />
                                 </Reveal>
                             )}
 
-                            {/* Indexable body — WYSIWYG from admin, plain description as fallback */}
+                            {/* Indexable body - WYSIWYG from admin, plain description as fallback */}
                             {category.content ? (
                                 <div className="prose-nymak max-w-3xl" dangerouslySetInnerHTML={{ __html: category.content }} />
                             ) : category.description ? (

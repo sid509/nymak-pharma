@@ -23,7 +23,7 @@ class EnquiryRequest extends FormRequest
             'message' => ['required', 'string', 'min:10', 'max:4000'],
             'product_id' => ['nullable', 'exists:products,id'],
             'privacy' => ['accepted'],
-            // Anti-spam honeypot — bots that fill it are caught by
+            // Anti-spam honeypot - bots that fill it are caught by
             // looksLikeSpam(), which returns a fake success response.
             config('nymak.enquiry.honeypot') => ['nullable', 'string', 'max:190'],
             'form_started_at' => ['required', 'integer'],
@@ -48,7 +48,7 @@ class EnquiryRequest extends FormRequest
         $started = (int) $this->input('form_started_at', 0);
         $elapsed = now()->timestamp - $started;
 
-        // Negative elapsed means the client clock runs ahead of the server —
+        // Negative elapsed means the client clock runs ahead of the server -
         // clock skew is not a spam signal, so only flag positive short gaps.
         return $started > 0 && $elapsed >= 0 && $elapsed < (int) config('nymak.enquiry.min_seconds', 3);
     }

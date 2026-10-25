@@ -10,7 +10,7 @@ import WorldMap from '../../Components/WorldMap';
 import SiteLayout from '../../Layouts/SiteLayout';
 import { useT } from '../../i18n/useT';
 
-/** Detail panel: what we do in the selected market — rich content, products, office. */
+/** Detail panel: what we do in the selected market - rich content, products, office. */
 function MarketPanel({ m, content, onClose }) {
     const { t } = useT();
     return (
@@ -49,7 +49,7 @@ function MarketPanel({ m, content, onClose }) {
                 {m.products.length > 0 && (
                     <div className="mt-6 border-t border-ink-100 pt-5">
                         <p className="mb-3 flex items-center gap-1.5 text-xs font-semibold uppercase tracking-[0.04em] text-ink-500">
-                            <FontAwesomeIcon style={{ fontSize: 12 }} icon={faBox} aria-hidden /> {t('Supplied to {name} — {n}', { name: m.name, n: m.products.length })}
+                            <FontAwesomeIcon style={{ fontSize: 12 }} icon={faBox} aria-hidden /> {t('Supplied to {name}: {n}', { name: m.name, n: m.products.length })}
                         </p>
                         <ul className="flex flex-wrap gap-2">
                             {m.products.map((p) => (
@@ -87,7 +87,7 @@ function EmptyPanel({ content, markets, onPick }) {
     const featured = markets.filter((m) => m.featured).length;
     return (
         <div className="explorer-panel relative flex h-full flex-col overflow-hidden rounded-2xl border border-ink-100 bg-white shadow-card">
-            {/* Supply-route motif — concentric arcs radiating from a hub dot,
+            {/* Supply-route motif - concentric arcs radiating from a hub dot,
                 the same visual language as the globe beside it. */}
             <div className="relative overflow-hidden bg-gradient-to-b from-brand-50/90 via-brand-50/40 to-transparent px-7 pb-6 pt-8 text-center">
                 <svg className="absolute left-1/2 top-6 h-56 w-56 -translate-x-1/2 text-brand-500/15" viewBox="0 0 200 200" fill="none" aria-hidden>
@@ -103,7 +103,7 @@ function EmptyPanel({ content, markets, onPick }) {
                 <p className="relative mx-auto mt-2 max-w-sm text-[0.9375rem] leading-relaxed text-ink-600">{content.map_empty_body}</p>
             </div>
 
-            {/* Live footprint numbers — same figures as the hero stats */}
+            {/* Live footprint numbers - same figures as the hero stats */}
             <dl className="grid grid-cols-3 divide-x divide-ink-100 border-y border-ink-100 bg-ink-50/50 text-center">
                 {[
                     [`${markets.length}+`, t('Export markets')],
@@ -160,7 +160,7 @@ export default function MarketsIndex({ seo, markets, offices, content }) {
     const select = (slug) => {
         setSelected(slug);
         history.replaceState(null, '', slug ? `#${slug}` : window.location.pathname);
-        // On narrow screens the panel sits below the map — bring it into view.
+        // On narrow screens the panel sits below the map - bring it into view.
         if (slug && window.matchMedia('(max-width: 1023px)').matches) {
             requestAnimationFrame(() => panelRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' }));
         }
@@ -188,7 +188,7 @@ export default function MarketsIndex({ seo, markets, offices, content }) {
                 </dl>
             </PageHero>
 
-            {/* Interactive map + detail panel — wide container so the globe
+            {/* Interactive map + detail panel - wide container so the globe
                 and panel use the screen instead of leaving empty margins. */}
             <section className="py-16 sm:py-20">
                 <Container wide>
@@ -215,7 +215,7 @@ export default function MarketsIndex({ seo, markets, offices, content }) {
                         </Reveal>
                     </div>
 
-                    {/* Region-grouped list — the same selection, reachable without the map */}
+                    {/* Region-grouped list - the same selection, reachable without the map */}
                     <div className="mt-14 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
                         {regions.map((region, i) => (
                             <Reveal key={region} delay={Math.min(i * 50, 200)} className="h-full">

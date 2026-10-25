@@ -1,9 +1,13 @@
 <?php
 
+use App\Http\Middleware\HandleInertiaRequests;
+use App\Http\Middleware\NormalizeUrls;
+use App\Http\Middleware\SecurityHeaders;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -13,10 +17,10 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->web(prepend: [
-            \App\Http\Middleware\NormalizeUrls::class,
+            NormalizeUrls::class,
         ], append: [
-            \App\Http\Middleware\HandleInertiaRequests::class,
-            \App\Http\Middleware\SecurityHeaders::class,
+            HandleInertiaRequests::class,
+            SecurityHeaders::class,
         ]);
 
         $middleware->redirectGuestsTo('/admin/login');
@@ -52,18 +56,18 @@ return Application::configure(basePath: dirname(__DIR__))
 
             // Route middleware never ran for these errors (unmatched routes, or
             // exceptions thrown before HandleInertiaRequests) so shared props
-            // like `site`/`nav` are absent — provide them explicitly or the
+            // like `site`/`nav` are absent - provide them explicitly or the
             // layout crashes on missing site settings. Resolve each defensively:
             // a missing session or DB must not break the error page itself.
             $shared = [];
-            foreach (app(\App\Http\Middleware\HandleInertiaRequests::class)->share($request) as $key => $value) {
+            foreach (app(HandleInertiaRequests::class)->share($request) as $key => $value) {
                 try {
-                    $shared[$key] = $value instanceof \Closure ? $value() : $value;
-                } catch (\Throwable) {
+                    $shared[$key] = $value instanceof Closure ? $value() : $value;
+                } catch (Throwable) {
                 }
             }
 
-            return \Inertia\Inertia::render('Error', $shared + [
+            return Inertia::render('Error', $shared + [
                 'status' => $status,
                 'seo' => ['title' => $titles[$status], 'robots' => 'noindex'],
             ])->toResponse($request)->setStatusCode($status);

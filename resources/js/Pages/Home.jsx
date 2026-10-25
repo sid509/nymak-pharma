@@ -12,7 +12,7 @@ import SiteLayout from '../Layouts/SiteLayout';
 import { useT } from '../i18n/useT';
 
 /**
- * Home — a company page, not a catalogue. Products are reached through the
+ * Home - a company page, not a catalogue. Products are reached through the
  * category cards; every section can be toggled and its copy edited from
  * Admin → Page content → Home.
  */
@@ -26,7 +26,7 @@ export default function Home({ seo, categories, featuredProducts = [], testimoni
 
     return (
         <SiteLayout>
-            {/* Hero — full-bleed facility image, blended by a directional scrim + bottom fade */}
+            {/* Hero - full-bleed facility image, blended by a directional scrim + bottom fade */}
             <section ref={parallaxRef} className="relative overflow-hidden">
                 {/* Image drifts gently on scroll (±20px, covered by the 12% overscan) */}
                 <div className="absolute inset-0 will-change-transform"
@@ -35,7 +35,7 @@ export default function Home({ seo, categories, featuredProducts = [], testimoni
                          width="1920" height="1280" fetchPriority="high"
                          className="h-full w-full object-cover" />
                 </div>
-                {/* Scrim — dark on the text side, thinning right so the photo reads through */}
+                {/* Scrim - dark on the text side, thinning right so the photo reads through */}
                 <div className="absolute inset-0 bg-gradient-to-r from-ink-950/85 via-ink-950/50 to-ink-950/15" aria-hidden />
                 {/* Bottom blend into the page so the section has no hard photographic edge */}
                 <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-white to-transparent" aria-hidden />
@@ -59,7 +59,7 @@ export default function Home({ seo, categories, featuredProducts = [], testimoni
                 </Container>
             </section>
 
-            {/* Stats — floating card that lifts over the hero/about seam */}
+            {/* Stats - floating card that lifts over the hero/about seam */}
             {c.show_stats && (
                 <section className="relative z-10 -mt-6 sm:-mt-8">
                     <Container>
@@ -117,7 +117,7 @@ export default function Home({ seo, categories, featuredProducts = [], testimoni
                                     </div>
                                 </>
                             ) : (
-                                /* Same photo as the hero — show a company fact panel instead of repeating it */
+                                /* Same photo as the hero - show a company fact panel instead of repeating it */
                                 <Reveal>
                                     <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-brand-800 via-brand-900 to-ink-950 p-8 text-white shadow-card sm:p-10">
                                         <div className="absolute -right-16 -top-16 h-56 w-56 rounded-full border border-white/10" aria-hidden />
@@ -163,7 +163,7 @@ export default function Home({ seo, categories, featuredProducts = [], testimoni
                 </section>
             )}
 
-            {/* Product categories — the way into the catalogue */}
+            {/* Product categories - the way into the catalogue */}
             {c.show_categories && categories.length > 0 && (
                 <section className="bg-ink-50 py-16 sm:py-24">
                     <Container>
@@ -171,7 +171,7 @@ export default function Home({ seo, categories, featuredProducts = [], testimoni
                             title={c.portfolio_title}
                             lead={c.portfolio_lead} />
 
-                        {/* Explorer — hover/focus a segment to preview it; click goes straight to the landing page */}
+                        {/* Explorer - hover/focus a segment to preview it; click goes straight to the landing page */}
                         <div className="mt-12 hidden gap-10 lg:grid lg:grid-cols-[1.1fr_1fr] lg:gap-14">
                             <div className="self-start border-t border-ink-200/70">
                                 {categories.map((cat, i) => (
@@ -252,7 +252,7 @@ export default function Home({ seo, categories, featuredProducts = [], testimoni
                 </section>
             )}
 
-            {/* Branded products — off by default; admin can switch it on */}
+            {/* Branded products - admin-toggled section (enabled in seeded content) */}
             {c.show_brands && featuredProducts.length > 0 && (
                 <section className="py-16 sm:py-24">
                     <Container>
@@ -273,7 +273,7 @@ export default function Home({ seo, categories, featuredProducts = [], testimoni
                 <section className="border-y border-ink-100 bg-white py-16 sm:py-20">
                     <Container>
                         <SectionHeading eyebrow={c.quality_eyebrow} title={c.quality_title} lead={c.quality_body} className="mb-12" />
-                        {/* Carousel — auto-scrolls, pauses on hover/focus */}
+                        {/* Carousel - auto-scrolls, pauses on hover/focus */}
                         <div className="marquee -mx-4 sm:-mx-6" aria-label="Certifications carousel">
                             {[0, 1].map((track) => (
                                 <div key={track} className="marquee-track marquee-track--certs" aria-hidden={track === 1}>
@@ -325,7 +325,7 @@ export default function Home({ seo, categories, featuredProducts = [], testimoni
                                 </div>
                             )}
                         </div>
-                        {/* Framed explorer — the market tiles live inside a defined
+                        {/* Framed explorer - the market tiles live inside a defined
                             panel so the section reads as a unit, not loose chips. */}
                         <Reveal className="mx-auto mt-12 max-w-5xl">
                             <div className="rounded-2xl border border-white/15 bg-white/[0.05] p-4 shadow-card backdrop-blur-sm sm:p-6">
@@ -401,7 +401,7 @@ export default function Home({ seo, categories, featuredProducts = [], testimoni
                             {[0, 1].map((track) => (
                                 <div key={track} className="marquee-track marquee-track--clients" aria-hidden={track === 1}>
                                     {clients.map((cl) => (
-                                        <img key={cl.name} src={`/${cl.image}`} alt={track === 0 ? `${cl.name} — Nymak Pharma client` : ''}
+                                        <img key={cl.name} src={`/${cl.image}`} alt={track === 0 ? `${cl.name}, Nymak Pharma client` : ''}
                                              width="280" height="160" loading="lazy"
                                              className="h-24 w-auto shrink-0 object-contain opacity-90 transition-opacity hover:opacity-100 sm:h-30" />
                                     ))}

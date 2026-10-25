@@ -13,7 +13,7 @@ return new class extends Migration
             $table->string('meta_description', 300)->nullable()->after('meta_title');
         });
 
-        // Per-page SEO overrides for static/list pages — rows are keyed to a
+        // Per-page SEO overrides for static/list pages - rows are keyed to a
         // fixed set of public pages and edited from /admin/seo-pages.
         Schema::create('page_metas', function (Blueprint $table) {
             $table->id();

@@ -73,7 +73,7 @@ export default function ProductForm({ product = null, categories, markets }) {
                     {product?.image && (
                         <div className="flex items-center gap-3">
                             <img src={`/${product.image}`} alt="" className="h-16 w-16 rounded-lg border border-ink-100 bg-white object-contain" />
-                            <p className="text-xs text-ink-400">Current image — upload a new one to replace it.</p>
+                            <p className="text-xs text-ink-400">Current image. Upload a new one to replace it.</p>
                         </div>
                     )}
                     <div>
@@ -81,7 +81,7 @@ export default function ProductForm({ product = null, categories, markets }) {
                         <input id="f-image" type="file" accept="image/jpeg,image/png,image/webp"
                                onChange={(e) => set('image', e.target.files[0] || null)}
                                className={`${inputCls} file:mr-3 file:rounded-md file:border-0 file:bg-brand-50 file:px-3 file:py-1.5 file:text-xs file:font-bold file:text-brand-800`} />
-                        <p className="mt-1.5 text-xs text-ink-400">JPEG, PNG or WebP up to 2 MB — converted to WebP automatically.</p>
+                        <p className="mt-1.5 text-xs text-ink-400">JPEG, PNG or WebP up to 2 MB, converted to WebP automatically.</p>
                         {form.errors.image && <p className="mt-1.5 text-xs font-semibold text-red-600" role="alert">{form.errors.image}</p>}
                     </div>
                     <div className="grid gap-5 sm:grid-cols-2">

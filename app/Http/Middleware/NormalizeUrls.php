@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
  * Canonical URL normalization for crawlers and users.
  *
  * - Trailing slashes are 301'd to the clean path (the old site served
- *   /product/iv-fluids/ — those indexed URLs must keep working).
+ *   /product/iv-fluids/ - those indexed URLs must keep working).
  * - Known legacy paths resolve straight to their final destination in one
  *   hop instead of trailing-slash → route-redirect chains.
  */

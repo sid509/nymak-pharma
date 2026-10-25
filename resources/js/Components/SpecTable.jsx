@@ -29,11 +29,11 @@ export default function SpecTable({ products, mode = 'strength' }) {
                                 ) : p.name}
                             </td>
                             {mode === 'specimen' ? (
-                                <td className="text-ink-600">{p.specimen || '—'}</td>
+                                <td className="text-ink-600">{p.specimen || '-'}</td>
                             ) : (
                                 <>
-                                    <td className="text-ink-600">{p.strength || '—'}</td>
-                                    <td className="text-ink-600">{p.pack_size || '—'}</td>
+                                    <td className="text-ink-600">{p.strength || '-'}</td>
+                                    <td className="text-ink-600">{p.pack_size || '-'}</td>
                                 </>
                             )}
                             <td className="text-right">
