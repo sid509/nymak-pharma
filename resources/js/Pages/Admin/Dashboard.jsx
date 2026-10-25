@@ -1,6 +1,8 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowRight, faArrowTrendDown, faArrowTrendUp, faBox, faFileImage, faGlobe, faInbox } from '@fortawesome/free-solid-svg-icons';
 import { Link } from '@inertiajs/react';
 import { useRef, useState } from 'react';
-import { ArrowDownRight, ArrowRight, ArrowUpRight, FileImage, Globe2, Inbox, Package, TrendingUp } from 'lucide-react';
+
 import AdminLayout from '../../Layouts/AdminLayout';
 import { CountryFlag } from '../../Components/Ui';
 
@@ -135,17 +137,17 @@ function Panel({ title, action, children, className = '' }) {
 function ViewAll({ href }) {
     return (
         <Link href={href} className="inline-flex items-center gap-1 text-xs font-bold text-brand-700 hover:underline">
-            View all <ArrowRight size={12} className="btn-arrow" aria-hidden />
+            View all <FontAwesomeIcon style={{ fontSize: 12 }} icon={faArrowRight} className="btn-arrow" aria-hidden />
         </Link>
     );
 }
 
 export default function Dashboard({ stats, enquiryTrend, enquiriesByCountry, productsByCategory, productsByMarket, enquiriesByProduct, recentEnquiries }) {
     const kpis = [
-        { label: 'Unread enquiries', value: stats.enquiries_unread, href: '/admin/enquiries?status=unread', icon: Inbox, accent: stats.enquiries_unread > 0, sub: 'needs a reply' },
-        { label: 'Enquiries · 30 days', value: stats.enquiries_30d, href: '/admin/enquiries', icon: TrendingUp, delta: stats.enquiries_30d_delta, sub: `of ${stats.enquiries_total} total` },
-        { label: 'Products', value: stats.products, href: '/admin/products', icon: Package, sub: `${stats.products_with_pages} with detail pages` },
-        { label: 'Markets served', value: stats.markets, href: '/admin/markets', icon: Globe2, sub: `${stats.categories} product categories` },
+        { label: 'Unread enquiries', value: stats.enquiries_unread, href: '/admin/enquiries?status=unread', icon: faInbox, accent: stats.enquiries_unread > 0, sub: 'needs a reply' },
+        { label: 'Enquiries · 30 days', value: stats.enquiries_30d, href: '/admin/enquiries', icon: faArrowTrendUp, delta: stats.enquiries_30d_delta, sub: `of ${stats.enquiries_total} total` },
+        { label: 'Products', value: stats.products, href: '/admin/products', icon: faBox, sub: `${stats.products_with_pages} with detail pages` },
+        { label: 'Markets served', value: stats.markets, href: '/admin/markets', icon: faGlobe, sub: `${stats.categories} product categories` },
     ];
 
     const secondary = [
@@ -172,11 +174,11 @@ export default function Dashboard({ stats, enquiryTrend, enquiriesByCountry, pro
                           className={`group rounded-xl border p-4 transition-all hover:-translate-y-0.5 hover:shadow-card ${c.accent ? 'border-brand-300 bg-brand-50/60' : 'border-ink-200 bg-white'}`}>
                         <div className="flex items-center justify-between">
                             <span className={`inline-flex h-8 w-8 items-center justify-center rounded-lg ${c.accent ? 'bg-brand-600 text-white' : 'bg-ink-50 text-ink-500'}`}>
-                                <c.icon size={16} aria-hidden />
+                                <FontAwesomeIcon icon={c.icon} style={{ fontSize: 16 }} aria-hidden />
                             </span>
                             {c.delta != null && (
                                 <span className={`inline-flex items-center gap-0.5 rounded-full px-2 py-0.5 text-[11px] font-bold ${c.delta >= 0 ? 'bg-brand-50 text-brand-700' : 'bg-red-50 text-red-600'}`}>
-                                    {c.delta >= 0 ? <ArrowUpRight size={11} aria-hidden /> : <ArrowDownRight size={11} aria-hidden />}
+                                    {c.delta >= 0 ? <FontAwesomeIcon style={{ fontSize: 11 }} icon={faArrowTrendUp} aria-hidden /> : <FontAwesomeIcon style={{ fontSize: 11 }} icon={faArrowTrendDown} aria-hidden />}
                                     {Math.abs(c.delta)}%
                                 </span>
                             )}
@@ -292,7 +294,7 @@ export default function Dashboard({ stats, enquiryTrend, enquiriesByCountry, pro
                     </ul>
                     {stats.products_no_image > 0 && (
                         <p className="mx-5 mb-4 flex items-center gap-2 rounded-lg bg-gold-50 px-3 py-2 text-[11px] font-semibold text-gold-600">
-                            <FileImage size={13} aria-hidden />
+                            <FontAwesomeIcon style={{ fontSize: 13 }} icon={faFileImage} aria-hidden />
                             {stats.products_no_image} detail {stats.products_no_image === 1 ? 'page needs' : 'pages need'} a packshot
                         </p>
                     )}

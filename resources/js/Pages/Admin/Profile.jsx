@@ -1,5 +1,7 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faFloppyDisk, faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { useForm, usePage } from '@inertiajs/react';
-import { Loader2, Save } from 'lucide-react';
+
 import Field from '../../Components/Admin/Field';
 import AdminLayout from '../../Layouts/AdminLayout';
 
@@ -34,7 +36,7 @@ export default function Profile() {
                            value={form.data.password_confirmation} error={form.errors.password_confirmation} onChange={set} />
                     <button type="submit" disabled={form.processing}
                             className="inline-flex items-center gap-2 rounded-lg bg-brand-700 px-5 py-2.5 text-sm font-bold text-white hover:bg-brand-800 disabled:opacity-60">
-                        {form.processing ? <Loader2 size={15} className="animate-spin" aria-hidden /> : <Save size={15} aria-hidden />}
+                        {form.processing ? <FontAwesomeIcon style={{ fontSize: 15 }} icon={faSpinner} className="animate-spin" aria-hidden /> : <FontAwesomeIcon style={{ fontSize: 15 }} icon={faFloppyDisk} aria-hidden />}
                         {form.processing ? 'Saving…' : 'Update password'}
                     </button>
                 </form>

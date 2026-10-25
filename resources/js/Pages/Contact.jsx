@@ -1,5 +1,7 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBuilding, faClock, faDownload, faEnvelope, faLocationDot, faPhone } from '@fortawesome/free-solid-svg-icons';
 import { usePage } from '@inertiajs/react';
-import { Building2, Clock, Download, Mail, MapPin, Phone } from 'lucide-react';
+
 import EnquiryForm from '../Components/EnquiryForm';
 import { Container, PageHero, WhatsAppIcon } from '../Components/Ui';
 import SiteLayout from '../Layouts/SiteLayout';
@@ -39,27 +41,27 @@ export default function Contact({ seo, offices, products, selectedProduct, formS
                             <h2 className="t-h4">{t('Head Office & Works')}</h2>
                             <address className="mt-4 space-y-3 text-sm not-italic">
                                 <p className="flex gap-2.5">
-                                    <MapPin size={16} className="mt-0.5 shrink-0 text-brand-400" aria-hidden />
+                                    <FontAwesomeIcon style={{ fontSize: 16 }} icon={faLocationDot} className="mt-0.5 shrink-0 text-brand-400" aria-hidden />
                                     <span className="text-ink-200">
                                         {site.address.street}, {site.address.city}, {site.address.region} — {site.address.postal_code}, {site.address.country}
                                     </span>
                                 </p>
                                 <p className="flex gap-2.5 text-ink-200">
-                                    <MapPin size={16} className="mt-0.5 shrink-0 text-brand-400" aria-hidden />
+                                    <FontAwesomeIcon style={{ fontSize: 16 }} icon={faLocationDot} className="mt-0.5 shrink-0 text-brand-400" aria-hidden />
                                     <span>{t('Branch')}: {site.branch_address}</span>
                                 </p>
                                 <p>
                                     <a href={`tel:${site.phone_href}`} className="flex gap-2.5 font-semibold transition-colors hover:text-white">
-                                        <Phone size={16} className="mt-0.5 shrink-0 text-brand-400" aria-hidden />{site.phone}
+                                        <FontAwesomeIcon style={{ fontSize: 16 }} icon={faPhone} className="mt-0.5 shrink-0 text-brand-400" aria-hidden />{site.phone}
                                     </a>
                                 </p>
                                 <p>
                                     <a href={`mailto:${site.email}`} className="flex gap-2.5 font-semibold transition-colors hover:text-white">
-                                        <Mail size={16} className="mt-0.5 shrink-0 text-brand-400" aria-hidden />{site.email}
+                                        <FontAwesomeIcon style={{ fontSize: 16 }} icon={faEnvelope} className="mt-0.5 shrink-0 text-brand-400" aria-hidden />{site.email}
                                     </a>
                                 </p>
                                 <p className="flex gap-2.5 text-ink-200">
-                                    <Clock size={16} className="mt-0.5 shrink-0 text-brand-400" aria-hidden />
+                                    <FontAwesomeIcon style={{ fontSize: 16 }} icon={faClock} className="mt-0.5 shrink-0 text-brand-400" aria-hidden />
                                     <span>{t('Mon–Sat, 9:30–18:30 IST')}</span>
                                 </p>
                             </address>
@@ -72,15 +74,15 @@ export default function Contact({ seo, offices, products, selectedProduct, formS
                                 <a href={`/${site.brochure}`} target="_blank" rel="noopener noreferrer"
                                    onClick={() => window.nymakTrack && window.nymakTrack('brochure_download')}
                                    className="inline-flex items-center gap-2 text-sm font-semibold text-brand-300 transition-colors hover:text-white">
-                                    <Download size={16} aria-hidden /> {t('Download product brochure (PDF)')}
+                                    <FontAwesomeIcon style={{ fontSize: 16 }} icon={faDownload} aria-hidden /> {t('Download product brochure (PDF)')}
                                 </a>
                             </div>
                         </div>
 
                         {offices.map((o) => (
-                            <address key={o.name} className="rounded-2xl border border-ink-100 bg-white p-5 not-italic shadow-card">
+                            <address key={o.name} className="card-hover rounded-2xl border border-ink-100 bg-white p-5 not-italic shadow-card">
                                 <h3 className="flex items-center gap-2 text-sm font-semibold text-ink-900">
-                                    <Building2 size={15} className="text-brand-700" aria-hidden />{o.name}
+                                    <FontAwesomeIcon style={{ fontSize: 15 }} icon={faBuilding} className="text-brand-700" aria-hidden />{o.name}
                                 </h3>
                                 <p className="mt-2 text-sm leading-relaxed text-ink-600">{o.address}</p>
                                 <p className="mt-2 text-sm font-semibold text-ink-800">{o.phone}{o.phone_alt ? ` · ${o.phone_alt}` : ''}</p>

@@ -104,11 +104,11 @@ body {
     }
     /* Introductory paragraphs under headings */
     .t-lead {
-        font-size: 1.125rem; line-height: 1.6; font-weight: 400;
+        font-size: 1.1875rem; line-height: 1.6; font-weight: 400;
     }
     /* Reading copy */
     .t-body {
-        font-size: 1.0625rem; line-height: 1.6; font-weight: 400;
+        font-size: 1.125rem; line-height: 1.6; font-weight: 400;
     }
     /* Captions, meta rows, small labels */
     .t-caption {
@@ -125,19 +125,60 @@ body {
     .t-figure { font-size: 2rem; line-height: 1.1; font-weight: 700; letter-spacing: -0.02em; }
 
     @media (min-width: 640px) {
-        .t-hero { font-size: 2.625rem; }
-        .t-page { font-size: 2.125rem; }
-        .t-h2   { font-size: 2rem; }
-        .t-lead { font-size: 1.1875rem; }
+        .t-hero { font-size: 2.75rem; }
+        .t-page { font-size: 2.25rem; }
+        .t-h2   { font-size: 2.125rem; }
+        .t-lead { font-size: 1.25rem; }
         .t-figure { font-size: 2.5rem; }
     }
     @media (min-width: 1024px) {
         .t-hero   { font-size: 3.5rem; }     /* 56px */
-        .t-page   { font-size: 2.875rem; }   /* 46px */
-        .t-h2     { font-size: 2.375rem; }   /* 38px */
-        .t-h3     { font-size: 1.6875rem; }  /* 27px */
+        .t-page   { font-size: 3rem; }       /* 48px */
+        .t-h2     { font-size: 2.5rem; }     /* 40px */
+        .t-h3     { font-size: 1.75rem; }    /* 28px */
         .t-figure { font-size: 3rem; }       /* 48px */
     }
+}
+
+/* Shared card hover — one consistent interaction for every boxed,
+   clickable (or highlightable) element on the site: a small lift,
+   brand-tinted border and the deeper hover shadow. Apply `card-hover`
+   to any card; non-interactive boxes get the same gentle lift. */
+.card-hover {
+    transition: transform .2s var(--ease-out),
+                border-color .2s ease,
+                box-shadow .2s ease,
+                background-color .2s ease,
+                color .2s ease;
+}
+.card-hover:hover, .card-hover:focus-visible {
+    transform: translateY(-3px);
+    border-color: var(--color-brand-200);
+    box-shadow: var(--shadow-card-hover);
+}
+
+/* Ghost heading — the section title set once more, oversized and
+   blurred, behind the real H2. Used where a section needs more
+   presence than plain type gives it (Quality page H2s). */
+.ghost-title { position: relative; }
+.ghost-title::before {
+    content: attr(data-text);
+    position: absolute;
+    left: 50%;
+    top: 58%;
+    z-index: -1;
+    transform: translate(-50%, -50%) scale(1.6);
+    width: max-content;
+    max-width: 92vw;
+    font: inherit;
+    letter-spacing: inherit;
+    color: var(--color-brand-600);
+    opacity: .16;
+    filter: blur(5px);
+    white-space: nowrap;
+    overflow: hidden;
+    pointer-events: none;
+    user-select: none;
 }
 
 /* Product / spec tables */
@@ -145,7 +186,7 @@ body {
     @apply bg-ink-50 text-left text-xs font-semibold uppercase tracking-[0.04em] text-ink-600;
 }
 .spec-table th, .spec-table td {
-    @apply border-b border-ink-100 px-4 py-3;
+    @apply border-b border-ink-100 px-5 py-3.5 text-[0.9375rem];
 }
 .spec-table tr:last-child td {
     @apply border-b-0;
@@ -164,10 +205,10 @@ body {
     @apply mt-8 mb-3 text-xl font-semibold text-ink-900;
 }
 .prose-nymak p {
-    @apply mb-4 text-[1.0625rem] leading-[1.6] text-ink-700;
+    @apply mb-4 text-[1.125rem] leading-[1.65] text-ink-700;
 }
 .prose-nymak ul {
-    @apply mb-4 list-disc space-y-1 pl-6 text-[1.0625rem] text-ink-700;
+    @apply mb-4 list-disc space-y-1 pl-6 text-[1.125rem] text-ink-700;
 }
 .prose-nymak strong {
     @apply font-semibold text-ink-900;
@@ -441,6 +482,9 @@ body {
 
 /* Certification carousel — same mechanism, larger tiles, slightly quicker. */
 .marquee-track--certs { gap: 1.25rem; padding-right: 1.25rem; align-items: stretch; animation-duration: 26s; }
+
+/* Client strip — wider rhythm for the larger logo marks. */
+.marquee-track--clients { gap: 5rem; padding-right: 5rem; animation-duration: 42s; }
 
 @media (prefers-reduced-motion: reduce) {
     .enter > * { animation: none; opacity: 1; transform: none; }

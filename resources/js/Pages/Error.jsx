@@ -1,4 +1,6 @@
-import { ArrowLeft } from 'lucide-react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+
 import { ButtonLink, Container } from '../Components/Ui';
 import SiteLayout from '../Layouts/SiteLayout';
 import { useT } from '../i18n/useT';
@@ -75,7 +77,7 @@ export default function Error({ status, seo }) {
                     </div>
                     <button type="button" onClick={() => window.history.back()}
                             className="mx-auto mt-6 inline-flex items-center gap-1.5 text-xs font-semibold text-ink-400 transition-colors hover:text-ink-700">
-                        <ArrowLeft size={13} aria-hidden /> {t('Go back to the previous page')}
+                        <FontAwesomeIcon style={{ fontSize: 13 }} icon={faArrowLeft} aria-hidden /> {t('Go back to the previous page')}
                     </button>
                 </Container>
             </section>

@@ -1,5 +1,7 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import Link from '../../i18n/LocaleLink';
-import { ArrowLeft, ArrowRight } from 'lucide-react';
+
 import { Reveal } from '../../Components/Motion';
 import MemberPortrait, { portraitTone } from '../../Components/MemberPortrait';
 import { ButtonLink, Container, Eyebrow } from '../../Components/Ui';
@@ -13,7 +15,7 @@ export default function TeamShow({ seo, member, others }) {
             <section className="border-b border-ink-100 bg-gradient-to-b from-brand-50/60 to-white py-14 sm:py-20">
                 <Container>
                     <Link href="/team" className="inline-flex items-center gap-1.5 text-sm font-semibold text-ink-500 hover:text-brand-700">
-                        <ArrowLeft size={15} aria-hidden /> All team
+                        <FontAwesomeIcon style={{ fontSize: 15 }} icon={faArrowLeft} aria-hidden /> All team
                     </Link>
                     <div className="mt-8 grid items-start gap-10 lg:grid-cols-[minmax(0,20rem)_1fr]">
                         <Reveal>
@@ -28,7 +30,7 @@ export default function TeamShow({ seo, member, others }) {
                                 {member.bio.split(/\n{2,}/).map((p, i) => <p key={i}>{p}</p>)}
                             </div>
                             <div className="mt-8 flex flex-wrap gap-3">
-                                <ButtonLink href="/contact">{t('Work with us')} <ArrowRight size={15} className="btn-arrow" aria-hidden /></ButtonLink>
+                                <ButtonLink href="/contact">{t('Work with us')} <FontAwesomeIcon style={{ fontSize: 15 }} icon={faArrowRight} className="btn-arrow" aria-hidden /></ButtonLink>
                                 <ButtonLink href="/about" variant="outline">{t('About the company')}</ButtonLink>
                             </div>
                         </Reveal>
@@ -42,9 +44,9 @@ export default function TeamShow({ seo, member, others }) {
                         <h2 className="t-h3 text-ink-900">{t('More of the team')}</h2>
                         <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
                             {others.map((m, i) => (
-                                <Reveal key={m.slug} delay={i * 50}>
+                                <Reveal key={m.slug} delay={i * 50} className="h-full">
                                     <Link href={`/team/${m.slug}`}
-                                          className="group flex items-center gap-3 rounded-xl border border-ink-100 bg-white p-4 transition-shadow hover:shadow-md">
+                                          className="group flex h-full items-center gap-3 rounded-xl border border-ink-100 bg-white p-4 transition-shadow hover:shadow-md">
                                         {m.photo ? (
                                             <img src={`/${m.photo}`} alt="" loading="lazy"
                                                  className="h-12 w-12 shrink-0 rounded-full object-cover object-top" />

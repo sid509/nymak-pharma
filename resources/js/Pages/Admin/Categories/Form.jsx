@@ -1,5 +1,7 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faFloppyDisk, faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { Link, useForm } from '@inertiajs/react';
-import { Loader2, Save } from 'lucide-react';
+
 import Field from '../../../Components/Admin/Field';
 import TranslationFields from '../../../Components/Admin/TranslationFields';
 import AdminLayout from '../../../Layouts/AdminLayout';
@@ -32,7 +34,7 @@ export default function CategoryForm({ category }) {
                         <code className="rounded bg-ink-50 px-2 py-0.5 text-xs text-ink-500">/product/{category.slug}</code>
                     </div>
                     <Field field={{ name: 'name', label: 'Name', required: true }} value={form.data.name} error={form.errors.name} onChange={set} />
-                    <Field field={{ name: 'icon', label: 'Icon', help: 'Lucide icon name (e.g. FlaskConical)' }} value={form.data.icon} error={form.errors.icon} onChange={set} />
+                    <Field field={{ name: 'icon', label: 'Icon', help: 'Icon key from the category map (e.g. droplets, pill, syringe)' }} value={form.data.icon} error={form.errors.icon} onChange={set} />
                     <Field field={{ name: 'intro', label: 'Intro', type: 'textarea', rows: 2, help: 'One or two sentences — hero lead on the category page and the card text on Home / Products.' }} value={form.data.intro} error={form.errors.intro} onChange={set} />
                     <Field field={{ name: 'image', label: 'Category image', type: 'image', preview: category.image, help: 'Optional — shown on the category page. JPEG, PNG or WebP up to 2 MB.' }} value={form.data.image} error={form.errors.image} onChange={set} />
                     <Field field={{ name: 'content', label: 'Category page content', type: 'richtext', placeholder: 'What this range is, who it serves, how it is manufactured and registered…', help: 'The main body of the category landing page. Headings, lists, bold and links are supported. Aim for 300+ words for SEO.' }} value={form.data.content} error={form.errors.content} onChange={set} />
@@ -58,7 +60,7 @@ export default function CategoryForm({ category }) {
                 <div className="flex items-center gap-3">
                     <button type="submit" disabled={form.processing}
                             className="inline-flex items-center gap-2 rounded-lg bg-brand-700 px-5 py-2.5 text-sm font-bold text-white hover:bg-brand-800 disabled:opacity-60">
-                        {form.processing ? <Loader2 size={15} className="animate-spin" aria-hidden /> : <Save size={15} aria-hidden />}
+                        {form.processing ? <FontAwesomeIcon style={{ fontSize: 15 }} icon={faSpinner} className="animate-spin" aria-hidden /> : <FontAwesomeIcon style={{ fontSize: 15 }} icon={faFloppyDisk} aria-hidden />}
                         {form.processing ? 'Saving…' : 'Save changes'}
                     </button>
                     <Link href="/admin/categories" className="text-sm font-bold text-ink-500 hover:text-ink-800">Cancel</Link>

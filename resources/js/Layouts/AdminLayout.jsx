@@ -1,34 +1,33 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBars, faBox, faCircleCheck, faCircleQuestion, faFileLines, faGaugeHigh, faGear, faGlobe, faInbox, faMagnifyingGlass, faNewspaper, faQuoteLeft, faRightFromBracket, faTag, faUsers, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { Link, router, usePage } from '@inertiajs/react';
-import {
-    BadgeCheck, CircleHelp, FileText, Globe2, Inbox, LayoutDashboard, LogOut,
-    Menu, Newspaper, Package, Quote, Search, Settings, Tag, Users, X,
-} from 'lucide-react';
+
 import { useEffect, useState } from 'react';
 import Logo from '../Components/Logo';
 
 const NAV = [
     { group: 'Overview', items: [
-        { name: 'Dashboard', href: '/admin/dashboard', icon: LayoutDashboard },
-        { name: 'Enquiries', href: '/admin/enquiries', icon: Inbox, badge: 'unread' },
+        { name: 'Dashboard', href: '/admin/dashboard', icon: faGaugeHigh },
+        { name: 'Enquiries', href: '/admin/enquiries', icon: faInbox, badge: 'unread' },
     ]},
     { group: 'Catalogue', items: [
-        { name: 'Products', href: '/admin/products', icon: Package },
-        { name: 'Categories', href: '/admin/categories', icon: Tag },
-        { name: 'Markets', href: '/admin/markets', icon: Globe2 },
+        { name: 'Products', href: '/admin/products', icon: faBox },
+        { name: 'Categories', href: '/admin/categories', icon: faTag },
+        { name: 'Markets', href: '/admin/markets', icon: faGlobe },
     ]},
     { group: 'Content', items: [
-        { name: 'Articles', href: '/admin/posts', icon: Newspaper },
-        { name: 'FAQs', href: '/admin/faqs', icon: CircleHelp },
-        { name: 'Testimonials', href: '/admin/testimonials', icon: Quote },
-        { name: 'Certifications', href: '/admin/certifications', icon: BadgeCheck },
-        { name: 'Team', href: '/admin/team-members', icon: Users },
-        { name: 'Client logos', href: '/admin/clients', icon: BadgeCheck },
-        { name: 'Page content', href: '/admin/pages', icon: FileText },
+        { name: 'Articles', href: '/admin/posts', icon: faNewspaper },
+        { name: 'FAQs', href: '/admin/faqs', icon: faCircleQuestion },
+        { name: 'Testimonials', href: '/admin/testimonials', icon: faQuoteLeft },
+        { name: 'Certifications', href: '/admin/certifications', icon: faCircleCheck },
+        { name: 'Team', href: '/admin/team-members', icon: faUsers },
+        { name: 'Client logos', href: '/admin/clients', icon: faCircleCheck },
+        { name: 'Page content', href: '/admin/pages', icon: faFileLines },
     ]},
     { group: 'System', items: [
-        { name: 'SEO pages', href: '/admin/seo-pages', icon: Search },
-        { name: 'Site settings', href: '/admin/settings', icon: Settings },
-        { name: 'Admin users', href: '/admin/users', icon: Users },
+        { name: 'SEO pages', href: '/admin/seo-pages', icon: faMagnifyingGlass },
+        { name: 'Site settings', href: '/admin/settings', icon: faGear },
+        { name: 'Admin users', href: '/admin/users', icon: faUsers },
     ]},
 ];
 
@@ -49,7 +48,7 @@ export default function AdminLayout({ title, children }) {
                     <Logo light />
                 </Link>
                 <button type="button" onClick={() => setNavOpen(false)} className="p-1 text-ink-300 hover:text-white lg:hidden" aria-label="Close menu">
-                    <X size={20} />
+                    <FontAwesomeIcon style={{ fontSize: 20 }} icon={faXmark} />
                 </button>
             </div>
             <nav aria-label="Admin" className="flex-1 space-y-5 overflow-y-auto px-3 pb-6 pt-2.5">
@@ -63,7 +62,7 @@ export default function AdminLayout({ title, children }) {
                                           className={`flex items-center gap-2.5 rounded-lg px-2.5 py-2 text-sm font-semibold transition-colors ${
                                               isActive(item.href) ? 'bg-white/10 text-white' : 'text-ink-300 hover:bg-white/5 hover:text-white'
                                           }`}>
-                                        <item.icon size={16} aria-hidden className="shrink-0" />
+                                        <FontAwesomeIcon icon={item.icon} style={{ fontSize: 16 }} aria-hidden className="shrink-0" />
                                         <span className="flex-1">{item.name}</span>
                                         {item.badge === 'unread' && admin?.unreadEnquiries > 0 && (
                                             <span className="rounded-full bg-brand-500 px-1.5 py-0.5 text-[10px] font-bold text-white">
@@ -86,13 +85,13 @@ export default function AdminLayout({ title, children }) {
             <div className="sticky top-0 z-40 flex items-center justify-between gap-2 border-b border-ink-200 bg-white px-3 py-2.5 lg:hidden">
                 <div className="flex items-center gap-0.5">
                     <button type="button" onClick={() => setNavOpen(true)} className="rounded-lg p-2 hover:bg-ink-100" aria-label="Open menu">
-                        <Menu size={20} />
+                        <FontAwesomeIcon style={{ fontSize: 20 }} icon={faBars} />
                     </button>
                     <Link href="/admin/dashboard" aria-label="Admin dashboard"><Logo size="sm" /></Link>
                 </div>
                 <span className="flex-1 truncate text-center text-sm font-bold text-ink-900">{title || 'Admin'}</span>
                 <button type="button" onClick={() => router.post('/admin/logout')} className="rounded-lg p-2 text-ink-500 hover:bg-ink-100" aria-label="Log out">
-                    <LogOut size={18} />
+                    <FontAwesomeIcon style={{ fontSize: 18 }} icon={faRightFromBracket} />
                 </button>
             </div>
 
@@ -109,7 +108,7 @@ export default function AdminLayout({ title, children }) {
                         <Link href="/admin/profile" className="text-sm font-semibold text-ink-600 hover:text-ink-900">{auth?.user?.name}</Link>
                         <button type="button" onClick={() => router.post('/admin/logout')}
                                 className="inline-flex items-center gap-1.5 rounded-lg border border-ink-200 px-3 py-1.5 text-xs font-bold text-ink-600 hover:bg-ink-50">
-                            <LogOut size={13} aria-hidden /> Log out
+                            <FontAwesomeIcon style={{ fontSize: 13 }} icon={faRightFromBracket} aria-hidden /> Log out
                         </button>
                     </div>
                 </header>

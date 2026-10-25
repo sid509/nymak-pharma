@@ -1,7 +1,9 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowRight, faArrowTrendUp, faAward, faBoxesStacked, faCircleCheck, faGlobe, faHeartPulse, faIndustry, faLocationDot, faPills, faQuoteLeft } from '@fortawesome/free-solid-svg-icons';
 import { usePage } from '@inertiajs/react';
 import Link from '../i18n/LocaleLink';
 import { useState } from 'react';
-import { ArrowRight, ArrowUpRight, Award, BadgeCheck, Container as ContainerIcon, Factory, Globe2, HeartPulse, MapPin, Pill, Quote } from 'lucide-react';
+
 import { Reveal, useScrollProgress } from '../Components/Motion';
 import Accordion from '../Components/Accordion';
 import { CategoryCard, CategoryIcon, PostCard, ProductCard } from '../Components/Cards';
@@ -40,8 +42,8 @@ export default function Home({ seo, categories, featuredProducts = [], testimoni
 
                 <Container className="relative flex min-h-[30rem] items-center py-24 sm:min-h-[34rem] sm:py-28 lg:min-h-[38rem] lg:py-32">
                     <div className="enter max-w-2xl">
-                        <p className="inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/10 px-4 py-1.5 t-eyebrow text-white backdrop-blur-sm">
-                            <BadgeCheck size={14} className="text-brand-300" aria-hidden /> {c.hero_badge}
+                        <p className="inline-flex items-center gap-2 rounded-lg border border-white/25 bg-white/10 px-4 py-1.5 t-eyebrow text-white backdrop-blur-sm">
+                            <FontAwesomeIcon style={{ fontSize: 14 }} icon={faCircleCheck} className="text-brand-300" aria-hidden /> {c.hero_badge}
                         </p>
                         <h1 className="mt-6 t-hero text-balance text-white">
                             {c.hero_title}
@@ -50,7 +52,7 @@ export default function Home({ seo, categories, featuredProducts = [], testimoni
                             {c.hero_subtitle}
                         </p>
                         <div className="mt-8 flex flex-wrap gap-3">
-                            {c.hero_primary_label && <ButtonLink href={c.hero_primary_url || '/products'}>{c.hero_primary_label} <ArrowRight size={16} className="btn-arrow" aria-hidden /></ButtonLink>}
+                            {c.hero_primary_label && <ButtonLink href={c.hero_primary_url || '/products'}>{c.hero_primary_label} <FontAwesomeIcon style={{ fontSize: 16 }} icon={faArrowRight} className="btn-arrow" aria-hidden /></ButtonLink>}
                             {c.hero_secondary_label && <ButtonLink href={c.hero_secondary_url || '/contact'} variant="outlineLight">{c.hero_secondary_label}</ButtonLink>}
                         </div>
                     </div>
@@ -62,14 +64,14 @@ export default function Home({ seo, categories, featuredProducts = [], testimoni
                 <section className="relative z-10 -mt-6 sm:-mt-8">
                     <Container>
                         <Reveal>
-                            <div className="grid grid-cols-2 gap-x-4 gap-y-6 rounded-3xl border border-ink-100 bg-white px-6 py-8 shadow-card sm:px-8 lg:grid-cols-4">
-                                <Stat value={stats.years} label={c.stats_years_label} tone="light" icon={HeartPulse}
+                            <div className="grid grid-cols-2 gap-x-4 gap-y-6 rounded-2xl border border-ink-100 bg-white px-6 py-8 shadow-card sm:px-8 lg:grid-cols-4">
+                                <Stat value={stats.years} label={c.stats_years_label} tone="light" icon={faHeartPulse}
                                       className="rounded-2xl px-3 py-2 transition-[background-color,transform] duration-200 ease-out hover:-translate-y-0.5 hover:bg-brand-50/70" />
-                                <Stat value={stats.countries} label={c.stats_countries_label} tone="light" icon={Globe2}
+                                <Stat value={stats.countries} label={c.stats_countries_label} tone="light" icon={faGlobe}
                                       className="rounded-2xl px-3 py-2 transition-[background-color,transform] duration-200 ease-out hover:-translate-y-0.5 hover:bg-brand-50/70 lg:border-l lg:border-ink-100 lg:pl-8" />
-                                <Stat value={stats.containers_fy} label={c.stats_containers_label} tone="light" icon={ContainerIcon}
+                                <Stat value={stats.containers_fy} label={c.stats_containers_label} tone="light" icon={faBoxesStacked}
                                       className="rounded-2xl px-3 py-2 transition-[background-color,transform] duration-200 ease-out hover:-translate-y-0.5 hover:bg-brand-50/70 lg:border-l lg:border-ink-100 lg:pl-8" />
-                                <Stat value={stats.products} label={c.stats_products_label} tone="light" icon={Pill}
+                                <Stat value={stats.products} label={c.stats_products_label} tone="light" icon={faPills}
                                       className="rounded-2xl px-3 py-2 transition-[background-color,transform] duration-200 ease-out hover:-translate-y-0.5 hover:bg-brand-50/70 lg:border-l lg:border-ink-100 lg:pl-8" />
                             </div>
                         </Reveal>
@@ -83,7 +85,7 @@ export default function Home({ seo, categories, featuredProducts = [], testimoni
                     <Container>
                         <div className="mx-auto mb-10 max-w-4xl text-center lg:mb-14">
                             <Eyebrow center>{c.about_eyebrow}</Eyebrow>
-                            <h2 className="t-h2 text-balance text-gradient font-bold text-3xl lg:text-[2.625rem]">{c.about_title}</h2>
+                            <h2 className="t-h2 text-balance text-ink-950">{c.about_title}</h2>
                         </div>
                         <div className="grid items-center gap-10 lg:grid-cols-2">
                         <div className="lg:order-2">
@@ -92,11 +94,11 @@ export default function Home({ seo, categories, featuredProducts = [], testimoni
                                 <p>{c.about_p2}</p>
                             </div>
                             <div className="mt-6 flex flex-wrap gap-3">
-                                {c.about_cta_label && <ButtonLink href="/about" variant="outline">{c.about_cta_label} <ArrowRight size={15} className="btn-arrow" aria-hidden /></ButtonLink>}
+                                {c.about_cta_label && <ButtonLink href="/about" variant="outline">{c.about_cta_label} <FontAwesomeIcon style={{ fontSize: 15 }} icon={faArrowRight} className="btn-arrow" aria-hidden /></ButtonLink>}
                                 {c.about_cta2_label && (
                                     <ButtonLink href="/manufacturing" variant="ghost"
-                                                className="rounded-full border border-ink-200 px-6 py-2.5 transition-[border-color,color,background-color] duration-200 hover:border-brand-500 hover:bg-brand-50/60 hover:text-brand-800">
-                                        <Factory size={15} className="text-brand-600" aria-hidden /> {c.about_cta2_label}
+                                                className="rounded-xl border border-ink-200 px-6 py-2.5 transition-[border-color,color,background-color] duration-200 hover:border-brand-500 hover:bg-brand-50/60 hover:text-brand-800">
+                                        <FontAwesomeIcon style={{ fontSize: 15 }} icon={faIndustry} className="text-brand-600" aria-hidden /> {c.about_cta2_label}
                                     </ButtonLink>
                                 )}
                             </div>
@@ -104,7 +106,7 @@ export default function Home({ seo, categories, featuredProducts = [], testimoni
                         <div className="relative">
                             {c.about_image && c.about_image !== c.hero_image ? (
                                 <>
-                                    <Reveal variant="media" className="rounded-3xl shadow-card">
+                                    <Reveal variant="media" className="rounded-2xl shadow-card">
                                         <img src={`/${c.about_image}`} alt="Nymak Pharma manufacturing plant, Mundra"
                                              width="960" height="640" loading="lazy"
                                              className="w-full object-cover" />
@@ -117,35 +119,35 @@ export default function Home({ seo, categories, featuredProducts = [], testimoni
                             ) : (
                                 /* Same photo as the hero — show a company fact panel instead of repeating it */
                                 <Reveal>
-                                    <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-brand-800 via-brand-900 to-ink-950 p-8 text-white shadow-card sm:p-10">
+                                    <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-brand-800 via-brand-900 to-ink-950 p-8 text-white shadow-card sm:p-10">
                                         <div className="absolute -right-16 -top-16 h-56 w-56 rounded-full border border-white/10" aria-hidden />
                                         <div className="absolute -bottom-20 -left-10 h-44 w-44 rounded-full border border-white/10" aria-hidden />
                                         <p className="t-eyebrow text-brand-300">{c.about_badge_caption}</p>
                                         <p className="mt-3 text-3xl font-bold tracking-tight">Since {site.founded || '1998'}</p>
                                         <ul className="mt-8 space-y-5 border-t border-white/15 pt-8">
                                             <li className="flex items-start gap-3">
-                                                <Factory size={18} className="mt-0.5 shrink-0 text-brand-300" aria-hidden />
+                                                <FontAwesomeIcon style={{ fontSize: 18 }} icon={faIndustry} className="mt-0.5 shrink-0 text-brand-300" aria-hidden />
                                                 <div>
                                                     <p className="font-semibold">{site.address.city}, {site.address.country}</p>
                                                     <p className="mt-0.5 text-sm text-ink-200">{t('Head office & manufacturing facility')}</p>
                                                 </div>
                                             </li>
                                             <li className="flex items-start gap-3">
-                                                <BadgeCheck size={18} className="mt-0.5 shrink-0 text-brand-300" aria-hidden />
+                                                <FontAwesomeIcon style={{ fontSize: 18 }} icon={faCircleCheck} className="mt-0.5 shrink-0 text-brand-300" aria-hidden />
                                                 <div>
                                                     <p className="font-semibold">{t('WHO-GMP certified')}</p>
                                                     <p className="mt-0.5 text-sm text-ink-200">{t('ISO 13485 · in-house QC/QA & regulatory teams')}</p>
                                                 </div>
                                             </li>
                                             <li className="flex items-start gap-3">
-                                                <Globe2 size={18} className="mt-0.5 shrink-0 text-brand-300" aria-hidden />
+                                                <FontAwesomeIcon style={{ fontSize: 18 }} icon={faGlobe} className="mt-0.5 shrink-0 text-brand-300" aria-hidden />
                                                 <div>
                                                     <p className="font-semibold">{t('{n} export markets', { n: stats.countries })}</p>
                                                     <p className="mt-0.5 text-sm text-ink-200">{t('{n} products across five segments', { n: stats.products })}</p>
                                                 </div>
                                             </li>
                                             <li className="flex items-start gap-3">
-                                                <Award size={18} className="mt-0.5 shrink-0 text-brand-300" aria-hidden />
+                                                <FontAwesomeIcon style={{ fontSize: 18 }} icon={faAward} className="mt-0.5 shrink-0 text-brand-300" aria-hidden />
                                                 <div>
                                                     <p className="font-semibold">{t('Star Export House')}</p>
                                                     <p className="mt-0.5 text-sm text-ink-200">{t('Government of India certified exporter')}</p>
@@ -178,31 +180,31 @@ export default function Home({ seo, categories, featuredProducts = [], testimoni
                                           onMouseEnter={() => setSegment(i)}
                                           onFocus={() => setSegment(i)}
                                           className={`group relative flex items-center gap-4 border-b border-ink-200/70 px-2 py-5 transition-colors duration-200 sm:px-4 ${
-                                              segment === i ? 'bg-white' : 'hover:bg-white/70'
+                                              segment === i ? 'bg-white' : 'hover:bg-white'
                                           }`}>
-                                        <span aria-hidden className={`absolute bottom-3 left-0 top-3 w-0.5 rounded-full bg-brand-600 transition-opacity duration-200 ${segment === i ? 'opacity-100' : 'opacity-0'}`} />
-                                        <span className={`t-caption font-bold tabular-nums transition-colors ${segment === i ? 'text-brand-600' : 'text-ink-300'}`}>
+                                        <span aria-hidden className={`absolute bottom-3 left-0 top-3 w-1 rounded-full bg-brand-600 transition-opacity duration-200 ${segment === i ? 'opacity-100' : 'opacity-0 group-hover:opacity-70 group-focus-visible:opacity-70'}`} />
+                                        <span className={`t-caption font-bold tabular-nums transition-colors ${segment === i ? 'text-brand-600' : 'text-ink-300 group-hover:text-brand-500'}`}>
                                             {String(i + 1).padStart(2, '0')}
                                         </span>
                                         <span className={`inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border transition-colors duration-200 ${
-                                            segment === i ? 'border-brand-200 bg-brand-50 text-brand-700' : 'border-ink-200/60 bg-white text-ink-500'
+                                            segment === i ? 'border-brand-200 bg-brand-50 text-brand-700' : 'border-ink-200/60 bg-white text-ink-500 group-hover:border-brand-200 group-hover:bg-brand-50 group-hover:text-brand-700'
                                         }`}>
                                             <CategoryIcon name={cat.icon} size={20} />
                                         </span>
                                         <div className="min-w-0 flex-1">
-                                            <h3 className={`t-h4 truncate transition-colors ${segment === i ? 'text-ink-950' : 'text-ink-800'}`}>{cat.name}</h3>
+                                            <h3 className={`t-h4 truncate transition-colors ${segment === i ? 'text-ink-950' : 'text-ink-800 group-hover:text-ink-950'}`}>{cat.name}</h3>
                                             <p className="mt-0.5 t-caption tabular-nums text-ink-400">{cat.products_count} products</p>
                                         </div>
-                                        <ArrowRight size={18} aria-hidden
+                                        <FontAwesomeIcon style={{ fontSize: 18 }} icon={faArrowRight} aria-hidden
                                             className={`shrink-0 transition-[opacity,transform] duration-200 ${
-                                                segment === i ? 'translate-x-0 text-brand-600 opacity-100' : '-translate-x-1 text-ink-300 opacity-0'
+                                                segment === i ? 'translate-x-0 text-brand-600 opacity-100' : '-translate-x-1 text-ink-300 opacity-0 group-hover:translate-x-0 group-hover:text-brand-500 group-hover:opacity-100'
                                             }`} />
                                     </Link>
                                 ))}
                             </div>
-                            <div className="self-start lg:sticky lg:top-28">
+                            <div className="self-stretch lg:sticky lg:top-28">
                                 <div key={activeCat.id}
-                                     className="explorer-panel relative overflow-hidden rounded-3xl bg-gradient-to-br from-brand-800 via-brand-900 to-ink-950 p-8 text-white shadow-card sm:p-10">
+                                     className="explorer-panel relative flex h-full flex-col overflow-hidden rounded-2xl bg-gradient-to-br from-brand-800 via-brand-900 to-ink-950 p-8 text-white shadow-card sm:p-10">
                                     <div className="absolute -right-16 -top-16 h-56 w-56 rounded-full border border-white/10" aria-hidden />
                                     <div className="absolute -bottom-20 -left-10 h-44 w-44 rounded-full border border-white/10" aria-hidden />
                                     <span className="inline-flex h-14 w-14 items-center justify-center rounded-2xl border border-white/15 bg-white/10 text-brand-200">
@@ -210,7 +212,7 @@ export default function Home({ seo, categories, featuredProducts = [], testimoni
                                     </span>
                                     <h3 className="mt-5 t-h3">{activeCat.name}</h3>
                                     <p className="mt-1 t-caption tabular-nums text-brand-300">{activeCat.products_count} products</p>
-                                    {activeCat.intro && <p className="mt-4 text-sm leading-relaxed text-ink-200">{activeCat.intro}</p>}
+                                    {activeCat.intro && <p className="mt-4 line-clamp-3 text-sm leading-relaxed text-ink-200">{activeCat.intro}</p>}
                                     {activeCat.samples?.length > 0 && (
                                         <div className="mt-6 flex items-center gap-2.5">
                                             {activeCat.samples.map((s) => (
@@ -223,9 +225,9 @@ export default function Home({ seo, categories, featuredProducts = [], testimoni
                                             <span className="t-caption text-ink-400">{t('Registered products')}</span>
                                         </div>
                                     )}
-                                    <div className="mt-7 flex flex-wrap gap-3">
+                                    <div className="mt-auto flex flex-wrap gap-3 pt-7">
                                         <ButtonLink href={`/product/${activeCat.slug}`} variant="light">
-                                            {c.portfolio_card_label} <ArrowRight size={15} className="btn-arrow" aria-hidden />
+                                            {c.portfolio_card_label} <FontAwesomeIcon style={{ fontSize: 15 }} icon={faArrowRight} className="btn-arrow" aria-hidden />
                                         </ButtonLink>
                                         <ButtonLink href={`/product/${activeCat.slug}/products`} variant="outlineLight">{t('Product list')}</ButtonLink>
                                     </div>
@@ -236,14 +238,14 @@ export default function Home({ seo, categories, featuredProducts = [], testimoni
                         {/* Compact cards on smaller viewports */}
                         <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:hidden">
                             {categories.map((cat, i) => (
-                                <Reveal key={cat.id} delay={i * 60}>
+                                <Reveal key={cat.id} delay={i * 60} className="h-full">
                                     <CategoryCard category={cat} index={i} href={`/product/${cat.slug}`} label={c.portfolio_card_label} />
                                 </Reveal>
                             ))}
                         </div>
                         {c.portfolio_cta_label && (
                             <div className="mt-10 text-center">
-                                <ButtonLink href="/products" variant="outline">{c.portfolio_cta_label} <ArrowRight size={15} className="btn-arrow" aria-hidden /></ButtonLink>
+                                <ButtonLink href="/products" variant="outline">{c.portfolio_cta_label} <FontAwesomeIcon style={{ fontSize: 15 }} icon={faArrowRight} className="btn-arrow" aria-hidden /></ButtonLink>
                             </div>
                         )}
                     </Container>
@@ -257,7 +259,7 @@ export default function Home({ seo, categories, featuredProducts = [], testimoni
                         <SectionHeading eyebrow={c.brands_eyebrow} title={c.brands_title} lead={c.brands_lead} />
                         <div className="mt-10 grid grid-cols-2 gap-5 md:grid-cols-3 lg:grid-cols-4">
                             {featuredProducts.map((p, i) => (
-                                <Reveal key={p.id} delay={Math.min(i * 50, 200)}>
+                                <Reveal key={p.id} delay={Math.min(i * 50, 200)} className="h-full">
                                     <ProductCard product={p} url={`/product/${p.category.slug}/${p.slug}`} />
                                 </Reveal>
                             ))}
@@ -277,15 +279,15 @@ export default function Home({ seo, categories, featuredProducts = [], testimoni
                                 <div key={track} className="marquee-track marquee-track--certs" aria-hidden={track === 1}>
                                     {certifications.map((cert) => (
                                         <div key={cert.name}
-                                             className="flex w-64 shrink-0 flex-col items-center rounded-3xl border border-ink-100 bg-white px-8 py-8 text-center shadow-card transition-[transform,border-color,box-shadow] duration-200 ease-out hover:-translate-y-1 hover:border-brand-200 hover:shadow-card-hover sm:w-72">
+                                             className="card-hover flex w-72 shrink-0 flex-col items-center rounded-2xl border border-ink-100 bg-white px-10 py-10 text-center shadow-card sm:w-80">
                                             {cert.image ? (
-                                                <img src={`/${cert.image}`} alt={track === 0 ? `${cert.name} certification` : ''} width="200" height="200" loading="lazy"
-                                                     className="h-28 w-auto object-contain" />
+                                                <img src={`/${cert.image}`} alt={track === 0 ? `${cert.name} certification` : ''} width="240" height="240" loading="lazy"
+                                                     className="h-36 w-auto object-contain" />
                                             ) : (
-                                                <Award size={56} className="text-brand-600" aria-hidden />
+                                                <FontAwesomeIcon style={{ fontSize: 64 }} icon={faAward} className="text-brand-600" aria-hidden />
                                             )}
-                                            <p className="mt-5 font-semibold text-ink-900">{cert.name}</p>
-                                            {cert.issuer && <p className="mt-1 t-caption text-ink-500">{cert.issuer}</p>}
+                                            <p className="mt-6 text-base font-semibold text-ink-900">{cert.name}</p>
+                                            {cert.issuer && <p className="mt-1.5 t-caption text-ink-500">{cert.issuer}</p>}
                                         </div>
                                     ))}
                                 </div>
@@ -294,7 +296,7 @@ export default function Home({ seo, categories, featuredProducts = [], testimoni
                         {c.quality_cta_label && (
                             <div className="mt-10 text-center">
                                 <ButtonLink href="/quality-certifications" variant="outline">
-                                    {c.quality_cta_label} <ArrowRight size={15} className="btn-arrow" aria-hidden />
+                                    {c.quality_cta_label} <FontAwesomeIcon style={{ fontSize: 15 }} icon={faArrowRight} className="btn-arrow" aria-hidden />
                                 </ButtonLink>
                             </div>
                         )}
@@ -318,34 +320,49 @@ export default function Home({ seo, categories, featuredProducts = [], testimoni
                             {c.global_cta_label && (
                                 <div className="mt-7">
                                     <ButtonLink href="/global-presence" variant="primary">
-                                        {c.global_cta_label} <Globe2 size={16} aria-hidden />
+                                        {c.global_cta_label} <FontAwesomeIcon style={{ fontSize: 16 }} icon={faGlobe} aria-hidden />
                                     </ButtonLink>
                                 </div>
                             )}
                         </div>
-                        <div className="mx-auto mt-12 grid max-w-4xl grid-cols-2 gap-3 sm:grid-cols-3">
-                            {markets.map((m, i) => (
-                                <Reveal key={m.name} delay={Math.min(i * 60, 300)}>
-                                <Link href={`/global-presence#${m.slug}`}
-                                      className="group flex h-full items-center gap-3 rounded-xl border border-white/10 bg-white/[0.04] px-4 py-3 backdrop-blur-sm transition-[transform,border-color,background-color] duration-200 ease-out hover:-translate-y-0.5 hover:border-gold-400/50 hover:bg-white/[0.08] focus:outline-none focus-visible:ring-2 focus-visible:ring-gold-400">
-                                    <CountryFlag iso={m.iso_code} className="h-5 w-7 ring-white/20" iconClass="h-5 w-5 text-gold-400" />
-                                    <span className="min-w-0 flex-1">
-                                        <span className="block truncate text-sm font-semibold">{m.name}</span>
-                                        {m.region && <span className="block truncate text-[11px] font-medium uppercase tracking-[0.06em] text-ink-400">{m.region}</span>}
-                                    </span>
-                                    <ArrowUpRight size={14} className="shrink-0 text-gold-400 opacity-0 transition-opacity duration-200 group-hover:opacity-100" aria-hidden />
-                                </Link>
-                                </Reveal>
-                            ))}
-                            {c.global_more_label && (
-                                <Link href="/global-presence"
-                                      className="group flex h-full items-center gap-3 rounded-xl border border-brand-400/40 bg-brand-500/10 px-4 py-3 transition-[transform,background-color] duration-200 ease-out hover:-translate-y-0.5 hover:bg-brand-500/20 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-300">
-                                    <Globe2 size={18} className="shrink-0 text-brand-300" aria-hidden />
-                                    <span className="flex-1 text-sm font-semibold text-brand-200">{c.global_more_label}</span>
-                                    <ArrowUpRight size={14} className="shrink-0 text-brand-300 transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" aria-hidden />
-                                </Link>
-                            )}
-                        </div>
+                        {/* Framed explorer — the market tiles live inside a defined
+                            panel so the section reads as a unit, not loose chips. */}
+                        <Reveal className="mx-auto mt-12 max-w-5xl">
+                            <div className="rounded-2xl border border-white/15 bg-white/[0.05] p-4 shadow-card backdrop-blur-sm sm:p-6">
+                                <div className="mb-4 flex flex-wrap items-center justify-between gap-3 px-2 sm:mb-5">
+                                    <p className="flex items-center gap-2.5 text-sm font-semibold text-white">
+                                        <span className="flex h-8 w-8 items-center justify-center rounded-lg border border-white/15 bg-white/10 text-gold-400">
+                                            <FontAwesomeIcon style={{ fontSize: 15 }} icon={faLocationDot} aria-hidden />
+                                        </span>
+                                        {t('Markets we serve')}
+                                    </p>
+                                    <p className="t-caption uppercase tracking-[0.06em] text-ink-400">
+                                        {t('{n}+ countries · 4 regions', { n: markets.length })}
+                                    </p>
+                                </div>
+                                <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
+                                    {markets.map((m) => (
+                                        <Link key={m.name} href={`/global-presence#${m.slug}`}
+                                              className="group flex h-full items-center gap-3 rounded-xl border border-white/10 bg-ink-950/40 px-4 py-3.5 transition-[transform,border-color,background-color] duration-200 ease-out hover:-translate-y-0.5 hover:border-gold-400/50 hover:bg-white/[0.08] focus:outline-none focus-visible:ring-2 focus-visible:ring-gold-400">
+                                            <CountryFlag iso={m.iso_code} className="h-5 w-7 ring-white/20" iconClass="h-5 w-5 text-gold-400" />
+                                            <span className="min-w-0 flex-1">
+                                                <span className="block truncate text-sm font-semibold">{m.name}</span>
+                                                {m.region && <span className="block truncate text-[11px] font-medium uppercase tracking-[0.06em] text-ink-400">{m.region}</span>}
+                                            </span>
+                                            <FontAwesomeIcon style={{ fontSize: 14 }} icon={faArrowTrendUp} className="shrink-0 text-gold-400 opacity-0 transition-opacity duration-200 group-hover:opacity-100" aria-hidden />
+                                        </Link>
+                                    ))}
+                                    {c.global_more_label && (
+                                        <Link href="/global-presence"
+                                              className="group flex h-full items-center gap-3 rounded-xl border border-brand-400/40 bg-brand-500/10 px-4 py-3.5 transition-[transform,background-color] duration-200 ease-out hover:-translate-y-0.5 hover:bg-brand-500/20 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-300">
+                                            <FontAwesomeIcon style={{ fontSize: 18 }} icon={faGlobe} className="shrink-0 text-brand-300" aria-hidden />
+                                            <span className="flex-1 text-sm font-semibold text-brand-200">{c.global_more_label}</span>
+                                            <FontAwesomeIcon style={{ fontSize: 14 }} icon={faArrowTrendUp} className="shrink-0 text-brand-300 transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" aria-hidden />
+                                        </Link>
+                                    )}
+                                </div>
+                            </div>
+                        </Reveal>
                     </Container>
                 </section>
             )}
@@ -357,9 +374,9 @@ export default function Home({ seo, categories, featuredProducts = [], testimoni
                         <SectionHeading eyebrow={c.testimonials_eyebrow} align="center" title={c.testimonials_title} />
                         <div className="mt-12 grid gap-5 md:grid-cols-3">
                             {testimonials.map((t, i) => (
-                                <Reveal key={t.name} delay={i * 80}>
+                                <Reveal key={t.name} delay={i * 80} className="h-full">
                                 <figure className="flex h-full flex-col rounded-2xl border border-ink-100 bg-white p-6 shadow-card transition-[transform,box-shadow] duration-200 ease-out hover:-translate-y-0.5 hover:shadow-lg">
-                                    <Quote size={24} className="text-brand-500" aria-hidden />
+                                    <FontAwesomeIcon style={{ fontSize: 24 }} icon={faQuoteLeft} className="text-brand-500" aria-hidden />
                                     <blockquote className="mt-4 flex-1 text-sm leading-relaxed text-ink-700">{t.quote}</blockquote>
                                     <figcaption className="mt-5 border-t border-ink-100 pt-4">
                                         <p className="text-sm font-semibold text-ink-900">{t.name}</p>
@@ -375,18 +392,18 @@ export default function Home({ seo, categories, featuredProducts = [], testimoni
 
             {/* Client logos */}
             {c.show_clients && clients.length > 0 && (
-                <section className="border-t border-ink-100 bg-ink-50/60 py-14">
+                <section className="border-t border-ink-100 bg-ink-50/60 py-16 sm:py-20">
                     <Container>
                         <p className="t-eyebrow text-center text-ink-500">
                             {c.clients_lead}
                         </p>
-                        <div className="marquee mt-8" aria-label="Our clients">
+                        <div className="marquee mt-10" aria-label="Our clients">
                             {[0, 1].map((track) => (
-                                <div key={track} className="marquee-track" aria-hidden={track === 1}>
+                                <div key={track} className="marquee-track marquee-track--clients" aria-hidden={track === 1}>
                                     {clients.map((cl) => (
                                         <img key={cl.name} src={`/${cl.image}`} alt={track === 0 ? `${cl.name} — Nymak Pharma client` : ''}
-                                             width="200" height="120" loading="lazy"
-                                             className="h-12 w-auto shrink-0 object-contain opacity-80 transition-opacity hover:opacity-100" />
+                                             width="280" height="160" loading="lazy"
+                                             className="h-24 w-auto shrink-0 object-contain opacity-90 transition-opacity hover:opacity-100 sm:h-30" />
                                     ))}
                                 </div>
                             ))}
@@ -404,7 +421,7 @@ export default function Home({ seo, categories, featuredProducts = [], testimoni
                             <Accordion items={faqs} />
                             {c.faq_cta_label && (
                                 <div className="mt-8 text-center">
-                                    <ButtonLink href="/faqs" variant="outline">{c.faq_cta_label} <ArrowRight size={15} className="btn-arrow" aria-hidden /></ButtonLink>
+                                    <ButtonLink href="/faqs" variant="outline">{c.faq_cta_label} <FontAwesomeIcon style={{ fontSize: 15 }} icon={faArrowRight} className="btn-arrow" aria-hidden /></ButtonLink>
                                 </div>
                             )}
                         </div>
@@ -422,7 +439,7 @@ export default function Home({ seo, categories, featuredProducts = [], testimoni
                         </div>
                         {c.journal_cta_label && (
                             <div className="mt-10 text-center">
-                                <ButtonLink href="/blog" variant="outline">{c.journal_cta_label} <ArrowRight size={15} className="btn-arrow" aria-hidden /></ButtonLink>
+                                <ButtonLink href="/blog" variant="outline">{c.journal_cta_label} <FontAwesomeIcon style={{ fontSize: 15 }} icon={faArrowRight} className="btn-arrow" aria-hidden /></ButtonLink>
                             </div>
                         )}
                     </Container>
@@ -442,7 +459,7 @@ export default function Home({ seo, categories, featuredProducts = [], testimoni
                             {c.cta_body}
                         </p>
                         <div className="mt-8 flex flex-wrap justify-center gap-3">
-                            <ButtonLink href="/contact" variant="light">{c.cta_primary_label} <ArrowRight size={15} className="btn-arrow" aria-hidden /></ButtonLink>
+                            <ButtonLink href="/contact" variant="light">{c.cta_primary_label} <FontAwesomeIcon style={{ fontSize: 15 }} icon={faArrowRight} className="btn-arrow" aria-hidden /></ButtonLink>
                             {c.show_cta_whatsapp && c.cta_whatsapp_label && site.whatsapp && (
                                 <ButtonLink href={`https://wa.me/${site.whatsapp}`} external variant="outlineLight">
                                     <WhatsAppIcon size={15} /> {c.cta_whatsapp_label}

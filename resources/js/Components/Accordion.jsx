@@ -1,4 +1,6 @@
-import { ChevronDown } from 'lucide-react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
+
 import { useState } from 'react';
 
 /** Accessible FAQ accordion — single-open, keyboard friendly, semantic buttons. */
@@ -16,7 +18,7 @@ export default function Accordion({ items }) {
                                     aria-expanded={isOpen} aria-controls={`faq-panel-${i}`} id={`faq-button-${i}`}
                                     className="flex w-full items-center justify-between gap-4 px-5 py-4 text-left t-nav font-semibold text-ink-900 transition-colors hover:bg-ink-50 sm:text-base">
                                 {item.question}
-                                <ChevronDown size={18} aria-hidden
+                                <FontAwesomeIcon style={{ fontSize: 18 }} icon={faChevronDown} aria-hidden
                                              className={`shrink-0 text-brand-600 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
                             </button>
                         </h3>

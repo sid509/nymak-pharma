@@ -1,5 +1,7 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faRightToBracket, faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { useForm } from '@inertiajs/react';
-import { Loader2, LogIn } from 'lucide-react';
+
 import Logo from '../../Components/Logo';
 
 export default function AdminLogin() {
@@ -37,7 +39,7 @@ export default function AdminLogin() {
                         </div>
                         <button type="submit" disabled={form.processing}
                                 className="flex w-full items-center justify-center gap-2 rounded-lg bg-brand-700 px-4 py-2.5 text-sm font-bold text-white hover:bg-brand-800 disabled:opacity-60">
-                            {form.processing ? <Loader2 size={16} className="animate-spin" /> : <LogIn size={16} />}
+                            {form.processing ? <FontAwesomeIcon style={{ fontSize: 16 }} icon={faSpinner} className="animate-spin" /> : <FontAwesomeIcon style={{ fontSize: 16 }} icon={faRightToBracket} />}
                             Sign in
                         </button>
                     </div>

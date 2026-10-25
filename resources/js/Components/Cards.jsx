@@ -1,25 +1,27 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowRight, faDroplet, faPills, faShieldVirus, faSyringe, faVialCircleCheck } from '@fortawesome/free-solid-svg-icons';
 import Link from '../i18n/LocaleLink';
 import { useT } from '../i18n/useT';
-import { ArrowRight, Droplets, Pill, ScanSearch, ShieldPlus, Syringe } from 'lucide-react';
+
 
 export const categoryIcons = {
-    droplets: Droplets,
-    pill: Pill,
-    syringe: Syringe,
-    'scan-search': ScanSearch,
-    'shield-plus': ShieldPlus,
+    droplets: faDroplet,
+    pill: faPills,
+    syringe: faSyringe,
+    'scan-search': faVialCircleCheck,
+    'shield-plus': faShieldVirus,
 };
 
 export function CategoryIcon({ name, size = 22, className = '' }) {
-    const Icon = categoryIcons[name] || Pill;
-    return <Icon size={size} className={className} aria-hidden />;
+    const Icon = categoryIcons[name] || faPills;
+    return <FontAwesomeIcon icon={Icon} style={{ fontSize: size }} className={className} aria-hidden />;
 }
 
 export function CategoryCard({ category, href, label = 'Explore category', index }) {
     const { t } = useT();
     return (
         <Link href={href}
-              className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-ink-100 bg-white p-6 shadow-card transition-[transform,border-color,box-shadow] duration-200 hover:-translate-y-0.5 hover:border-brand-200 hover:shadow-card-hover">
+              className="card-hover group relative flex h-full flex-col overflow-hidden rounded-2xl border border-ink-100 bg-white p-6 shadow-card">
             {/* Accent hairline draws across the top on hover */}
             <span className="absolute inset-x-0 top-0 h-0.5 origin-left scale-x-0 bg-gradient-to-r from-brand-600 to-brand-400 transition-transform duration-300 ease-out group-hover:scale-x-100" aria-hidden />
             <span className="flex items-start justify-between gap-3">
@@ -34,10 +36,10 @@ export function CategoryCard({ category, href, label = 'Explore category', index
             {category.products_count > 0 && (
                 <p className="t-caption mt-1 tabular-nums text-ink-400">{t('{n} products', { n: category.products_count })}</p>
             )}
-            {category.intro && <p className="mt-2 flex-1 text-sm leading-relaxed text-ink-600">{category.intro}</p>}
+            {category.intro && <p className="mt-2 flex-1 text-[0.9375rem] leading-relaxed text-ink-600">{category.intro}</p>}
             <span className="mt-4 inline-flex items-center gap-1 text-[15px] font-semibold text-brand-700">
                 {t(label)}
-                <ArrowRight size={15} aria-hidden className="transition-transform duration-200 group-hover:translate-x-0.5" />
+                <FontAwesomeIcon style={{ fontSize: 15 }} icon={faArrowRight} aria-hidden className="transition-transform duration-200 group-hover:translate-x-0.5" />
             </span>
         </Link>
     );
@@ -53,22 +55,22 @@ export function ProductCard({ product, url }) {
                          width="800" height="600" loading="lazy"
                          className="h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03]" />
                 ) : (
-                    <span className="flex h-full items-center justify-center text-ink-300"><Pill size={32} /></span>
+                    <span className="flex h-full items-center justify-center text-ink-300"><FontAwesomeIcon style={{ fontSize: 32 }} icon={faPills} /></span>
                 )}
             </span>
-            <span className="block p-4">
-                <span className="block text-[15px] font-semibold text-ink-900 group-hover:text-brand-800">{product.name}</span>
+            <span className="block p-5">
+                <span className="block text-base font-semibold text-ink-900 group-hover:text-brand-800">{product.name}</span>
                 {product.description && (
-                    <span className="mt-1 line-clamp-2 block text-xs leading-relaxed text-ink-500">{product.description}</span>
+                    <span className="mt-1 line-clamp-2 block text-[13px] leading-relaxed text-ink-500">{product.description}</span>
                 )}
                 <span className="t-caption mt-2 inline-flex items-center gap-1 font-semibold text-brand-700">
-                    {t('View product')} <ArrowRight size={13} className="btn-arrow" aria-hidden />
+                    {t('View product')} <FontAwesomeIcon style={{ fontSize: 13 }} icon={faArrowRight} className="btn-arrow" aria-hidden />
                 </span>
             </span>
         </>
     );
 
-    const cls = 'group block overflow-hidden rounded-2xl border border-ink-100 bg-white shadow-card transition-[transform,border-color,box-shadow] duration-200 hover:-translate-y-0.5 hover:border-brand-200 hover:shadow-card-hover';
+    const cls = 'card-hover group block h-full overflow-hidden rounded-2xl border border-ink-100 bg-white shadow-card';
     return url ? <Link href={url} className={cls}>{inner}</Link> : <div className={cls}>{inner}</div>;
 }
 
@@ -79,11 +81,11 @@ export function PostCard({ post }) {
         : null;
     return (
         <Link href={`/blog/${post.slug}`}
-              className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-ink-100 bg-white p-6 shadow-card transition-[transform,border-color,box-shadow] duration-200 hover:-translate-y-0.5 hover:border-brand-200 hover:shadow-card-hover">
+              className="card-hover group relative flex h-full flex-col overflow-hidden rounded-2xl border border-ink-100 bg-white p-6 shadow-card">
             <span className="absolute inset-x-0 top-0 h-0.5 origin-left scale-x-0 bg-gradient-to-r from-brand-600 to-brand-400 transition-transform duration-300 ease-out group-hover:scale-x-100" aria-hidden />
             <p className="t-eyebrow text-brand-700">{post.category}</p>
             <h3 className="mt-2 t-h4 text-pretty text-ink-900 transition-colors group-hover:text-brand-800">{post.title}</h3>
-            {post.excerpt && <p className="mt-2 flex-1 text-sm leading-relaxed text-ink-600">{post.excerpt}</p>}
+            {post.excerpt && <p className="mt-2 flex-1 text-[0.9375rem] leading-relaxed text-ink-600">{post.excerpt}</p>}
             {date && <p className="mt-4 t-caption text-ink-400">{date}</p>}
         </Link>
     );

@@ -1,6 +1,8 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEnvelope, faLocationDot, faPhone } from '@fortawesome/free-solid-svg-icons';
 import { usePage } from '@inertiajs/react';
 import Link from '../i18n/LocaleLink';
-import { Mail, MapPin, Phone } from 'lucide-react';
+
 import Logo from './Logo';
 import SocialIcon from './SocialIcons';
 import { useT } from '../i18n/useT';
@@ -71,19 +73,19 @@ export default function Footer() {
                         <p className="t-eyebrow text-gold-400">{t('Get in Touch')}</p>
                         <address className="mt-4 space-y-3 text-sm not-italic">
                             <p className="flex gap-2">
-                                <MapPin size={16} className="mt-0.5 shrink-0 text-gold-400" aria-hidden />
+                                <FontAwesomeIcon style={{ fontSize: 16 }} icon={faLocationDot} className="mt-0.5 shrink-0 text-gold-400" aria-hidden />
                                 <span>{site.address.street}, {site.address.city}, {site.address.region}, {site.address.country}</span>
                             </p>
                             <p>
                                 <a href={`tel:${site.phone_href}`} onClick={() => track('phone')}
                                    className="flex gap-2 transition-colors hover:text-white">
-                                    <Phone size={16} className="mt-0.5 shrink-0 text-gold-400" aria-hidden /> {site.phone}
+                                    <FontAwesomeIcon style={{ fontSize: 16 }} icon={faPhone} className="mt-0.5 shrink-0 text-gold-400" aria-hidden /> {site.phone}
                                 </a>
                             </p>
                             <p>
                                 <a href={`mailto:${site.email}`} onClick={() => track('email')}
                                    className="flex gap-2 transition-colors hover:text-white">
-                                    <Mail size={16} className="mt-0.5 shrink-0 text-gold-400" aria-hidden /> {site.email}
+                                    <FontAwesomeIcon style={{ fontSize: 16 }} icon={faEnvelope} className="mt-0.5 shrink-0 text-gold-400" aria-hidden /> {site.email}
                                 </a>
                             </p>
                         </address>

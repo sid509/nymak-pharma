@@ -1,5 +1,7 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import Link from '../../i18n/LocaleLink';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+
 import { PostCard } from '../../Components/Cards';
 import { Container, PageHero } from '../../Components/Ui';
 import SiteLayout from '../../Layouts/SiteLayout';
@@ -30,8 +32,8 @@ export default function BlogIndex({ seo, posts, content }) {
                     {posts.last_page > 1 && (
                         <nav aria-label="Pagination" className="mt-12 flex items-center justify-center gap-2">
                             {posts.links.map((l, i) => {
-                                const label = l.label.includes('Previous') ? <ChevronLeft size={16} /> :
-                                    l.label.includes('Next') ? <ChevronRight size={16} /> : l.label;
+                                const label = l.label.includes('Previous') ? <FontAwesomeIcon style={{ fontSize: 16 }} icon={faChevronLeft} /> :
+                                    l.label.includes('Next') ? <FontAwesomeIcon style={{ fontSize: 16 }} icon={faChevronRight} /> : l.label;
                                 return l.url ? (
                                     <Link key={i} href={l.url} aria-current={l.active ? 'page' : undefined}
                                           className={`flex h-10 min-w-10 items-center justify-center rounded-lg px-3 text-sm font-semibold ${

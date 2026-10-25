@@ -1,6 +1,8 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowRight, faBox, faBuilding, faEnvelope, faGlobe, faHandshake, faLocationDot, faMousePointer, faPhone, faRoute, faStar, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { usePage } from "@inertiajs/react";
 import Link from '../../i18n/LocaleLink';
-import { ArrowRight, Building2, Globe2, Handshake, Mail, MapPin, MousePointerClick, Package, Phone, Route, Star, X } from 'lucide-react';
+
 import { useEffect, useRef, useState } from 'react';
 import { Reveal } from '../../Components/Motion';
 import { ButtonLink, Container, CountryFlag, PageHero, SectionHeading, Stat, WhatsAppIcon } from '../../Components/Ui';
@@ -16,15 +18,15 @@ function MarketPanel({ m, content, onClose }) {
             <div className="flex items-start justify-between gap-4 border-b border-ink-100 p-6 sm:p-7">
                 <div>
                     <p className="flex flex-wrap items-center gap-2 text-xs font-semibold uppercase tracking-[0.04em] text-brand-700">
-                        <MapPin size={13} aria-hidden /> {m.region}
-                        {m.featured && <span className="inline-flex items-center gap-1 rounded-full bg-brand-50 px-2 py-0.5 text-xs font-semibold text-brand-800"><Star size={10} aria-hidden /> {t('Key market')}</span>}
-                        {m.office && <span className="rounded-full bg-gold-100 px-2 py-0.5 text-xs font-semibold text-gold-800">{t('Local office')}</span>}
+                        <FontAwesomeIcon style={{ fontSize: 13 }} icon={faLocationDot} aria-hidden /> {m.region}
+                        {m.featured && <span className="inline-flex items-center gap-1 rounded-lg bg-brand-50 px-2 py-0.5 text-xs font-semibold text-brand-800"><FontAwesomeIcon style={{ fontSize: 10 }} icon={faStar} aria-hidden /> {t('Key market')}</span>}
+                        {m.office && <span className="rounded-lg bg-gold-100 px-2 py-0.5 text-xs font-semibold text-gold-800">{t('Local office')}</span>}
                     </p>
                     <h3 className="mt-2 flex items-center gap-2.5 t-h3 text-ink-950"><CountryFlag iso={m.iso_code} className="h-6 w-8" />{m.name}</h3>
                 </div>
                 <button type="button" onClick={onClose} aria-label="Clear selection"
-                        className="shrink-0 rounded-full p-2 text-ink-400 transition-colors hover:bg-ink-50 hover:text-ink-800">
-                    <X size={16} aria-hidden />
+                        className="shrink-0 rounded-lg p-2 text-ink-400 transition-colors hover:bg-ink-50 hover:text-ink-800">
+                    <FontAwesomeIcon style={{ fontSize: 16 }} icon={faXmark} aria-hidden />
                 </button>
             </div>
 
@@ -39,7 +41,7 @@ function MarketPanel({ m, content, onClose }) {
                         <p className="text-sm font-semibold text-ink-900">{content.map_market_empty_title.replace('{country}', m.name)}</p>
                         <p className="mt-1.5 text-sm leading-relaxed text-ink-600">{content.map_market_empty_body.replace('{country}', m.name)}</p>
                         <ButtonLink href="/contact" variant="outline" className="mt-4">
-                            {content.map_market_cta} <ArrowRight size={14} className="btn-arrow" aria-hidden />
+                            {content.map_market_cta} <FontAwesomeIcon style={{ fontSize: 14 }} icon={faArrowRight} className="btn-arrow" aria-hidden />
                         </ButtonLink>
                     </div>
                 )}
@@ -47,15 +49,15 @@ function MarketPanel({ m, content, onClose }) {
                 {m.products.length > 0 && (
                     <div className="mt-6 border-t border-ink-100 pt-5">
                         <p className="mb-3 flex items-center gap-1.5 text-xs font-semibold uppercase tracking-[0.04em] text-ink-500">
-                            <Package size={12} aria-hidden /> {t('Supplied to {name} — {n}', { name: m.name, n: m.products.length })}
+                            <FontAwesomeIcon style={{ fontSize: 12 }} icon={faBox} aria-hidden /> {t('Supplied to {name} — {n}', { name: m.name, n: m.products.length })}
                         </p>
                         <ul className="flex flex-wrap gap-2">
                             {m.products.map((p) => (
                                 <li key={p.url}>
                                     <Link href={p.url}
-                                          className="group inline-flex items-center gap-1.5 rounded-full border border-ink-200 bg-white px-3 py-1.5 text-xs font-semibold text-ink-700 transition-colors hover:border-brand-300 hover:text-brand-800">
+                                          className="group inline-flex items-center gap-1.5 rounded-lg border border-ink-200 bg-white px-3 py-1.5 text-xs font-semibold text-ink-700 transition-colors hover:border-brand-300 hover:text-brand-800">
                                         {p.name}
-                                        <ArrowRight size={12} className="text-ink-300 transition-transform group-hover:translate-x-0.5 group-hover:text-brand-600" aria-hidden />
+                                        <FontAwesomeIcon style={{ fontSize: 12 }} icon={faArrowRight} className="text-ink-300 transition-transform group-hover:translate-x-0.5 group-hover:text-brand-600" aria-hidden />
                                     </Link>
                                 </li>
                             ))}
@@ -66,11 +68,11 @@ function MarketPanel({ m, content, onClose }) {
 
             {m.office && (
                 <address className="rounded-b-2xl border-t border-ink-100 bg-ink-50/60 px-6 py-4 text-sm not-italic text-ink-600 sm:px-7">
-                    <span className="flex items-center gap-1.5 font-semibold text-ink-800"><Building2 size={14} className="text-brand-700" aria-hidden />{m.office.name}</span>
+                    <span className="flex items-center gap-1.5 font-semibold text-ink-800"><FontAwesomeIcon style={{ fontSize: 14 }} icon={faBuilding} className="text-brand-700" aria-hidden />{m.office.name}</span>
                     <span className="mt-1 block">{m.office.address}</span>
                     <span className="mt-1 flex flex-wrap gap-x-4 font-semibold text-ink-800">
-                        <span className="flex items-center gap-1.5"><Phone size={13} className="text-brand-600" aria-hidden />{m.office.phone}</span>
-                        {m.office.email && <a href={`mailto:${m.office.email}`} className="flex items-center gap-1.5 text-brand-700 hover:underline"><Mail size={13} aria-hidden />{m.office.email}</a>}
+                        <span className="flex items-center gap-1.5"><FontAwesomeIcon style={{ fontSize: 13 }} icon={faPhone} className="text-brand-600" aria-hidden />{m.office.phone}</span>
+                        {m.office.email && <a href={`mailto:${m.office.email}`} className="flex items-center gap-1.5 text-brand-700 hover:underline"><FontAwesomeIcon style={{ fontSize: 13 }} icon={faEnvelope} aria-hidden />{m.office.email}</a>}
                     </span>
                 </address>
             )}
@@ -81,23 +83,56 @@ function MarketPanel({ m, content, onClose }) {
 function EmptyPanel({ content, markets, onPick }) {
     const { t } = useT();
     const picks = (markets.some((m) => m.featured) ? markets.filter((m) => m.featured) : markets).slice(0, 4);
+    const regions = new Set(markets.map((m) => m.region).filter(Boolean)).size;
+    const featured = markets.filter((m) => m.featured).length;
     return (
-        <div className="explorer-panel flex h-full min-h-[18rem] flex-col items-center justify-center rounded-2xl border border-dashed border-ink-200 bg-ink-50/50 p-8 text-center">
-            <span className="flex h-12 w-12 items-center justify-center rounded-full bg-white text-brand-700 shadow-card"><MousePointerClick size={22} aria-hidden /></span>
-            <h3 className="mt-4 t-h4 text-ink-900">{content.map_empty_title}</h3>
-            <p className="mt-2 max-w-xs text-sm leading-relaxed text-ink-600">{content.map_empty_body}</p>
-            <p className="mt-4 text-xs font-semibold uppercase tracking-[0.04em] text-brand-700">{t('{n} markets across the globe', { n: markets.length })}</p>
-            <div className="mt-4 flex flex-wrap justify-center gap-2">
-                {picks.map((m) => (
-                    <button key={m.slug} type="button" onClick={() => onPick(m.slug)}
-                            className="inline-flex items-center gap-1.5 rounded-full border border-ink-200 bg-white px-3 py-1.5 text-xs font-semibold text-ink-700 transition-colors hover:border-brand-400 hover:bg-brand-50 hover:text-brand-800">
-                        <CountryFlag iso={m.iso_code} className="h-3 w-[18px] rounded-[2px]" iconClass="h-3 w-3 text-brand-600" />{m.name}
-                    </button>
-                ))}
+        <div className="explorer-panel relative flex h-full flex-col overflow-hidden rounded-2xl border border-ink-100 bg-white shadow-card">
+            {/* Supply-route motif — concentric arcs radiating from a hub dot,
+                the same visual language as the globe beside it. */}
+            <div className="relative overflow-hidden bg-gradient-to-b from-brand-50/90 via-brand-50/40 to-transparent px-7 pb-6 pt-8 text-center">
+                <svg className="absolute left-1/2 top-6 h-56 w-56 -translate-x-1/2 text-brand-500/15" viewBox="0 0 200 200" fill="none" aria-hidden>
+                    {[88, 64, 40].map((r) => <circle key={r} cx="100" cy="100" r={r} stroke="currentColor" strokeWidth="1.5" strokeDasharray="4 5" />)}
+                    <path d="M100 100 C 132 78, 158 70, 186 62" stroke="currentColor" strokeWidth="1.5" />
+                    <path d="M100 100 C 70 74, 46 66, 14 58" stroke="currentColor" strokeWidth="1.5" />
+                    <circle cx="100" cy="100" r="5" fill="var(--color-gold-500)" />
+                </svg>
+                <span className="relative mx-auto flex h-14 w-14 items-center justify-center rounded-full border border-brand-100 bg-white text-brand-700 shadow-card">
+                    <FontAwesomeIcon style={{ fontSize: 24 }} icon={faMousePointer} aria-hidden />
+                </span>
+                <h3 className="relative mt-4 t-h3 text-ink-950">{content.map_empty_title}</h3>
+                <p className="relative mx-auto mt-2 max-w-sm text-[0.9375rem] leading-relaxed text-ink-600">{content.map_empty_body}</p>
             </div>
-            <ButtonLink href="/contact" variant="ghost" className="mt-4 text-sm font-semibold">
-                {content.map_empty_cta} <ArrowRight size={14} className="btn-arrow" aria-hidden />
-            </ButtonLink>
+
+            {/* Live footprint numbers — same figures as the hero stats */}
+            <dl className="grid grid-cols-3 divide-x divide-ink-100 border-y border-ink-100 bg-ink-50/50 text-center">
+                {[
+                    [`${markets.length}+`, t('Export markets')],
+                    [regions, t('Regions')],
+                    [featured || markets.length, t('Key markets')],
+                ].map(([value, label]) => (
+                    <div key={label} className="px-3 py-4">
+                        <dd className="text-xl font-bold tabular-nums text-ink-950">{value}</dd>
+                        <dt className="mt-0.5 text-[11px] font-semibold uppercase tracking-[0.05em] text-ink-500">{label}</dt>
+                    </div>
+                ))}
+            </dl>
+
+            <div className="flex flex-1 flex-col justify-center p-6 sm:p-7">
+                <p className="text-xs font-semibold uppercase tracking-[0.05em] text-brand-700">{t('Start with a key market')}</p>
+                <div className="mt-3 grid gap-2 sm:grid-cols-2">
+                    {picks.map((m) => (
+                        <button key={m.slug} type="button" onClick={() => onPick(m.slug)}
+                                className="map-list-btn flex items-center gap-2.5 rounded-xl border border-ink-200 bg-white px-3.5 py-2.5 text-left text-sm font-semibold text-ink-800 hover:border-brand-400 hover:bg-brand-50/60 hover:text-brand-800">
+                            <CountryFlag iso={m.iso_code} className="h-4 w-6 rounded-[2px]" iconClass="h-4 w-4 text-brand-600" />
+                            <span className="min-w-0 flex-1 truncate">{m.name}</span>
+                            {m.products.length > 0 && <span className="shrink-0 rounded-lg bg-ink-50 px-2 py-0.5 text-[11px] font-bold text-ink-500">{m.products.length}</span>}
+                        </button>
+                    ))}
+                </div>
+                <ButtonLink href="/contact" variant="ghost" className="mt-5 self-start text-sm font-semibold">
+                    {content.map_empty_cta} <FontAwesomeIcon style={{ fontSize: 14 }} icon={faArrowRight} className="btn-arrow" aria-hidden />
+                </ButtonLink>
+            </div>
         </div>
     );
 }
@@ -138,14 +173,14 @@ export default function MarketsIndex({ seo, markets, offices, content }) {
                 lead={content.hero_lead} tone="dark" align="center">
                 <dl className="mx-auto mt-10 grid max-w-3xl grid-cols-2 gap-3 text-left sm:grid-cols-4">
                     {[
-                        [Globe2, `${markets.length}+`, t('Countries served')],
-                        [Route, regions.length, t('Regions')],
-                        [Star, markets.filter((m) => m.featured).length || markets.length, t('Key markets')],
-                        [Building2, offices.length, t('International offices')],
+                        [faGlobe, `${markets.length}+`, t('Countries served')],
+                        [faRoute, regions.length, t('Regions')],
+                        [faStar, markets.filter((m) => m.featured).length || markets.length, t('Key markets')],
+                        [faBuilding, offices.length, t('International offices')],
                     ].map(([Icon, value, label]) => (
                         <div key={label} className="rounded-xl border border-white/10 bg-white/5 px-4 py-3 backdrop-blur-sm">
                             <p className="flex items-center gap-2 text-lg font-semibold text-white">
-                                <Icon size={15} className="text-brand-300" aria-hidden />{value}
+                                <FontAwesomeIcon icon={Icon} style={{ fontSize: 15 }} className="text-brand-300" aria-hidden />{value}
                             </p>
                             <dt className="mt-0.5 text-xs font-semibold uppercase tracking-[0.04em] text-white/50">{label}</dt>
                         </div>
@@ -153,14 +188,15 @@ export default function MarketsIndex({ seo, markets, offices, content }) {
                 </dl>
             </PageHero>
 
-            {/* Interactive map + detail panel */}
+            {/* Interactive map + detail panel — wide container so the globe
+                and panel use the screen instead of leaving empty margins. */}
             <section className="py-16 sm:py-20">
-                <Container>
+                <Container wide>
                     <SectionHeading eyebrow={content.map_eyebrow} title={content.map_title} lead={content.map_lead} />
 
-                    <div className="mt-10 grid gap-6 lg:grid-cols-[minmax(0,1.55fr)_minmax(20rem,1fr)] lg:gap-8">
+                    <div className="mt-10 grid gap-6 lg:grid-cols-[minmax(0,1.6fr)_minmax(22rem,1fr)] lg:gap-10">
                         <Reveal>
-                            <div className="rounded-3xl border border-ink-100 bg-gradient-to-b from-white to-brand-50/40 p-3 shadow-card sm:p-5">
+                            <div className="rounded-2xl border border-ink-100 bg-gradient-to-b from-white to-brand-50/40 p-3 shadow-card sm:p-5">
                                 <WorldMap markets={markets} selected={selected} onSelect={select} />
                                 <ul className="mt-3 flex flex-wrap items-center gap-x-5 gap-y-1.5 px-2 text-xs font-semibold text-ink-500" aria-label="Legend">
                                     <li className="flex items-center gap-1.5"><span className="h-2.5 w-2.5 rounded-full bg-gold-500 ring-2 ring-gold-100" aria-hidden />{t('Mundra HQ')}</li>
@@ -180,9 +216,9 @@ export default function MarketsIndex({ seo, markets, offices, content }) {
                     </div>
 
                     {/* Region-grouped list — the same selection, reachable without the map */}
-                    <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+                    <div className="mt-14 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
                         {regions.map((region, i) => (
-                            <Reveal key={region} delay={Math.min(i * 50, 200)}>
+                            <Reveal key={region} delay={Math.min(i * 50, 200)} className="h-full">
                                 <h3 className="text-xs font-semibold uppercase tracking-[0.04em] text-brand-700">{region}</h3>
                                 <ul className="mt-3 space-y-1.5">
                                     {markets.filter((m) => m.region === region).map((m) => {
@@ -210,7 +246,7 @@ export default function MarketsIndex({ seo, markets, offices, content }) {
 
             {/* Export footprint */}
             <section className="bg-ink-950 py-16 text-white sm:py-20">
-                <Container>
+                <Container wide>
                     <div className="mx-auto max-w-2xl text-center">
                         <p className="mb-3 flex items-center justify-center gap-2.5 text-xs font-semibold uppercase tracking-[0.04em] text-brand-300">
                             <span className="h-px w-6 bg-brand-400" aria-hidden />{content.footprint_eyebrow}<span className="h-px w-6 bg-brand-400" aria-hidden />
@@ -218,9 +254,9 @@ export default function MarketsIndex({ seo, markets, offices, content }) {
                         <h2 className="t-h2">{content.footprint_title}</h2>
                         <p className="mt-4 leading-relaxed text-ink-200">{content.footprint_body}</p>
                     </div>
-                    <div className="mx-auto mt-10 grid max-w-4xl grid-cols-2 gap-4 lg:grid-cols-4">
+                    <div className="mt-10 grid grid-cols-2 gap-4 lg:grid-cols-4">
                         {content.footprint_stats.map((s) => (
-                            <div key={s.label} className="rounded-2xl border border-ink-800 bg-ink-900/60 p-5">
+                            <div key={s.label} className="rounded-2xl border border-ink-800 bg-ink-900/60 p-6 transition-[transform,border-color,background-color] duration-200 ease-out hover:-translate-y-1 hover:border-brand-500/50 hover:bg-ink-900">
                                 <Stat value={s.value} label={s.label} />
                             </div>
                         ))}
@@ -230,21 +266,21 @@ export default function MarketsIndex({ seo, markets, offices, content }) {
 
             {/* International offices */}
             <section className="py-16 sm:py-20">
-                <Container>
+                <Container wide>
                     <SectionHeading eyebrow={content.offices_eyebrow} title={content.offices_title} />
                     <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
                         {offices.map((o) => (
-                            <address key={o.name} className="rounded-2xl border border-ink-100 bg-white p-6 not-italic shadow-card">
+                            <address key={o.name} className="card-hover rounded-2xl border border-ink-100 bg-white p-6 not-italic shadow-card">
                                 <h3 className="flex items-start gap-2 t-h4 text-ink-900">
-                                    <Building2 size={17} className="mt-0.5 shrink-0 text-brand-700" aria-hidden />{o.name}
+                                    <FontAwesomeIcon style={{ fontSize: 17 }} icon={faBuilding} className="mt-0.5 shrink-0 text-brand-700" aria-hidden />{o.name}
                                 </h3>
-                                <p className="mt-3 text-sm leading-relaxed text-ink-600">{o.address}</p>
-                                <p className="mt-3 flex items-center gap-2 text-sm font-semibold text-ink-800">
-                                    <Phone size={14} className="text-brand-600" aria-hidden />{o.phone}
+                                <p className="mt-3 text-[0.9375rem] leading-relaxed text-ink-600">{o.address}</p>
+                                <p className="mt-3 flex items-center gap-2 text-[0.9375rem] font-semibold text-ink-800">
+                                    <FontAwesomeIcon style={{ fontSize: 14 }} icon={faPhone} className="text-brand-600" aria-hidden />{o.phone}
                                     {o.phone_alt && <span className="text-ink-500">· {o.phone_alt}</span>}
                                 </p>
-                                <a href={`mailto:${o.email}`} className="mt-1.5 flex items-center gap-2 text-sm font-semibold text-brand-700 hover:underline">
-                                    <Mail size={14} aria-hidden />{o.email}
+                                <a href={`mailto:${o.email}`} className="mt-1.5 flex items-center gap-2 text-[0.9375rem] font-semibold text-brand-700 hover:underline">
+                                    <FontAwesomeIcon style={{ fontSize: 14 }} icon={faEnvelope} aria-hidden />{o.email}
                                 </a>
                             </address>
                         ))}
@@ -255,7 +291,7 @@ export default function MarketsIndex({ seo, markets, offices, content }) {
                         <div className="absolute inset-0 bg-[radial-gradient(50%_70%_at_50%_0%,rgba(255,255,255,0.10),transparent)]" aria-hidden />
                         <div className="relative">
                             <span className="mx-auto flex h-12 w-12 items-center justify-center rounded-full border border-white/15 bg-white/10 text-brand-200 backdrop-blur-sm">
-                                <Handshake size={22} aria-hidden />
+                                <FontAwesomeIcon style={{ fontSize: 22 }} icon={faHandshake} aria-hidden />
                             </span>
                             <h2 className="mt-4 t-h3">{content.cta_title}</h2>
                             <p className="mx-auto mt-2 max-w-xl text-sm leading-relaxed text-brand-100">
@@ -263,7 +299,7 @@ export default function MarketsIndex({ seo, markets, offices, content }) {
                             </p>
                             <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
                                 <ButtonLink href="/contact" variant="light">
-                                    {content.cta_label} <ArrowRight size={15} className="btn-arrow" aria-hidden />
+                                    {content.cta_label} <FontAwesomeIcon style={{ fontSize: 15 }} icon={faArrowRight} className="btn-arrow" aria-hidden />
                                 </ButtonLink>
                                 {site.whatsapp && (
                                     <ButtonLink href={`https://wa.me/${site.whatsapp}`} variant="outlineLight" external target="_blank" rel="noopener noreferrer">

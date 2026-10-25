@@ -1,5 +1,7 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faMagnifyingGlass, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { Link, router } from '@inertiajs/react';
-import { Plus, Search } from 'lucide-react';
+
 import { useState } from 'react';
 
 /**
@@ -34,7 +36,7 @@ export default function DataTable({
         <div>
             <div className="mb-5 flex flex-wrap items-center gap-3">
                 <form onSubmit={(e) => { e.preventDefault(); applyFilters(); }} className="relative flex-1 sm:max-w-xs">
-                    <Search size={15} className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-ink-400" aria-hidden />
+                    <FontAwesomeIcon style={{ fontSize: 15 }} icon={faMagnifyingGlass} className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-ink-400" aria-hidden />
                     <input value={q} onChange={(e) => setQ(e.target.value)} placeholder={searchPlaceholder}
                            className="w-full rounded-lg border border-ink-200 bg-white py-2 pl-9 pr-3 text-sm focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-100" />
                 </form>
@@ -42,7 +44,7 @@ export default function DataTable({
                 {createHref && (
                     <Link href={createHref}
                           className="ml-auto inline-flex items-center gap-1.5 rounded-lg bg-brand-700 px-3.5 py-2 text-sm font-bold text-white hover:bg-brand-800">
-                        <Plus size={15} aria-hidden /> {createLabel || 'New'}
+                        <FontAwesomeIcon style={{ fontSize: 15 }} icon={faPlus} aria-hidden /> {createLabel || 'New'}
                     </Link>
                 )}
             </div>

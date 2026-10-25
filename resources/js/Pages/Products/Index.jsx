@@ -1,4 +1,6 @@
-import { ArrowRight } from 'lucide-react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
+
 import { CategoryCard, ProductCard } from '../../Components/Cards';
 import { Reveal } from '../../Components/Motion';
 import { ButtonLink, Container, PageHero, SectionHeading } from '../../Components/Ui';
@@ -16,16 +18,16 @@ export default function ProductsIndex({ seo, categories, branded = [], content: 
                 <Container>
                     <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
                         {categories.map((cat, i) => (
-                            <Reveal key={cat.id} delay={Math.min(i * 60, 240)}>
+                            <Reveal key={cat.id} delay={Math.min(i * 60, 240)} className="h-full">
                                 <CategoryCard category={cat} index={i} href={`/product/${cat.slug}`} label={c.card_label} />
                             </Reveal>
                         ))}
                         {c.show_cta_card && (
-                            <Reveal delay={Math.min(categories.length * 60, 300)}>
-                                <div className="flex h-full flex-col justify-center rounded-2xl bg-gradient-to-br from-brand-700 to-brand-900 p-6 text-white shadow-card">
+                            <Reveal delay={Math.min(categories.length * 60, 300)} className="h-full">
+                                <div className="card-hover flex h-full flex-col justify-center rounded-2xl bg-gradient-to-br from-brand-700 to-brand-900 p-6 text-white shadow-card">
                                     <h3 className="t-h4">{c.cta_card_title}</h3>
-                                    <p className="mt-2 text-sm leading-relaxed text-brand-100">{c.cta_card_body}</p>
-                                    <ButtonLink href="/contact" variant="light" className="mt-4 self-start">{c.cta_card_button} <ArrowRight size={15} className="btn-arrow" aria-hidden /></ButtonLink>
+                                    <p className="mt-2 text-[0.9375rem] leading-relaxed text-brand-100">{c.cta_card_body}</p>
+                                    <ButtonLink href="/contact" variant="light" className="mt-4 self-start">{c.cta_card_button} <FontAwesomeIcon style={{ fontSize: 15 }} icon={faArrowRight} className="btn-arrow" aria-hidden /></ButtonLink>
                                 </div>
                             </Reveal>
                         )}

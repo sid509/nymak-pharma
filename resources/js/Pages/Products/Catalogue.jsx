@@ -1,5 +1,7 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowLeft, faArrowRight, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import Link from '../../i18n/LocaleLink';
-import { ArrowLeft, ArrowRight, Search } from 'lucide-react';
+
 import { useMemo, useState } from 'react';
 import { ProductCard } from '../../Components/Cards';
 import SpecTable from '../../Components/SpecTable';
@@ -49,7 +51,7 @@ export default function ProductsCatalogue({ seo, category, groups, siblings, con
                         <aside className="lg:sticky lg:top-28 lg:self-start">
                             <CategoryNav siblings={siblings} current={category.slug} title={t('Categories')} allLabel={t('All Products')} />
                             <Link href={category.url} className="mt-3 inline-flex items-center gap-1.5 px-3 text-sm font-semibold text-brand-700 hover:underline">
-                                <ArrowLeft size={14} aria-hidden /> {fill(c.back_label, vars)}
+                                <FontAwesomeIcon style={{ fontSize: 14 }} icon={faArrowLeft} aria-hidden /> {fill(c.back_label, vars)}
                             </Link>
                         </aside>
 
@@ -71,18 +73,21 @@ export default function ProductsCatalogue({ seo, category, groups, siblings, con
                                         {fill(c.search_label, vars)}
                                     </label>
                                     <div className="relative max-w-md">
-                                        <Search size={16} className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-ink-400" aria-hidden />
+                                        <FontAwesomeIcon style={{ fontSize: 17 }} icon={faMagnifyingGlass} className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-ink-400" aria-hidden />
                                         <input id="product-search" type="search" value={query}
                                                onChange={(e) => setQuery(e.target.value)} placeholder={c.search_placeholder}
-                                               className="w-full rounded-lg border border-ink-200 bg-white py-2.5 pl-10 pr-4 text-sm focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-100" />
+                                               className="w-full rounded-xl border border-ink-200 bg-white py-3 pl-10 pr-4 text-base shadow-card focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-100" />
                                     </div>
                                 </div>
                             )}
 
-                            <div className="space-y-10">
+                            <div className="space-y-12">
                                 {catalog.map((g) => (
                                     <section key={g.name} id={groupId(g.name)} aria-labelledby={`${groupId(g.name)}-h`} className="scroll-mt-28">
-                                        <h2 id={`${groupId(g.name)}-h`} className="mb-4 t-h3 text-ink-900">{g.name}</h2>
+                                        <div className="mb-5 flex flex-wrap items-baseline justify-between gap-3 border-b-2 border-brand-100 pb-3">
+                                            <h2 id={`${groupId(g.name)}-h`} className="t-h3 text-ink-950">{g.name}</h2>
+                                            <span className="t-caption tabular-nums text-ink-400">{t('{n} products', { n: g.products.length })}</span>
+                                        </div>
                                         <SpecTable products={g.products} mode={isKitCategory ? 'specimen' : 'strength'} />
                                     </section>
                                 ))}
@@ -99,7 +104,7 @@ export default function ProductsCatalogue({ seo, category, groups, siblings, con
                                 <div className="mt-14 rounded-2xl bg-gradient-to-br from-brand-700 to-brand-900 p-8 text-white">
                                     <h2 className="t-h3">{fill(c.cta_title, vars)}</h2>
                                     <p className="mt-2 max-w-xl text-sm leading-relaxed text-brand-100">{c.cta_body}</p>
-                                    <ButtonLink href="/contact" variant="light" className="mt-5">{c.cta_button} <ArrowRight size={15} className="btn-arrow" aria-hidden /></ButtonLink>
+                                    <ButtonLink href="/contact" variant="light" className="mt-5">{c.cta_button} <FontAwesomeIcon style={{ fontSize: 15 }} icon={faArrowRight} className="btn-arrow" aria-hidden /></ButtonLink>
                                 </div>
                             )}
                         </div>

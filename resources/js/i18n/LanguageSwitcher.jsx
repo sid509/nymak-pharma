@@ -1,5 +1,7 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCheck, faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import { usePage } from '@inertiajs/react';
-import { Check, ChevronDown } from 'lucide-react';
+
 import { useEffect, useRef, useState } from 'react';
 import { CountryFlag } from '../Components/Ui';
 import { useT } from './useT';
@@ -64,10 +66,10 @@ export default function LanguageSwitcher({ dark = true, menu = false, className 
             <button type="button" aria-expanded={open} aria-haspopup="true"
                     aria-label={t('Choose language')} data-locale-switcher
                     onClick={() => setOpen((v) => !v)}
-                    className={`inline-flex items-center gap-1.5 rounded-full px-2 py-1 transition-colors ${btn}`}>
+                    className={`inline-flex items-center gap-1.5 rounded-lg px-2 py-1 transition-colors ${btn}`}>
                 <CountryFlag iso={current.iso} className="h-3.5 w-5 rounded-[2px] ring-1 ring-white/20" />
                 <span className="uppercase tracking-wide">{current.code}</span>
-                <ChevronDown size={11} aria-hidden className={`transition-transform ${open ? 'rotate-180' : ''}`} />
+                <FontAwesomeIcon style={{ fontSize: 11 }} icon={faChevronDown} aria-hidden className={`transition-transform ${open ? 'rotate-180' : ''}`} />
             </button>
             {open && (
                 <div className="absolute right-0 top-full z-50 mt-1.5 w-44 overflow-hidden rounded-xl border border-ink-100 bg-white p-1 shadow-card">
@@ -78,7 +80,7 @@ export default function LanguageSwitcher({ dark = true, menu = false, className 
                                }`}>
                             <CountryFlag iso={l.iso} className="h-3.5 w-5 rounded-[2px] ring-1 ring-ink-100" />
                             <span className="flex-1">{l.label}</span>
-                            {l.code === locale && <Check size={12} aria-hidden className="text-brand-700" />}
+                            {l.code === locale && <FontAwesomeIcon style={{ fontSize: 12 }} icon={faCheck} aria-hidden className="text-brand-700" />}
                         </a>
                     ))}
                 </div>

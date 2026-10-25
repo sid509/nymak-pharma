@@ -1,8 +1,10 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowRight, faBars, faBorderAll, faChevronDown, faEnvelope, faPhone, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { usePage } from '@inertiajs/react';
 import Link from '../i18n/LocaleLink';
 import LanguageSwitcher from '../i18n/LanguageSwitcher';
 import { useT } from '../i18n/useT';
-import { ArrowRight, ChevronDown, Mail, Menu, Phone, X } from 'lucide-react';
+
 import { useEffect, useRef, useState } from 'react';
 import { CategoryIcon } from './Cards';
 import Logo from './Logo';
@@ -63,7 +65,7 @@ export default function Header() {
     const companyActive = companyLinks.some((l) => isActive(l.href));
 
     const pill = (active) =>
-        `rounded-full px-3.5 py-2 transition-colors ${active ? 'bg-brand-50 text-brand-800' : 'text-ink-600 hover:bg-ink-50 hover:text-ink-950'}`;
+        `rounded-lg px-3.5 py-2 transition-colors ${active ? 'bg-brand-50 text-brand-800' : 'text-ink-600 hover:bg-ink-50 hover:text-ink-950'}`;
 
     return (
         <header className="site-header sticky top-0 z-50" data-scrolled={scrolled}>
@@ -79,11 +81,11 @@ export default function Header() {
                         <div className="flex items-center gap-4">
                             <a href={`tel:${site.phone_href}`} onClick={() => track('phone')}
                                className="inline-flex items-center gap-1.5 transition-colors hover:text-white">
-                                <Phone size={12} aria-hidden /> <span className="hidden sm:inline">{site.phone}</span><span className="sm:hidden">{t('Call')}</span>
+                                <FontAwesomeIcon style={{ fontSize: 12 }} icon={faPhone} aria-hidden /> <span className="hidden sm:inline">{site.phone}</span><span className="sm:hidden">{t('Call')}</span>
                             </a>
                             <a href={`mailto:${site.email}`} onClick={() => track('email')}
                                className="inline-flex items-center gap-1.5 transition-colors hover:text-white">
-                                <Mail size={12} aria-hidden /> {site.email}
+                                <FontAwesomeIcon style={{ fontSize: 12 }} icon={faEnvelope} aria-hidden /> {site.email}
                             </a>
                         </div>
                     </div>
@@ -99,12 +101,12 @@ export default function Header() {
                         {links.map((link) =>
                             link.dropdown ? (
                                 <div key={link.name} className="group relative" ref={productsRef}>
-                                    <div className={`inline-flex items-center rounded-full transition-colors ${
+                                    <div className={`inline-flex items-center rounded-lg transition-colors ${
                                         isActive(link.href) ? 'bg-brand-50 text-brand-800' : 'text-ink-600 hover:bg-ink-50 hover:text-ink-950'
                                     }`}>
                                         {/* "Products" navigates; the chevron toggles the menu */}
                                         <Link href={link.href}
-                                              className="t-nav rounded-l-full py-2 pl-3.5 pr-1">
+                                              className="t-nav rounded-l-lg py-2 pl-3.5 pr-1">
                                             {t(link.name)}
                                         </Link>
                                         <button
@@ -113,34 +115,41 @@ export default function Header() {
                                             aria-haspopup="true"
                                             aria-label="Product categories"
                                             onClick={() => setOpenMenu((v) => (v === 'products' ? null : 'products'))}
-                                            className="rounded-r-full py-2 pl-0.5 pr-2.5"
+                                            className="rounded-r-lg py-2 pl-0.5 pr-2.5"
                                         >
-                                            <ChevronDown size={14} aria-hidden className={`transition-transform duration-200 ${openMenu === 'products' ? 'rotate-180' : ''}`} />
+                                            <FontAwesomeIcon style={{ fontSize: 14 }} icon={faChevronDown} aria-hidden className={`transition-transform duration-200 ${openMenu === 'products' ? 'rotate-180' : ''}`} />
                                         </button>
                                     </div>
                                     {/* CSS hover/focus keeps it working pre-hydration; openMenu covers touch taps */}
-                                    <div className={`nav-drop absolute left-1/2 top-full w-[34rem] max-w-[92vw] -translate-x-1/2 rounded-2xl border border-ink-100 bg-white p-3 shadow-card ${
+                                    <div className={`nav-drop absolute left-1/2 top-full w-[36rem] max-w-[92vw] -translate-x-1/2 overflow-hidden rounded-2xl border border-ink-100 bg-white pt-3 shadow-card-hover ${
                                         openMenu === 'products' ? 'block' : 'hidden group-hover:block group-focus-within:block'
                                     }`}>
-                                        <p className="t-eyebrow px-3 pb-2 pt-1 text-ink-400">{t('Product portfolio')}</p>
-                                        <div className="grid grid-cols-2 gap-1">
+                                        <div className="flex items-center justify-between gap-4 px-5 pb-3 pt-1">
+                                            <p className="t-eyebrow text-gold-700">{t('Product portfolio')}</p>
+                                            <span className="t-caption tabular-nums text-ink-400">{(nav?.categories || []).length} {t('segments')}</span>
+                                        </div>
+                                        <div className="grid grid-cols-2 gap-1.5 px-3">
                                             {(nav?.categories || []).map((c) => (
                                                 <Link key={c.href} href={c.href}
-                                                      className="group/item flex items-center gap-3 rounded-xl px-3 py-2.5 transition-colors hover:bg-brand-50">
-                                                    <span className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-ink-100 bg-white text-ink-400 transition-colors group-hover/item:border-brand-200 group-hover/item:text-brand-700">
+                                                      className="group/item flex items-center gap-3 rounded-xl border border-transparent px-3 py-3 transition-all duration-200 hover:border-brand-200 hover:bg-brand-50/70 hover:shadow-sm">
+                                                    <span className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-ink-100 bg-ink-50 text-ink-500 transition-colors duration-200 group-hover/item:border-brand-300 group-hover/item:bg-white group-hover/item:text-brand-700">
                                                         <CategoryIcon name={c.icon} size={17} />
                                                     </span>
-                                                    <span className="min-w-0">
+                                                    <span className="min-w-0 flex-1">
                                                         <span className="block t-nav leading-snug text-ink-800 transition-colors group-hover/item:text-brand-800">{c.name}</span>
                                                         {c.count > 0 && <span className="t-caption tabular-nums text-ink-400">{t('{n} products', { n: c.count })}</span>}
                                                     </span>
+                                                    <FontAwesomeIcon style={{ fontSize: 11 }} icon={faArrowRight} aria-hidden
+                                                        className="shrink-0 -translate-x-1 text-brand-500 opacity-0 transition-[opacity,transform] duration-200 group-hover/item:translate-x-0 group-hover/item:opacity-100" />
                                                 </Link>
                                             ))}
                                         </div>
-                                        <div className="mt-1 border-t border-ink-100 px-3 pb-1 pt-2.5">
+                                        <div className="mt-3 border-t border-brand-100 bg-brand-50/70 px-5 py-3">
                                             <Link href="/products"
-                                                  className="t-nav inline-flex items-center gap-1.5 font-semibold text-brand-700 transition-colors hover:text-brand-800">
-                                                All product categories <ArrowRight size={14} className="btn-arrow" aria-hidden />
+                                                  className="t-nav inline-flex items-center gap-2 font-semibold text-brand-700 transition-colors hover:text-brand-900">
+                                                <FontAwesomeIcon style={{ fontSize: 13 }} icon={faBorderAll} className="text-brand-600" aria-hidden />
+                                                {t('All product categories')}
+                                                <FontAwesomeIcon style={{ fontSize: 13 }} icon={faArrowRight} className="btn-arrow" aria-hidden />
                                             </Link>
                                         </div>
                                     </div>
@@ -164,7 +173,7 @@ export default function Header() {
                                 className={`t-nav inline-flex items-center gap-1 ${pill(companyActive)}`}
                             >
                                 {t('Company')}
-                                <ChevronDown size={14} aria-hidden className={`transition-transform duration-200 ${openMenu === 'company' ? 'rotate-180' : ''}`} />
+                                <FontAwesomeIcon style={{ fontSize: 14 }} icon={faChevronDown} aria-hidden className={`transition-transform duration-200 ${openMenu === 'company' ? 'rotate-180' : ''}`} />
                             </button>
                             <div className={`nav-drop absolute right-0 top-full w-52 rounded-2xl border border-ink-100 bg-white p-2 shadow-card ${
                                 openMenu === 'company' ? 'block' : 'hidden group-hover:block group-focus-within:block'
@@ -183,7 +192,7 @@ export default function Header() {
                         <LanguageSwitcher dark={false} className="ml-3" />
 
                         <Link href="/contact"
-                              className="t-button btn-cta ml-3 rounded-full bg-brand-600 px-5 py-2.5 text-white transition-colors hover:bg-brand-700">
+                              className="t-button btn-cta ml-3 rounded-xl bg-brand-600 px-5 py-2.5 text-white transition-colors hover:bg-brand-700">
                             {t('Contact Us')}
                         </Link>
                     </nav>
@@ -192,7 +201,7 @@ export default function Header() {
                             aria-expanded={mobileOpen} aria-controls="mobile-nav"
                             aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
                             onClick={() => setMobileOpen((v) => !v)}>
-                        {mobileOpen ? <X size={22} /> : <Menu size={22} />}
+                        {mobileOpen ? <FontAwesomeIcon style={{ fontSize: 22 }} icon={faXmark} /> : <FontAwesomeIcon style={{ fontSize: 22 }} icon={faBars} />}
                     </button>
                 </div>
 
@@ -239,7 +248,7 @@ export default function Header() {
                             </div>
 
                             <Link href="/contact"
-                                  className="t-button mt-2 block rounded-full bg-brand-600 px-3 py-2.5 text-center text-white">
+                                  className="t-button mt-2 block rounded-xl bg-brand-600 px-3 py-2.5 text-center text-white">
                                 {t('Contact Us')}
                             </Link>
 

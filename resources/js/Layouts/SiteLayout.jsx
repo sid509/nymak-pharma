@@ -1,5 +1,7 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCircleCheck, faFileArrowDown } from '@fortawesome/free-solid-svg-icons';
 import { usePage } from '@inertiajs/react';
-import { CheckCircle2, FileDown } from 'lucide-react';
+
 import { useEffect, useState } from 'react';
 import { WhatsAppIcon } from '../Components/Ui';
 import { useT } from '../i18n/useT';
@@ -23,7 +25,7 @@ function FlashToast() {
     return (
         <div role="status" aria-live="polite"
              className="fixed bottom-6 left-1/2 z-50 flex w-[calc(100%-2rem)] max-w-md -translate-x-1/2 items-start gap-3 rounded-xl border border-brand-200 bg-white p-4 shadow-card">
-            <CheckCircle2 size={20} className="mt-0.5 shrink-0 text-brand-600" aria-hidden />
+            <FontAwesomeIcon style={{ fontSize: 20 }} icon={faCircleCheck} className="mt-0.5 shrink-0 text-brand-600" aria-hidden />
             <p className="text-sm font-medium text-ink-800">{flash.success || flash.error}</p>
         </div>
     );
@@ -68,9 +70,9 @@ export default function SiteLayout({ children }) {
                 <a href={`/${site.brochure}`} target="_blank" rel="noopener noreferrer"
                    aria-label={t('Download Nymak Pharma product brochure (PDF)')}
                    onClick={() => window.nymakTrack && window.nymakTrack('brochure_download', { placement: 'fab' })}
-                   className="fab-brochure group fixed bottom-[77px] left-5 z-40 flex h-12 items-center rounded-full bg-brand-600 text-white shadow-card transition-[transform,box-shadow] duration-200 hover:-translate-y-0.5 hover:bg-brand-700 hover:shadow-card-hover">
+                   className="fab-brochure group fixed bottom-[77px] left-5 z-40 flex h-12 items-center rounded-xl bg-brand-600 text-white shadow-card transition-[transform,box-shadow] duration-200 hover:-translate-y-0.5 hover:bg-brand-700 hover:shadow-card-hover">
                     <span className="relative grid h-12 w-12 shrink-0 place-items-center">
-                        <FileDown size={20} aria-hidden className="fab-file" />
+                        <FontAwesomeIcon style={{ fontSize: 20 }} icon={faFileArrowDown} aria-hidden className="fab-file" />
                         <span className="absolute -right-1 -top-1 rounded-full bg-red-600 px-1 py-px text-[7px] font-extrabold uppercase leading-none tracking-wide text-white ring-2 ring-white/90 transition-transform duration-200 group-hover:scale-110" aria-hidden>PDF</span>
                     </span>
                     <span className="max-w-0 overflow-hidden whitespace-nowrap text-sm font-semibold opacity-0 transition-[max-width,opacity,padding] duration-300 ease-out group-hover:max-w-32 group-hover:pr-4 group-hover:opacity-100">

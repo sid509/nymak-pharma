@@ -1,8 +1,10 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChevronRight, faGlobe } from '@fortawesome/free-solid-svg-icons';
 import Link from '../i18n/LocaleLink';
 import { useT } from '../i18n/useT';
 import { useState } from 'react';
 import { CountUp } from './Motion';
-import { ChevronRight, Globe2 } from 'lucide-react';
+
 
 export function WhatsAppIcon({ size = 24, className = '' }) {
     return (
@@ -14,7 +16,7 @@ export function WhatsAppIcon({ size = 24, className = '' }) {
 
 export function CountryFlag({ iso, className = 'h-5 w-7', iconClass = 'h-5 w-5' }) {
     const [failed, setFailed] = useState(false);
-    if (!iso || failed) return <Globe2 className={`${iconClass} shrink-0 text-gold-400`} aria-hidden />;
+    if (!iso || failed) return <FontAwesomeIcon icon={faGlobe} className={`${iconClass} shrink-0 text-gold-400`} aria-hidden />;
     return (
         <img src={`/images/flags/${String(iso).toLowerCase()}.svg`} alt="" loading="lazy"
              onError={() => setFailed(true)}
@@ -22,8 +24,8 @@ export function CountryFlag({ iso, className = 'h-5 w-7', iconClass = 'h-5 w-5' 
     );
 }
 
-export function Container({ children, className = '' }) {
-    return <div className={`mx-auto max-w-7xl px-4 sm:px-6 ${className}`}>{children}</div>;
+export function Container({ children, className = '', wide = false }) {
+    return <div className={`mx-auto px-4 sm:px-6 ${wide ? 'max-w-[90rem] lg:px-10' : 'max-w-7xl'} ${className}`}>{children}</div>;
 }
 
 export function Eyebrow({ children, center = false, dark = false }) {
@@ -35,9 +37,9 @@ export function Eyebrow({ children, center = false, dark = false }) {
     );
 }
 
-export function SectionHeading({ eyebrow, title, lead, align = 'center', className = '', titleClass = 'text-gradient' }) {
+export function SectionHeading({ eyebrow, title, lead, align = 'center', className = '', titleClass = 'text-ink-950' }) {
     return (
-        <div className={`${align === 'center' ? 'mx-auto max-w-2xl text-center' : 'max-w-2xl'} ${className}`}>
+        <div className={`${align === 'center' ? 'mx-auto max-w-3xl text-center' : 'max-w-2xl'} ${className}`}>
             {eyebrow && <Eyebrow center={align === 'center'}>{eyebrow}</Eyebrow>}
             <h2 className={`t-h2 text-balance ${titleClass}`}>{title}</h2>
             {lead && <p className="t-lead mt-4 text-pretty text-ink-600">{lead}</p>}
@@ -45,8 +47,15 @@ export function SectionHeading({ eyebrow, title, lead, align = 'center', classNa
     );
 }
 
+/** H2 with the same title repeated, oversized and blurred, behind it. */
+export function GhostTitle({ title, className = '' }) {
+    return (
+        <h2 data-text={title} className={`ghost-title t-h2 text-balance text-ink-950 ${className}`}>{title}</h2>
+    );
+}
+
 export function ButtonLink({ href, children, variant = 'primary', className = '', external = false, ...rest }) {
-    const base = 't-button inline-flex items-center justify-center gap-2 rounded-full px-6 py-2.5 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2';
+    const base = 't-button inline-flex items-center justify-center gap-2 rounded-xl px-6 py-2.5 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2';
     const styles = {
         primary: 'btn-cta bg-brand-600 text-white hover:bg-brand-700',
         outline: 'btn-cta border border-ink-200 bg-white text-ink-800 hover:border-brand-500 hover:bg-brand-50/60 hover:text-brand-800',
@@ -69,7 +78,7 @@ export function Breadcrumbs({ items, className = 'mb-6', dark = false, center = 
             <ol className={`flex flex-wrap items-center gap-1.5 text-[13px] ${center ? 'justify-center' : ''} ${dark ? 'text-white/50' : 'text-ink-500'}`}>
                 {items.map(([name, href], i) => (
                     <li key={i} className="flex items-center gap-1.5">
-                        {i > 0 && <ChevronRight size={13} aria-hidden className={dark ? 'text-white/25' : 'text-ink-300'} />}
+                        {i > 0 && <FontAwesomeIcon style={{ fontSize: 13 }} icon={faChevronRight} aria-hidden className={dark ? 'text-white/25' : 'text-ink-300'} />}
                         {href ? (
                             <Link href={href} className={`underline-offset-4 transition-colors hover:underline ${dark ? 'hover:text-brand-300' : 'hover:text-brand-700'}`}>{t(name)}</Link>
                         ) : (
@@ -92,7 +101,7 @@ export function Stat({ value, label, className = '', tone = 'dark', icon: Icon }
                         ? 'border-brand-100 bg-brand-50 text-brand-600 group-hover:border-brand-600 group-hover:bg-brand-600 group-hover:text-white'
                         : 'border-white/15 bg-white/10 text-brand-300'
                 }`}>
-                    <Icon size={19} aria-hidden />
+                    <FontAwesomeIcon icon={Icon} style={{ fontSize: 19 }} aria-hidden />
                 </span>
             )}
             <div>

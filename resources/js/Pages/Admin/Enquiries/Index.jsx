@@ -1,5 +1,7 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEnvelope, faEnvelopeOpen, faPhone } from '@fortawesome/free-solid-svg-icons';
 import { Link, router } from '@inertiajs/react';
-import { Mail, MailOpen, Phone } from 'lucide-react';
+
 import { Fragment, useState } from 'react';
 import DataTable from '../../../Components/Admin/DataTable';
 import ConfirmDelete from '../../../Components/Admin/ConfirmDelete';
@@ -55,7 +57,7 @@ export default function EnquiriesIndex({ enquiries, filters, unreadCount }) {
                                 <div className="flex items-center justify-end gap-3">
                                     <button type="button" onClick={() => toggleRead(e)}
                                             className="text-xs font-bold text-ink-500 hover:text-brand-700" title={e.read_at ? 'Mark unread' : 'Mark read'}>
-                                        {e.read_at ? <MailOpen size={15} aria-hidden /> : <Mail size={15} aria-hidden />}
+                                        {e.read_at ? <FontAwesomeIcon style={{ fontSize: 15 }} icon={faEnvelopeOpen} aria-hidden /> : <FontAwesomeIcon style={{ fontSize: 15 }} icon={faEnvelope} aria-hidden />}
                                     </button>
                                     <ConfirmDelete href={`/admin/enquiries/${e.id}`} name={`enquiry from ${e.name}`} />
                                 </div>
@@ -70,7 +72,7 @@ export default function EnquiriesIndex({ enquiries, filters, unreadCount }) {
                                         <div><dt className="text-xs font-bold uppercase text-ink-400">Email</dt>
                                             <dd><a href={`mailto:${e.email}?subject=Re: ${e.subject || 'Your enquiry'}`} className="font-semibold text-brand-700 hover:underline">{e.email}</a></dd></div>
                                         <div><dt className="text-xs font-bold uppercase text-ink-400">Phone</dt>
-                                            <dd>{e.phone ? <a href={`tel:${e.phone}`} className="inline-flex items-center gap-1 font-semibold text-brand-700 hover:underline"><Phone size={12} aria-hidden />{e.phone}</a> : '—'}</dd></div>
+                                            <dd>{e.phone ? <a href={`tel:${e.phone}`} className="inline-flex items-center gap-1 font-semibold text-brand-700 hover:underline"><FontAwesomeIcon style={{ fontSize: 12 }} icon={faPhone} aria-hidden />{e.phone}</a> : '—'}</dd></div>
                                         <div><dt className="text-xs font-bold uppercase text-ink-400">Country</dt><dd className="text-ink-800">{e.country || '—'}</dd></div>
                                         <div><dt className="text-xs font-bold uppercase text-ink-400">Product</dt>
                                             <dd className="text-ink-800">{e.product ? e.product.name : 'General enquiry'}</dd></div>

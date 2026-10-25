@@ -1,10 +1,9 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBold, faHeading, faItalic, faLink, faLinkSlash, faList, faListOl, faMinus, faQuoteLeft, faRotateLeft, faRotateRight, faStrikethrough, faTextSlash, faUnderline } from '@fortawesome/free-solid-svg-icons';
 import Link from '@tiptap/extension-link';
 import { EditorContent, useEditor, useEditorState } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
-import {
-    Bold, Heading2, Heading3, Italic, Link2, List, ListOrdered, Minus, Quote, Redo2,
-    RemoveFormatting, Strikethrough, Underline as UnderlineIcon, Undo2, Unlink2,
-} from 'lucide-react';
+
 import { useEffect } from 'react';
 
 /**
@@ -89,25 +88,25 @@ export default function RichText({ id, value = '', onChange, placeholder = 'Writ
     return (
         <div className="richtext overflow-hidden rounded-lg border border-ink-200 bg-white transition-colors focus-within:border-brand-500 focus-within:ring-2 focus-within:ring-brand-100">
             <div role="toolbar" aria-label="Formatting" className="flex flex-wrap items-center gap-0.5 border-b border-ink-100 bg-ink-50/60 px-2 py-1.5">
-                <Btn label="Bold" active={st.bold} onClick={() => editor.chain().focus().toggleBold().run()}><Bold size={15} /></Btn>
-                <Btn label="Italic" active={st.italic} onClick={() => editor.chain().focus().toggleItalic().run()}><Italic size={15} /></Btn>
-                <Btn label="Underline" active={st.underline} onClick={() => editor.chain().focus().toggleUnderline().run()}><UnderlineIcon size={15} /></Btn>
-                <Btn label="Strikethrough" active={st.strike} onClick={() => editor.chain().focus().toggleStrike().run()}><Strikethrough size={15} /></Btn>
+                <Btn label="Bold" active={st.bold} onClick={() => editor.chain().focus().toggleBold().run()}><FontAwesomeIcon style={{ fontSize: 15 }} icon={faBold} /></Btn>
+                <Btn label="Italic" active={st.italic} onClick={() => editor.chain().focus().toggleItalic().run()}><FontAwesomeIcon style={{ fontSize: 15 }} icon={faItalic} /></Btn>
+                <Btn label="Underline" active={st.underline} onClick={() => editor.chain().focus().toggleUnderline().run()}><FontAwesomeIcon style={{ fontSize: 15 }} icon={faUnderline} /></Btn>
+                <Btn label="Strikethrough" active={st.strike} onClick={() => editor.chain().focus().toggleStrike().run()}><FontAwesomeIcon style={{ fontSize: 15 }} icon={faStrikethrough} /></Btn>
                 <Sep />
-                <Btn label="Heading" active={st.h2} onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}><Heading2 size={15} /></Btn>
-                <Btn label="Subheading" active={st.h3} onClick={() => editor.chain().focus().toggleHeading({ level: 3 }).run()}><Heading3 size={15} /></Btn>
+                <Btn label="Heading" active={st.h2} onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}><FontAwesomeIcon style={{ fontSize: 15 }} icon={faHeading} /></Btn>
+                <Btn label="Subheading" active={st.h3} onClick={() => editor.chain().focus().toggleHeading({ level: 3 }).run()}><FontAwesomeIcon style={{ fontSize: 15 }} icon={faHeading} /></Btn>
                 <Sep />
-                <Btn label="Bullet list" active={st.bullet} onClick={() => editor.chain().focus().toggleBulletList().run()}><List size={15} /></Btn>
-                <Btn label="Numbered list" active={st.ordered} onClick={() => editor.chain().focus().toggleOrderedList().run()}><ListOrdered size={15} /></Btn>
-                <Btn label="Quote" active={st.quote} onClick={() => editor.chain().focus().toggleBlockquote().run()}><Quote size={15} /></Btn>
-                <Btn label="Divider" onClick={() => editor.chain().focus().setHorizontalRule().run()}><Minus size={15} /></Btn>
+                <Btn label="Bullet list" active={st.bullet} onClick={() => editor.chain().focus().toggleBulletList().run()}><FontAwesomeIcon style={{ fontSize: 15 }} icon={faList} /></Btn>
+                <Btn label="Numbered list" active={st.ordered} onClick={() => editor.chain().focus().toggleOrderedList().run()}><FontAwesomeIcon style={{ fontSize: 15 }} icon={faListOl} /></Btn>
+                <Btn label="Quote" active={st.quote} onClick={() => editor.chain().focus().toggleBlockquote().run()}><FontAwesomeIcon style={{ fontSize: 15 }} icon={faQuoteLeft} /></Btn>
+                <Btn label="Divider" onClick={() => editor.chain().focus().setHorizontalRule().run()}><FontAwesomeIcon style={{ fontSize: 15 }} icon={faMinus} /></Btn>
                 <Sep />
-                <Btn label="Add link" active={st.link} onClick={setLink}><Link2 size={15} /></Btn>
-                <Btn label="Remove link" disabled={!st.link} onClick={() => editor.chain().focus().unsetLink().run()}><Unlink2 size={15} /></Btn>
-                <Btn label="Clear formatting" onClick={() => editor.chain().focus().clearNodes().unsetAllMarks().run()}><RemoveFormatting size={15} /></Btn>
+                <Btn label="Add link" active={st.link} onClick={setLink}><FontAwesomeIcon style={{ fontSize: 15 }} icon={faLink} /></Btn>
+                <Btn label="Remove link" disabled={!st.link} onClick={() => editor.chain().focus().unsetLink().run()}><FontAwesomeIcon style={{ fontSize: 15 }} icon={faLinkSlash} /></Btn>
+                <Btn label="Clear formatting" onClick={() => editor.chain().focus().clearNodes().unsetAllMarks().run()}><FontAwesomeIcon style={{ fontSize: 15 }} icon={faTextSlash} /></Btn>
                 <Sep />
-                <Btn label="Undo" disabled={!st.canUndo} onClick={() => editor.chain().focus().undo().run()}><Undo2 size={15} /></Btn>
-                <Btn label="Redo" disabled={!st.canRedo} onClick={() => editor.chain().focus().redo().run()}><Redo2 size={15} /></Btn>
+                <Btn label="Undo" disabled={!st.canUndo} onClick={() => editor.chain().focus().undo().run()}><FontAwesomeIcon style={{ fontSize: 15 }} icon={faRotateLeft} /></Btn>
+                <Btn label="Redo" disabled={!st.canRedo} onClick={() => editor.chain().focus().redo().run()}><FontAwesomeIcon style={{ fontSize: 15 }} icon={faRotateRight} /></Btn>
             </div>
             <EditorContent editor={editor} />
         </div>

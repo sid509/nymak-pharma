@@ -1,15 +1,17 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowRight, faAward, faBoxesStacked, faCircleCheck, faFlask, faHandHoldingHeart, faShieldHalved } from '@fortawesome/free-solid-svg-icons';
 import Link from '../i18n/LocaleLink';
-import { ArrowRight, Award, BadgeCheck, FlaskConical, HeartHandshake, PackageCheck, ShieldCheck } from 'lucide-react';
+
+import MemberPortrait from '../Components/MemberPortrait';
 import { Reveal } from '../Components/Motion';
 import { ButtonLink, Container, PageHero, SectionHeading } from '../Components/Ui';
 import SiteLayout from '../Layouts/SiteLayout';
 import { useT } from '../i18n/useT';
 
-const ICONS = { Award, BadgeCheck, FlaskConical, HeartHandshake, PackageCheck, ShieldCheck };
-const Icon = ({ name, size = 22 }) => {
-    const C = ICONS[name] || BadgeCheck;
-    return <C size={size} aria-hidden />;
-};
+const ICONS = { faAward, faCircleCheck, faFlask, faHandHoldingHeart, faBoxesStacked, faShieldHalved };
+const Icon = ({ name, size = 22 }) => (
+    <FontAwesomeIcon icon={ICONS[name] || faCircleCheck} style={{ fontSize: size }} aria-hidden />
+);
 
 const initials = (name) => name.replace('Mr. ', '').replace('Ms. ', '').split(' ').map((w) => w[0]).slice(0, 2).join('');
 
@@ -25,7 +27,7 @@ export default function About({ seo, leadership, team, certifications, content }
             <section className="py-16 sm:py-20">
                 <Container>
                     <h2 className="mx-auto mb-10 max-w-2xl text-center t-h2 text-balance text-ink-900">{content.overview_title}</h2>
-                    <div className="grid items-start gap-10 lg:grid-cols-2">
+                    <div className="grid items-center gap-10 lg:grid-cols-2">
                     <div>
                         <div className="prose-nymak">
                             <p>{content.overview_p1}</p>
@@ -33,20 +35,29 @@ export default function About({ seo, leadership, team, certifications, content }
                             <p>{content.overview_p3}</p>
                         </div>
                     </div>
-                    <div>
+                    <Reveal variant="media" className="rounded-2xl shadow-card">
                         <img src={`/${content.overview_image}`} alt="Nymak Pharma facility aerial view, Mundra, Gujarat"
                              width="960" height="640" loading="lazy"
-                             className="w-full rounded-3xl object-cover shadow-card" />
-                        <div className="mt-6 grid grid-cols-3 gap-3">
-                            {(content.capabilities || []).map((c) => (
-                                <div key={c.title} className="rounded-2xl border border-ink-100 bg-ink-50/50 p-4">
-                                    <Icon name={c.icon} />
-                                    <p className="mt-2 text-sm font-semibold text-ink-900">{c.title}</p>
-                                    <p className="mt-1 text-xs leading-relaxed text-ink-500">{c.text}</p>
-                                </div>
-                            ))}
-                        </div>
+                             className="w-full object-cover" />
+                    </Reveal>
                     </div>
+
+                    {/* Key strengths — in-house teams that own quality end to end */}
+                    <div className="mt-12 grid gap-5 sm:grid-cols-3">
+                        {(content.capabilities || []).map((cap, i) => (
+                            <Reveal key={cap.title} delay={i * 70} className="h-full">
+                                <div className="card-hover group relative h-full overflow-hidden rounded-2xl border border-ink-100 bg-white p-7 shadow-card">
+                                    <span className="absolute inset-x-0 top-0 h-1 origin-left scale-x-0 bg-gradient-to-r from-brand-600 to-gold-500 transition-transform duration-300 ease-out group-hover:scale-x-100" aria-hidden />
+                                    <span className={`inline-flex h-14 w-14 items-center justify-center rounded-2xl text-white shadow-md ${
+                                        i % 2 ? 'bg-gradient-to-br from-gold-600 to-gold-400 shadow-gold-600/20' : 'bg-gradient-to-br from-brand-700 to-brand-500 shadow-brand-700/20'
+                                    }`}>
+                                        <Icon name={cap.icon} size={26} />
+                                    </span>
+                                    <h3 className="mt-5 t-h4 text-ink-950">{cap.title}</h3>
+                                    <p className="mt-2 text-[0.9375rem] leading-relaxed text-ink-600">{cap.text}</p>
+                                </div>
+                            </Reveal>
+                        ))}
                     </div>
                 </Container>
             </section>
@@ -59,7 +70,7 @@ export default function About({ seo, leadership, team, certifications, content }
                             {/* Archival photo collage */}
                             <Reveal className="order-2 lg:order-1">
                                 <div className="relative pb-20 sm:pb-24">
-                                    <figure className="relative overflow-hidden rounded-3xl shadow-lg shadow-ink-900/10 ring-1 ring-ink-900/5">
+                                    <figure className="relative overflow-hidden rounded-2xl shadow-lg shadow-ink-900/10 ring-1 ring-ink-900/5">
                                         <img src={`/${content.story_image}`} alt={content.story_image_caption}
                                              width="504" height="473" loading="lazy"
                                              className="aspect-[504/473] w-full object-cover" />
@@ -101,7 +112,7 @@ export default function About({ seo, leadership, team, certifications, content }
                                     <p>{content.story_p2}</p>
                                     <p>{content.story_p3}</p>
                                 </div>
-                                <Link href="/team/ranjit-advani" className="group mt-8 inline-flex items-center gap-4 rounded-2xl border border-ink-100 bg-white py-3 pl-3 pr-6 shadow-card transition-shadow hover:shadow-lg hover:shadow-ink-900/5">
+                                <Link href="/team/ranjit-advani" className="card-hover group mt-8 inline-flex items-center gap-4 rounded-2xl border border-ink-100 bg-white py-3 pl-3 pr-6 shadow-card">
                                     <img src="/images/team/ranjit-advani.png" alt={content.story_signature_name}
                                          width="96" height="96" loading="lazy"
                                          className="h-14 w-14 rounded-full object-cover object-top ring-2 ring-brand-100" />
@@ -109,7 +120,7 @@ export default function About({ seo, leadership, team, certifications, content }
                                         <span className="block text-base font-bold text-ink-900 group-hover:text-brand-800">{content.story_signature_name}</span>
                                         <span className="block text-xs font-semibold uppercase tracking-[0.04em] text-brand-700">{content.story_signature_role}</span>
                                     </span>
-                                    <ArrowRight size={16} className="btn-arrow ml-2 text-brand-700" aria-hidden />
+                                    <FontAwesomeIcon style={{ fontSize: 16 }} icon={faArrowRight} className="btn-arrow ml-2 text-brand-700" aria-hidden />
                                 </Link>
                             </div>
                         </div>
@@ -123,10 +134,10 @@ export default function About({ seo, leadership, team, certifications, content }
                     <SectionHeading eyebrow={content.journey_eyebrow} title={content.journey_title} />
                     <ol className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
                         {(content.timeline || []).map((t) => (
-                            <li key={t.year + t.title} className="relative rounded-2xl border border-ink-100 bg-white p-6 shadow-card">
+                            <li key={t.year + t.title} className="card-hover relative rounded-2xl border border-ink-100 bg-white p-6 shadow-card">
                                 <p className="text-3xl font-bold tracking-tight text-brand-700">{t.year}</p>
                                 <h3 className="mt-2 t-h4 text-ink-900">{t.title}</h3>
-                                <p className="mt-2 text-sm leading-relaxed text-ink-600">{t.text}</p>
+                                <p className="mt-2 text-[0.9375rem] leading-relaxed text-ink-600">{t.text}</p>
                             </li>
                         ))}
                     </ol>
@@ -139,12 +150,12 @@ export default function About({ seo, leadership, team, certifications, content }
                     <SectionHeading eyebrow={content.values_eyebrow} title={content.values_title} align="center" />
                     <div className="mt-12 grid gap-5 md:grid-cols-3">
                         {(content.values || []).map((v) => (
-                            <div key={v.title} className="rounded-2xl border border-ink-100 bg-white p-7 text-center shadow-card">
+                            <div key={v.title} className="card-hover rounded-2xl border border-ink-100 bg-white p-7 text-center shadow-card">
                                 <span className="mx-auto inline-flex h-12 w-12 items-center justify-center rounded-xl bg-brand-50 text-brand-700">
                                     <Icon name={v.icon} />
                                 </span>
                                 <h3 className="mt-4 t-h4 text-ink-900">{v.title}</h3>
-                                <p className="mt-2 text-sm leading-relaxed text-ink-600">{v.text}</p>
+                                <p className="mt-2 text-[0.9375rem] leading-relaxed text-ink-600">{v.text}</p>
                             </div>
                         ))}
                     </div>
@@ -155,40 +166,10 @@ export default function About({ seo, leadership, team, certifications, content }
             <section className="border-t border-ink-100 py-16 sm:py-20">
                 <Container>
                     <SectionHeading eyebrow="Leadership" title="The team behind the quality" />
-                    <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-                        {leadership.map((m) => (
-                            <Reveal key={m.name}>
-                                {m.has_page ? (
-                                    <Link href={`/team/${m.slug}`}
-                                          className="group block h-full rounded-2xl border border-ink-100 bg-white p-6 shadow-card transition-shadow hover:shadow-lg hover:shadow-ink-900/5">
-                                        {m.photo ? (
-                                            <img src={`/${m.photo}`} alt={m.name} width="96" height="96" loading="lazy"
-                                                 className="h-12 w-12 rounded-full object-cover object-top" />
-                                        ) : (
-                                            <span className="flex h-12 w-12 items-center justify-center rounded-full bg-brand-700 t-h4 text-white">
-                                                {initials(m.name)}
-                                            </span>
-                                        )}
-                                        <h3 className="mt-4 t-h4 text-ink-900 group-hover:text-brand-800">{m.name}</h3>
-                                        <p className="mt-0.5 text-xs font-semibold uppercase tracking-[0.04em] text-brand-700">{m.role}</p>
-                                        <span className="mt-3 inline-flex items-center gap-1 text-xs font-semibold text-brand-700">
-                                            Profile <ArrowRight size={12} className="btn-arrow" aria-hidden />
-                                        </span>
-                                    </Link>
-                                ) : (
-                                    <div className="h-full rounded-2xl border border-ink-100 bg-white p-6 shadow-card">
-                                        {m.photo ? (
-                                            <img src={`/${m.photo}`} alt={m.name} width="96" height="96" loading="lazy"
-                                                 className="h-12 w-12 rounded-full object-cover object-top" />
-                                        ) : (
-                                            <span className="flex h-12 w-12 items-center justify-center rounded-full bg-brand-700 t-h4 text-white">
-                                                {initials(m.name)}
-                                            </span>
-                                        )}
-                                        <h3 className="mt-4 t-h4 text-ink-900">{m.name}</h3>
-                                        <p className="mt-0.5 text-xs font-semibold uppercase tracking-[0.04em] text-brand-700">{m.role}</p>
-                                    </div>
-                                )}
+                    <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+                        {leadership.map((m, i) => (
+                            <Reveal key={m.name} delay={i * 60} className="h-full">
+                                <MemberCard m={m} i={i} />
                             </Reveal>
                         ))}
                     </div>
@@ -197,18 +178,18 @@ export default function About({ seo, leadership, team, certifications, content }
                             {team.map((m) => (
                                 m.has_page ? (
                                     <Link key={m.name} href={`/team/${m.slug}`}
-                                          className="flex items-center gap-3 rounded-xl border border-ink-100 bg-ink-50/50 px-5 py-4 transition-colors hover:border-brand-200 hover:bg-brand-50/60">
-                                        {m.photo && <img src={`/${m.photo}`} alt={m.name} width="40" height="40" loading="lazy" className="h-9 w-9 rounded-full object-cover object-top" />}
+                                          className="card-hover flex items-center gap-3 rounded-xl border border-ink-100 bg-ink-50/50 px-5 py-4 hover:bg-brand-50/60">
+                                        {m.photo && <img src={`/${m.photo}`} alt={m.name} width="40" height="40" loading="lazy" className="h-10 w-10 rounded-full object-cover object-top" />}
                                         <div>
-                                            <p className="text-sm font-semibold text-ink-900">{m.name}</p>
+                                            <p className="text-[0.9375rem] font-semibold text-ink-900">{m.name}</p>
                                             <p className="text-xs font-medium text-ink-500">{m.role}</p>
                                         </div>
                                     </Link>
                                 ) : (
-                                    <div key={m.name} className="flex items-center gap-3 rounded-xl border border-ink-100 bg-ink-50/50 px-5 py-4">
-                                        {m.photo && <img src={`/${m.photo}`} alt={m.name} width="40" height="40" loading="lazy" className="h-9 w-9 rounded-full object-cover object-top" />}
+                                    <div key={m.name} className="card-hover flex items-center gap-3 rounded-xl border border-ink-100 bg-ink-50/50 px-5 py-4">
+                                        {m.photo && <img src={`/${m.photo}`} alt={m.name} width="40" height="40" loading="lazy" className="h-10 w-10 rounded-full object-cover object-top" />}
                                         <div>
-                                            <p className="text-sm font-semibold text-ink-900">{m.name}</p>
+                                            <p className="text-[0.9375rem] font-semibold text-ink-900">{m.name}</p>
                                             <p className="text-xs font-medium text-ink-500">{m.role}</p>
                                         </div>
                                     </div>
@@ -219,26 +200,27 @@ export default function About({ seo, leadership, team, certifications, content }
                 </Container>
             </section>
 
-            {/* Certifications */}
-            <section className="bg-ink-950 py-16 text-white sm:py-20">
+            {/* Certifications — a light credential wall, deliberately distinct
+                from the dark footer: framed band, uniform cards, large marks. */}
+            <section className="border-t border-ink-100 bg-gradient-to-b from-brand-50/60 via-white to-white py-16 sm:py-24">
                 <Container>
-                    <div className="mx-auto max-w-2xl text-center">
-                        <p className="mb-3 flex items-center justify-center gap-2.5 text-xs font-semibold uppercase tracking-[0.04em] text-brand-300">
-                            <span className="h-px w-6 bg-brand-400" aria-hidden />{content.credentials_eyebrow}<span className="h-px w-6 bg-brand-400" aria-hidden />
-                        </p>
-                        <h2 className="t-h2">{content.credentials_title}</h2>
-                        <p className="mt-4 leading-relaxed text-ink-200">
-                            {content.credentials_body}
-                        </p>
-                    </div>
-                    <div className="mx-auto mt-10 grid max-w-4xl grid-cols-2 gap-4 sm:grid-cols-4">
-                        {certifications.slice(0, 4).map((c) => (
-                            <div key={c.name} className="rounded-xl border border-ink-700 bg-ink-900 p-4 text-center">
-                                {c.image && <img src={`/${c.image}`} alt={`${c.name} logo`} width="120" height="120" loading="lazy" className="mx-auto h-14 w-auto object-contain" />}
-                                <p className="mt-3 text-xs font-semibold">{c.name}</p>
-                                <p className="text-xs text-ink-400">{c.issuer}</p>
-                            </div>
-                        ))}
+                    <SectionHeading eyebrow={content.credentials_eyebrow} title={content.credentials_title} lead={content.credentials_body} />
+                    <div className="mt-12 rounded-2xl border border-brand-100 bg-white/80 p-5 shadow-card sm:p-8">
+                        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+                            {certifications.map((c) => (
+                                <div key={c.name} className="card-hover flex flex-col items-center rounded-2xl border border-ink-100 bg-white px-8 py-9 text-center shadow-card">
+                                    <span className="flex h-24 items-center justify-center">
+                                        {c.image ? (
+                                            <img src={`/${c.image}`} alt={`${c.name} logo`} width="160" height="160" loading="lazy" className="max-h-24 w-auto object-contain" />
+                                        ) : (
+                                            <FontAwesomeIcon style={{ fontSize: 48 }} icon={faAward} className="text-brand-600" aria-hidden />
+                                        )}
+                                    </span>
+                                    <p className="mt-5 text-base font-semibold leading-snug text-ink-900">{c.name}</p>
+                                    <p className="mt-1 text-[13px] font-medium text-ink-500">{c.issuer}</p>
+                                </div>
+                            ))}
+                        </div>
                     </div>
                     <div className="mt-9 text-center">
                         <ButtonLink href="/quality-certifications">{t('Quality & certifications')}</ButtonLink>
@@ -247,4 +229,31 @@ export default function About({ seo, leadership, team, certifications, content }
             </section>
         </SiteLayout>
     );
+}
+
+/** Leadership card — portrait band on top, identity below; links to the
+    member's profile page when one exists. */
+function MemberCard({ m, i }) {
+    const member = { ...m, initials: m.initials || initials(m.name) };
+    const body = (
+        <>
+            <div className="aspect-[4/3]">
+                <MemberPortrait member={member} tone={i % 2 ? 'blue' : 'green'}
+                                photoClass="h-32 w-32 sm:h-36 sm:w-36" initialClass="text-4xl" />
+            </div>
+            <div className="p-5">
+                <h3 className="t-h4 leading-snug text-ink-900">{m.name}</h3>
+                <p className="mt-1 text-xs font-semibold uppercase tracking-[0.04em] text-brand-700">{m.role}</p>
+                {m.has_page && (
+                    <span className="mt-3 inline-flex items-center gap-1.5 text-sm font-semibold text-brand-700">
+                        Full profile <FontAwesomeIcon style={{ fontSize: 14 }} icon={faArrowRight} className="btn-arrow" aria-hidden />
+                    </span>
+                )}
+            </div>
+        </>
+    );
+    const cls = 'card-hover block h-full overflow-hidden rounded-2xl border border-ink-100 bg-white shadow-card';
+    return m.has_page
+        ? <Link href={`/team/${m.slug}`} className={cls}>{body}</Link>
+        : <div className={cls}>{body}</div>;
 }

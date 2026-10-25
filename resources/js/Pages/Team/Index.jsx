@@ -1,5 +1,7 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import Link from '../../i18n/LocaleLink';
-import { ArrowRight } from 'lucide-react';
+
 import { Reveal } from '../../Components/Motion';
 import MemberPortrait from '../../Components/MemberPortrait';
 import { ButtonLink, Container, PageHero, SectionHeading } from '../../Components/Ui';
@@ -9,13 +11,14 @@ import { useT } from '../../i18n/useT';
 function MemberCard({ m, i }) {
     const inner = (
         <>
-            <div className="aspect-[4/5] overflow-hidden">
-                <MemberPortrait member={m} tone={i % 2 ? 'blue' : 'green'} initialClass="text-3xl sm:text-4xl"
+            <div className="aspect-[4/4.4] overflow-hidden">
+                <MemberPortrait member={m} tone={i % 2 ? 'blue' : 'green'}
+                                photoClass="h-40 w-40 sm:h-48 sm:w-48" initialClass="text-5xl sm:text-6xl"
                                 className="transition-transform duration-500 ease-out group-hover:scale-[1.05]" />
             </div>
-            <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-ink-950/90 via-ink-950/45 to-transparent p-3.5 pt-10 sm:p-5 sm:pt-14">
-                <h3 className="text-sm font-semibold leading-snug text-white sm:text-base">{m.name}</h3>
-                <p className="mt-1 text-xs font-semibold text-brand-300 sm:text-sm">{m.role}</p>
+            <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-ink-950/90 via-ink-950/45 to-transparent p-4 pt-10 sm:p-5 sm:pt-14">
+                <h3 className="text-base font-semibold leading-snug text-white sm:text-lg">{m.name}</h3>
+                <p className="mt-1 text-[13px] font-semibold text-brand-300 sm:text-sm">{m.role}</p>
                 {m.excerpt && (
                     <p className="mt-0 max-h-0 overflow-hidden text-sm leading-relaxed text-white/70 opacity-0 transition-[max-height,opacity,margin] duration-300 ease-out group-hover:mt-2 group-hover:max-h-24 group-hover:opacity-100">
                         {m.excerpt}
@@ -23,7 +26,7 @@ function MemberCard({ m, i }) {
                 )}
                 {m.has_page && (
                     <span className="mt-2.5 inline-flex items-center gap-1.5 text-xs font-semibold text-white/80">
-                        Full profile <ArrowRight size={13} className="btn-arrow" aria-hidden />
+                        Full profile <FontAwesomeIcon style={{ fontSize: 13 }} icon={faArrowRight} className="btn-arrow" aria-hidden />
                     </span>
                 )}
             </div>
@@ -49,7 +52,7 @@ export default function TeamIndex({ seo, leadership, members, content }) {
                     <SectionHeading eyebrow={content.leadership_eyebrow} title={content.leadership_title} />
                     <div className="mt-10 grid gap-5 grid-cols-2 lg:grid-cols-4">
                         {leadership.map((m, i) => (
-                            <Reveal key={m.slug || m.name} delay={i * 60}>
+                            <Reveal key={m.slug || m.name} delay={i * 60} className="h-full">
                                 <MemberCard m={m} i={i} />
                             </Reveal>
                         ))}
@@ -63,7 +66,7 @@ export default function TeamIndex({ seo, leadership, members, content }) {
                         <SectionHeading eyebrow={content.team_eyebrow} title={content.team_title} />
                         <div className="mt-10 grid gap-5 grid-cols-2 lg:grid-cols-4">
                             {members.map((m, i) => (
-                                <Reveal key={m.slug || m.name} delay={i * 50}>
+                                <Reveal key={m.slug || m.name} delay={i * 50} className="h-full">
                                     <MemberCard m={m} i={i} />
                                 </Reveal>
                             ))}
@@ -80,7 +83,7 @@ export default function TeamIndex({ seo, leadership, members, content }) {
                         {t('Distributors, hospitals and health programmes work directly with this team — tell us your market and requirement.')}
                     </p>
                     <div className="mt-6 flex flex-wrap justify-center gap-3">
-                        <ButtonLink href="/contact">{t('Contact our team')} <ArrowRight size={15} className="btn-arrow" aria-hidden /></ButtonLink>
+                        <ButtonLink href="/contact">{t('Contact our team')} <FontAwesomeIcon style={{ fontSize: 15 }} icon={faArrowRight} className="btn-arrow" aria-hidden /></ButtonLink>
                         <ButtonLink href="/about" variant="outline">{t('About Nymak')}</ButtonLink>
                     </div>
                 </Container>

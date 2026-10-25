@@ -1,7 +1,10 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowRight, faAward, faBox, faBuilding, faCircleCheck, faDroplet, faFileCircleCheck, faFlask, faGlobe, faLocationDot, faMicroscope, faPills, faSeedling, faShieldHalved, faShip, faSyringe, faTag } from '@fortawesome/free-solid-svg-icons';
 import Link from '../i18n/LocaleLink';
-import { ArrowRight, Award, BadgeCheck, Building2, Droplets, FileCheck2, FlaskConical, Globe2, MapPin, Microscope, Package, Pill, ShieldCheck, Ship, Sprout, Syringe, Tag } from 'lucide-react';
+
 import { useState } from 'react';
 import Markdown from '../Components/Markdown';
+import MemberPortrait from '../Components/MemberPortrait';
 import { CountUp, Reveal, useScrollProgress } from '../Components/Motion';
 import { ButtonLink, Container } from '../Components/Ui';
 import SiteLayout from '../Layouts/SiteLayout';
@@ -13,7 +16,7 @@ import { useT } from '../i18n/useT';
  * Every visible value comes from DB: content slots, stats, timeline,
  * portfolio markets, categories, leadership.
  */
-const JOURNEY_ICONS = { Award, BadgeCheck, Building2, Droplets, FileCheck2, FlaskConical, Globe2, Microscope, Package, Ship, ShieldCheck, Sprout, Syringe, Tag };
+const JOURNEY_ICONS = { faAward, faCircleCheck, faBuilding, faDroplet, faFileCircleCheck, faFlask, faGlobe, faMicroscope, faBox, faShip, faShieldHalved, faSeedling, faSyringe, faTag };
 
 // Gradient-ring palette cycling through the brand ramp.
 const RINGS = [
@@ -75,19 +78,19 @@ export default function Inside({ seo, content, stats, timeline, portfolio, categ
                         style={{ '--rail': railProgress }}>
                         {timeline.map((t, i) => {
                             const even = i % 2 === 0;
-                            const Icon = JOURNEY_ICONS[t.icon] || Award;
+                            const Icon = JOURNEY_ICONS[t.icon] || faAward;
                             const [g1, g2] = RINGS[i % RINGS.length];
                             const card = (
-                                <div className="rounded-2xl border border-ink-100 bg-white p-5 shadow-card sm:p-6">
+                                <div className="card-hover rounded-2xl border border-ink-100 bg-white p-5 shadow-card sm:p-6">
                                     <h3 className="t-h4 text-ink-900">{t.title}</h3>
                                     <p className="mt-1.5 text-sm leading-relaxed text-ink-600">{t.text}</p>
                                 </div>
                             );
                             const chip = (
-                                <span className="story-icon"><Icon size={20} aria-hidden /></span>
+                                <span className="story-icon"><FontAwesomeIcon icon={Icon} style={{ fontSize: 20 }} aria-hidden /></span>
                             );
                             return (
-                                <Reveal key={t.year} delay={i * 50}>
+                                <Reveal key={t.year} delay={i * 50} className="h-full">
                                     <li className="relative pl-16 md:grid md:grid-cols-[1fr_5.5rem_1fr] md:items-center md:gap-x-8 md:pl-0">
                                         <div className="story-node md:static md:col-start-2 md:row-start-1 md:mx-auto"
                                              style={{ '--g1': g1, '--g2': g2 }} aria-hidden>
@@ -124,7 +127,7 @@ export default function Inside({ seo, content, stats, timeline, portfolio, categ
                                                 i === active
                                                     ? 'border-brand-700 bg-brand-700 text-white shadow-md shadow-brand-900/20'
                                                     : 'border-ink-200 bg-white text-ink-700 hover:border-brand-300 hover:text-brand-800'}`}>
-                                        <MapPin size={14} className={i === active ? 'text-brand-200' : 'text-ink-400'} aria-hidden />
+                                        <FontAwesomeIcon style={{ fontSize: 14 }} icon={faLocationDot} className={i === active ? 'text-brand-200' : 'text-ink-400'} aria-hidden />
                                         {m.name}
                                         <span className={`ml-auto text-xs font-semibold uppercase tracking-[0.04em] ${i === active ? 'text-brand-200' : 'text-ink-400'}`}>
                                             {m.region}
@@ -141,7 +144,7 @@ export default function Inside({ seo, content, stats, timeline, portfolio, categ
                                      className="explorer-panel rounded-2xl border border-ink-100 bg-white p-7 shadow-card sm:p-9">
                                     <div className="flex flex-wrap items-center gap-3">
                                         <h3 className="t-h3 text-ink-950">{market.name}</h3>
-                                        <span className="rounded-full bg-brand-50 px-3 py-1 text-xs font-semibold uppercase tracking-[0.04em] text-brand-700">{market.region}</span>
+                                        <span className="rounded-lg bg-brand-50 px-3 py-1 text-xs font-semibold uppercase tracking-[0.04em] text-brand-700">{market.region}</span>
                                     </div>
                                     {market.description && (
                                         <div className="prose-nymak mt-4 max-w-2xl text-ink-600">
@@ -151,7 +154,7 @@ export default function Inside({ seo, content, stats, timeline, portfolio, categ
                                     {market.products.length > 0 ? (
                                         <div className="mt-6 border-t border-ink-100 pt-5">
                                             <p className="mb-3 flex items-center gap-1.5 text-xs font-semibold uppercase tracking-[0.04em] text-ink-500">
-                                                <Package size={13} aria-hidden /> Products supplied — {market.products.length}
+                                                <FontAwesomeIcon style={{ fontSize: 13 }} icon={faBox} aria-hidden /> Products supplied — {market.products.length}
                                             </p>
                                             <ul className="grid gap-2 sm:grid-cols-2">
                                                 {market.products.map((p) => (
@@ -159,7 +162,7 @@ export default function Inside({ seo, content, stats, timeline, portfolio, categ
                                                         <Link href={p.url}
                                                               className="group flex items-center justify-between gap-2 rounded-lg border border-ink-100 bg-white px-3.5 py-2.5 text-sm font-semibold text-ink-800 transition-colors hover:border-brand-300 hover:bg-brand-50/50">
                                                             <span>{p.name}</span>
-                                                            <ArrowRight size={14} className="shrink-0 text-ink-300 transition-transform group-hover:translate-x-0.5 group-hover:text-brand-600" aria-hidden />
+                                                            <FontAwesomeIcon style={{ fontSize: 14 }} icon={faArrowRight} className="shrink-0 text-ink-300 transition-transform group-hover:translate-x-0.5 group-hover:text-brand-600" aria-hidden />
                                                         </Link>
                                                     </li>
                                                 ))}
@@ -183,12 +186,12 @@ export default function Inside({ seo, content, stats, timeline, portfolio, categ
                     <Reveal><p className="text-xs font-semibold uppercase tracking-[0.04em] text-brand-700">{t('The Portfolio')}</p></Reveal>
                     <div className="mt-8 divide-y divide-ink-100 border-y border-ink-100">
                         {categories.map((c, i) => (
-                            <Reveal key={c.slug} delay={i * 50}>
+                            <Reveal key={c.slug} delay={i * 50} className="h-full">
                                 <Link href={`/product/${c.slug}`}
                                       className="group flex items-baseline justify-between gap-6 py-6 transition-colors hover:bg-brand-50/40 sm:px-4">
                                     <span className="flex items-baseline gap-5">
                                         <span className="grid h-10 w-10 shrink-0 translate-y-2 place-items-center rounded-xl bg-brand-50 text-brand-700 transition-colors group-hover:bg-brand-700 group-hover:text-white">
-                                            <Pill size={17} aria-hidden />
+                                            <FontAwesomeIcon style={{ fontSize: 17 }} icon={faPills} aria-hidden />
                                         </span>
                                         <span>
                                             <span className="block t-h4 text-ink-900 group-hover:text-brand-800">{c.name}</span>
@@ -197,7 +200,7 @@ export default function Inside({ seo, content, stats, timeline, portfolio, categ
                                     </span>
                                     <span className="flex shrink-0 items-center gap-3">
                                         <span className="text-xs font-semibold uppercase tracking-[0.04em] text-ink-400">{t('{n} items', { n: c.products_count })}</span>
-                                        <ArrowRight size={16} className="text-ink-300 transition-transform group-hover:translate-x-1 group-hover:text-brand-700" aria-hidden />
+                                        <FontAwesomeIcon style={{ fontSize: 16 }} icon={faArrowRight} className="text-ink-300 transition-transform group-hover:translate-x-1 group-hover:text-brand-700" aria-hidden />
                                     </span>
                                 </Link>
                             </Reveal>
@@ -210,32 +213,16 @@ export default function Inside({ seo, content, stats, timeline, portfolio, categ
             <section className="border-t border-ink-100 py-16 sm:py-20">
                 <Container>
                     <Reveal><p className="text-xs font-semibold uppercase tracking-[0.04em] text-brand-700">{t('Leadership')}</p></Reveal>
-                    <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+                    <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
                         {leadership.map((m, i) => (
-                            <Reveal key={m.slug || m.name} delay={i * 60}>
-                                {m.has_page ? (
-                                    <Link href={`/team/${m.slug}`} className="group flex items-center gap-4 rounded-xl border border-ink-100 bg-white p-4 transition-shadow hover:shadow-md">
-                                        <LeadershipAvatar m={m} />
-                                        <span>
-                                            <span className="block text-sm font-semibold text-ink-900 group-hover:text-brand-800">{m.name}</span>
-                                            <span className="block text-xs font-semibold text-brand-700">{m.role}</span>
-                                        </span>
-                                    </Link>
-                                ) : (
-                                    <div className="flex items-center gap-4 rounded-xl border border-ink-100 bg-white p-4">
-                                        <LeadershipAvatar m={m} />
-                                        <span>
-                                            <span className="block text-sm font-semibold text-ink-900">{m.name}</span>
-                                            <span className="block text-xs font-semibold text-brand-700">{m.role}</span>
-                                        </span>
-                                    </div>
-                                )}
+                            <Reveal key={m.slug || m.name} delay={i * 60} className="h-full">
+                                <LeaderCard m={m} i={i} />
                             </Reveal>
                         ))}
                     </div>
                     <Reveal delay={120}>
                         <Link href="/team" className="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-brand-700 hover:underline">
-                            Meet the full team <ArrowRight size={14} className="btn-arrow" aria-hidden />
+                            Meet the full team <FontAwesomeIcon style={{ fontSize: 14 }} icon={faArrowRight} className="btn-arrow" aria-hidden />
                         </Link>
                     </Reveal>
                 </Container>
@@ -245,12 +232,12 @@ export default function Inside({ seo, content, stats, timeline, portfolio, categ
             <section className="bg-gradient-to-r from-brand-700 to-brand-900 py-16 text-white sm:py-20">
                 <Container className="text-center">
                     <Reveal className="mx-auto max-w-2xl">
-                        <ShieldCheck size={28} className="mx-auto text-brand-200" aria-hidden />
+                        <FontAwesomeIcon style={{ fontSize: 28 }} icon={faShieldHalved} className="mx-auto text-brand-200" aria-hidden />
                         <h2 className="mt-4 t-h2">{content.cta_title}</h2>
                         <p className="mt-3 leading-relaxed text-brand-100">{content.cta_body}</p>
                     </Reveal>
                     <Reveal delay={100}>
-                        <ButtonLink href="/contact" variant="light" className="mt-8">{t('Start a conversation')} <ArrowRight size={16} className="btn-arrow" aria-hidden /></ButtonLink>
+                        <ButtonLink href="/contact" variant="light" className="mt-8">{t('Start a conversation')} <FontAwesomeIcon style={{ fontSize: 16 }} icon={faArrowRight} className="btn-arrow" aria-hidden /></ButtonLink>
                     </Reveal>
                 </Container>
             </section>
@@ -258,12 +245,28 @@ export default function Inside({ seo, content, stats, timeline, portfolio, categ
     );
 }
 
-function LeadershipAvatar({ m }) {
-    return m.photo ? (
-        <img src={`/${m.photo}`} alt="" loading="lazy" className="h-14 w-14 rounded-full object-cover object-top" />
-    ) : (
-        <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-brand-100 text-base font-semibold text-brand-800">
-            {m.initials}
-        </span>
+/** Leadership card — portrait band over name/role, matching the About
+    and Team treatments; whole card links to the profile when one exists. */
+function LeaderCard({ m, i }) {
+    const body = (
+        <>
+            <div className="aspect-[4/3]">
+                <MemberPortrait member={m} tone={i % 2 ? 'blue' : 'green'}
+                                photoClass="h-32 w-32 sm:h-36 sm:w-36" initialClass="text-4xl" />
+            </div>
+            <div className="p-5">
+                <p className="t-h4 leading-snug text-ink-900">{m.name}</p>
+                <p className="mt-1 text-xs font-semibold uppercase tracking-[0.04em] text-brand-700">{m.role}</p>
+                {m.has_page && (
+                    <span className="mt-3 inline-flex items-center gap-1.5 text-sm font-semibold text-brand-700">
+                        Full profile <FontAwesomeIcon style={{ fontSize: 14 }} icon={faArrowRight} className="btn-arrow" aria-hidden />
+                    </span>
+                )}
+            </div>
+        </>
     );
+    const cls = 'card-hover block h-full overflow-hidden rounded-2xl border border-ink-100 bg-white shadow-card';
+    return m.has_page
+        ? <Link href={`/team/${m.slug}`} className={cls}>{body}</Link>
+        : <div className={cls}>{body}</div>;
 }

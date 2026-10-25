@@ -1,5 +1,7 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTriangleExclamation } from '@fortawesome/free-solid-svg-icons';
 import { router } from '@inertiajs/react';
-import { TriangleAlert } from 'lucide-react';
+
 import { useState } from 'react';
 
 /**
@@ -35,7 +37,7 @@ export default function ConfirmDelete({ href, name = 'this record', onError = nu
                     <div className="w-full max-w-sm rounded-2xl bg-white p-6 shadow-xl" onClick={(e) => e.stopPropagation()}>
                         <div className="flex items-start gap-3">
                             <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-red-50 text-red-600">
-                                <TriangleAlert size={18} aria-hidden />
+                                <FontAwesomeIcon style={{ fontSize: 18 }} icon={faTriangleExclamation} aria-hidden />
                             </span>
                             <div>
                                 <h2 className="text-base font-bold text-ink-900">Delete {name}?</h2>

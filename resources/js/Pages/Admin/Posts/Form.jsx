@@ -1,5 +1,7 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faFloppyDisk, faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { Link, useForm } from '@inertiajs/react';
-import { Loader2, Save } from 'lucide-react';
+
 import Field, { inputCls } from '../../../Components/Admin/Field';
 import TranslationFields from '../../../Components/Admin/TranslationFields';
 import AdminLayout from '../../../Layouts/AdminLayout';
@@ -76,7 +78,7 @@ export default function PostForm({ post = null }) {
                 <div className="flex items-center gap-3">
                     <button type="submit" disabled={form.processing}
                             className="inline-flex items-center gap-2 rounded-lg bg-brand-700 px-5 py-2.5 text-sm font-bold text-white hover:bg-brand-800 disabled:opacity-60">
-                        {form.processing ? <Loader2 size={15} className="animate-spin" aria-hidden /> : <Save size={15} aria-hidden />}
+                        {form.processing ? <FontAwesomeIcon style={{ fontSize: 15 }} icon={faSpinner} className="animate-spin" aria-hidden /> : <FontAwesomeIcon style={{ fontSize: 15 }} icon={faFloppyDisk} aria-hidden />}
                         {form.processing ? 'Saving…' : isEdit ? 'Save changes' : 'Create article'}
                     </button>
                     <Link href="/admin/posts" className="text-sm font-bold text-ink-500 hover:text-ink-800">Cancel</Link>

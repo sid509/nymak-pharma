@@ -1,6 +1,8 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPaperPlane, faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { useForm, usePage } from '@inertiajs/react';
 import { useT } from '../i18n/useT';
-import { Loader2, Send } from 'lucide-react';
+
 
 const inputCls = 'w-full rounded-lg border border-ink-200 bg-white px-3.5 py-2.5 text-sm text-ink-900 placeholder:text-ink-400 transition-colors focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-100';
 const labelCls = 'mb-1.5 block t-eyebrow text-ink-700';
@@ -111,8 +113,8 @@ export default function EnquiryForm({ products = [], formStartedAt, honeypot = '
             </div>
 
             <button type="submit" disabled={form.processing}
-                    className="btn-cta inline-flex w-full items-center justify-center gap-2 rounded-full bg-brand-600 px-6 py-2.5 t-button text-white transition-colors hover:bg-brand-700 disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto">
-                {form.processing ? <Loader2 size={16} className="animate-spin" aria-hidden /> : <Send size={16} aria-hidden />}
+                    className="btn-cta inline-flex w-full items-center justify-center gap-2 rounded-xl bg-brand-600 px-6 py-2.5 t-button text-white transition-colors hover:bg-brand-700 disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto">
+                {form.processing ? <FontAwesomeIcon style={{ fontSize: 16 }} icon={faSpinner} className="animate-spin" aria-hidden /> : <FontAwesomeIcon style={{ fontSize: 16 }} icon={faPaperPlane} aria-hidden />}
                 {form.processing ? t('Sending…') : t('Send Enquiry')}
             </button>
         </form>
