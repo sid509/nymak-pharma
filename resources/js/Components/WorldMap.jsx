@@ -1,6 +1,6 @@
 import { geoCentroid, geoNaturalEarth1, geoPath } from 'd3-geo';
 import { useMemo, useState } from 'react';
-import { feature } from 'topojson-client';
+import { feature, merge } from 'topojson-client';
 import world from 'world-atlas/countries-110m.json';
 import { numericId } from '../data/countries';
 
@@ -23,6 +23,9 @@ const HQ = [69.72, 22.74]; // Mundra, Gujarat - Nymak's manufacturing base
 const features = feature(world, world.objects.countries).features
     .filter((f) => f.id !== '010');
 const byId = new Map(features.map((f) => [f.id, f]));
+// Continents as single shapes, no country borders - the pinboard wall shows
+// quiet landmasses, not a political map. Borders stay only under the pins.
+const land = merge(world, world.objects.countries.geometries.filter((g) => g.id !== '010'));
 
 /** Resolve each market to a country id and a geo [lng, lat] point. */
 export function placeMarkets(markets) {
@@ -50,6 +53,7 @@ export default function WorldMap({ markets, selected, onSelect, className = '' }
         .fitExtent([[26, 18], [W - 26, H - 26]], { type: 'FeatureCollection', features }), []);
     const path = useMemo(() => geoPath(projection), [projection]);
 
+    const landPath = useMemo(() => path(land), [path]);
     const countries = useMemo(() => features
         .map((f) => ({ id: f.id, name: f.properties.name, d: path(f) }))
         .filter((c) => c.d), [path]);
@@ -114,12 +118,10 @@ export default function WorldMap({ markets, selected, onSelect, className = '' }
                 <rect x="8" y="8" width={W - 16} height={H - 16} rx="14" fill="url(#board-fill)" />
                 <rect x="8" y="8" width={W - 16} height={H - 16} rx="14" className="pinboard-edge" />
 
-                {/* Land - one cut sheet pressed on the board. Market countries
-                    stay clickable for the mouse; the pin above each one carries
-                    the button semantics, so these are pointer-only. */}
-                <g className="pin-land" aria-hidden>
-                    {countries.map((c) => <path key={c.id} d={c.d} />)}
-                </g>
+                {/* Land - one quiet silhouette pressed on the board, the way the
+                    wall piece reads. Market countries keep an invisible shape
+                    under the pointer: a faint tint on hover, nothing at rest. */}
+                <path className="pin-land-shape" d={landPath} aria-hidden />
                 <g className="pin-land-active">
                     {countries.filter((c) => byCountry.has(c.id)).map((c) => {
                         const m = byCountry.get(c.id);

@@ -61,8 +61,8 @@ describe('WorldMap pinboard', () => {
         expect(container.querySelector('.ppin-partner')).not.toBeNull();
         expect(container.querySelector('.ppin-ethical')).not.toBeNull();
         const kenya = screen.getByRole('button', { name: /Kenya/ });
-        expect(kenya.classList.contains('ppin-ethical')).toBe(true);
-        expect(kenya).toHaveAttribute('data-selected', 'true');
+        expect(kenya.closest('.ppin').classList.contains('ppin-ethical')).toBe(true);
+        expect(kenya.closest('.ppin')).toHaveAttribute('data-selected', 'true');
     });
 
     it('falls back to a partner pin when pin_type is missing or unknown', () => {
