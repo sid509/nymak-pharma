@@ -4,10 +4,10 @@ import WorldMap, { placeMarkets } from '../../resources/js/Components/WorldMap';
 import { countryName, numericId } from '../../resources/js/data/countries';
 
 const markets = [
-    { name: 'Sierra Leone', slug: 'sierra-leone', iso_code: 'SL', region: 'West Africa', description: 'Freetown office.', featured: true, latitude: null, longitude: null, products: [] },
-    { name: 'Nigeria', slug: 'nigeria', iso_code: 'NG', region: 'West Africa', description: null, featured: true, latitude: null, longitude: null, products: [] },
-    { name: 'Kenya', slug: 'kenya', iso_code: 'ke', region: 'East Africa', description: null, featured: false, latitude: null, longitude: null, products: [] },
-    { name: 'South Pacific Islands', slug: 'south-pacific', iso_code: null, region: 'Oceania', description: 'First export region.', featured: false, latitude: -17.7, longitude: 178.0, products: [] },
+    { name: 'Sierra Leone', slug: 'sierra-leone', iso_code: 'SL', region: 'West Africa', description: 'Freetown office.', featured: true, pin_type: 'presence', latitude: null, longitude: null, products: [] },
+    { name: 'Nigeria', slug: 'nigeria', iso_code: 'NG', region: 'West Africa', description: null, featured: true, pin_type: 'partner', latitude: null, longitude: null, products: [] },
+    { name: 'Kenya', slug: 'kenya', iso_code: 'ke', region: 'East Africa', description: null, featured: false, pin_type: 'ethical', latitude: null, longitude: null, products: [] },
+    { name: 'South Pacific Islands', slug: 'south-pacific', iso_code: null, region: 'Oceania', description: 'First export region.', featured: false, pin_type: 'partner', latitude: -17.7, longitude: 178.0, products: [] },
 ];
 
 describe('countries lookup', () => {
@@ -44,36 +44,40 @@ describe('placeMarkets', () => {
     });
 });
 
-describe('WorldMap globe', () => {
-    it('renders visible market countries as buttons, with the selected one pressed', () => {
+describe('WorldMap pinboard', () => {
+    it('renders a pin button for every market, wherever it sits on the board', () => {
         render(<WorldMap markets={markets} selected="nigeria" onSelect={() => {}} />);
-        // The opening view centres on the Indian Ocean - African markets are
-        // in frame; South Pacific is on the far side and reaches the user via
-        // the list (selecting it spins the globe round).
+        // Flat board - no hemisphere hiding: every pinned market is a button,
+        // including coordinate-only regions like the South Pacific.
         expect(screen.getByRole('button', { name: /Nigeria/ })).toHaveAttribute('aria-pressed', 'true');
         expect(screen.getByRole('button', { name: /Sierra Leone/ })).toHaveAttribute('aria-pressed', 'false');
         expect(screen.getByRole('button', { name: /Kenya/ })).toBeInTheDocument();
+        expect(screen.getByRole('button', { name: /South Pacific Islands/ })).toBeInTheDocument();
     });
 
-    it('draws a supply-route arc from Mundra to every market', () => {
+    it('colours each pin by its pin_type and marks the selected one', () => {
+        const { container } = render(<WorldMap markets={markets} selected="kenya" onSelect={() => {}} />);
+        expect(container.querySelector('.ppin-presence')).not.toBeNull(); // Sierra Leone + HQ
+        expect(container.querySelector('.ppin-partner')).not.toBeNull();
+        expect(container.querySelector('.ppin-ethical')).not.toBeNull();
+        const kenya = screen.getByRole('button', { name: /Kenya/ });
+        expect(kenya.classList.contains('ppin-ethical')).toBe(true);
+        expect(kenya).toHaveAttribute('data-selected', 'true');
+    });
+
+    it('falls back to a partner pin when pin_type is missing or unknown', () => {
+        const { container } = render(<WorldMap markets={[{ ...markets[1], pin_type: undefined }, { ...markets[2], pin_type: 'bogus' }]} selected={null} onSelect={() => {}} />);
+        expect(container.querySelectorAll('.map-pins .ppin-partner').length).toBe(2);
+    });
+
+    it('draws the Mundra HQ pin as a non-interactive presence marker', () => {
         const { container } = render(<WorldMap markets={markets} selected={null} onSelect={() => {}} />);
-        const arcs = container.querySelectorAll('.globe-arc');
-        expect(arcs.length).toBe(4); // one per market, visible or not
-        const runner = container.querySelectorAll('.globe-arc-run');
-        expect(runner.length).toBe(4);
-        expect(container.querySelector('.globe-hq')).not.toBeNull(); // Mundra HQ marker
+        const hq = container.querySelector('.ppin-presence[aria-hidden="true"]');
+        expect(hq).not.toBeNull();
+        expect(hq.querySelector('title').textContent).toContain('Mundra');
     });
 
-    // Found in browser UAT: the arcs are painted over country shapes - without
-    // pointer-events:none they swallowed clicks aimed at markets beneath them.
-    it('keeps decorative route arcs out of the hit target', () => {
-        const { container } = render(<WorldMap markets={markets} selected={null} onSelect={() => {}} />);
-        const routes = container.querySelector('.globe-routes');
-        expect(routes.style.pointerEvents).toBe('none');
-        expect(routes.getAttribute('aria-hidden')).not.toBeNull();
-    });
-
-    it('selects on click and deselects when the active country is clicked again', () => {
+    it('selects on pin click and deselects when the active pin is clicked again', () => {
         const onSelect = vi.fn();
         const { rerender } = render(<WorldMap markets={markets} selected={null} onSelect={onSelect} />);
         fireEvent.click(screen.getByRole('button', { name: /Kenya/ }));

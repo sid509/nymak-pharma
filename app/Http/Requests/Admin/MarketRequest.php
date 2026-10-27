@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Admin;
 
+use App\Models\Market;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
@@ -16,6 +17,7 @@ class MarketRequest extends FormRequest
             'latitude' => $this->latitude === '' ? null : $this->latitude,
             'longitude' => $this->longitude === '' ? null : $this->longitude,
             'show_in_portfolio' => $this->boolean('show_in_portfolio'),
+            'pin_type' => $this->pin_type ?: 'partner',
         ]);
     }
 
@@ -26,6 +28,7 @@ class MarketRequest extends FormRequest
             'slug' => ['required', 'string', 'max:140', Rule::unique('markets', 'slug')->ignore($this->route('market'))],
             'iso_code' => ['nullable', 'string', 'size:2', 'alpha'],
             'region' => ['nullable', 'string', 'max:120'],
+            'pin_type' => ['required', Rule::in(Market::PIN_TYPES)],
             'description' => ['nullable', 'string', 'max:5000'],
             'content' => ['nullable', 'string', 'max:100000'],
             'latitude' => ['nullable', 'numeric', 'between:-90,90', 'required_with:longitude'],

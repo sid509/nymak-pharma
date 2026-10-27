@@ -18,6 +18,7 @@ export default function MarketForm({ market = null }) {
         slug: market?.slug || '',
         iso_code: market?.iso_code || '',
         region: market?.region || '',
+        pin_type: market?.pin_type || 'partner',
         description: market?.description || '',
         content: market?.content || '',
         latitude: market?.latitude ?? '',
@@ -45,7 +46,14 @@ export default function MarketForm({ market = null }) {
                         <Field field={{ name: 'iso_code', label: 'Country on map', type: 'select', options: countryOptions, help: 'Highlights this country on the Global Presence map. Leave blank for a multi-country region and set a pin below.' }} value={form.data.iso_code} error={form.errors.iso_code} onChange={set} />
                         <Field field={{ name: 'region', label: 'Region', help: 'e.g. West Africa' }} value={form.data.region} error={form.errors.region} onChange={set} />
                     </div>
-                    <Field field={{ name: 'description', label: 'Short summary', type: 'textarea', rows: 2, help: 'One or two plain sentences. Shown on hoverhown on hover and in the market list.' }} value={form.data.description} error={form.errors.description} onChange={set} />
+                    <div className="grid gap-5 sm:grid-cols-2">
+                        <Field field={{ name: 'pin_type', label: 'Pin colour', type: 'select', options: [
+                            { value: 'presence', label: 'Gold, Our Presence (offices & HQ)' },
+                            { value: 'ethical', label: 'Blue, Ethical Markets' },
+                            { value: 'partner', label: 'Green, Partner Markets' },
+                        ], help: 'Which pin this market gets on the global-presence board.' }} value={form.data.pin_type} error={form.errors.pin_type} onChange={set} />
+                    </div>
+                    <Field field={{ name: 'description', label: 'Short summary', type: 'textarea', rows: 2, help: 'One or two plain sentences. Shown on hover and in the market list.' }} value={form.data.description} error={form.errors.description} onChange={set} />
                     <Field field={{ name: 'content', label: 'What we do in this market', type: 'richtext', placeholder: 'Describe the work, partners, registrations and products in this country…', help: 'Shown in the detail panel when the country is selected on the map. Headings, lists, bold and links are supported.' }} value={form.data.content} error={form.errors.content} onChange={set} />
                 </section>
 

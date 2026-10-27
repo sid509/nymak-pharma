@@ -6,8 +6,8 @@
  * Requires the app on BASE_URL (default http://localhost:8000) with the
  * seeded admin user. Drives Chromium exactly like an operator would:
  * 1. Admin logs in, creates a brand-new market (fresh data per run), types
- *    rich content in the editor, saves.
- * 2. Visitor opens /global-presence, clicks the country on the map and sees
+ *    rich content in the editor, picks a pin colour, saves.
+ * 2. Visitor opens /global-presence, clicks the pin on the pinboard and sees
  *    that content; keyboard + list + deep-link paths are checked too.
  * 3. Admin deletes the market again so the live catalogue is left untouched.
  */
@@ -33,9 +33,9 @@ const expect = (cond, msg) => { if (!cond) throw new Error(msg); };
 
 // Real Chrome (not the bundled headless shell) - what users actually run.
 const browser = await chromium.launch({ channel: process.env.BROWSER_CHANNEL ?? 'chrome', headless: !process.env.HEADED });
-// reducedMotion keeps the globe's auto-rotation/fly animations off so
-// hover/focus actionability checks see a still, deterministic target -
-// the same experience users with prefers-reduced-motion get.
+// reducedMotion keeps decorative animations off so hover/focus checks see a
+// still, deterministic target - the same experience users with
+// prefers-reduced-motion get.
 const page = await browser.newPage({ viewport: { width: 1360, height: 900 }, reducedMotion: 'reduce' });
 const errors = [];
 page.on('pageerror', (e) => errors.push(e.message));
@@ -55,6 +55,7 @@ await step('new-market form shows the country picker and rich-text editor', asyn
     await page.getByLabel('URL slug').fill(SLUG);
     await page.getByLabel('Country on map').selectOption(ISO);
     await page.getByLabel('Region').first().fill('East Africa');
+    await page.getByLabel('Pin colour').selectOption('ethical');
     await page.locator('.richtext [contenteditable="true"]').first().waitFor();
     expect(await page.getByRole('toolbar', { name: 'Formatting' }).first().isVisible(), 'toolbar visible');
 });
@@ -94,33 +95,37 @@ await step('saved content round-trips into the editor as HTML', async () => {
 });
 
 // ── Visitor: find it on the map ─────────────────────────────────────
-await step('visitor sees the map with clickable countries and an empty-state panel', async () => {
+await step('visitor sees the pinboard with a pin per market and an empty-state panel', async () => {
     await page.context().clearCookies();
     await page.goto(`${BASE}/global-presence`);
     await page.locator('.world-map svg').waitFor();
-    const countries = page.locator('.map-active path[role="button"]');
-    // Only the facing hemisphere renders clickable countries - Honduras sits
-    // behind the horizon at the home view, so the floor is the 8 visible
-    // seeded markets (+1 for the UAT market the run creates).
-    expect((await countries.count()) >= 8, `expected ≥8 clickable countries, got ${await countries.count()}`);
-    expect(await page.locator('.globe-arc').count() >= 10, 'supply-route arcs from Mundra rendered');
-    expect(await page.locator('.globe-hq').isVisible(), 'Mundra HQ marker shown');
-    expect(await page.getByText('Spin the globe, pick a country').isVisible(), 'placeholder panel shown');
+    const pins = page.locator('.map-pins [role="button"]');
+    // Flat board - every seeded market is pinned (no hemisphere hiding), plus
+    // the UAT market the run creates.
+    expect((await pins.count()) >= 10, `expected ≥10 pins, got ${await pins.count()}`);
+    expect(await page.locator('.ppin-presence[aria-hidden="true"] title', { hasText: 'Mundra' }).count() === 1, 'Mundra HQ pin shown');
+    for (const label of ['Our Presence', 'Ethical Markets', 'Partner Markets']) {
+        expect(await page.getByText(label, { exact: true }).first().isVisible(), `legend shows ${label}`);
+    }
+    expect(await page.getByText('Pick a pin, explore a market').isVisible(), 'placeholder panel shown');
 });
 
 const target = () => page.getByRole('button', { name: new RegExp(`^${NAME}, view`) });
 
-await step('hovering a country shows a summary card', async () => {
+await step('hovering a pin shows a summary card', async () => {
     await target().hover();
     const tip = page.getByRole('tooltip');
     await tip.waitFor();
     expect((await tip.textContent()).includes(`Tanzania summary ${marker}`), 'tooltip shows admin summary');
 });
 
-await step('clicking the country highlights it and shows the admin-authored content', async () => {
+await step('clicking the pin highlights it and shows the admin-authored content', async () => {
     await target().click();
-    expect(await target().getAttribute('aria-pressed') === 'true', 'country is pressed');
-    expect(await target().getAttribute('data-selected') === 'true', 'country is gold-highlighted');
+    expect(await target().getAttribute('aria-pressed') === 'true', 'pin is pressed');
+    // the marker classes live on the pin group wrapping the hit-disc button
+    const pinGroup = () => page.locator('.map-pins .ppin:has([role="button"][aria-pressed="true"])');
+    expect(await pinGroup().getAttribute('data-selected') === 'true', 'pin is highlighted');
+    expect((await pinGroup().getAttribute('class')).includes('ppin-ethical'), 'pin carries the admin-picked colour');
     const panel = page.locator('.explorer-panel');
     await panel.getByRole('heading', { name: NAME, level: 3 }).waitFor();
     expect(await panel.getByRole('heading', { name: `What we do here ${marker}` }).isVisible(), 'rich h3 rendered');
@@ -142,22 +147,22 @@ await step('the region list mirrors and drives the same selection', async () => 
     const nigeria = page.locator('.map-list-btn', { hasText: 'Nigeria' });
     await nigeria.click();
     expect(await nigeria.getAttribute('aria-pressed') === 'true', 'list button pressed');
-    expect(await page.getByRole('button', { name: /^Nigeria, view/ }).getAttribute('aria-pressed') === 'true', 'map path pressed');
+    expect(await page.getByRole('button', { name: /^Nigeria, view/ }).getAttribute('aria-pressed') === 'true', 'map pin pressed');
     await page.locator('.explorer-panel').getByRole('heading', { name: 'Nigeria', level: 3 }).waitFor();
 });
 
-await step('pinned region (no ISO code) is selectable - list pick spins the globe to it', async () => {
-    // South Pacific is on the far side at the opening view - a real user picks
-    // it from the list, which rotates the globe until its pin appears.
+await step('pinned region (no ISO code) is selectable from the list', async () => {
+    // South Pacific has no country shape - its pin sits on coordinates and is
+    // always on the board; a real user can also reach it from the list.
     await page.locator('.map-list-btn', { hasText: 'South Pacific Islands' }).click();
     const pin = page.getByRole('button', { name: /^South Pacific Islands, view/ });
     await pin.waitFor();
     await page.locator('.explorer-panel').getByRole('heading', { name: 'South Pacific Islands', level: 3 }).waitFor();
 });
 
-await step('keyboard: Tab to a country, Enter selects, close button clears', async () => {
+await step('keyboard: Tab to a pin, Enter selects, close button clears', async () => {
     await page.getByRole('button', { name: 'Clear selection' }).click();
-    await page.getByText('Spin the globe, pick a country').waitFor();
+    await page.getByText('Pick a pin, explore a market').waitFor();
     await page.getByRole('button', { name: /^Nigeria, view/ }).focus();
     await page.keyboard.press('Enter');
     await page.locator('.explorer-panel').getByRole('heading', { name: 'Nigeria', level: 3 }).waitFor();

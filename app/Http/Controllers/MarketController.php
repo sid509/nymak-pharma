@@ -29,6 +29,7 @@ class MarketController extends Controller
                 'slug' => $m->slug,
                 'iso_code' => $m->iso_code,
                 'region' => $m->region,
+                'pin_type' => $m->pin_type,
                 'description' => $m->description,
                 'content' => $m->content,
                 'latitude' => $m->latitude,

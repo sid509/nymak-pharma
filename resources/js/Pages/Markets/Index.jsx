@@ -88,7 +88,7 @@ function EmptyPanel({ content, markets, onPick }) {
     return (
         <div className="explorer-panel relative flex h-full flex-col overflow-hidden rounded-2xl border border-ink-100 bg-white shadow-card">
             {/* Supply-route motif - concentric arcs radiating from a hub dot,
-                the same visual language as the globe beside it. */}
+                the supply-line story behind the board of pins beside it. */}
             <div className="relative overflow-hidden bg-gradient-to-b from-brand-50/90 via-brand-50/40 to-transparent px-7 pb-6 pt-8 text-center">
                 <svg className="absolute left-1/2 top-6 h-56 w-56 -translate-x-1/2 text-brand-500/15" viewBox="0 0 200 200" fill="none" aria-hidden>
                     {[88, 64, 40].map((r) => <circle key={r} cx="100" cy="100" r={r} stroke="currentColor" strokeWidth="1.5" strokeDasharray="4 5" />)}
@@ -188,22 +188,21 @@ export default function MarketsIndex({ seo, markets, offices, content }) {
                 </dl>
             </PageHero>
 
-            {/* Interactive map + detail panel - wide container so the globe
-                and panel use the screen instead of leaving empty margins. */}
+            {/* Pinboard map + detail panel - the map hangs like the global-
+                presence wall: warm board, matte pins, legend below. */}
             <section className="py-16 sm:py-20">
                 <Container wide>
                     <SectionHeading eyebrow={content.map_eyebrow} title={content.map_title} lead={content.map_lead} />
 
                     <div className="mt-10 grid gap-6 lg:grid-cols-[minmax(0,1.6fr)_minmax(22rem,1fr)] lg:gap-10">
                         <Reveal>
-                            <div className="rounded-2xl border border-ink-100 bg-gradient-to-b from-white to-brand-50/40 p-3 shadow-card sm:p-5">
+                            <div className="pinboard-frame rounded-2xl p-3 shadow-card sm:p-5">
                                 <WorldMap markets={markets} selected={selected} onSelect={select} />
-                                <ul className="mt-3 flex flex-wrap items-center gap-x-5 gap-y-1.5 px-2 text-xs font-semibold text-ink-500" aria-label="Legend">
-                                    <li className="flex items-center gap-1.5"><span className="h-2.5 w-2.5 rounded-full bg-gold-500 ring-2 ring-gold-100" aria-hidden />{t('Mundra HQ')}</li>
-                                    <li className="flex items-center gap-1.5"><span className="h-2.5 w-2.5 rounded-sm bg-brand-600" aria-hidden />{t('Key market')}</li>
-                                    <li className="flex items-center gap-1.5"><span className="h-2.5 w-2.5 rounded-sm bg-brand-400" aria-hidden />{t('Export market')}</li>
-                                    <li className="flex items-center gap-1.5"><span className="inline-block h-0.5 w-5 rounded-full bg-gold-500" aria-hidden />{t('Supply route')}</li>
-                                    <li className="ml-auto italic text-ink-400">Drag to spin · click a country</li>
+                                <ul className="mt-4 flex flex-wrap items-center justify-center gap-x-8 gap-y-2 text-xs font-semibold uppercase tracking-[0.06em] text-ink-500" aria-label="Legend">
+                                    <li className="flex items-center gap-2"><span className="legend-pin bg-[#c9a24f]" aria-hidden />{t('Our Presence')}</li>
+                                    <li className="flex items-center gap-2"><span className="legend-pin bg-[#4f7ba0]" aria-hidden />{t('Ethical Markets')}</li>
+                                    <li className="flex items-center gap-2"><span className="legend-pin bg-[#5d8f5f]" aria-hidden />{t('Partner Markets')}</li>
+                                    <li className="text-[11px] normal-case italic tracking-normal text-ink-400">{t('Click a pin to explore')}</li>
                                 </ul>
                             </div>
                         </Reveal>

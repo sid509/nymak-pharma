@@ -12,8 +12,11 @@ class Market extends Model
 {
     use HasTranslations;
 
+    /** Pin categories on the global-presence board. */
+    public const PIN_TYPES = ['presence', 'ethical', 'partner'];
+
     protected $fillable = [
-        'name', 'slug', 'iso_code', 'region', 'description', 'content', 'latitude', 'longitude',
+        'name', 'slug', 'iso_code', 'region', 'pin_type', 'description', 'content', 'latitude', 'longitude',
         'show_in_portfolio', 'sort_order', 'meta_title', 'meta_description', 'i18n',
     ];
 

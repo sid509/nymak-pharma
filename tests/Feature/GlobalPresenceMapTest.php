@@ -24,9 +24,10 @@ class GlobalPresenceMapTest extends TestCase
                 ->component('Markets/Index')
                 ->has('markets', Market::count())
                 ->has('markets.0', fn (Assert $m) => $m
-                    ->hasAll(['name', 'slug', 'iso_code', 'region', 'description', 'content', 'latitude', 'longitude', 'featured', 'office', 'products']))
+                    ->hasAll(['name', 'slug', 'iso_code', 'region', 'pin_type', 'description', 'content', 'latitude', 'longitude', 'featured', 'office', 'products']))
                 ->where('markets.0.slug', 'sierra-leone')
                 ->where('markets.0.iso_code', 'SL')
+                ->where('markets.0.pin_type', 'presence')
                 ->where('markets.0.featured', true)
                 ->has('content.map_title')
                 ->has('content.footprint_stats')
@@ -109,6 +110,10 @@ class GlobalPresenceMapTest extends TestCase
         $this->actingAs($admin)->from('/admin/markets/create')->post('/admin/markets', [
             'name' => 'Bad', 'latitude' => 10,
         ])->assertSessionHasErrors('longitude');
+
+        $this->actingAs($admin)->from('/admin/markets/create')->post('/admin/markets', [
+            'name' => 'Bad', 'pin_type' => 'sparkle',
+        ])->assertSessionHasErrors('pin_type');
 
         $this->actingAs($admin)->post('/admin/markets', [
             'name' => 'Caribbean Islands', 'latitude' => '15.5', 'longitude' => '-61.2',
