@@ -40,8 +40,16 @@ export default function JourneyTimeline({ items, partners = [] }) {
     };
     useEffect(() => {
         onScroll();
+        // Scroll-snap can shift scrollLeft while lazy images reflow the
+        // track - recompute the edge state on every resize so the arrows
+        // never stick at a stale end position.
+        const ro = new ResizeObserver(onScroll);
+        if (railRef.current) {
+            ro.observe(railRef.current);
+            ro.observe(railRef.current.firstElementChild);
+        }
         window.addEventListener('resize', onScroll);
-        return () => window.removeEventListener('resize', onScroll);
+        return () => { ro.disconnect(); window.removeEventListener('resize', onScroll); };
     }, []);
     const nudge = (dir) => railRef.current?.scrollBy({ left: dir * railRef.current.clientWidth * 0.7, behavior: 'smooth' });
 

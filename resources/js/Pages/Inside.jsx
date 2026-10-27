@@ -1,11 +1,12 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowRight, faAward, faBox, faBuilding, faCircleCheck, faDroplet, faFileCircleCheck, faFlask, faGlobe, faLocationDot, faMicroscope, faPills, faSeedling, faShieldHalved, faShip, faSyringe, faTag } from '@fortawesome/free-solid-svg-icons';
+import { faArrowRight, faBox, faLocationDot, faPills, faShieldHalved } from '@fortawesome/free-solid-svg-icons';
 import Link from '../i18n/LocaleLink';
 
 import { useState } from 'react';
+import JourneyTimeline from '../Components/JourneyTimeline';
 import Markdown from '../Components/Markdown';
 import MemberPortrait from '../Components/MemberPortrait';
-import { CountUp, Reveal, useScrollProgress } from '../Components/Motion';
+import { CountUp, Reveal } from '../Components/Motion';
 import { ButtonLink, Container } from '../Components/Ui';
 import SiteLayout from '../Layouts/SiteLayout';
 import { useT } from '../i18n/useT';
@@ -16,21 +17,10 @@ import { useT } from '../i18n/useT';
  * Every visible value comes from DB: content slots, stats, timeline,
  * portfolio markets, categories, leadership.
  */
-const JOURNEY_ICONS = { faAward, faCircleCheck, faBuilding, faDroplet, faFileCircleCheck, faFlask, faGlobe, faMicroscope, faBox, faShip, faShieldHalved, faSeedling, faSyringe, faTag };
-
-// Gradient-ring palette cycling through the brand ramp.
-const RINGS = [
-    ['#28aba8', '#7ededa'],
-    ['#1e8d8b', '#45c6c2'],
-    ['#d9a03f', '#e8b95c'],
-    ['#12605c', '#28aba8'],
-];
-
 export default function Inside({ seo, content, stats, timeline, portfolio, categories, leadership }) {
     const { t } = useT();
     const [active, setActive] = useState(0);
     const market = portfolio[active];
-    const [railRef, railProgress] = useScrollProgress();
 
     return (
         <SiteLayout>
@@ -74,35 +64,9 @@ export default function Inside({ seo, content, stats, timeline, portfolio, categ
                     <Reveal><p className="flex items-center justify-center gap-2.5 text-center text-xs font-semibold uppercase tracking-[0.04em] text-brand-700"><span className="h-px w-6 bg-brand-400" aria-hidden />{content.story_eyebrow}<span className="h-px w-6 bg-brand-400" aria-hidden /></p></Reveal>
                     <Reveal delay={60}><h2 className="mt-3 text-center t-h2 text-ink-950">{content.story_title}</h2></Reveal>
 
-                    <ol ref={railRef} className="story-rail mt-14 space-y-8 md:space-y-10"
-                        style={{ '--rail': railProgress }}>
-                        {timeline.map((t, i) => {
-                            const even = i % 2 === 0;
-                            const Icon = JOURNEY_ICONS[t.icon] || faAward;
-                            const [g1, g2] = RINGS[i % RINGS.length];
-                            const card = (
-                                <div className="card-hover rounded-2xl border border-ink-100 bg-white p-5 shadow-card sm:p-6">
-                                    <h3 className="t-h4 text-ink-900">{t.title}</h3>
-                                    <p className="mt-1.5 text-sm leading-relaxed text-ink-600">{t.text}</p>
-                                </div>
-                            );
-                            const chip = (
-                                <span className="story-icon"><FontAwesomeIcon icon={Icon} style={{ fontSize: 20 }} aria-hidden /></span>
-                            );
-                            return (
-                                <Reveal key={t.year} delay={i * 50} className="h-full">
-                                    <li className="relative pl-16 md:grid md:grid-cols-[1fr_5.5rem_1fr] md:items-center md:gap-x-8 md:pl-0">
-                                        <div className="story-node md:static md:col-start-2 md:row-start-1 md:mx-auto"
-                                             style={{ '--g1': g1, '--g2': g2 }} aria-hidden>
-                                            <span>{t.year}</span>
-                                        </div>
-                                        <div className={`md:row-start-1 ${even ? 'md:col-start-1' : 'md:col-start-3'}`}>{card}</div>
-                                        <div className={`hidden md:flex md:row-start-1 ${even ? 'md:col-start-3 md:justify-start' : 'md:col-start-1 md:justify-end'}`}>{chip}</div>
-                                    </li>
-                                </Reveal>
-                            );
-                        })}
-                    </ol>
+                    <div className="mt-14">
+                        <JourneyTimeline items={timeline} />
+                    </div>
                 </Container>
             </section>
 

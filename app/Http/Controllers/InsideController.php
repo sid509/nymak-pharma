@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Middleware\SetLocale;
+use App\Models\JourneyItem;
 use App\Models\Market;
 use App\Models\PageContent;
 use App\Models\ProductCategory;
@@ -46,7 +47,13 @@ class InsideController extends Controller
             ])->toArray(),
             'content' => PageContent::for('inside'),
             'stats' => SiteSetting::get('stats', []),
-            'timeline' => PageContent::for('inside')['journey'],
+            'timeline' => JourneyItem::orderBy('sort_order')->orderBy('id')
+                ->get(['year', 'title', 'body', 'icon', 'image', 'image_2', 'fit', 'i18n'])
+                ->map(fn ($j) => [
+                    'year' => $j->year, 'title' => $j->title, 'body' => $j->body,
+                    'icon' => $j->icon, 'image' => $j->image, 'image_2' => $j->image_2,
+                    'fit' => $j->fit,
+                ]),
             'portfolio' => $portfolio,
             'categories' => ProductCategory::orderBy('sort_order')
                 ->withCount('products')
