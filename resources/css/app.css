@@ -611,6 +611,27 @@ body {
 .journey-scroll::-webkit-scrollbar-thumb { background: rgb(160 140 100 / .45); border-radius: 999px; }
 .journey-track { display: inline-block; min-width: 100%; padding: 0 .5rem; }
 
+.journey-rail { position: relative; }
+.journey-nav {
+    position: absolute;
+    top: 3.1rem;
+    z-index: 5;
+    display: grid;
+    place-items: center;
+    width: 2.4rem;
+    height: 2.4rem;
+    border-radius: 999px;
+    border: 1px solid rgb(160 140 100 / .4);
+    background: #f4efe6;
+    color: var(--color-ink-800);
+    box-shadow: 0 2px 8px rgb(60 45 20 / .18);
+    transition: transform .15s ease, opacity .15s ease;
+}
+.journey-nav:hover { transform: scale(1.06); }
+.journey-nav:disabled { opacity: 0; pointer-events: none; }
+.journey-nav--prev { left: .35rem; }
+.journey-nav--next { right: .35rem; }
+
 .journey-bar { display: grid; gap: .35rem; align-items: end; }
 .journey-year { display: flex; flex-direction: column; gap: .45rem; scroll-snap-align: start; }
 .journey-year-label {

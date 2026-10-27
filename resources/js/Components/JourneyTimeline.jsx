@@ -1,5 +1,6 @@
+import { useEffect, useRef, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAward, faBox, faBuilding, faCircleCheck, faDroplet, faFileCircleCheck, faFlask, faGlobe, faLocationDot, faMicroscope, faSeedling, faShieldHalved, faShip, faSyringe, faTag, faWarehouse } from '@fortawesome/free-solid-svg-icons';
+import { faAward, faBox, faBuilding, faChevronLeft, faChevronRight, faCircleCheck, faDroplet, faFileCircleCheck, faFlask, faGlobe, faLocationDot, faMicroscope, faSeedling, faShieldHalved, faShip, faSyringe, faTag, faWarehouse } from '@fortawesome/free-solid-svg-icons';
 import { Reveal } from './Motion';
 import { useT } from '../i18n/useT';
 
@@ -29,6 +30,20 @@ export default function JourneyTimeline({ items, partners = [] }) {
     });
 
     const cols = `repeat(${items.length}, minmax(11rem, 13.5rem))`;
+    const railRef = useRef(null);
+    const [edge, setEdge] = useState('start');
+    const onScroll = () => {
+        const el = railRef.current;
+        if (!el) return;
+        const max = el.scrollWidth - el.clientWidth - 8;
+        setEdge(el.scrollLeft <= 8 ? 'start' : el.scrollLeft >= max ? 'end' : 'mid');
+    };
+    useEffect(() => {
+        onScroll();
+        window.addEventListener('resize', onScroll);
+        return () => window.removeEventListener('resize', onScroll);
+    }, []);
+    const nudge = (dir) => railRef.current?.scrollBy({ left: dir * railRef.current.clientWidth * 0.7, behavior: 'smooth' });
 
     return (
         <div>
@@ -44,7 +59,13 @@ export default function JourneyTimeline({ items, partners = [] }) {
                     ))}
                 </ul>
             )}
-            <div className="journey-scroll" role="region" tabIndex={0} aria-label={t('Company journey timeline')}>
+            <div className="journey-rail">
+            <button type="button" className="journey-nav journey-nav--prev" onClick={() => nudge(-1)}
+                disabled={edge === 'start'} aria-label={t('Earlier milestones')}>
+                <FontAwesomeIcon icon={faChevronLeft} aria-hidden />
+            </button>
+            <div className="journey-scroll" role="region" tabIndex={0} aria-label={t('Company journey timeline')}
+                ref={railRef} onScroll={onScroll}>
             <div className="journey-track">
                 <div className="journey-bar" style={{ gridTemplateColumns: cols }} aria-hidden="true">
                     {years.map((y, i) => (
@@ -82,6 +103,11 @@ export default function JourneyTimeline({ items, partners = [] }) {
                     })}
                 </ol>
             </div>
+            </div>
+            <button type="button" className="journey-nav journey-nav--next" onClick={() => nudge(1)}
+                disabled={edge === 'end'} aria-label={t('Later milestones')}>
+                <FontAwesomeIcon icon={faChevronRight} aria-hidden />
+            </button>
             </div>
         </div>
     );
