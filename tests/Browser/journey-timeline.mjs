@@ -45,8 +45,8 @@ await step('admin can log in', async () => {
 
 await step('journey index lists seeded entries', async () => {
     await page.goto(`${BASE}/admin/journey`);
-    await page.locator('tr', { hasText: 'Founded in Gujarat' }).waitFor();
-    expect((await page.locator('tbody tr').count()) >= 14, 'seeded entries listed');
+    await page.locator('tr', { hasText: 'The journey begins' }).waitFor();
+    expect((await page.locator('tbody tr').count()) >= 11, 'seeded entries listed');
 });
 
 await step('new-entry form accepts a node and translations', async () => {
@@ -73,8 +73,9 @@ await step('visitor sees the chevron rail with the new node', async () => {
     const rail = page.locator('.journey-scroll');
     await rail.scrollIntoViewIfNeeded();
     await rail.locator('.journey-seg').first().waitFor();
-    // One chevron segment per distinct year: 14 seeded years + the new 2026.
-    expect(await rail.locator('.journey-seg').count() >= 14, 'chevron per year');
+    // One chevron segment per distinct year: 9 seeded years; the new node joins
+    // the existing 2026 segment.
+    expect(await rail.locator('.journey-seg').count() >= 9, 'chevron per year');
     const card = rail.locator('.journey-node', { hasText: TITLE });
     await card.scrollIntoViewIfNeeded();
     expect(await card.locator('h3').innerText() === TITLE, 'node title rendered');
@@ -85,18 +86,18 @@ await step('visitor sees the chevron rail with the new node', async () => {
 
 await step('year marker groups sibling entries', async () => {
     const rail = page.locator('.journey-scroll');
-    // 2024 has the seeded node; 2026 now has the UAT node - each gets one marker.
+    // 2026 seeds three nodes; the UAT node makes four under one marker.
     const y2026 = rail.locator('.journey-year', { hasText: '2026' });
     expect(await y2026.count() === 1, 'one chevron segment for the new year');
     const span = await y2026.getAttribute('style');
-    expect(span.includes('span 1'), `2026 segment spans its single card, got: ${span}`);
+    expect(span.includes('span 4'), `2026 segment spans its four cards, got: ${span}`);
 });
 
 await step('fr page renders translated journey titles', async () => {
     await page.goto(`${BASE}/fr/about`);
     const rail = page.locator('.journey-scroll');
     await rail.scrollIntoViewIfNeeded();
-    await rail.locator('.journey-node', { hasText: 'Fondation au Gujarat' }).first().waitFor();
+    await rail.locator('.journey-node', { hasText: 'Le début du voyage' }).first().waitFor();
 });
 
 // ── Admin: clean up ──────────────────────────────────────────────────

@@ -1,16 +1,16 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAward, faBox, faBuilding, faCircleCheck, faDroplet, faFileCircleCheck, faFlask, faGlobe, faMicroscope, faSeedling, faShieldHalved, faShip, faSyringe, faTag } from '@fortawesome/free-solid-svg-icons';
+import { faAward, faBox, faBuilding, faCircleCheck, faDroplet, faFileCircleCheck, faFlask, faGlobe, faLocationDot, faMicroscope, faSeedling, faShieldHalved, faShip, faSyringe, faTag, faWarehouse } from '@fortawesome/free-solid-svg-icons';
 import { Reveal } from './Motion';
 import { useT } from '../i18n/useT';
 
-const ICONS = { faAward, faBox, faBuilding, faCircleCheck, faDroplet, faFileCircleCheck, faFlask, faGlobe, faMicroscope, faSeedling, faShieldHalved, faShip, faSyringe, faTag };
+const ICONS = { faAward, faBox, faBuilding, faCircleCheck, faDroplet, faFileCircleCheck, faFlask, faGlobe, faLocationDot, faMicroscope, faSeedling, faShieldHalved, faShip, faSyringe, faTag, faWarehouse };
 
 /**
  * The pinboard journey timeline: a chevron arrow bar with one segment per
  * year, and image cards hanging off it on stems. Entries sharing a year sit
  * side by side under a single marker. The track scrolls horizontally.
  */
-export default function JourneyTimeline({ items }) {
+export default function JourneyTimeline({ items, partners = [] }) {
     const { t } = useT();
     if (!items?.length) {
         return null;
@@ -31,7 +31,20 @@ export default function JourneyTimeline({ items }) {
     const cols = `repeat(${items.length}, minmax(11rem, 13.5rem))`;
 
     return (
-        <div className="journey-scroll" role="region" tabIndex={0} aria-label={t('Company journey timeline')}>
+        <div>
+            {partners.length > 0 && (
+                <ul className="journey-partners" aria-label={t('Group companies')}>
+                    {partners.map((p) => (
+                        <li key={p.name}>
+                            {p.image
+                                ? <img src={`/${p.image}`} alt="" loading="lazy" decoding="async" />
+                                : <span className="journey-partner-mark" aria-hidden>{p.name.charAt(0)}</span>}
+                            <span>{p.name}</span>
+                        </li>
+                    ))}
+                </ul>
+            )}
+            <div className="journey-scroll" role="region" tabIndex={0} aria-label={t('Company journey timeline')}>
             <div className="journey-track">
                 <div className="journey-bar" style={{ gridTemplateColumns: cols }} aria-hidden="true">
                     {years.map((y, i) => (
@@ -68,6 +81,7 @@ export default function JourneyTimeline({ items }) {
                         );
                     })}
                 </ol>
+            </div>
             </div>
         </div>
     );

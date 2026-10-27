@@ -134,7 +134,7 @@ export default function About({ seo, leadership, team, certifications, content, 
                 <Container>
                     <SectionHeading eyebrow={content.journey_eyebrow} title={content.journey_title} align="center" />
                     <div className="mt-12">
-                        <JourneyTimeline items={journey} />
+                        <JourneyTimeline items={journey} partners={content.journey_partners || []} />
                     </div>
                 </Container>
             </section>

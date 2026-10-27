@@ -7,287 +7,188 @@ use Illuminate\Database\Seeder;
 
 class JourneyItemSeeder extends Seeder
 {
+    /**
+     * The first cut seeded the old 14-entry story before the design's own
+     * milestones were known. These (year, title) pairs are removed so the
+     * reference timeline below is the only seeded set - anything an admin
+     * added by hand is untouched.
+     */
+    private const LEGACY = [
+        ['1998', 'Founded in Gujarat'],
+        ['2000', 'The Nigeria milestone'],
+        ['2002', 'Beyond ampoules'],
+        ['2004', 'IV fluids & infusions'],
+        ['2006', 'Devices & disposables'],
+        ['2008', 'Quality in-house'],
+        ['2010', 'Rapid diagnostics'],
+        ['2012', 'Regulatory under one roof'],
+        ['2014', 'ISO 13485 certified'],
+        ['2016', 'The branded range'],
+        ['2018', 'UK office opens'],
+        ['2020', 'Through the pandemic'],
+        ['2022', 'Star Export House'],
+        ['2024', '24+ countries, 200+ containers'],
+    ];
+
     public function run(): void
     {
+        foreach (self::LEGACY as [$year, $title]) {
+            JourneyItem::where('year', $year)->where('title', $title)->delete();
+        }
+
         $rows = [
             [
                 'year' => '1998',
-                'title' => 'Founded in Gujarat',
-                'body' => 'Mr. Ranjit Advani establishes Nymak Pharma, beginning with Sterilized Water for Injections BP in 5 ml and 10 ml plastic ampoules for South Pacific markets.',
+                'title' => 'The journey begins',
+                'body' => 'Founded by Mr. Ranjit Advani. First export shipment to Papua New Guinea.',
                 'icon' => 'faSeedling',
                 'image' => 'images/about/founder-1998.png',
                 'image_2' => 'images/about/early-consignment.jpg',
                 'fit' => 'cover',
                 'sort_order' => 10,
                 'i18n' => [
-                    'fr' => [
-                        'title' => 'Fondation au Gujarat',
-                        'body' => 'M. Ranjit Advani crée Nymak Pharma, débutant avec de l’eau stérilisée pour préparations injectables BP en ampoules plastiques de 5 ml et 10 ml pour les marchés du Pacifique Sud.',
-                    ],
-                    'es' => [
-                        'title' => 'Fundación en Gujarat',
-                        'body' => 'El Sr. Ranjit Advani crea Nymak Pharma, comenzando con agua esterilizada para preparaciones inyectables BP en ampollas de plástico de 5 ml y 10 ml para los mercados del Pacífico Sur.',
-                    ],
+                    'fr' => ['title' => 'Le début du voyage', 'body' => 'Fondée par M. Ranjit Advani. Premier envoi exporté vers la Papouasie-Nouvelle-Guinée.'],
+                    'es' => ['title' => 'El comienzo del viaje', 'body' => 'Fundada por el Sr. Ranjit Advani. Primer envío de exportación a Papúa Nueva Guinea.'],
                 ],
             ],
             [
                 'year' => '2000',
-                'title' => 'The Nigeria milestone',
-                'body' => 'Entry into Nigeria lifts export sales by 25% and opens wider expansion across Africa; Honduras joins the map in Central America.',
+                'title' => 'Entering Nigeria',
+                'body' => 'Nigeria became our first African market.',
                 'icon' => 'faGlobe',
                 'image' => 'images/about/africa-nigeria.svg',
                 'image_2' => null,
                 'fit' => 'contain',
                 'sort_order' => 20,
                 'i18n' => [
-                    'fr' => [
-                        'title' => 'L’étape du Nigeria',
-                        'body' => 'L’entrée au Nigeria fait progresser les exportations de 25 % et ouvre une expansion plus large en Afrique ; le Honduras rejoint la carte en Amérique centrale.',
-                    ],
-                    'es' => [
-                        'title' => 'El hito de Nigeria',
-                        'body' => 'La entrada en Nigeria eleva las exportaciones un 25 % y abre una expansión más amplia por África; Honduras se suma al mapa en América Central.',
-                    ],
+                    'fr' => ['title' => 'Entrée au Nigeria', 'body' => 'Le Nigeria devient notre premier marché africain.'],
+                    'es' => ['title' => 'Entrada en Nigeria', 'body' => 'Nigeria se convierte en nuestro primer mercado africano.'],
                 ],
             ],
             [
-                'year' => '2002',
-                'title' => 'Beyond ampoules',
-                'body' => 'The range diversifies from water-for-injections into a broader pharmaceutical formulations portfolio for export markets.',
-                'icon' => 'faBox',
-                'image' => 'images/products/sierra-leone/amoximak-250-sp.webp',
+                'year' => '2005',
+                'title' => 'Expanding across markets',
+                'body' => 'Growing our international footprint.',
+                'icon' => 'faGlobe',
+                'image' => 'images/about/world-dots.svg',
                 'image_2' => null,
-                'fit' => 'cover',
+                'fit' => 'contain',
                 'sort_order' => 30,
                 'i18n' => [
-                    'fr' => [
-                        'title' => 'Au-delà des ampoules',
-                        'body' => 'La gamme se diversifie de l’eau pour injectables vers un portefeuille de formulations pharmaceutiques plus large pour l’export.',
-                    ],
-                    'es' => [
-                        'title' => 'Más allá de las ampollas',
-                        'body' => 'La gama se diversifica del agua para inyectables hacia una cartera más amplia de formulaciones farmacéuticas para exportación.',
-                    ],
-                ],
-            ],
-            [
-                'year' => '2004',
-                'title' => 'IV fluids & infusions',
-                'body' => 'Large-volume parenterals join the line: saline, dextrose, Ringer lactate and multi-electrolyte infusions.',
-                'icon' => 'faDroplet',
-                'image' => 'images/products/liberia/athermak-inj.webp',
-                'image_2' => null,
-                'fit' => 'cover',
-                'sort_order' => 40,
-                'i18n' => [
-                    'fr' => [
-                        'title' => 'Solutés IV & perfusions',
-                        'body' => 'Les parenteraux à grand volume rejoignent la ligne: chlorure de sodium, glucose, lactate de Ringer et perfusions multi-électrolytes.',
-                    ],
-                    'es' => [
-                        'title' => 'Fluidos IV y perfusiones',
-                        'body' => 'Los parenterales de gran volumen se incorporan: cloruro de sodio, glucosa, lactato de Ringer y perfusiones multielectrolíticas.',
-                    ],
-                ],
-            ],
-            [
-                'year' => '2006',
-                'title' => 'Devices & disposables',
-                'body' => 'IV access, infusion sets, syringes and patient-care consumables extend Nymak beyond medicines.',
-                'icon' => 'faSyringe',
-                'image' => null,
-                'image_2' => null,
-                'fit' => 'cover',
-                'sort_order' => 50,
-                'i18n' => [
-                    'fr' => [
-                        'title' => 'Dispositifs & consommables',
-                        'body' => 'Accès IV, perfuseurs, seringues et consommables de soins prolongent Nymak au-delà des médicaments.',
-                    ],
-                    'es' => [
-                        'title' => 'Dispositivos y desechables',
-                        'body' => 'Acceso IV, equipos de infusión, jeringas y consumibles de cuidado del paciente extienden a Nymak más allá de los medicamentos.',
-                    ],
-                ],
-            ],
-            [
-                'year' => '2008',
-                'title' => 'Quality in-house',
-                'body' => 'A dedicated quality control laboratory is established: every batch analysed before release.',
-                'icon' => 'faFlask',
-                'image' => null,
-                'image_2' => null,
-                'fit' => 'cover',
-                'sort_order' => 60,
-                'i18n' => [
-                    'fr' => [
-                        'title' => 'La qualité en interne',
-                        'body' => 'Un laboratoire de contrôle qualité dédié est créé: chaque lot analysé avant libération.',
-                    ],
-                    'es' => [
-                        'title' => 'La calidad en casa',
-                        'body' => 'Se crea un laboratorio de control de calidad dedicado: cada lote analizado antes de su liberación.',
-                    ],
+                    'fr' => ['title' => 'Expansion sur les marchés', 'body' => 'Une empreinte internationale grandissante.'],
+                    'es' => ['title' => 'Expansión en los mercados', 'body' => 'Una huella internacional en crecimiento.'],
                 ],
             ],
             [
                 'year' => '2010',
-                'title' => 'Rapid diagnostics',
-                'body' => 'Rapid test kits for malaria, typhoid and HIV join the portfolio for public-health programmes.',
-                'icon' => 'faMicroscope',
+                'title' => 'Expanding our portfolio',
+                'body' => 'A broader range of pharmaceutical and healthcare products.',
+                'icon' => 'faBox',
                 'image' => 'images/products/liberia/alumak-sp.webp',
-                'image_2' => null,
-                'fit' => 'cover',
-                'sort_order' => 70,
-                'i18n' => [
-                    'fr' => [
-                        'title' => 'Diagnostics rapides',
-                        'body' => 'Des tests rapides pour le paludisme, la typhoïde et le VIH rejoignent le portefeuille pour les programmes de santé publique.',
-                    ],
-                    'es' => [
-                        'title' => 'Diagnóstico rápido',
-                        'body' => 'Pruebas rápidas de malaria, fiebre tifoidea y VIH se incorporan a la cartera para programas de salud pública.',
-                    ],
-                ],
-            ],
-            [
-                'year' => '2012',
-                'title' => 'Regulatory under one roof',
-                'body' => 'Dossier preparation, market registration support and compliant packaging design brought in-house.',
-                'icon' => 'faFileCircleCheck',
-                'image' => null,
-                'image_2' => null,
-                'fit' => 'cover',
-                'sort_order' => 80,
-                'i18n' => [
-                    'fr' => [
-                        'title' => 'Le réglementaire sous un même toit',
-                        'body' => 'Préparation des dossiers, support d’enregistrement et design d’emballages conformes internalisés.',
-                    ],
-                    'es' => [
-                        'title' => 'Regulación bajo un mismo techo',
-                        'body' => 'Preparación de dossiers, soporte de registro y diseño de empaque conforme internalizados.',
-                    ],
-                ],
-            ],
-            [
-                'year' => '2014',
-                'title' => 'ISO 13485 certified',
-                'body' => 'The quality management system is certified for medical device manufacturing.',
-                'icon' => 'faCircleCheck',
-                'image' => 'images/certifications/iso-13485-certificate.webp',
-                'image_2' => null,
-                'fit' => 'contain',
-                'sort_order' => 90,
-                'i18n' => [
-                    'fr' => [
-                        'title' => 'Certifié ISO 13485',
-                        'body' => 'Le système de management de la qualité est certifié pour la fabrication de dispositifs médicaux.',
-                    ],
-                    'es' => [
-                        'title' => 'Certificación ISO 13485',
-                        'body' => 'El sistema de gestión de calidad se certifica para la fabricación de dispositivos médicos.',
-                    ],
-                ],
-            ],
-            [
-                'year' => '2016',
-                'title' => 'The branded range',
-                'body' => 'Alumak, Cefmak, Cipromak and sister brands register across West African markets.',
-                'icon' => 'faTag',
-                'image' => 'images/products/liberia/alumak-80-480-tab.webp',
                 'image_2' => 'images/products/liberia/cefmak-inj.webp',
                 'fit' => 'cover',
-                'sort_order' => 100,
+                'sort_order' => 40,
                 'i18n' => [
-                    'fr' => [
-                        'title' => 'La gamme de marque',
-                        'body' => 'Alumak, Cefmak, Cipromak et leurs marques sœurs sont enregistrées sur les marchés d’Afrique de l’Ouest.',
-                    ],
-                    'es' => [
-                        'title' => 'La gama de marca',
-                        'body' => 'Alumak, Cefmak, Cipromak y marcas hermanas se registran en mercados de África Occidental.',
-                    ],
+                    'fr' => ['title' => 'Élargissement du portefeuille', 'body' => 'Une gamme plus large de produits pharmaceutiques et de santé.'],
+                    'es' => ['title' => 'Ampliación del portafolio', 'body' => 'Una gama más amplia de productos farmacéuticos y sanitarios.'],
                 ],
             ],
             [
-                'year' => '2018',
-                'title' => 'UK office opens',
-                'body' => 'A London presence brings partner-facing regulatory and commercial support closer to market.',
-                'icon' => 'faBuilding',
-                'image' => 'images/flags/gb.svg',
+                'year' => '2015',
+                'title' => 'Diversifying beyond pharmaceuticals',
+                'body' => 'Ventured into non-pharma product (through Coral Marketing).',
+                'icon' => 'faDroplet',
+                'image' => 'images/about/early-dispatch.jpg',
                 'image_2' => null,
-                'fit' => 'contain',
-                'sort_order' => 110,
+                'fit' => 'cover',
+                'sort_order' => 50,
                 'i18n' => [
-                    'fr' => [
-                        'title' => 'Ouverture du bureau au Royaume-Uni',
-                        'body' => 'Une présence à Londres rapproche le support réglementaire et commercial des partenaires.',
-                    ],
-                    'es' => [
-                        'title' => 'Apertura de la oficina en el Reino Unido',
-                        'body' => 'Una presencia en Londres acerca el soporte regulatorio y comercial a los socios.',
-                    ],
+                    'fr' => ['title' => 'Diversification au-delà du pharma', 'body' => 'Entrée dans les produits non pharmaceutiques (via Coral Marketing).'],
+                    'es' => ['title' => 'Diversificación más allá del pharma', 'body' => 'Entrada en productos no farmacéuticos (a través de Coral Marketing).'],
                 ],
             ],
             [
                 'year' => '2020',
-                'title' => 'Through the pandemic',
-                'body' => 'Essential medicines, IV fluids and disposables keep flowing to partner markets through global disruption.',
-                'icon' => 'faShieldHalved',
+                'title' => 'Acquisition of Vifor Pharma',
+                'body' => 'Strengthening our pharmaceutical capabilities.',
+                'icon' => 'faBuilding',
                 'image' => 'images/hero/facility-aerial.webp',
                 'image_2' => null,
                 'fit' => 'cover',
-                'sort_order' => 120,
+                'sort_order' => 60,
                 'i18n' => [
-                    'fr' => [
-                        'title' => 'À travers la pandémie',
-                        'body' => 'Médicaments essentiels, solutés IV et consommables continuent d’affluer vers les marchés partenaires malgré la crise mondiale.',
-                    ],
-                    'es' => [
-                        'title' => 'A través de la pandemia',
-                        'body' => 'Medicamentos esenciales, fluidos IV y desechables siguen fluyendo hacia los mercados socios durante la disrupción global.',
-                    ],
+                    'fr' => ['title' => 'Acquisition de Vifor Pharma', 'body' => 'Renforcement de nos capacités pharmaceutiques.'],
+                    'es' => ['title' => 'Adquisición de Vifor Pharma', 'body' => 'Fortalecimiento de nuestras capacidades farmacéuticas.'],
                 ],
             ],
             [
-                'year' => '2022',
+                'year' => '2023',
                 'title' => 'Star Export House',
-                'body' => 'The Government of India certifies Nymak a Star Export House in recognition of export performance.',
+                'body' => 'Recognition of our growing export presence.',
                 'icon' => 'faAward',
-                'image' => 'images/certifications/star-export-house.webp',
+                'image' => 'images/certifications/star-export-house-certificate.webp',
                 'image_2' => null,
                 'fit' => 'contain',
-                'sort_order' => 130,
+                'sort_order' => 70,
                 'i18n' => [
-                    'fr' => [
-                        'title' => 'Star Export House',
-                        'body' => 'Le gouvernement indien certifie Nymak Star Export House en reconnaissance de ses performances à l’export.',
-                    ],
-                    'es' => [
-                        'title' => 'Star Export House',
-                        'body' => 'El Gobierno de la India certifica a Nymak como Star Export House en reconocimiento a su desempeño exportador.',
-                    ],
+                    'fr' => ['title' => 'Star Export House', 'body' => 'Reconnaissance de notre présence export grandissante.'],
+                    'es' => ['title' => 'Star Export House', 'body' => 'Reconocimiento de nuestra creciente presencia exportadora.'],
                 ],
             ],
             [
-                'year' => '2024',
-                'title' => '24+ countries, 200+ containers',
-                'body' => 'A record year: over 200 containers shipped in FY 2023–24, with offices in Sierra Leone and Liberia serving West Africa.',
-                'icon' => 'faShip',
-                'image' => 'images/about/early-dispatch.jpg',
-                'image_2' => 'images/about/global-footprint.svg',
+                'year' => '2025',
+                'title' => 'Establishing our African presence',
+                'body' => 'Owned distribution operations in Sierra Leone & Liberia.',
+                'icon' => 'faLocationDot',
+                'image' => 'images/clients/core-africa-liberia-inc.webp',
+                'image_2' => 'images/flags/sl.svg',
                 'fit' => 'contain',
-                'sort_order' => 140,
+                'sort_order' => 80,
                 'i18n' => [
-                    'fr' => [
-                        'title' => '24+ pays, 200+ conteneurs',
-                        'body' => 'Une année record: plus de 200 conteneurs expédiés au cours de l’exercice 2023–24, avec des bureaux en Sierra Leone et au Liberia pour l’Afrique de l’Ouest.',
-                    ],
-                    'es' => [
-                        'title' => '24+ países, 200+ contenedores',
-                        'body' => 'Un año récord: más de 200 contenedores despachados en el ejercicio 2023–24, con oficinas en Sierra Leona y Liberia para África Occidental.',
-                    ],
+                    'fr' => ['title' => 'Implantation en Afrique', 'body' => 'Opérations de distribution en propre en Sierra Leone et au Liberia.'],
+                    'es' => ['title' => 'Establecimiento en África', 'body' => 'Operaciones de distribución propias en Sierra Leona y Liberia.'],
+                ],
+            ],
+            [
+                'year' => '2026',
+                'title' => 'Strengthening our infrastructure',
+                'body' => 'New corporate warehouse and office building.',
+                'icon' => 'faWarehouse',
+                'image' => null,
+                'image_2' => null,
+                'fit' => 'cover',
+                'sort_order' => 90,
+                'i18n' => [
+                    'fr' => ['title' => 'Renforcement des infrastructures', 'body' => 'Nouvel entrepôt et immeuble de bureaux.'],
+                    'es' => ['title' => 'Fortalecimiento de la infraestructura', 'body' => 'Nuevo almacén corporativo y edificio de oficinas.'],
+                ],
+            ],
+            [
+                'year' => '2026',
+                'title' => 'Ahmedabad corporate office',
+                'body' => 'Expanding our corporate capabilities.',
+                'icon' => 'faBuilding',
+                'image' => 'images/brand/nymak-symbol.png',
+                'image_2' => null,
+                'fit' => 'contain',
+                'sort_order' => 100,
+                'i18n' => [
+                    'fr' => ['title' => 'Bureau corporate d’Ahmedabad', 'body' => 'Extension de nos capacités corporatives.'],
+                    'es' => ['title' => 'Oficina corporativa de Ahmedabad', 'body' => 'Ampliación de nuestras capacidades corporativas.'],
+                ],
+            ],
+            [
+                'year' => '2026',
+                'title' => 'Building our own brands',
+                'body' => 'Ethical marketing in Burkina Faso, Chad & Cameroon.',
+                'icon' => 'faTag',
+                'image' => 'images/about/africa-expansion.svg',
+                'image_2' => null,
+                'fit' => 'contain',
+                'sort_order' => 110,
+                'i18n' => [
+                    'fr' => ['title' => 'Construction de nos marques', 'body' => 'Marketing éthique au Burkina Faso, au Tchad et au Cameroun.'],
+                    'es' => ['title' => 'Construyendo nuestras marcas', 'body' => 'Marketing ético en Burkina Faso, Chad y Camerún.'],
                 ],
             ],
         ];

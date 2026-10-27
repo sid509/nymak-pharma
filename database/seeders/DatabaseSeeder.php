@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
             TeamMemberSeeder::class,
             ClientLogoSeeder::class,
             JourneyItemSeeder::class,
+            SiteSettingSeeder::class,
             PageMetaSeeder::class,
             // Last: writes FR/ES translations onto the seeded content.
             ContentTranslationsSeeder::class,

@@ -175,8 +175,8 @@ return [
         'es' => 'Primer despacho de contenedor al puerto',
     ],
     'about.story_signature_role' => ['fr' => 'Fondateur & mentor', 'es' => 'Fundador y mentor'],
-    'about.journey_eyebrow' => ['fr' => 'Notre parcours', 'es' => 'Nuestro recorrido'],
-    'about.journey_title' => ['fr' => 'Les étapes qui ont forgé Nymak', 'es' => 'Los hitos que forjaron a Nymak'],
+    'about.journey_eyebrow' => ['fr' => 'Depuis 1998', 'es' => 'Desde 1998'],
+    'about.journey_title' => ['fr' => 'Notre parcours', 'es' => 'Nuestro recorrido'],
     'about.values_eyebrow' => ['fr' => 'Ce qui nous guide', 'es' => 'Lo que nos guía'],
     'about.values_title' => ['fr' => 'Les valeurs derrière les produits', 'es' => 'Los valores detrás de los productos'],
     'about.values' => [
