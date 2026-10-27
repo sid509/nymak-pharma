@@ -177,20 +177,6 @@ return [
     'about.story_signature_role' => ['fr' => 'Fondateur & mentor', 'es' => 'Fundador y mentor'],
     'about.journey_eyebrow' => ['fr' => 'Notre parcours', 'es' => 'Nuestro recorrido'],
     'about.journey_title' => ['fr' => 'Les étapes qui ont forgé Nymak', 'es' => 'Los hitos que forjaron a Nymak'],
-    'about.timeline' => [
-        'fr' => [
-            ['year' => '1998', 'title' => 'Fondation au Gujarat', 'text' => 'M. Ranjit Advani crée Nymak Pharma, débutant avec de l’eau stérilisée pour préparations injectables BP en ampoules plastiques de 5 ml et 10 ml pour les marchés du Pacifique Sud.'],
-            ['year' => '2000', 'title' => 'L’étape du Nigeria', 'text' => 'L’entrée sur le marché nigérian fait progresser les ventes à l’export de 25 % et ouvre une expansion plus large à travers le continent africain.'],
-            ['year' => 'Années 2000', 'title' => 'Diversification du portefeuille', 'text' => 'De l’eau pour injectables, la gamme s’étend aux produits pharmaceutiques, solutés IV, dispositifs médicaux et consommables pour l’export.'],
-            ['year' => 'Aujourd’hui', 'title' => '24+ pays, 200+ conteneurs', 'text' => 'Star Export House certifiée par le gouvernement indien, opérant depuis un site WHO-GMP à Mundra, avec des bureaux au Royaume-Uni, en Sierra Leone et au Liberia.'],
-        ],
-        'es' => [
-            ['year' => '1998', 'title' => 'Fundación en Gujarat', 'text' => 'El Sr. Ranjit Advani crea Nymak Pharma, comenzando con agua esterilizada para preparaciones inyectables BP en ampollas de plástico de 5 ml y 10 ml para los mercados del Pacífico Sur.'],
-            ['year' => '2000', 'title' => 'El hito de Nigeria', 'text' => 'La entrada en el mercado nigeriano eleva las ventas de exportación un 25 % y abre una expansión más amplia por el continente africano.'],
-            ['year' => 'Década de 2000', 'title' => 'Diversificación de la cartera', 'text' => 'Del agua para inyectables, la gama crece hacia productos farmacéuticos, fluidos IV, dispositivos médicos y material desechable para exportación.'],
-            ['year' => 'Hoy', 'title' => '24+ países, 200+ contenedores', 'text' => 'Star Export House certificada por el Gobierno de la India, operando desde una planta WHO-GMP en Mundra, con oficinas en el Reino Unido, Sierra Leona y Liberia.'],
-        ],
-    ],
     'about.values_eyebrow' => ['fr' => 'Ce qui nous guide', 'es' => 'Lo que nos guía'],
     'about.values_title' => ['fr' => 'Les valeurs derrière les produits', 'es' => 'Los valores detrás de los productos'],
     'about.values' => [

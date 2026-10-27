@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Models\Enquiry;
 use App\Models\Faq;
+use App\Models\JourneyItem;
 use App\Models\Market;
 use App\Models\PageContent;
 use App\Models\Post;
@@ -34,7 +35,7 @@ class AdminCrudTest extends TestCase
     public function guests_cannot_reach_any_admin_module(): void
     {
         foreach (['/admin/dashboard', '/admin/enquiries', '/admin/products', '/admin/categories',
-            '/admin/markets', '/admin/posts', '/admin/faqs', '/admin/testimonials',
+            '/admin/markets', '/admin/posts', '/admin/faqs', '/admin/testimonials', '/admin/journey',
             '/admin/certifications', '/admin/team-members', '/admin/users', '/admin/profile'] as $url) {
             $this->get($url)->assertRedirect('/admin/login');
         }
@@ -190,6 +191,53 @@ class AdminCrudTest extends TestCase
     {
         $this->actingAs($this->admin)->post('/admin/faqs', ['question' => '', 'answer' => ''])
             ->assertSessionHasErrors(['question', 'answer']);
+    }
+
+    #[Test]
+    public function journey_item_crud_via_shared_controller(): void
+    {
+        $this->actingAs($this->admin)->get('/admin/journey')->assertOk()
+            ->assertInertia(fn ($p) => $p->component('Admin/Crud/Index')->where('module.route', 'journey'));
+
+        $this->actingAs($this->admin)->post('/admin/journey', [
+            'year' => '2026', 'title' => 'New warehouse opens', 'body' => 'A second dispatch facility.',
+            'icon' => 'faBuilding', 'fit' => 'cover', 'sort_order' => 150,
+            'i18n' => ['fr' => ['title' => 'Ouverture du nouvel entrepôt', 'body' => 'Une seconde plateforme logistique.']],
+        ])->assertRedirect('/admin/journey');
+        $item = JourneyItem::where('title', 'New warehouse opens')->firstOrFail();
+        $this->assertEquals('Ouverture du nouvel entrepôt', $item->i18n['fr']['title']);
+
+        // The new node reaches the public About page, sharing its year marker.
+        $this->get('/about')->assertInertia(fn ($p) => $p->component('About')
+            ->where('journey', fn ($j) => collect($j)->contains(
+                fn ($i) => $i['year'] === '2026' && $i['title'] === 'New warehouse opens')));
+
+        $this->actingAs($this->admin)->put("/admin/journey/{$item->id}", [
+            'year' => '2026', 'title' => 'Warehouse expanded', 'body' => 'Doubled capacity.',
+            'icon' => 'faBuilding', 'fit' => 'cover', 'sort_order' => 150,
+        ]);
+        $this->assertEquals('Warehouse expanded', $item->fresh()->title);
+
+        $this->actingAs($this->admin)->delete("/admin/journey/{$item->id}");
+        $this->assertDatabaseMissing('journey_items', ['id' => $item->id]);
+    }
+
+    #[Test]
+    public function journey_search_matches_the_entered_term(): void
+    {
+        // Regression: the shared index used to build "LIKE %{$s}%" with the
+        // boolean from `q && $searchable`, turning every search into "%1%".
+        $this->actingAs($this->admin)->get('/admin/journey?q=Nigeria')
+            ->assertInertia(fn ($p) => $p->where('rows.total', 1));
+        $this->actingAs($this->admin)->get('/admin/journey?q=Zimbabwe')
+            ->assertInertia(fn ($p) => $p->where('rows.total', 0));
+    }
+
+    #[Test]
+    public function journey_item_requires_year_and_title(): void
+    {
+        $this->actingAs($this->admin)->post('/admin/journey', ['year' => '', 'title' => ''])
+            ->assertSessionHasErrors(['year', 'title']);
     }
 
     #[Test]

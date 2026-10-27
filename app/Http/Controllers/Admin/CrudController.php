@@ -55,8 +55,8 @@ abstract class CrudController extends Controller
             'module' => $this->config()['module'],
             'columns' => $this->config()['columns'],
             'rows' => $model::query()
-                ->when($request->q && $searchable, fn ($q, $s) => $q->where(fn ($w) => collect($searchable)
-                    ->each(fn ($col) => $w->orWhere($col, 'like', "%{$s}%"))))
+                ->when($request->q && $searchable, fn ($q) => $q->where(fn ($w) => collect($searchable)
+                    ->each(fn ($col) => $w->orWhere($col, 'like', "%{$request->q}%"))))
                 ->orderBy('sort_order')->orderBy('id')
                 ->paginate(25)->withQueryString(),
             'filters' => $request->only('q'),

@@ -119,6 +119,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::resource('seo-pages', Controllers\Admin\SeoPageController::class)->only('index', 'edit', 'update')
             ->parameters(['seo-pages' => 'seoPage']);
         Route::resource('clients', Controllers\Admin\ClientLogoController::class)->except('show');
+        Route::resource('journey', Controllers\Admin\JourneyItemController::class)->except('show');
         Route::get('/pages', [Controllers\Admin\PageContentController::class, 'index'])->name('pages.index');
         Route::get('/pages/{page}/edit', [Controllers\Admin\PageContentController::class, 'edit'])->name('pages.edit');
         Route::put('/pages/{page}', [Controllers\Admin\PageContentController::class, 'update'])->name('pages.update');

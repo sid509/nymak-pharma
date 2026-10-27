@@ -73,11 +73,11 @@ class AdminCmsTest extends TestCase
         $admin = $this->admin();
 
         $this->actingAs($admin)->put('/admin/pages/about', [
-            'timeline' => 'not-json{',
-        ])->assertSessionHasErrors('timeline');
+            'values' => 'not-json{',
+        ])->assertSessionHasErrors('values');
 
         $this->actingAs($admin)->put('/admin/pages/about', [
-            'timeline' => json_encode([['year' => '1998', 'title' => 'T', 'text' => 'X']]),
+            'values' => json_encode([['icon' => 'faFlask', 'title' => 'T', 'text' => 'X']]),
         ])->assertRedirect();
 
         $this->get('/about')->assertOk()->assertSee('X');

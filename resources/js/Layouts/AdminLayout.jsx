@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars, faBox, faCircleCheck, faCircleQuestion, faFileLines, faGaugeHigh, faGear, faGlobe, faInbox, faMagnifyingGlass, faNewspaper, faQuoteLeft, faRightFromBracket, faTag, faUsers, faXmark } from '@fortawesome/free-solid-svg-icons';
+import { faBars, faBox, faCircleCheck, faCircleQuestion, faFileLines, faGaugeHigh, faGear, faGlobe, faInbox, faMagnifyingGlass, faNewspaper, faQuoteLeft, faRightFromBracket, faTag, faTimeline, faUsers, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { Link, router, usePage } from '@inertiajs/react';
 
 import { useEffect, useState } from 'react';
@@ -22,6 +22,7 @@ const NAV = [
         { name: 'Certifications', href: '/admin/certifications', icon: faCircleCheck },
         { name: 'Team', href: '/admin/team-members', icon: faUsers },
         { name: 'Client logos', href: '/admin/clients', icon: faCircleCheck },
+        { name: 'Journey timeline', href: '/admin/journey', icon: faTimeline },
         { name: 'Page content', href: '/admin/pages', icon: faFileLines },
     ]},
     { group: 'System', items: [

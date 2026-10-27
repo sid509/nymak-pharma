@@ -2,6 +2,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRight, faAward, faBoxesStacked, faCircleCheck, faFlask, faHandHoldingHeart, faShieldHalved } from '@fortawesome/free-solid-svg-icons';
 import Link from '../i18n/LocaleLink';
 
+import JourneyTimeline from '../Components/JourneyTimeline';
 import MemberPortrait from '../Components/MemberPortrait';
 import { Reveal } from '../Components/Motion';
 import { ButtonLink, Container, PageHero, SectionHeading } from '../Components/Ui';
@@ -15,7 +16,7 @@ const Icon = ({ name, size = 22 }) => (
 
 const initials = (name) => name.replace('Mr. ', '').replace('Ms. ', '').split(' ').map((w) => w[0]).slice(0, 2).join('');
 
-export default function About({ seo, leadership, team, certifications, content }) {
+export default function About({ seo, leadership, team, certifications, content, journey }) {
     const { t } = useT();
     return (
         <SiteLayout>
@@ -131,16 +132,10 @@ export default function About({ seo, leadership, team, certifications, content }
             {/* Timeline */}
             <section className="bg-ink-50 py-16 sm:py-20">
                 <Container>
-                    <SectionHeading eyebrow={content.journey_eyebrow} title={content.journey_title} />
-                    <ol className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-                        {(content.timeline || []).map((t) => (
-                            <li key={t.year + t.title} className="card-hover relative rounded-2xl border border-ink-100 bg-white p-6 shadow-card">
-                                <p className="text-3xl font-bold tracking-tight text-brand-700">{t.year}</p>
-                                <h3 className="mt-2 t-h4 text-ink-900">{t.title}</h3>
-                                <p className="mt-2 text-[0.9375rem] leading-relaxed text-ink-600">{t.text}</p>
-                            </li>
-                        ))}
-                    </ol>
+                    <SectionHeading eyebrow={content.journey_eyebrow} title={content.journey_title} align="center" />
+                    <div className="mt-12">
+                        <JourneyTimeline items={journey} />
+                    </div>
                 </Container>
             </section>
 
