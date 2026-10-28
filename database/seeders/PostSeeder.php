@@ -32,7 +32,7 @@ Nymak Pharma now operates in more than 24 countries and exported over 200 contai
 
 The founding principle has not changed: behind every product is a person in need. The goal ahead is the same one stated in 1998: a world where quality healthcare is not a privilege but a fundamental right.
 MD,
-                'meta_title' => 'Nymak Pharma Journey: 1998 to 24+ Export Countries',
+                'meta_title' => 'Nymak Pharma Journey: 24+ Export Countries',
                 'meta_description' => 'The story of Nymak Pharma: from Sterilized Water for Injections in 1998 to a Star Export House supplying pharmaceuticals across 24+ countries.',
                 'published_at' => '2026-07-15 09:00:00',
             ],

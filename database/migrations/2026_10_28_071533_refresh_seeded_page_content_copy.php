@@ -193,43 +193,43 @@ return new class extends Migration
             'home' => [
                 'Pharmaceutical Manufacturer & Exporter in India',
                 'Nymak Pharma: WHO-GMP certified pharmaceutical manufacturer and Star Export House supplying IV fluids, finished formulations, medical devices and rapid test kits to 24+ countries.',
-                'Pharma Manufacturers in India: WHO-GMP Certified Exporter',
+                'Pharma Manufacturers in India: WHO-GMP',
                 'A WHO-GMP certified pharmaceutical exporter in India, Nymak Pharma supplies IV fluids, medicines & devices to 24+ countries. Talk to our export team.',
             ],
             'about' => [
                 'About Us: WHO-GMP Pharmaceutical Manufacturer Since 1998',
                 'Founded in 1998, Nymak Pharma is a WHO-GMP certified pharmaceutical manufacturer and Star Export House serving 24+ countries from Gujarat, India.',
-                'Pharmaceutical Companies in India: Our Story Since 1998',
+                'Pharmaceutical Companies in India Since 1998',
                 'Founded in 1998, Nymak Pharma is a pharmaceutical company based in Gujarat, India: a WHO-GMP certified Star Export House serving 24+ countries.',
             ],
             'manufacturing' => [
                 'Pharmaceutical Manufacturing Facility in Mundra, Gujarat',
                 'Inside Nymak Pharma\'s WHO-GMP certified manufacturing facility in Mundra, Gujarat, with in-house QC lab, QA systems, regulatory and warehouse teams.',
-                'Drug Manufacturing Companies in India: Mundra Facility',
+                'Drug Manufacturing Companies in India: Mundra',
                 'Inside our pharma manufacturing facility in Mundra: WHO-GMP production, in-house QC lab, QA release, regulatory and warehouse teams. See the facility.',
             ],
             'quality' => [
                 'Quality & Certifications: WHO-GMP, ISO 13485',
                 'Nymak Pharma\'s quality credentials: WHO-GMP certified facility, ISO 13485:2016, Star Export House, Pharmexcil RCMC, with in-house QC/QA oversight.',
-                'Pharmaceutical Regulatory Services India: WHO-GMP & ISO',
+                'Pharmaceutical Regulatory Services India',
                 'WHO-GMP, ISO 13485 & Star Export House certified, with pharmaceutical registration support & dossier preparation for every destination market.',
             ],
             'products.index' => [
                 'Pharmaceutical Products: IV Fluids, Formulations & More',
                 'Explore Nymak Pharma\'s export portfolio: IV fluids, finished formulations, medical devices & disposables, rapid diagnostic kits.',
-                'Pharmaceutical Suppliers in India: Export Product Range',
+                'Pharmaceutical Suppliers in India: 300+ Items',
                 'A pharmaceutical product supplier in India exporting IV fluids, finished formulations, medical devices & rapid test kits to 24+ markets.',
             ],
             'markets.index' => [
                 'Global Presence: Pharmaceutical Exports to 24+ Countries',
                 'Nymak Pharma exports pharmaceuticals, IV fluids and medical supplies to 24+ countries across Africa, Central America & the South Pacific.',
-                'Pharmaceutical Exporter India: 24+ Countries Served',
+                'Pharmaceutical Exporter India: 24+ Markets',
                 'Nymak Pharma is a pharmaceutical exporter India trusts across 24+ countries: Africa, the Middle East, Asia & the South Pacific. Explore our markets.',
             ],
             'team.index' => [
                 'Our Team: Leadership & Experts',
                 'Meet the leadership and specialists behind Nymak Pharma: exports, regulatory affairs, quality control, logistics and design.',
-                'The Team Behind Our Pharmaceutical Exports',
+                'Nymak Pharma Team: Leaders & Specialists',
                 'Meet the team behind Nymak Pharma: leadership and specialists in exports, regulatory affairs, quality control, logistics & design in Gujarat, India.',
             ],
             'inside' => [
@@ -241,19 +241,19 @@ return new class extends Migration
             'posts.index' => [
                 'Insights & Resources',
                 'Company news, quality explainers and product insights from Nymak Pharma, a WHO-GMP certified pharmaceutical manufacturer and exporter.',
-                'Pharmaceutical Export Insights & Resources',
+                'Pharmaceutical Export Insights & News',
                 'Insights on pharmaceutical exports, quality systems and product ranges from Nymak Pharma, a WHO-GMP certified company in Gujarat, India.',
             ],
             'faqs' => [
                 'Frequently Asked Questions',
                 'Answers about Nymak Pharma\'s products, IV fluids, certifications, export markets, quality systems and how to partner with us.',
-                'Pharmaceutical Export FAQs: Products & Certifications',
+                'Pharmaceutical Export FAQs: India Exporter',
                 'Answers on products, IV fluids, WHO-GMP certifications, export markets & partnership from Nymak Pharma, a pharmaceutical exporter in India.',
             ],
             'contact' => [
                 'Contact Us: Pharmaceutical Export Enquiries',
                 'Contact Nymak Pharma for pharmaceutical exports, product enquiries, distribution and partnership. Offices in India, UK, Sierra Leone & Liberia.',
-                'Pharmaceutical Company in India: Contact & Enquiries',
+                'Pharmaceutical Company in India: Contact',
                 'Contact our pharmaceutical company in India for export enquiries, distribution & tenders: offices in Gujarat, the UK, Sierra Leone & Liberia.',
             ],
             'privacy' => [

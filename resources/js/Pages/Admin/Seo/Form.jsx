@@ -28,13 +28,14 @@ export default function SeoForm({ page }) {
                 <section className="space-y-5 rounded-2xl border border-ink-200 bg-white p-6 sm:p-8">
                     <p className="text-xs text-ink-400">
                         Blank fields use the built-in defaults, which are already tuned per page.
-                        Title ≤70 chars; description ≤300 chars (search snippets trim ~150).
+                        Titles render as &quot;title | Nymak Pharma&quot;, so keep this field ~35-45
+                        chars (full title 50-60). Descriptions: 120-160 chars.
                     </p>
                     <Field field={{ name: 'meta_title', label: 'Meta title',
-                        help: `${(form.data.meta_title || '').length}/70` }}
+                        help: `${(form.data.meta_title || '').length}/45` }}
                         value={form.data.meta_title} error={form.errors.meta_title} onChange={set} />
                     <Field field={{ name: 'meta_description', label: 'Meta description', type: 'textarea', rows: 3,
-                        help: `${(form.data.meta_description || '').length}/300` }}
+                        help: `${(form.data.meta_description || '').length}/160` }}
                         value={form.data.meta_description} error={form.errors.meta_description} onChange={set} />
                     <Field field={{ name: 'focus_keyword', label: 'Focus keyword',
                         help: 'The single keyword this page targets. Keep it in the meta title, H1 and opening copy.' }}
