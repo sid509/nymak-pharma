@@ -47,7 +47,7 @@ class PagesTest extends TestCase
     #[Test]
     public function product_category_pages_render(): void
     {
-        foreach (['iv-fluids', 'finished-formulations', 'medical-devices-and-disposables', 'rapid-diagnostic-kits', 'vaccines'] as $slug) {
+        foreach (['iv-fluids', 'finished-formulations', 'medical-devices-and-disposables', 'rapid-diagnostic-kits'] as $slug) {
             // Landing page - content-led, links through to the full list.
             $this->get("/product/{$slug}")
                 ->assertOk()
@@ -139,7 +139,7 @@ class PagesTest extends TestCase
                 ->component('Home')
                 ->where('content.show_brands', true)
                 ->has('featuredProducts.0')
-                ->has('categories', 5)
+                ->has('categories', 4)
             );
 
         // Admin flips the toggle off - the grid's data disappears.

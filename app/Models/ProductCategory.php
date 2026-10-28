@@ -19,6 +19,7 @@ class ProductCategory extends Model
 
     protected $translatable = [
         'name', 'intro', 'description', 'content', 'meta_title', 'meta_description',
+        'focus_keyword', 'long_tail_keywords', 'secondary_keywords',
     ];
 
     protected $casts = ['i18n' => 'array'];

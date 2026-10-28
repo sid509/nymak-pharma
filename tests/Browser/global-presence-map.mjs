@@ -103,7 +103,7 @@ await step('visitor sees the pinboard with a pin per market and an empty-state p
     // Flat board - every seeded market is pinned (no hemisphere hiding), plus
     // the UAT market the run creates.
     expect((await pins.count()) >= 10, `expected ≥10 pins, got ${await pins.count()}`);
-    expect(await page.locator('.ppin-presence[aria-hidden="true"] title', { hasText: 'Mundra' }).count() === 1, 'Mundra HQ pin shown');
+    expect(await page.getByRole('link', { name: /Head Office & Works - see our offices/ }).count() === 1, 'Mundra head-office pin shown');
     for (const label of ['Our Presence', 'Ethical Markets', 'Partner Markets']) {
         expect(await page.getByText(label, { exact: true }).first().isVisible(), `legend shows ${label}`);
     }
@@ -151,13 +151,13 @@ await step('the region list mirrors and drives the same selection', async () => 
     await page.locator('.explorer-panel').getByRole('heading', { name: 'Nigeria', level: 3 }).waitFor();
 });
 
-await step('pinned region (no ISO code) is selectable from the list', async () => {
-    // South Pacific has no country shape - its pin sits on coordinates and is
-    // always on the board; a real user can also reach it from the list.
-    await page.locator('.map-list-btn', { hasText: 'South Pacific Islands' }).click();
-    const pin = page.getByRole('button', { name: /^South Pacific Islands, view/ });
+await step('a Pacific island market is selectable from the list', async () => {
+    // The founding region ships as individual country pins now - a real user
+    // can reach Papua New Guinea from the list as well as the board.
+    await page.locator('.map-list-btn', { hasText: 'Papua New Guinea' }).click();
+    const pin = page.getByRole('button', { name: /^Papua New Guinea, view/ });
     await pin.waitFor();
-    await page.locator('.explorer-panel').getByRole('heading', { name: 'South Pacific Islands', level: 3 }).waitFor();
+    await page.locator('.explorer-panel').getByRole('heading', { name: 'Papua New Guinea', level: 3 }).waitFor();
 });
 
 await step('keyboard: Tab to a pin, Enter selects, close button clears', async () => {

@@ -16,6 +16,9 @@ export default function CategoryForm({ category }) {
         image: null,
         meta_title: category.meta_title || '',
         meta_description: category.meta_description || '',
+        focus_keyword: category.focus_keyword || '',
+        long_tail_keywords: category.long_tail_keywords || '',
+        secondary_keywords: category.secondary_keywords || '',
         sort_order: category.sort_order ?? 0,
         i18n: category.i18n ?? {},
         _method: 'PUT',
@@ -46,6 +49,9 @@ export default function CategoryForm({ category }) {
                     <h2 className="text-sm font-bold uppercase tracking-wider text-ink-500">SEO</h2>
                     <Field field={{ name: 'meta_title', label: 'Meta title', help: `${(form.data.meta_title || '').length}/70` }} value={form.data.meta_title} error={form.errors.meta_title} onChange={set} />
                     <Field field={{ name: 'meta_description', label: 'Meta description', type: 'textarea', rows: 2, help: `${(form.data.meta_description || '').length}/200` }} value={form.data.meta_description} error={form.errors.meta_description} onChange={set} />
+                    <Field field={{ name: 'focus_keyword', label: 'Focus keyword', help: 'The single keyword this page targets. Keep it in the meta title, H1 and opening copy.' }} value={form.data.focus_keyword} error={form.errors.focus_keyword} onChange={set} />
+                    <Field field={{ name: 'long_tail_keywords', label: 'Long-tail keywords', type: 'textarea', rows: 2, help: '2-4 phrases, separated by semicolons.' }} value={form.data.long_tail_keywords} error={form.errors.long_tail_keywords} onChange={set} />
+                    <Field field={{ name: 'secondary_keywords', label: 'Secondary keywords', type: 'textarea', rows: 2, help: '2-4 phrases, separated by semicolons.' }} value={form.data.secondary_keywords} error={form.errors.secondary_keywords} onChange={set} />
                 </section>
 
                 <TranslationFields form={form} fields={[

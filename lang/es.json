@@ -69,7 +69,7 @@
     "Distributors, hospitals and health programmes work directly with this team. Tell us your market and requirement.": "Distribuidores, hospitales y programas de salud trabajan directamente con este equipo. Indíquenos su mercado y necesidad.",
     "Head Office & Works": "Sede central y planta",
     "Branch": "Sucursal",
-    "Mon–Sat, 9:30–18:30 IST": "Lun–Sáb, 9:30–18:30 IST",
+    "Mon-Sat, 9:30-18:30 IST": "Lun-Sáb, 9:30-18:30 IST",
     "Chat on WhatsApp": "Chatear por WhatsApp",
     "Download product brochure (PDF)": "Descargar el folleto de productos (PDF)",
     "Chat with Nymak Pharma on WhatsApp": "Chatear con Nymak Pharma por WhatsApp",
@@ -78,7 +78,6 @@
     "WHO-GMP certified": "Certificado WHO-GMP",
     "ISO 13485 · in-house QC/QA & regulatory teams": "ISO 13485 · equipos internos de CC/CA y regulatorios",
     "{n} export markets": "{n} mercados de exportación",
-    "{n} products across five segments": "{n} productos en cinco segmentos",
     "Government of India certified exporter": "Exportador certificado por el Gobierno de la India",
     "Full Name": "Nombre completo",
     "Your name": "Su nombre",
@@ -138,7 +137,7 @@
     "{n} markets across the globe": "{n} mercados en todo el mundo",
     "Years of Lifecare": "Años de lifecare",
     "Export Countries": "Países de exportación",
-    "Containers in FY 23–24": "Contenedores en 2023–24",
+    "Containers in FY 23-24": "Contenedores en 2023-24",
     "Products in Portfolio": "Productos en cartera",
     "Countries served": "Países atendidos",
     "International offices": "Oficinas internacionales",
@@ -151,5 +150,8 @@
     "Company journey timeline": "Cronología del recorrido de la empresa",
     "Group companies": "Empresas del grupo",
     "Earlier milestones": "Hitos anteriores",
-    "Later milestones": "Hitos siguientes"
+    "Later milestones": "Hitos siguientes",
+    "{n} products across four segments": "{n} productos en cuatro segmentos",
+    "Ahmedabad Office": "Oficina de Ahmedabad",
+    "Group Companies": "Compañías del grupo"
 }

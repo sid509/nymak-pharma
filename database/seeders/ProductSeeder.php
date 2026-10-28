@@ -16,7 +16,6 @@ class ProductSeeder extends Seeder
         $ff = ProductCategory::where('slug', 'finished-formulations')->firstOrFail()->id;
         $md = ProductCategory::where('slug', 'medical-devices-and-disposables')->firstOrFail()->id;
         $rk = ProductCategory::where('slug', 'rapid-diagnostic-kits')->firstOrFail()->id;
-        $vx = ProductCategory::where('slug', 'vaccines')->firstOrFail()->id;
 
         // Catalog data sourced from nymakpharma.com product tables.
         // [category, group, name, strength, pack_size]
@@ -328,26 +327,10 @@ class ProductSeeder extends Seeder
             );
         }
 
-        // Vaccines & antisera: description column carries the presentation detail.
-        $vaccines = [
-            ['Snake Venom Antiserum', 'Polyvalent Enzyme Refined Equine Immunoglobulins (Liquid)', '10 ml Vial'],
-            ['Combipack of Snake Venom Antiserum with Sterile Water for Injection BP', 'Lyophilized, Polyvalent Enzyme Refined Equine Immunoglobulins', '10 ml Vial with 10 ml Ampoule'],
-            ['Tetanus Antitoxin BP 1500 IU', 'Enzyme Refined Equine Immunoglobulins (Liquid)', '1 ml Vial'],
-            ['Tetanus Antitoxin BP 1500 IU with Sterilized Water for Injection BP', 'Lyophilized, Enzyme Refined Equine Immunoglobulins', '1 ml Vial with 1 ml Ampoule'],
-        ];
-
-        foreach ($vaccines as $i => [$name, $desc, $pack]) {
-            Product::updateOrCreate(
-                ['slug' => Str::slug($name.'-'.$i)],
-                [
-                    'product_category_id' => $vx,
-                    'therapeutic_group' => 'Antisera & Immunoglobulins',
-                    'name' => $name,
-                    'description' => $desc,
-                    'pack_size' => $pack,
-                    'sort_order' => $i,
-                ]
-            );
+        // Content change (26.10): vaccines & antisera leave the portfolio -
+        // the segment and its four products are removed everywhere.
+        if ($vx = ProductCategory::where('slug', 'vaccines')->first()) {
+            Product::where('product_category_id', $vx->id)->delete();
         }
 
         $this->seedBrandedProducts($ff);

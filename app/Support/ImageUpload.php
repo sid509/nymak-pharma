@@ -56,11 +56,21 @@ class ImageUpload
 
     public static function delete(?string $webPath): void
     {
-        if ($webPath && (str_starts_with($webPath, 'images/') || str_starts_with($webPath, 'files/'))) {
-            $abs = public_path($webPath);
-            if (is_file($abs)) {
-                unlink($abs);
-            }
+        if (! $webPath || ! (str_starts_with($webPath, 'images/') || str_starts_with($webPath, 'files/'))) {
+            return;
+        }
+
+        // Only files this uploader created carry the slug-<random6>.ext shape,
+        // and Str::random suffixes practically always hold a digit or capital.
+        // Committed seed assets (all-lowercase slugs) are referenced by many
+        // slots plus the SEO fallback; removing them 404s the rest of the site.
+        if (! preg_match('/-([A-Za-z0-9]{6})\.[^.]+$/', basename($webPath), $m) || ! preg_match('/[A-Z0-9]/', $m[1])) {
+            return;
+        }
+
+        $abs = public_path($webPath);
+        if (is_file($abs)) {
+            unlink($abs);
         }
     }
 

@@ -20,9 +20,9 @@ return [
     'founded' => 1998,
     'founder' => 'Mr. Ranjit Advani',
 
-    'description' => 'Nymak Pharma is a WHO-GMP certified pharmaceutical manufacturer and Government of India '
-        .'recognised Star Export House, supplying IV fluids, finished formulations, medical devices, '
-        .'rapid diagnostic kits and vaccines to more than 24 countries.',
+    'description' => 'Nymak Pharma is a WHO-GMP certified pharmaceutical company and Government of India '
+        .'recognised Star Export House, supplying IV fluids, finished formulations, medical devices '
+        .'and rapid diagnostic kits to more than 24 countries.',
 
     'logo' => 'images/logo.png', // used in Organization schema; admin upload overrides
     'brochure' => 'nymak-pharma-brochure.pdf', // linked on Home/Contact/footer
@@ -50,26 +50,55 @@ return [
     */
     'offices' => [
         [
+            'name' => 'Nymak Pharma - Head Office & Works',
+            'city' => 'Mundra',
+            'address' => 'Plot No. 22, Phase 3, Port Biz Industrial Park, Kandla-Mundra Highway, Bhadreshwar, Mundra (Kutch), Gujarat, India',
+            'phone' => '+91 98252 25567',
+            'email' => 'info@nymakpharma.com',
+            'country_code' => 'IN',
+            'latitude' => 22.85,
+            'longitude' => 69.72,
+        ],
+        [
+            'name' => 'Nymak Pharma - Branch Office',
+            'city' => 'Ahmedabad',
+            'address' => 'A-802, Money Plant High Street, Near BSNL Office, Jagatpur Road, SG Highway, Ahmedabad, Gujarat, India',
+            'phone' => '+91 98252 25567',
+            'email' => 'info@nymakpharma.com',
+            'country_code' => 'IN',
+            'latitude' => 23.07,
+            'longitude' => 72.55,
+        ],
+        [
             'name' => 'Nymak Pharma, United Kingdom',
+            'city' => 'London',
             'address' => '39, Moat Drive, Harrow, Middlesex, HA1 4RY, United Kingdom',
             'phone' => '+44 7943 534797',
             'email' => 'paresh.wadhwani@nymakpharma.com',
             'country_code' => 'GB',
+            'latitude' => 51.58,
+            'longitude' => -0.34,
         ],
         [
             'name' => 'Core Africa, Sierra Leone',
+            'city' => 'Freetown',
             'address' => '1st Floor, 39 Liverpool Street (UP), Off Pademba Road, Freetown, Sierra Leone',
             'phone' => '+232 90855049',
             'email' => 'sierraleone@coreafrica.net',
             'country_code' => 'SL',
+            'latitude' => 8.49,
+            'longitude' => -13.23,
         ],
         [
             'name' => 'Core Africa Liberia Inc.',
+            'city' => 'Monrovia',
             'address' => 'Omega, Kakata Highway, Paynesville, Montserrado County, Liberia',
             'phone' => '+231 555 188 288',
             'phone_alt' => '+231 777 736 498',
             'email' => 'liberia@coreafrica.net',
             'country_code' => 'LR',
+            'latitude' => 6.40,
+            'longitude' => -10.62,
         ],
     ],
 

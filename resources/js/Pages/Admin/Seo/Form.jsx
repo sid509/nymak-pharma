@@ -9,6 +9,9 @@ export default function SeoForm({ page }) {
     const form = useForm({
         meta_title: page.meta_title || '',
         meta_description: page.meta_description || '',
+        focus_keyword: page.focus_keyword || '',
+        long_tail_keywords: page.long_tail_keywords || '',
+        secondary_keywords: page.secondary_keywords || '',
         og_image: null,
         _method: 'PUT',
     });
@@ -33,6 +36,15 @@ export default function SeoForm({ page }) {
                     <Field field={{ name: 'meta_description', label: 'Meta description', type: 'textarea', rows: 3,
                         help: `${(form.data.meta_description || '').length}/300` }}
                         value={form.data.meta_description} error={form.errors.meta_description} onChange={set} />
+                    <Field field={{ name: 'focus_keyword', label: 'Focus keyword',
+                        help: 'The single keyword this page targets. Keep it in the meta title, H1 and opening copy.' }}
+                        value={form.data.focus_keyword} error={form.errors.focus_keyword} onChange={set} />
+                    <Field field={{ name: 'long_tail_keywords', label: 'Long-tail keywords', type: 'textarea', rows: 2,
+                        help: '2-4 phrases, separated by semicolons.' }}
+                        value={form.data.long_tail_keywords} error={form.errors.long_tail_keywords} onChange={set} />
+                    <Field field={{ name: 'secondary_keywords', label: 'Secondary keywords', type: 'textarea', rows: 2,
+                        help: '2-4 phrases, separated by semicolons.' }}
+                        value={form.data.secondary_keywords} error={form.errors.secondary_keywords} onChange={set} />
 
                     {page.og_image && (
                         <div className="flex items-center gap-3">

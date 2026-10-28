@@ -28,7 +28,7 @@ A pivotal moment arrived in 2000 when Nymak entered the Nigerian market. The res
 
 ## Where we stand today
 
-Nymak Pharma now operates in more than 24 countries and exported over 200 containers in FY 2023–24. The company is recognised as a Government of India certified Star Export House and operates with in-house regulatory, laboratory, QC/QA and design teams.
+Nymak Pharma now operates in more than 24 countries and exported over 200 containers in FY 2023-24. The company is recognised as a Government of India certified Star Export House and operates with in-house regulatory, laboratory, QC/QA and design teams.
 
 The founding principle has not changed: behind every product is a person in need. The goal ahead is the same one stated in 1998: a world where quality healthcare is not a privilege but a fundamental right.
 MD,
@@ -72,7 +72,7 @@ Intravenous fluids sit at the foundation of hospital care: rehydration, electrol
 
 ## The core replenisher range
 
-The portfolio starts with the essentials: Sodium Chloride 0.9% and 0.45% intravenous infusions, Ringer Lactate, and dextrose infusions at 5%, 10% and 25% concentrations, including sodium chloride–dextrose combinations. Pack sizes run from 100 ml to 1000 ml to match ward, theatre and field use.
+The portfolio starts with the essentials: Sodium Chloride 0.9% and 0.45% intravenous infusions, Ringer Lactate, and dextrose infusions at 5%, 10% and 25% concentrations, including sodium chloride-dextrose combinations. Pack sizes run from 100 ml to 1000 ml to match ward, theatre and field use.
 
 ## Multi-electrolyte and specialist fluids
 
@@ -100,7 +100,7 @@ Among the certifications in Nymak Pharma's portfolio, one reflects not just comp
 
 ## What the status recognises
 
-Star Export House status is granted under India's Foreign Trade Policy to exporters who demonstrate sustained export performance. For Nymak Pharma it recognises the scale the company has built: more than 200 containers exported in FY 2023–24 across 24+ country markets.
+Star Export House status is granted under India's Foreign Trade Policy to exporters who demonstrate sustained export performance. For Nymak Pharma it recognises the scale the company has built: more than 200 containers exported in FY 2023-24 across 24+ country markets.
 
 ## What it signals to partners
 

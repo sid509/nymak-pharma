@@ -19,6 +19,7 @@ $public = function () {
     Route::get('/', Controllers\HomeController::class)->name('home');
     Route::get('/about', Controllers\AboutController::class)->name('about');
     Route::get('/manufacturing', Controllers\ManufacturingController::class)->name('manufacturing');
+    Route::get('/ahmedabad', Controllers\AhmedabadController::class)->name('ahmedabad');
     Route::get('/quality-certifications', Controllers\QualityController::class)->name('quality');
 
     // Catalogue hierarchy: overview → category landing page → full product

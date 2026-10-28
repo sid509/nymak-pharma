@@ -16,7 +16,6 @@ import { numericId } from '../data/countries';
 
 const W = 1000;
 const H = 560;
-const HQ = [69.72, 22.74]; // Mundra, Gujarat - Nymak's manufacturing base
 
 // Antarctica (atlas id 010) is off the board - the wall map stops at the
 // southern tips, and the slab would only burn a strip of empty board.
@@ -41,12 +40,25 @@ export function placeMarkets(markets) {
 
 const PIN_TYPES = ['presence', 'ethical', 'partner'];
 
-export default function WorldMap({ markets, selected, onSelect, className = '' }) {
+export default function WorldMap({ markets, offices = [], selected, onSelect, className = '', officeAnchor = 'offices' }) {
     const [hover, setHover] = useState(null); // { slug, x, y }
 
     const placed = useMemo(() => placeMarkets(markets), [markets]);
     const byCountry = useMemo(() => new Map(placed.filter((m) => m.countryId).map((m) => [m.countryId, m])), [placed]);
-    const hovered = hover ? placed.find((m) => m.slug === hover.slug) : null;
+
+    // Offices are gold "presence" pins too, but only where no market pin
+    // already marks that office's country (Sierra Leone / Liberia market pins
+    // are pinned at their office cities). India and the UK get their pins here.
+    const officePins = useMemo(() => {
+        const pinnedIsos = new Set(placed.map((m) => m.iso_code));
+        return offices
+            .filter((o) => o.latitude != null && o.longitude != null && !pinnedIsos.has(o.country_code))
+            .map((o, i) => ({ ...o, slug: `office-${i}`, point: [Number(o.longitude), Number(o.latitude)] }));
+    }, [offices, placed]);
+
+    const hovered = hover
+        ? placed.find((m) => m.slug === hover.slug) ?? officePins.find((o) => o.slug === hover.slug)
+        : null;
     const active = placed.find((m) => m.slug === selected) ?? null;
 
     const projection = useMemo(() => geoNaturalEarth1()
@@ -59,6 +71,10 @@ export default function WorldMap({ markets, selected, onSelect, className = '' }
         .filter((c) => c.d), [path]);
 
     const pins = placed.filter((m) => m.point).map((m) => ({ m, xy: projection(m.point) }));
+    const offPins = officePins.filter((o) => o.point).map((o) => ({ o, xy: projection(o.point) }));
+
+    // Office pins are not markets - clicking brings the offices list into view.
+    const goToOffices = () => document.getElementById(officeAnchor)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
     const tip = (m) => (e) => {
         const box = e.currentTarget.ownerSVGElement.getBoundingClientRect();
@@ -139,13 +155,25 @@ export default function WorldMap({ markets, selected, onSelect, className = '' }
                 <rect x="8" y="8" width={W - 16} height={H - 16} rx="14" filter="url(#board-grain)"
                       pointerEvents="none" aria-hidden />
 
-                {/* HQ - the origin point; a gold presence pin like the wall */}
-                <g className="ppin ppin-presence" transform={`translate(${projection(HQ).map((n) => n.toFixed(1)).join(' ')})`} aria-hidden>
-                    <ellipse className="ppin-shadow" cx="2" cy="1.5" rx="5" ry="1.6" />
-                    <line className="ppin-needle" x1="0" y1="0" x2="0" y2="-6" />
-                    <circle className="ppin-head" cy="-8" r="7" fill="url(#pin-presence)" />
-                    <title>Mundra HQ, India</title>
-                </g>
+                {/* Office pins - our presence locations that have no market of
+                    their own (Mundra, Ahmedabad, London). Gold, like the wall. */}
+                {offPins.map(({ o, xy }) => {
+                    const [x, y] = xy;
+                    return (
+                        <g key={o.slug} transform={`translate(${x.toFixed(1)} ${y.toFixed(1)})`} className="ppin ppin-presence">
+                            <ellipse className="ppin-shadow" cx="2" cy="1.5" rx="5" ry="1.6" />
+                            <line className="ppin-needle" x1="0" y1="0" x2="0" y2="-6" />
+                            <circle className="ppin-hit" cy="-8" r="7.5" role="link" tabIndex={0}
+                                    aria-label={`${o.name} - see our offices`}
+                                    onClick={goToOffices} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); goToOffices(); } }}
+                                    onMouseEnter={tip(o)} onMouseMove={tip(o)}
+                                    onFocus={() => tipAt(o, xy)}
+                                    onBlur={() => setHover(null)} />
+                            <circle className="ppin-head" cy="-8" r="6.5" fill="url(#pin-presence)" />
+                            <title>{o.name}</title>
+                        </g>
+                    );
+                })}
 
                 {/* One pin per market - tips touch the map at each market's point */}
                 <g className="map-pins">
@@ -181,10 +209,13 @@ export default function WorldMap({ markets, selected, onSelect, className = '' }
             {hovered && (
                 <div role="tooltip" className="map-tip pointer-events-none absolute z-10 w-56 rounded-xl border border-ink-100 bg-white/95 p-3 shadow-card backdrop-blur"
                      style={{ left: `${Math.min(Math.max(hover.x, 14), 86)}%`, top: `${hover.y}%`, transform: `translate(-50%, ${hover.y < 30 ? '18px' : 'calc(-100% - 18px)'})` }}>
-                    <p className="text-[10px] font-bold uppercase tracking-wider text-brand-700">{hovered.region}</p>
+                    <p className="text-[10px] font-bold uppercase tracking-wider text-brand-700">{hovered.region ?? hovered.city ?? 'Office'}</p>
                     <p className="mt-0.5 text-sm font-semibold text-ink-900">{hovered.name}</p>
                     {hovered.description && <p className="mt-1 line-clamp-3 text-xs leading-relaxed text-ink-600">{hovered.description}</p>}
-                    <p className="mt-1.5 text-[11px] font-bold text-brand-700">{active?.slug === hovered.slug ? 'Selected' : 'Click to explore'}</p>
+                    {hovered.address && <p className="mt-1 line-clamp-2 text-xs leading-relaxed text-ink-600">{hovered.address}</p>}
+                    <p className="mt-1.5 text-[11px] font-bold text-brand-700">
+                        {hovered.slug?.startsWith('office-') ? 'See our offices' : active?.slug === hovered.slug ? 'Selected' : 'Click to explore'}
+                    </p>
                 </div>
             )}
         </div>

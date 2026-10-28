@@ -48,6 +48,9 @@ class SeoPageController extends Controller
                 'label' => PageMeta::PAGES[$seoPage->key] ?? $seoPage->key,
                 'meta_title' => $seoPage->meta_title,
                 'meta_description' => $seoPage->meta_description,
+                'focus_keyword' => $seoPage->focus_keyword,
+                'long_tail_keywords' => $seoPage->long_tail_keywords,
+                'secondary_keywords' => $seoPage->secondary_keywords,
                 'og_image' => $seoPage->og_image,
             ],
         ]);
@@ -58,6 +61,9 @@ class SeoPageController extends Controller
         $data = $request->validate([
             'meta_title' => ['nullable', 'string', 'max:70'],
             'meta_description' => ['nullable', 'string', 'max:300'],
+            'focus_keyword' => ['nullable', 'string', 'max:120'],
+            'long_tail_keywords' => ['nullable', 'string', 'max:500'],
+            'secondary_keywords' => ['nullable', 'string', 'max:500'],
             'og_image' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:2048'],
         ]);
 

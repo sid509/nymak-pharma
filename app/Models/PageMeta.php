@@ -10,7 +10,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class PageMeta extends Model
 {
-    protected $fillable = ['key', 'meta_title', 'meta_description', 'og_image'];
+    protected $fillable = ['key', 'meta_title', 'meta_description', 'og_image',
+        'focus_keyword', 'long_tail_keywords', 'secondary_keywords'];
 
     /** The public pages admins may edit. key => label. */
     public const PAGES = [
@@ -20,6 +21,7 @@ class PageMeta extends Model
         'quality' => 'Quality & Certifications',
         'products.index' => 'Products (overview)',
         'markets.index' => 'Global Presence',
+        'ahmedabad' => 'Ahmedabad / Gujarat',
         'team.index' => 'Team',
         'inside' => 'Inside Nymak (interactive)',
         'posts.index' => 'Blog / Resources',

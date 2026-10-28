@@ -17,8 +17,8 @@ class AboutController extends Controller
     {
         return Inertia::render('About', [
             'seo' => Seo::make(
-                'About Us: WHO-GMP Pharmaceutical Manufacturer Since 1998',
-                'Founded in 1998, Nymak Pharma is a WHO-GMP certified pharmaceutical manufacturer and Star Export House serving 24+ countries from Mundra, Gujarat, India.'
+                'Pharmaceutical Companies in India: Our Story Since 1998',
+                'Founded in 1998, Nymak Pharma is a pharmaceutical company based in Gujarat, India: a WHO-GMP certified Star Export House serving 24+ countries.'
             )->override('about')->breadcrumbs([
                 ['Home', SetLocale::absolute('/')],
                 ['About Us', SetLocale::absolute('/about')],

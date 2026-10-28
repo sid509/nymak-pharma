@@ -92,6 +92,7 @@ export default function Home({ seo, categories, featuredProducts = [], testimoni
                             <div className="prose-nymak">
                                 <p>{c.about_p1}</p>
                                 <p>{c.about_p2}</p>
+                                {c.about_p3 && <p>{c.about_p3}</p>}
                             </div>
                             <div className="mt-6 flex flex-wrap gap-3">
                                 {c.about_cta_label && <ButtonLink href="/about" variant="outline">{c.about_cta_label} <FontAwesomeIcon style={{ fontSize: 15 }} icon={faArrowRight} className="btn-arrow" aria-hidden /></ButtonLink>}
@@ -143,7 +144,7 @@ export default function Home({ seo, categories, featuredProducts = [], testimoni
                                                 <FontAwesomeIcon style={{ fontSize: 18 }} icon={faGlobe} className="mt-0.5 shrink-0 text-brand-300" aria-hidden />
                                                 <div>
                                                     <p className="font-semibold">{t('{n} export markets', { n: stats.countries })}</p>
-                                                    <p className="mt-0.5 text-sm text-ink-200">{t('{n} products across five segments', { n: stats.products })}</p>
+                                                    <p className="mt-0.5 text-sm text-ink-200">{t('{n} products across four segments', { n: stats.products })}</p>
                                                 </div>
                                             </li>
                                             <li className="flex items-start gap-3">

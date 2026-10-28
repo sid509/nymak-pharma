@@ -3,7 +3,7 @@ import { faFileLines, faShieldHalved } from '@fortawesome/free-solid-svg-icons';
 
 import Accordion from '../Components/Accordion';
 import { useT } from '../i18n/useT';
-import { Container, GhostTitle, PageHero } from '../Components/Ui';
+import { Container, GhostTitle, PageHero, SectionHeading } from '../Components/Ui';
 import SiteLayout from '../Layouts/SiteLayout';
 
 export default function Quality({ seo, certifications, faqs, content }) {
@@ -88,6 +88,19 @@ export default function Quality({ seo, certifications, faqs, content }) {
                     </div>
                 </Container>
             </section>
+
+            {/* Regulatory & dossier services */}
+            {(content.reg_p1 || content.reg_p2) && (
+                <section className="py-16 sm:py-20">
+                    <Container>
+                        <SectionHeading eyebrow={content.reg_eyebrow} title={content.reg_title} />
+                        <div className="prose-nymak mt-6 max-w-3xl">
+                            {content.reg_p1 && <p>{content.reg_p1}</p>}
+                            {content.reg_p2 && <p>{content.reg_p2}</p>}
+                        </div>
+                    </Container>
+                </section>
+            )}
         </SiteLayout>
     );
 }

@@ -17,6 +17,7 @@ class SitemapController extends Controller
             ['/', '1.0', 'weekly'],
             ['/about', '0.8', 'monthly'],
             ['/manufacturing', '0.8', 'monthly'],
+            ['/ahmedabad', '0.7', 'monthly'],
             ['/quality-certifications', '0.8', 'monthly'],
             ['/products', '0.9', 'weekly'],
             ['/global-presence', '0.8', 'monthly'],

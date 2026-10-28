@@ -17,6 +17,9 @@ class CategoryRequest extends FormRequest
             'image' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:2048'],
             'meta_title' => ['nullable', 'string', 'max:70'],
             'meta_description' => ['nullable', 'string', 'max:200'],
+            'focus_keyword' => ['nullable', 'string', 'max:120'],
+            'long_tail_keywords' => ['nullable', 'string', 'max:500'],
+            'secondary_keywords' => ['nullable', 'string', 'max:500'],
             'sort_order' => ['integer', 'min:0', 'max:255'],
             // French/Spanish translations - merged into the model's i18n JSON column.
             'i18n' => ['sometimes', 'array'],

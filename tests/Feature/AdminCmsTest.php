@@ -41,7 +41,7 @@ class AdminCmsTest extends TestCase
             ->assertOk()
             ->assertInertia(fn ($p) => $p->component('Admin/Pages/Form')
                 ->has('fields')
-                ->where('values.hero_title', '25+ years of Efficacy-Driven lifecare'));
+                ->where('values.hero_title', '25+ years of efficacy-driven lifecare from a pharmaceutical exporter India trusts'));
     }
 
     public function test_page_content_update_overrides_public_page(): void
@@ -65,7 +65,7 @@ class AdminCmsTest extends TestCase
             'hero_title' => '',
         ]);
 
-        $this->get('/')->assertSee('25+ years of Efficacy-Driven lifecare', false);
+        $this->get('/')->assertSee('25+ years of efficacy-driven lifecare from a pharmaceutical exporter India trusts', false);
     }
 
     public function test_page_content_json_field_validates_and_renders(): void

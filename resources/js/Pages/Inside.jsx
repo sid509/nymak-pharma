@@ -43,7 +43,7 @@ export default function Inside({ seo, content, stats, timeline, portfolio, categ
                     <Reveal delay={260}>
                         <dl className="mx-auto mt-12 grid max-w-2xl grid-cols-2 gap-8 text-center sm:grid-cols-4">
                             {[['years', t('Years of Lifecare')], ['countries', t('Export Countries')],
-                              ['containers_fy', t('Containers in FY 23–24')], ['products', t('Products in Portfolio')]]
+                              ['containers_fy', t('Containers in FY 23-24')], ['products', t('Products in Portfolio')]]
                                 .map(([key, label]) => (
                                     <div key={key}>
                                         <dt className="sr-only">{label}</dt>

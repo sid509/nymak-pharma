@@ -197,7 +197,7 @@ export default function MarketsIndex({ seo, markets, offices, content }) {
                     <div className="mt-10 grid gap-6 lg:grid-cols-[minmax(0,1.6fr)_minmax(22rem,1fr)] lg:gap-10">
                         <Reveal>
                             <div className="pinboard-frame rounded-2xl p-3 shadow-card sm:p-5">
-                                <WorldMap markets={markets} selected={selected} onSelect={select} />
+                                <WorldMap markets={markets} offices={offices} selected={selected} onSelect={select} />
                                 <ul className="mt-4 flex flex-wrap items-center justify-center gap-x-8 gap-y-2 text-xs font-semibold uppercase tracking-[0.06em] text-ink-500" aria-label="Legend">
                                     <li className="flex items-center gap-2"><span className="legend-pin bg-[#c9a24f]" aria-hidden />{t('Our Presence')}</li>
                                     <li className="flex items-center gap-2"><span className="legend-pin bg-[#4f7ba0]" aria-hidden />{t('Ethical Markets')}</li>
@@ -243,6 +243,23 @@ export default function MarketsIndex({ seo, markets, offices, content }) {
                 </Container>
             </section>
 
+            {/* How we reach markets - the three pin categories in words */}
+            {(content.presence_p1 || content.presence_p2 || content.presence_p3 || content.presence_p4 || content.presence_p5 || content.presence_p6) && (
+                <section className="border-t border-ink-100 bg-ink-50/50 py-16 sm:py-20">
+                    <Container>
+                        <SectionHeading eyebrow={content.presence_eyebrow} title={content.presence_title} />
+                        <div className="prose-nymak mt-6 max-w-3xl">
+                            {content.presence_p1 && <p>{content.presence_p1}</p>}
+                            {content.presence_p2 && <p>{content.presence_p2}</p>}
+                            {content.presence_p3 && <p>{content.presence_p3}</p>}
+                            {content.presence_p4 && <p>{content.presence_p4}</p>}
+                            {content.presence_p5 && <p>{content.presence_p5}</p>}
+                            {content.presence_p6 && <p>{content.presence_p6}</p>}
+                        </div>
+                    </Container>
+                </section>
+            )}
+
             {/* Export footprint */}
             <section className="bg-ink-950 py-16 text-white sm:py-20">
                 <Container wide>
@@ -263,8 +280,8 @@ export default function MarketsIndex({ seo, markets, offices, content }) {
                 </Container>
             </section>
 
-            {/* International offices */}
-            <section className="py-16 sm:py-20">
+            {/* Group companies - our offices and the partner entities on the ground */}
+            <section id="offices" className="scroll-mt-24 py-16 sm:py-20">
                 <Container wide>
                     <SectionHeading eyebrow={content.offices_eyebrow} title={content.offices_title} />
                     <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">

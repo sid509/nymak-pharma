@@ -35,16 +35,17 @@ class GlobalPresenceMapTest extends TestCase
     }
 
     #[Test]
-    public function multi_country_regions_are_pinned_by_coordinates(): void
+    public function markets_are_pinned_by_country_coordinates(): void
     {
         $this->get('/global-presence')
             ->assertInertia(fn (Assert $p) => $p
                 ->where('markets', function ($markets) {
-                    $sp = collect($markets)->firstWhere('slug', 'south-pacific');
+                    $sl = collect($markets)->firstWhere('slug', 'sierra-leone');
 
-                    return $sp && $sp['iso_code'] === null
-                        && abs($sp['latitude'] - -17.7) < 0.0001
-                        && abs($sp['longitude'] - 178.0) < 0.0001;
+                    return $sl && $sl['iso_code'] === 'SL'
+                        && $sl['pin_type'] === 'presence'
+                        && abs($sl['latitude'] - 8.49) < 0.0001
+                        && abs($sl['longitude'] - -13.23) < 0.0001;
                 })
             );
     }

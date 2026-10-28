@@ -56,7 +56,7 @@ export default function Manufacturing({ seo, content }) {
                                 </div>
                                 <div>
                                     <p className="flex items-center gap-2 text-lg font-bold"><FontAwesomeIcon style={{ fontSize: 18 }} icon={faShip} className="text-brand-300" aria-hidden />200+</p>
-                                    <p className="mt-1 text-[13px] font-medium text-ink-200">{t('Containers shipped FY 2023–24')}</p>
+                                    <p className="mt-1 text-[13px] font-medium text-ink-200">{t('Containers shipped FY 2023-24')}</p>
                                 </div>
                                 <div>
                                     <p className="flex items-center gap-2 text-lg font-bold"><FontAwesomeIcon style={{ fontSize: 18 }} icon={faLocationDot} className="text-brand-300" aria-hidden />{t('2 ports')}</p>
@@ -64,7 +64,7 @@ export default function Manufacturing({ seo, content }) {
                                 </div>
                             </div>
                             <p className="relative mt-5 border-t border-white/15 pt-4 text-[13px] font-medium leading-relaxed text-ink-200">
-                                {t('Plot No. 22, Phase 3, Port Biz Industrial Park, Kandla–Mundra Highway, Bhadreshwar, Mundra (Kutch)')}
+                                {t('Plot No. 22, Phase 3, Port Biz Industrial Park, Kandla-Mundra Highway, Bhadreshwar, Mundra (Kutch)')}
                             </p>
                         </div>
                     </div>

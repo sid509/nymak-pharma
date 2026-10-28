@@ -46,6 +46,7 @@ export default function Footer() {
                             {[
                                 ['About Us', '/about'],
                                 ['Manufacturing', '/manufacturing'],
+                                ['Ahmedabad Office', '/ahmedabad'],
                                 ['Quality & Certifications', '/quality-certifications'],
                                 ['Global Presence', '/global-presence'],
                                 ['Blog & Resources', '/blog'],

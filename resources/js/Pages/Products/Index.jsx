@@ -35,6 +35,25 @@ export default function ProductsIndex({ seo, categories, branded = [], content: 
                 </Container>
             </section>
 
+            {/* Portfolio narrative - the segment-by-segment story behind the grid */}
+            {(c.body_p1 || c.body_p2 || c.body_p3 || c.body_p4 || c.body_p5 || c.body_p6 || c.body_p7) && (
+                <section className="border-t border-ink-100 bg-ink-50/50 py-16 sm:py-20">
+                    <Container>
+                        <SectionHeading eyebrow={c.body_eyebrow} title={c.body_title} />
+                        <div className="prose-nymak mt-6 max-w-3xl">
+                            {c.body_intro && <p className="font-medium text-ink-700">{c.body_intro}</p>}
+                            {c.body_p1 && <p>{c.body_p1}</p>}
+                            {c.body_p2 && <p>{c.body_p2}</p>}
+                            {c.body_p3 && <p>{c.body_p3}</p>}
+                            {c.body_p4 && <p>{c.body_p4}</p>}
+                            {c.body_p5 && <p>{c.body_p5}</p>}
+                            {c.body_p6 && <p>{c.body_p6}</p>}
+                            {c.body_p7 && <p>{c.body_p7}</p>}
+                        </div>
+                    </Container>
+                </section>
+            )}
+
             {c.show_brands && branded.length > 0 && (
                 <section className="border-t border-ink-100 bg-ink-50/50 py-16 sm:py-20">
                     <Container>

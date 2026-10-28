@@ -62,7 +62,7 @@ export default function Contact({ seo, offices, products, selectedProduct, formS
                                 </p>
                                 <p className="flex gap-2.5 text-ink-200">
                                     <FontAwesomeIcon style={{ fontSize: 16 }} icon={faClock} className="mt-0.5 shrink-0 text-brand-400" aria-hidden />
-                                    <span>{t('Mon–Sat, 9:30–18:30 IST')}</span>
+                                    <span>{t('Mon-Sat, 9:30-18:30 IST')}</span>
                                 </p>
                             </address>
                             <div className="mt-5 flex flex-col gap-2.5 border-t border-ink-800 pt-5">
