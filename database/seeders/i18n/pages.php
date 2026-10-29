@@ -30,8 +30,8 @@ return [
     'home.stats_products_label' => ['fr' => 'Produits au catalogue', 'es' => 'Productos en cartera'],
     'home.about_eyebrow' => ['fr' => 'À propos de Nymak Pharma', 'es' => 'Acerca de Nymak Pharma'],
     'home.about_title' => [
-        'fr' => 'Une société pharmaceutique indienne exportatrice depuis 1998',
-        'es' => 'Una compañía farmacéutica india exportadora desde 1998',
+        'fr' => 'Fabricants pharmaceutiques en Inde exportant depuis 1998',
+        'es' => 'Fabricantes farmacéuticos de la India exportando desde 1998',
     ],
     'home.about_p1' => [
         'fr' => 'Fondée en 1998 par M. Ranjit Advani, Nymak Pharma a débuté avec de l’eau stérilisée pour préparations injectables BP, livrée aux hôpitaux du Pacifique Sud. Ce parcours couvre aujourd’hui plus de 24 pays sur quatre continents.',
@@ -42,8 +42,8 @@ return [
         'es' => 'Lo que nos distingue entre las compañías farmacéuticas de la India es cuánto se hace bajo un mismo techo: una planta WHO-GMP en Mundra, Gujarat, con equipos internos de regulación, laboratorio de CQ, CG y diseño que producen embalajes conformes y listos para el mercado.',
     ],
     'home.about_p3' => [
-        'fr' => 'Star Export House certifiée par le gouvernement indien, expédiant plus de 200 conteneurs au cours de l’exercice 2023-24 : une seule équipe répond du produit, des documents, de l’emballage et du port.',
-        'es' => 'Star Export House certificada por el Gobierno de la India, que envía más de 200 contenedores en el ejercicio 2023-24: un solo equipo responde del producto, la documentación, el embalaje y el puerto.',
+        'fr' => 'Parmi les fabricants pharmaceutiques indiens, Nymak est une Star Export House certifiée par le gouvernement indien, expédiant plus de 200 conteneurs au cours de l’exercice 2023-24 : une seule équipe répond du produit, des documents, de l’emballage et du port.',
+        'es' => 'Entre los fabricantes farmacéuticos indios, Nymak es una Star Export House certificada por el Gobierno de la India, que envía más de 200 contenedores en el ejercicio 2023-24: un solo equipo responde del producto, la documentación, el embalaje y el puerto.',
     ],
     'home.about_cta_label' => ['fr' => 'Notre histoire', 'es' => 'Nuestra historia'],
     'home.about_cta2_label' => ['fr' => 'Voir notre site', 'es' => 'Ver nuestra planta'],
@@ -54,8 +54,8 @@ return [
         'es' => 'Cuatro segmentos de productos, un solo estándar de calidad',
     ],
     'home.portfolio_lead' => [
-        'fr' => 'Un portefeuille pharmaceutique d’exportation pour hôpitaux, distributeurs, ONG et programmes de santé publique, organisé en quatre segments : solutés IV, formes finies, dispositifs médicaux et tests de diagnostic rapide.',
-        'es' => 'Una cartera farmacéutica de exportación para hospitales, distribuidores, ONG y programas de salud pública, organizada en cuatro segmentos: fluidos IV, formas terminadas, dispositivos médicos y pruebas de diagnóstico rápido.',
+        'fr' => 'Un portefeuille pharmaceutique d’exportation pour hôpitaux, distributeurs, ONG et programmes de santé publique, organisé par des fournisseurs pharmaceutiques en Inde en quatre segments : solutés IV, formes finies, dispositifs médicaux et tests de diagnostic rapide.',
+        'es' => 'Una cartera farmacéutica de exportación para hospitales, distribuidores, ONG y programas de salud pública, organizada por proveedores farmacéuticos de la India en cuatro segmentos: fluidos IV, formas terminadas, dispositivos médicos y pruebas de diagnóstico rápido.',
     ],
     'home.portfolio_card_label' => ['fr' => 'Explorer la catégorie', 'es' => 'Explorar la categoría'],
     'home.portfolio_cta_label' => ['fr' => 'Toutes les catégories', 'es' => 'Todas las categorías'],
@@ -116,8 +116,8 @@ return [
     // ── about ────────────────────────────────────────────────────────
     'about.hero_eyebrow' => ['fr' => 'À propos', 'es' => 'Acerca de'],
     'about.hero_title' => [
-        'fr' => 'Une société pharmaceutique en Inde depuis 1998',
-        'es' => 'Una compañía farmacéutica en la India desde 1998',
+        'fr' => 'Parmi les sociétés pharmaceutiques en Inde depuis 1998',
+        'es' => 'Entre las compañías farmacéuticas de la India desde 1998',
     ],
     'about.hero_lead' => [
         'fr' => 'D’un seul injectable destiné au Pacifique Sud à une Star Export House fournissant plus de 24 pays. L’histoire de Nymak Pharma est celle d’une qualité qui se cumule.',
@@ -133,8 +133,8 @@ return [
         'es' => 'A medida que florecía nuestra experiencia, también lo hacía nuestro alcance: varios mercados insulares del Pacífico Sur, luego Centroamérica, y una entrada histórica en Nigeria en 2000 que elevó las exportaciones un 25 %. Anticipando las necesidades cambiantes, esta compañía de fabricación farmacéutica india se diversificó hacia una amplia gama de productos farmacéuticos y dispositivos médicos pensados para los retos sanitarios de las comunidades que servimos: fluidos e infusiones IV, formas terminadas, dispositivos médicos y consumibles, y pruebas de diagnóstico rápido.',
     ],
     'about.overview_p3' => [
-        'fr' => 'Aujourd’hui, avec plus de 25 ans d’excellence en lifecare, Nymak Pharma est une société pharmaceutique basée au Gujarat présente dans plus de 24 pays. Nous avons exporté plus de 200 conteneurs au cours de l’exercice 2023-24. En tant que Star Export House certifiée par le gouvernement indien, notre infrastructure comprend une équipe réglementaire interne préparant les dossiers produits, un laboratoire de contrôle qualité, un entrepôt dédié et des équipes CQ/AQ et design passionnées, toutes dévouées aux plus hauts standards de soin et d’excellence dans l’industrie pharmaceutique que l’Inde sait offrir.',
-        'es' => 'Hoy, con más de 25 años de excelencia en lifecare, Nymak Pharma es una compañía farmacéutica con sede en Gujarat presente en más de 24 países. Exportamos más de 200 contenedores en el ejercicio 2023-24. Como Star Export House certificada por el Gobierno de la India, nuestra infraestructura incluye un equipo regulatorio interno que prepara los dosieres de producto, un laboratorio de control de calidad, un almacén dedicado y equipos de CQ/CG y diseño comprometidos, todos dedicados a los más altos estándares de cuidado y excelencia en la industria farmacéutica que la India ofrece.',
+        'fr' => 'Aujourd’hui, avec plus de 25 ans d’excellence en lifecare, Nymak Pharma est une société pharmaceutique basée au Gujarat présente dans plus de 24 pays. Nous avons exporté plus de 200 conteneurs au cours de l’exercice 2023-24. En tant que Star Export House certifiée par le gouvernement indien, notre infrastructure comprend une équipe réglementaire interne préparant les dossiers produits, un laboratoire de contrôle qualité, un entrepôt dédié et des équipes CQ/AQ et design passionnées, toutes dévouées aux plus hauts standards de soin et d’excellence dans l’industrie pharmaceutique que l’Inde sait offrir. C’est le standard opérationnel auquel on juge une société pharmaceutique de premier plan en Inde.',
+        'es' => 'Hoy, con más de 25 años de excelencia en lifecare, Nymak Pharma es una compañía farmacéutica con sede en Gujarat presente en más de 24 países. Exportamos más de 200 contenedores en el ejercicio 2023-24. Como Star Export House certificada por el Gobierno de la India, nuestra infraestructura incluye un equipo regulatorio interno que prepara los dosieres de producto, un laboratorio de control de calidad, un almacén dedicado y equipos de CQ/CG y diseño comprometidos, todos dedicados a los más altos estándares de cuidado y excelencia en la industria farmacéutica que la India ofrece. Es el estándar operativo por el que se juzga a una compañía farmacéutica líder en la India.',
     ],
     'about.capabilities' => [
         'fr' => [
@@ -154,8 +154,8 @@ return [
         'es' => 'Comenzó en un solo escritorio en 1998',
     ],
     'about.story_p1' => [
-        'fr' => 'Nymak Pharma a commencé à un seul bureau en 1998. M. Ranjit Advani, entrepreneur et notre fondateur, est parti d’une conviction simple : des médicaments fiables doivent atteindre les communautés qui en ont le plus besoin, où qu’elles soient.',
-        'es' => 'Nymak Pharma comenzó en un solo escritorio en 1998. El Sr. Ranjit Advani, empresario y nuestro fundador, partió de una convicción sencilla: los medicamentos fiables deben llegar a las comunidades que más los necesitan, estén donde estén.',
+        'fr' => 'Parmi les sociétés pharmaceutiques en Inde, Nymak Pharma a commencé à un seul bureau en 1998. M. Ranjit Advani, entrepreneur et notre fondateur, est parti d’une conviction simple : des médicaments fiables doivent atteindre les communautés qui en ont le plus besoin, où qu’elles soient.',
+        'es' => 'Entre las compañías farmacéuticas de la India, Nymak Pharma comenzó en un solo escritorio en 1998. El Sr. Ranjit Advani, empresario y nuestro fundador, partió de una convicción sencilla: los medicamentos fiables deben llegar a las comunidades que más los necesitan, estén donde estén.',
     ],
     'about.story_p2' => [
         'fr' => 'Le premier produit fut l’eau stérilisée pour préparations injectables BP en ampoules plastiques de 5 ml et 10 ml. Les premiers clients étaient dans le Pacifique Sud : hôpitaux et pharmacies à des milliers de kilomètres d’un approvisionnement fiable. Chaque envoi portait le même principe : derrière chaque produit, une personne dans le besoin.',
@@ -222,8 +222,8 @@ return [
         'es' => 'La planta opera bajo certificación WHO-GMP con sistemas de gestión de calidad ISO 13485:2016, el estándar que se espera de una compañía de fabricación farmacéutica en la India que abastece mercados regulados. La producción se apoya en una estructura que mantiene las funciones críticas en casa: un laboratorio de control de calidad que analiza cada lote, un equipo de aseguramiento de calidad que aprueba cada liberación, un equipo de asuntos regulatorios que gestiona dosieres y registros, un equipo de diseño que produce embalajes conformes, y una función logística que gestiona el almacenamiento y la expedición. Procesos documentados cubren todo el ciclo de producción, desde el control de materias primas y la preparación hasta el llenado, el etiquetado y la inspección final, con registros de lote que trazan cada envío hasta su origen.',
     ],
     'manufacturing.overview_p3' => [
-        'fr' => 'Les inspections clients racontent l’histoire mieux que nous : les partenaires visitant le site décrivent des machines et un stockage modernes, des processus bien contrôlés selon les exigences GMP et un management attentif à la qualité. En tant que société de fabrication de médicaments en Inde servant plus de 24 pays, cette ouverture prête aux audits est le standard que nous tenons à chaque poste. Les audits font partie du rythme de travail ici : les inspecteurs et les équipes AQ des partenaires parcourent les lignes, examinent les dossiers et repartent avec la documentation exigée par leurs propres autorités.',
-        'es' => 'Las inspecciones de clientes cuentan la historia mejor que nosotros: los socios que visitan la planta describen maquinaria y almacenamiento modernos, procesos bien controlados según los requisitos GMP y una dirección consciente de la calidad. Como compañía de fabricación de medicamentos en la India que sirve a más de 24 países, esa apertura lista para auditorías es el estándar que mantenemos en cada turno. Las auditorías forman parte del ritmo de trabajo aquí: los inspectores y los equipos de AQ de los socios recorren las líneas, revisan los registros y se llevan la documentación que exigen sus propias autoridades.',
+        'fr' => 'Les inspections clients racontent l’histoire mieux que nous : les partenaires visitant le site décrivent des machines et un stockage modernes, des processus bien contrôlés selon les exigences GMP et un management attentif à la qualité. Cette ouverture prête aux audits distingue les fabricants de médicaments en Inde qui exportent de façon fiable de ceux qui se contentent de deviser. En tant que société de fabrication de médicaments en Inde servant plus de 24 pays, c’est le standard que nous tenons à chaque poste. Les audits font partie du rythme de travail ici : les inspecteurs et les équipes AQ des partenaires parcourent les lignes, examinent les dossiers et repartent avec la documentation exigée par leurs propres autorités.',
+        'es' => 'Las inspecciones de clientes cuentan la historia mejor que nosotros: los socios que visitan la planta describen maquinaria y almacenamiento modernos, procesos bien controlados según los requisitos GMP y una dirección consciente de la calidad. Esa apertura lista para auditorías distingue a los fabricantes de medicamentos de la India que exportan de forma fiable de los que solo cotizan. Como compañía de fabricación de medicamentos en la India que sirve a más de 24 países, es el estándar que mantenemos en cada turno. Las auditorías forman parte del ritmo de trabajo aquí: los inspectores y los equipos de AQ de los socios recorren las líneas, revisan los registros y se llevan la documentación que exigen sus propias autoridades.',
     ],
     'manufacturing.capabilities_eyebrow' => ['fr' => 'Capacités', 'es' => 'Capacidades'],
     'manufacturing.capabilities_title' => ['fr' => 'Ce qui fonctionne dans le site', 'es' => 'Lo que funciona dentro de la planta'],
@@ -301,7 +301,7 @@ return [
     ],
     'quality.faq_title' => ['fr' => 'Questions qualité', 'es' => 'Preguntas de calidad'],
     'quality.reg_eyebrow' => ['fr' => 'Réglementaire & dossiers', 'es' => 'Regulatorio y dosieres'],
-    'quality.reg_title' => ['fr' => 'Des services réglementaires pharmaceutiques pour votre marché', 'es' => 'Servicios regulatorios farmacéuticos para su mercado'],
+    'quality.reg_title' => ['fr' => 'Services réglementaires pharmaceutiques en Inde sur lesquels comptent les importateurs', 'es' => 'Servicios regulatorios farmacéuticos de la India en los que confían los importadores'],
     'quality.reg_p1' => [
         'fr' => 'Les services réglementaires pharmaceutiques en Inde varient fortement selon les exportateurs : les nôtres sont internes. Notre équipe d’affaires réglementaires gère la préparation des dossiers pharmaceutiques, compile la documentation réglementaire et accompagne l’enregistrement des médicaments sur les marchés de destination en Afrique, au Moyen-Orient, en Asie et dans le Pacifique Sud.',
         'es' => 'Los servicios regulatorios farmacéuticos en la India varían mucho según el exportador: los nuestros son internos. Nuestro equipo de asuntos regulatorios gestiona la preparación de dosieres farmacéuticos, compila la documentación regulatoria y apoya el registro de medicamentos en los mercados de destino de África, Oriente Medio, Asia y el Pacífico Sur.',
@@ -315,10 +315,10 @@ return [
     'contact.hero_eyebrow' => ['fr' => 'Contact', 'es' => 'Contacto'],
     'contact.hero_title' => ['fr' => 'Parlons de votre marché', 'es' => 'Hablemos de su mercado'],
     'contact.hero_lead' => [
-        'fr' => 'Distributeur, hôpital, ONG ou programme de santé: décrivez votre besoin et notre équipe export vous répondra.',
-        'es' => 'Distribuidor, hospital, ONG o programa de salud: cuéntenos su requerimiento y nuestro equipo de exportación responderá.',
+        'fr' => 'Distributeur, hôpital, ONG ou programme de santé : partagez votre besoin avec notre société pharmaceutique en Inde, un fournisseur pharma sur lequel comptent les appels d’offres en Inde et un exportateur pharmaceutique avec lequel l’Inde travaille sur plus de 24 marchés.',
+        'es' => 'Distribuidor, hospital, ONG o programa de salud: comparta su requisito con nuestra compañía farmacéutica en la India, un proveedor farma en el que confían las licitaciones de la India y un exportador farmacéutico con el que la India trabaja en más de 24 mercados.',
     ],
-    'contact.form_title' => ['fr' => 'Envoyer une demande', 'es' => 'Enviar una consulta'],
+    'contact.form_title' => ['fr' => 'Envoyer une demande à une société pharmaceutique en Inde', 'es' => 'Enviar una consulta a una compañía farmacéutica de la India'],
     'contact.form_lead' => ['fr' => 'Les champs marqués * sont obligatoires.', 'es' => 'Los campos marcados * son obligatorios.'],
 
     // ── products ─────────────────────────────────────────────────────
@@ -332,7 +332,7 @@ return [
         'es' => 'Cuatro segmentos, más de 300 referencias, un mismo estándar de calidad. Cada producto se envía bajo condiciones WHO-GMP con soporte de registro para su mercado.',
     ],
     'products.index.body_eyebrow' => ['fr' => 'Le portefeuille', 'es' => 'La cartera'],
-    'products.index.body_title' => ['fr' => 'Quatre segments, un fournisseur responsable', 'es' => 'Cuatro segmentos, un proveedor responsable'],
+    'products.index.body_title' => ['fr' => 'Quatre segments par des fournisseurs pharmaceutiques en Inde', 'es' => 'Cuatro segmentos de proveedores farmacéuticos de la India'],
     'products.index.body_intro' => [
         'fr' => 'Chaque produit de ce catalogue part de notre usine certifiée WHO-GMP à Mundra, au Gujarat, avec le support d’enregistrement, la documentation de lots et la logistique consolidée par lesquels on juge les fournisseurs pharmaceutiques en Inde.',
         'es' => 'Cada producto de este catálogo sale de nuestra planta certificada WHO-GMP en Mundra, Gujarat, con el soporte de registro, la documentación de lotes y la logística consolidada por las que se juzga a los proveedores farmacéuticos en la India.',
@@ -578,8 +578,8 @@ return [
         'es' => 'Entre las compañías farmacéuticas de Ahmedabad, Nymak Pharma dirige su oficina corporativa en Money Plant High Street, SG Highway: el centro comercial donde nuestros equipos de exportación, asuntos regulatorios, diseño y contabilidad coordinan cada envío que sale de nuestra planta de Mundra, a unos 90 kilómetros al suroeste en la costa de Kutch. Es la dirección a la que los socios escriben, el equipo que responde, y el punto donde los pedidos de exportación se convierten en envíos registrados y documentados. Elegir Ahmedabad para la oficina corporativa fue deliberado: sitúa a Nymak entre las compañías farmacéuticas de Gujarat más cercanas a la infraestructura de exportación, los organismos del sector y el talento comercial del estado, mientras la planta permanece a minutos del muelle.',
     ],
     'ahmedabad.overview_p2' => [
-        'fr' => 'Le bureau gère le travail que les acheteurs ressentent sans le voir : dossiers d’enregistrement pour les marchés de destination, emballages et étiquetage conformes conçus en interne, documentation d’appels d’offres pour les programmes, et documents d’exportation qui mènent un envoi de notre entrepôt aux ports de Mundra et Kandla. Quand un distributeur demande ce qui distingue un fabricant pharmaceutique d’Ahmedabad d’un bureau de négoce, la réponse est cette équipe : des spécialistes qui suivent le dossier de la première demande au connaissement final. Le bureau accueille aussi les aspects pour lesquels les acheteurs nous rendent visite : programmation des audits, validations d’emballage, envois d’échantillons et revues de contrat qui transforment un devis en accord d’approvisionnement durable.',
-        'es' => 'La oficina gestiona el trabajo que los compradores sienten pero rara vez ven: dosieres de registro para los mercados de destino, embalajes y etiquetado conformes diseñados en casa, documentación de licitaciones para programas, y documentos de exportación que llevan un envío de nuestro almacén a los puertos de Mundra y Kandla. Cuando un distribuidor pregunta qué distingue a un fabricante farmacéutico de Ahmedabad de un mostrador de corretaje, la respuesta es este equipo: especialistas que siguen el expediente desde la primera consulta hasta el conocimiento de embarque final. La oficina también alberga los aspectos por los que nos visitan los compradores: programación de auditorías, aprobaciones de embalaje, envíos de muestras y revisiones de contrato que convierten una cotización en un acuerdo de suministro duradero.',
+        'fr' => 'Le bureau gère le travail que les acheteurs ressentent sans le voir : dossiers d’enregistrement pour les marchés de destination, emballages et étiquetage conformes conçus en interne, documentation d’appels d’offres pour les programmes, et documents d’exportation qui mènent un envoi de notre entrepôt aux ports de Mundra et Kandla. Quand un distributeur demande ce qui distingue un fabricant pharmaceutique d’Ahmedabad d’un bureau de négoce, la réponse est cette équipe : des spécialistes qui suivent le dossier de la première demande au connaissement final. Le bureau accueille aussi les aspects pour lesquels les acheteurs nous rendent visite : programmation des audits, validations d’emballage, envois d’échantillons et revues de contrat qui transforment un devis en accord d’approvisionnement durable. C’est la forme de travail d’une société de fabrication pharmaceutique à Ahmedabad : des esprits commerciaux aux côtés d’un site WHO-GMP.',
+        'es' => 'La oficina gestiona el trabajo que los compradores sienten pero rara vez ven: dosieres de registro para los mercados de destino, embalajes y etiquetado conformes diseñados en casa, documentación de licitaciones para programas, y documentos de exportación que llevan un envío de nuestro almacén a los puertos de Mundra y Kandla. Cuando un distribuidor pregunta qué distingue a un fabricante farmacéutico de Ahmedabad de un mostrador de corretaje, la respuesta es este equipo: especialistas que siguen el expediente desde la primera consulta hasta el conocimiento de embarque final. La oficina también alberga los aspectos por los que nos visitan los compradores: programación de auditorías, aprobaciones de embalaje, envíos de muestras y revisiones de contrato que convierten una cotización en un acuerdo de suministro duradero. Esa es la forma de trabajo de una compañía fabricante farmacéutica en Ahmedabad: mentes comerciales junto a una planta WHO-GMP.',
     ],
     'ahmedabad.why_title' => ['fr' => 'Pourquoi le Gujarat, et pourquoi cela compte pour les acheteurs', 'es' => 'Por qué Gujarat, y por qué importa a los compradores'],
     'ahmedabad.why_p1' => [
