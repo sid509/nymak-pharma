@@ -14,7 +14,7 @@ class PostSeeder extends Seeder
                 'title' => 'From Sterilized Water for Injections to 24 Countries: The Nymak Pharma Journey',
                 'slug' => 'nymak-pharma-journey-1998-to-24-countries',
                 'category' => 'Company',
-                'excerpt' => 'How a single product (Sterilized Water for Injections BP in plastic ampoules) grew into an export operation reaching more than 24 countries across Africa, Central America and the South Pacific.',
+                'excerpt' => 'How one product in 1998 grew into an export operation reaching 24+ countries.',
                 'body' => <<<'MD'
 When Nymak Pharma was founded in 1998 by Mr. Ranjit Advani, the company began with a deliberately focused mission: producing Sterilized Water for Injections BP in 5 ml and 10 ml plastic ampoules. The first clients were in the South Pacific: island markets where reliable supply of even basic injectables made a measurable difference to healthcare delivery.
 
@@ -33,14 +33,14 @@ Nymak Pharma now operates in more than 24 countries and exported over 200 contai
 The founding principle has not changed: behind every product is a person in need. The goal ahead is the same one stated in 1998: a world where quality healthcare is not a privilege but a fundamental right.
 MD,
                 'meta_title' => 'Nymak Pharma Journey: 24+ Export Countries',
-                'meta_description' => 'The story of Nymak Pharma: from Sterilized Water for Injections in 1998 to a Star Export House supplying pharmaceuticals across 24+ countries.',
+                'meta_description' => 'The story of Nymak Pharma: from Sterilized Water for Injections in 1998 to a Star Export House supplying pharmaceuticals across 24+ export countries today.',
                 'published_at' => '2026-07-15 09:00:00',
             ],
             [
                 'title' => 'What WHO-GMP Certification Means for Our Partners',
                 'slug' => 'who-gmp-certification-nymak-pharma',
                 'category' => 'Quality',
-                'excerpt' => 'WHO-GMP certification is more than a certificate on the wall. Here is what it means in practice for the partners and programmes that rely on Nymak products.',
+                'excerpt' => 'What WHO-GMP certification means in practice for partners and programmes.',
                 'body' => <<<'MD'
 For distributors, procurement agencies and health ministries, a manufacturer's certifications determine whether a partnership is even possible. Nymak Pharma's facility operates under WHO-GMP (the World Health Organization's Good Manufacturing Practices standard) alongside ISO 13485:2016 certification.
 
@@ -59,14 +59,14 @@ Partners evaluating Nymak Pharma consistently note the same things in facility f
 Certifications held by the company include WHO-GMP, ISO 13485:2016, Star Export House recognition, Pharmexcil RCMC membership, IEC registration and GST compliance, each one verifiable, each one maintained.
 MD,
                 'meta_title' => 'WHO-GMP Certified Pharmaceutical Manufacturer',
-                'meta_description' => 'What WHO-GMP and ISO 13485 certification mean in practice at Nymak Pharma, and why they matter to importers, distributors and health programmes.',
+                'meta_description' => 'What WHO-GMP and ISO 13485 certification mean in practice at Nymak Pharma, and why they matter to importers, distributors and health programmes today.',
                 'published_at' => '2026-08-02 09:00:00',
             ],
             [
                 'title' => 'Inside the IV Fluids Range: Large-Volume Parenterals for Critical Care',
                 'slug' => 'iv-fluids-range-large-volume-parenterals',
                 'category' => 'Products',
-                'excerpt' => 'From simple saline to multi-electrolyte formulations and therapeutic infusions: a closer look at the IV fluids portfolio and where each group is used.',
+                'excerpt' => 'A closer look at the IV fluids portfolio, from saline to therapeutic infusions.',
                 'body' => <<<'MD'
 Intravenous fluids sit at the foundation of hospital care: rehydration, electrolyte correction, drug delivery and critical care all depend on them. Nymak Pharma's IV fluids range was designed as a complete offering so that a single supplier relationship can cover a hospital's or programme's core requirements.
 
@@ -87,14 +87,14 @@ Beyond hydration, the range carries ready-to-infuse antibacterials (ciprofloxaci
 All IV fluids are manufactured under WHO-GMP conditions at the Mundra facility and exported across Nymak's 24+ markets, with registration support from the in-house regulatory team.
 MD,
                 'meta_title' => 'IV Fluids & Large-Volume Parenterals',
-                'meta_description' => 'Inside Nymak Pharma\'s IV fluids range: saline, dextrose, RL, multi-electrolyte and therapeutic infusions manufactured under WHO-GMP for 24+ markets.',
+                'meta_description' => 'Inside the Nymak Pharma IV fluids range: saline, dextrose, RL, multi-electrolyte and therapeutic infusions manufactured under WHO-GMP for 24+ markets.',
                 'published_at' => '2026-08-20 09:00:00',
             ],
             [
                 'title' => 'Star Export House: What the Recognition Means',
                 'slug' => 'star-export-house-recognition',
                 'category' => 'Company',
-                'excerpt' => 'Nymak Pharma is a Government of India certified Star Export House. Here is what that recognition represents and why it matters to our partners.',
+                'excerpt' => 'What Star Export House recognition means for importers and partners.',
                 'body' => <<<'MD'
 Among the certifications in Nymak Pharma's portfolio, one reflects not just compliance but performance: the Star Export House Certificate of Recognition issued by the Government of India.
 
@@ -113,7 +113,7 @@ The Star Export House recognition sits alongside WHO-GMP and ISO 13485:2016 cert
 For a company that began in 1998 with a single product shipped to the South Pacific, the recognition marks how far disciplined, quality-first exporting can reach.
 MD,
                 'meta_title' => 'Star Export House Certified Pharma Exporter',
-                'meta_description' => 'Nymak Pharma is a Government of India certified Star Export House: what the recognition means for importers, distributors and partners.',
+                'meta_description' => 'Nymak Pharma is a Government of India certified Star Export House: what the recognition means for importers, distributors, partners & programmes alike.',
                 'published_at' => '2026-09-01 09:00:00',
             ],
         ];

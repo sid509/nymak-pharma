@@ -16,8 +16,8 @@ class FaqController extends Controller
         $faqs = Faq::orderBy('sort_order')->get()->groupBy('category');
 
         $seo = Seo::make(
-            'Frequently Asked Questions',
-            'Answers about Nymak Pharma\'s products, IV fluids, certifications, export markets, quality systems and how to partner with us.'
+            'Pharmaceutical Export FAQs: India Exporter',
+            'Answers on products, IV fluids, WHO-GMP certifications, export markets & partnership enquiries from Nymak Pharma, a pharmaceutical exporter in India today.'
         )->override('faqs')->schema([
             '@type' => 'FAQPage',
             'mainEntity' => $faqs->flatten()->map(fn ($f) => [

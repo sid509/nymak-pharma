@@ -30,8 +30,8 @@ class ContactController extends Controller
 
         return Inertia::render('Contact', [
             'seo' => Seo::make(
-                'Contact Us: Pharmaceutical Export Enquiries',
-                'Contact Nymak Pharma for pharmaceutical exports, product enquiries, distribution and partnership. Offices in India, UK, Sierra Leone & Liberia.'
+                'Pharmaceutical Company in India: Contact',
+                'Contact a pharmaceutical company in India for export enquiries, distribution & tenders: offices in Gujarat, the UK, Sierra Leone & Liberia, West Africa.'
             )->override('contact')->breadcrumbs([
                 ['Home', SetLocale::absolute('/')],
                 ['Contact Us', SetLocale::absolute('/contact')],

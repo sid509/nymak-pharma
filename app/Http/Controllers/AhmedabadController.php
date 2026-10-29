@@ -20,8 +20,8 @@ class AhmedabadController extends Controller
     {
         return Inertia::render('Ahmedabad', [
             'seo' => Seo::make(
-                'Pharma Manufacturing Company in Ahmedabad, Gujarat',
-                'A pharma manufacturing company in Ahmedabad: our corporate office runs regulatory, design & exports beside the WHO-GMP works at Mundra, Gujarat.'
+                'Pharma Manufacturing Company in Ahmedabad',
+                'A pharma manufacturing company in Ahmedabad, Gujarat: corporate office for regulatory, design & exports beside the WHO-GMP works at Mundra, Gujarat, India.'
             )->override('ahmedabad')->breadcrumbs([
                 ['Home', SetLocale::absolute('/')],
                 ['Ahmedabad, Gujarat', SetLocale::absolute('/ahmedabad')],

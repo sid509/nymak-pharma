@@ -22,11 +22,11 @@ class HomeController extends Controller
     public function __invoke(): Response
     {
         $content = PageContent::for('home');
-        $faqs = $content['show_faqs'] ? Faq::orderBy('sort_order')->limit(6)->get() : collect();
+        $faqs = $content['show_faqs'] ? Faq::orderBy('sort_order')->limit(3)->get() : collect();
 
         $seo = Seo::make(
-            'Pharmaceutical Manufacturer & Exporter in India',
-            'Nymak Pharma: WHO-GMP certified pharmaceutical manufacturer and Star Export House supplying IV fluids, finished formulations, medical devices, rapid test kits and vaccines to 24+ countries.'
+            'Pharma Manufacturers in India: WHO-GMP',
+            'Among pharma manufacturers in India, Nymak Pharma is a WHO-GMP certified exporter supplying IV fluids, medicines & medical devices to 24+ countries today.'
         )->override('home')->schema([
             '@type' => 'WebPage',
             'name' => 'Nymak Pharma: Pharmaceutical Manufacturer & Exporter',
@@ -65,10 +65,10 @@ class HomeController extends Controller
                 ->whereNotNull('image')
                 ->with('category:id,name,slug,i18n')
                 ->inRandomOrder()
-                ->limit(8)
+                ->limit(6)
                 ->get(['id', 'name', 'slug', 'image', 'description', 'product_category_id', 'i18n']) : [],
             'testimonials' => Testimonial::orderBy('sort_order')->get(['name', 'country', 'quote', 'i18n']),
-            'certifications' => Certification::orderBy('sort_order')->get(['name', 'issuer', 'image']),
+            'certifications' => Certification::orderBy('sort_order')->limit(6)->get(['name', 'issuer', 'image']),
             'posts' => Post::published()->latest('published_at')->limit(3)
                 ->get(['title', 'slug', 'category', 'excerpt', 'published_at', 'i18n']),
             'faqs' => $faqs,

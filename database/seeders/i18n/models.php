@@ -161,8 +161,8 @@ return [
             ],
             'category' => ['fr' => 'Entreprise', 'es' => 'Empresa'],
             'excerpt' => [
-                'fr' => 'Comment un seul produit (l’eau stérilisée pour préparations injectables BP en ampoules plastiques) est devenu une opération d’exportation atteignant plus de 24 pays en Afrique, en Amérique centrale et dans le Pacifique Sud.',
-                'es' => 'Cómo un solo producto (agua esterilizada para preparaciones inyectables BP en ampollas de plástico) creció hasta convertirse en una operación de exportación que alcanza más de 24 países en África, América Central y el Pacífico Sur.',
+                'fr' => 'Comment un seul produit en 1998 est devenu une opération d’exportation atteignant plus de 24 pays.',
+                'es' => 'Cómo un solo producto en 1998 creció hasta convertirse en una operación de exportación que alcanza más de 24 países.',
             ],
             'body' => [
                 'fr' => "Lorsque Nymak Pharma a été fondée en 1998 par M. Ranjit Advani, l'entreprise a débuté avec une mission délibérément ciblée : produire de l’eau stérilisée pour préparations injectables BP en ampoules plastiques de 5 ml et 10 ml. Les premiers clients se trouvaient dans le Pacifique Sud: des marchés insulaires où un approvisionnement fiable en injectables même basiques faisait une différence mesurable dans la prestation des soins.\n\n## Au-delà des premiers marchés\n\nÀ mesure que l'expertise grandissait, la carte aussi. Nymak a étendu sa portée à plusieurs îles du Pacifique Sud avant d'entrer au Honduras en Amérique centrale. Chaque nouveau marché apportait de nouvelles exigences (enregistrements, conditionnements et besoins cliniques différents) et le portefeuille a grandi avec eux, ajoutant produits pharmaceutiques et consommables médicaux à la ligne initiale d’eau pour injectables.\n\n## L’étape du Nigeria\n\nUn moment charnière est arrivé en 2000 lorsque Nymak est entrée sur le marché nigérian. Le résultat fut immédiat : les ventes à l’export ont progressé de 25 %, et l’expérience a prouvé que le modèle de l’entreprise (fabrication de qualité associée à un partenariat local engagé) pouvait transformer l’accès aux médicaments essentiels à travers le continent africain.\n\n## Où nous en sommes aujourd’hui\n\nNymak Pharma opère désormais dans plus de 24 pays et a exporté plus de 200 conteneurs au cours de l’exercice 2023-24. L’entreprise est reconnue comme Star Export House certifiée par le gouvernement indien et fonctionne avec des équipes internes de réglementaire, de laboratoire, de CQ/QA et de design.\n\nLe principe fondateur n’a pas changé : derrière chaque produit se trouve une personne dans le besoin. L’objectif à venir est le même qu’en 1998: un monde où une santé de qualité n’est pas un privilège mais un droit fondamental.",
@@ -184,8 +184,8 @@ return [
             ],
             'category' => ['fr' => 'Qualité', 'es' => 'Calidad'],
             'excerpt' => [
-                'fr' => 'La certification WHO-GMP est bien plus qu’un certificat accroché au mur. Voici ce qu’elle signifie en pratique pour les partenaires et programmes qui comptent sur les produits Nymak.',
-                'es' => 'La certificación WHO-GMP es mucho más que un certificado en la pared. Esto es lo que significa en la práctica para los socios y programas que confían en los productos Nymak.',
+                'fr' => 'Ce que la certification WHO-GMP signifie en pratique pour les partenaires et programmes.',
+                'es' => 'Qué significa en la práctica la certificación WHO-GMP para socios y programas.',
             ],
             'body' => [
                 'fr' => "Pour les distributeurs, les organismes d'achat et les ministères de la santé, les certifications d'un fabricant déterminent si un partenariat est même possible. Le site de Nymak Pharma opère sous WHO-GMP (le standard de bonnes pratiques de fabrication de l’Organisation mondiale de la santé), aux côtés de la certification ISO 13485:2016.\n\n## Ce que couvre le standard\n\nLes GMP régissent la manière dont les produits sont fabriqués, pas seulement testés. Elles couvrent l'environnement du site, la validation des équipements, les contrôles des matières premières, les vérifications en cours de fabrication, la documentation, la traçabilité des lots et la formation du personnel. En pratique, cela signifie que chaque lot suit un processus documenté, reproductible et auditable.\n\n## Le contrôle qualité en pratique chez Nymak\n\nSur le site de Mundra, un laboratoire CQ interne analyse les lots avant libération, et une fonction AQ distincte examine et approuve. Une équipe réglementaire interne gère les dossiers et enregistrements par pays, tandis que l'équipe design produit l'étiquetage conforme pour chaque marché de destination.\n\n## Pourquoi cela compte pour les acheteurs\n\nLes partenaires qui évaluent Nymak Pharma notent systématiquement les mêmes éléments dans leurs retours d'inspection: processus maîtrisés, machines et stockage modernes, direction soucieuse de la qualité. Pour les importateurs, la conformité WHO-GMP transforme un échantillon de produit en ligne d'approvisionnement enregistrable, prête pour les appels d'offres.\n\nLes certifications détenues par l'entreprise comprennent WHO-GMP, ISO 13485:2016, la reconnaissance Star Export House, l'adhésion Pharmexcil RCMC, l'enregistrement IEC et la conformité GST, chacune vérifiable, chacune maintenue.",
@@ -207,8 +207,8 @@ return [
             ],
             'category' => ['fr' => 'Produits', 'es' => 'Productos'],
             'excerpt' => [
-                'fr' => 'Du simple chlorure de sodium aux formulations multi-électrolytes et aux perfusions thérapeutiques: un regard sur le portefeuille de solutés IV et les usages de chaque groupe.',
-                'es' => 'Del simple cloruro de sodio a las formulaciones multielectrolíticas y las perfusiones terapéuticas: una mirada a la cartera de fluidos IV y dónde se usa cada grupo.',
+                'fr' => 'Un regard sur le portefeuille de solutés IV, du sérum salé aux perfusions thérapeutiques.',
+                'es' => 'Una mirada a la cartera de fluidos IV, del suero salino a las perfusiones terapéuticas.',
             ],
             'body' => [
                 'fr' => "Les solutés intraveineux constituent le socle des soins hospitaliers: réhydratation, correction électrolytique, administration de médicaments et soins critiques en dépendent tous. La gamme de solutés IV de Nymak Pharma a été conçue comme une offre complète, afin qu’une seule relation fournisseur couvre les besoins essentiels d’un hôpital ou d’un programme.\n\n## La gamme de base des réhydratants\n\nLe portefeuille commence par l’essentiel : perfusions intraveineuses de chlorure de sodium à 0,9 % et 0,45 %, lactate de Ringer, et perfusions de glucose à 5 %, 10 % et 25 %, y compris les associations chlorure de sodium-glucose. Les conditionnements vont de 100 ml à 1000 ml pour répondre aux usages des services, du bloc opératoire et du terrain.\n\n## Fluides multi-électrolytes et spécialisés\n\nPour les protocoles de correction plus exigeants, la gamme comprend des formulations multi-électrolytes (les présentations ‘P’, ‘G’, ‘M’ et ‘E’ avec glucose), le mannitol comme diurétique osmotique et le liquide de dialyse intrapéritonéale.\n\n## Perfusions thérapeutiques\n\nAu-delà de l’hydratation, la gamme comprend des antibactériens prêts à perfuser (ciprofloxacine, ofloxacine, lévofloxacine, moxifloxacine et péfloxacine), ainsi que des perfusions de métronidazole, ornidazole, tinidazole, fluconazole, linézolide et paracétamol. Les présentations prêtes à l’emploi réduisent les étapes de préparation et les erreurs de dosage au point de soin.\n\n## Conçus pour l’export\n\nTous les solutés IV sont fabriqués dans des conditions WHO-GMP sur le site de Mundra et exportés vers les 24+ marchés de Nymak, avec le support d’enregistrement de l’équipe réglementaire interne.",
@@ -230,8 +230,8 @@ return [
             ],
             'category' => ['fr' => 'Entreprise', 'es' => 'Empresa'],
             'excerpt' => [
-                'fr' => 'Nymak Pharma est une Star Export House certifiée par le gouvernement indien. Voici ce que représente cette reconnaissance et pourquoi elle compte pour nos partenaires.',
-                'es' => 'Nymak Pharma es una Star Export House certificada por el Gobierno de la India. Esto es lo que representa el reconocimiento y por qué importa a nuestros socios.',
+                'fr' => 'Ce que la reconnaissance Star Export House signifie pour les importateurs et partenaires.',
+                'es' => 'Qué significa el reconocimiento Star Export House para importadores y socios.',
             ],
             'body' => [
                 'fr' => "Parmi les certifications du portefeuille de Nymak Pharma, l'une reflète non seulement la conformité mais la performance : le certificat de reconnaissance Star Export House délivré par le gouvernement indien.\n\n## Ce que le statut reconnaît\n\nLe statut Star Export House est accordé dans le cadre de la politique indienne du commerce extérieur aux exportateurs démontrant une performance soutenue à l'export. Pour Nymak Pharma, il reconnaît l'échelle atteinte: plus de 200 conteneurs exportés au cours de l'exercice 2023-24 vers plus de 24 marchés.\n\n## Ce qu'il signale aux partenaires\n\nPour les importateurs et distributeurs, cette reconnaissance est un signal concret : l'entreprise possède un historique d'exportation établi, opère dans le cadre commercial officiel de l'Inde et dispose de l'infrastructure de conformité (enregistrement IEC, adhésion Pharmexcil, GST) qu'exige un approvisionnement fiable à long terme.\n\n## Un chapitre d'une histoire qualité plus large\n\nLa reconnaissance Star Export House s'inscrit aux côtés des certifications WHO-GMP et ISO 13485:2016. Ensemble, elles décrivent le fonctionnement de l'entreprise : une fabrication certifiée au niveau du site et une performance certifiée au niveau de l'export.\n\nPour une entreprise qui a commencé en 1998 avec un seul produit expédié vers le Pacifique Sud, cette reconnaissance marque jusqu'où peut aller un export discipliné, axé d'abord sur la qualité.",
@@ -252,24 +252,24 @@ return [
         1 => [
             'question' => ['fr' => 'Qui est Nymak Pharma ?', 'es' => '¿Quién es Nymak Pharma?'],
             'answer' => [
-                'fr' => 'Nymak Pharma Private Limited est une société pharmaceutique et exportatrice certifiée WHO-GMP, fondée en 1998 par M. Ranjit Advani. Basée à Mundra (Kutch), Gujarat, Inde, l’entreprise a débuté avec l’eau stérilisée pour préparations injectables BP et fournit aujourd’hui des solutés IV, des formes finies, des dispositifs médicaux et des tests de diagnostic rapide dans plus de 24 pays.',
-                'es' => 'Nymak Pharma Private Limited es una compañía farmacéutica y exportadora certificada WHO-GMP, fundada en 1998 por el Sr. Ranjit Advani. Con sede en Mundra (Kutch), Gujarat, India, la empresa comenzó con agua esterilizada para preparaciones inyectables BP y hoy suministra fluidos IV, formas terminadas, dispositivos médicos y pruebas de diagnóstico rápido a más de 24 países.',
+                'fr' => 'Nymak Pharma est une société pharmaceutique et exportatrice certifiée WHO-GMP fondée en 1998 par M. Ranjit Advani, basée à Mundra, Gujarat, Inde, fournissant solutés IV, formes finies, dispositifs et diagnostics dans plus de 24 pays.',
+                'es' => 'Nymak Pharma es una compañía farmacéutica y exportadora certificada WHO-GMP fundada en 1998 por el Sr. Ranjit Advani, con sede en Mundra, Gujarat, India, que suministra fluidos IV, formas terminadas, dispositivos y diagnósticos a más de 24 países.',
             ],
             'category' => ['fr' => 'Général', 'es' => 'General'],
         ],
         2 => [
             'question' => ['fr' => 'Nymak Pharma est-elle un exportateur pharmaceutique ?', 'es' => '¿Es Nymak Pharma un exportador farmacéutico?'],
             'answer' => [
-                'fr' => 'Oui. Nymak Pharma est une Star Export House reconnue par le gouvernement indien. Au cours de l’exercice 2023-24, l’entreprise a exporté plus de 200 conteneurs de produits pharmaceutiques et de fournitures médicales, desservant des marchés en Afrique de l’Ouest, centrale et de l’Est, en Amérique centrale et dans le Pacifique Sud.',
-                'es' => 'Sí. Nymak Pharma es una Star Export House reconocida por el Gobierno de la India. En el ejercicio 2023-24, la empresa exportó más de 200 contenedores de productos farmacéuticos y suministros médicos, atendiendo mercados en África Occidental, Central y Oriental, América Central y el Pacífico Sur.',
+                'fr' => 'Oui. Nymak Pharma est une Star Export House reconnue par le gouvernement indien, exportant plus de 200 conteneurs au cours de l’exercice 2023-24 vers plus de 24 marchés.',
+                'es' => 'Sí. Nymak Pharma es una Star Export House reconocida por el Gobierno de la India, que exporta más de 200 contenedores en el ejercicio 2023-24 hacia más de 24 mercados.',
             ],
             'category' => ['fr' => 'Général', 'es' => 'General'],
         ],
         3 => [
             'question' => ['fr' => 'Où se trouve Nymak Pharma ?', 'es' => '¿Dónde está ubicada Nymak Pharma?'],
             'answer' => [
-                'fr' => 'Le siège et l’usine se trouvent au Plot No. 22, Phase 3, Port Biz Industrial Park, Kandla-Mundra Highway, Bhadreshwar, Mundra (Kutch), Gujarat, Inde, à proximité des ports de Mundra et Kandla. Une succursale opère à Ahmedabad, et des bureaux/partenaires internationaux sont présents au Royaume-Uni, en Sierra Leone et au Liberia.',
-                'es' => 'La sede y la planta de fabricación se encuentran en Plot No. 22, Phase 3, Port Biz Industrial Park, Kandla-Mundra Highway, Bhadreshwar, Mundra (Kutch), Gujarat, India, cerca de los puertos de Mundra y Kandla. Una sucursal opera en Ahmedabad, y oficinas/socios internacionales operan en el Reino Unido, Sierra Leona y Liberia.',
+                'fr' => 'Le siège et l’usine se trouvent au Plot No. 22, Phase 3, Port Biz Industrial Park, Kandla-Mundra Highway, Mundra (Kutch), Gujarat, avec des bureaux à Ahmedabad, au Royaume-Uni, en Sierra Leone et au Liberia.',
+                'es' => 'La sede y la planta de fabricación se encuentran en Plot No. 22, Phase 3, Port Biz Industrial Park, Kandla-Mundra Highway, Mundra (Kutch), Gujarat, con oficinas en Ahmedabad, el Reino Unido, Sierra Leona y Liberia.',
             ],
             'category' => ['fr' => 'Général', 'es' => 'General'],
         ],

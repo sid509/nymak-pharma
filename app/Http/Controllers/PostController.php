@@ -15,8 +15,8 @@ class PostController extends Controller
     {
         return Inertia::render('Blog/Index', [
             'seo' => Seo::make(
-                'Insights & Resources',
-                'Company news, quality explainers and product insights from Nymak Pharma, a WHO-GMP certified pharmaceutical manufacturer and exporter.'
+                'Pharmaceutical Export Insights & News',
+                'Insights on pharmaceutical exports, quality systems and product ranges from Nymak Pharma, a WHO-GMP certified exporter in Gujarat, India. Read the journal.'
             )->override('posts.index')->breadcrumbs([
                 ['Home', SetLocale::absolute('/')],
                 ['Blog & Resources', SetLocale::absolute('/blog')],
@@ -47,10 +47,10 @@ class PostController extends Controller
                     'publisher' => ['@id' => url('/#organization')],
                     'mainEntityOfPage' => SetLocale::absolute("/blog/{$post->slug}"),
                 ])->breadcrumbs([
-                ['Home', SetLocale::absolute('/')],
-                ['Blog', SetLocale::absolute('/blog')],
-                [$post->title, SetLocale::absolute("/blog/{$post->slug}")],
-            ])->toArray(),
+                    ['Home', SetLocale::absolute('/')],
+                    ['Blog', SetLocale::absolute('/blog')],
+                    [$post->title, SetLocale::absolute("/blog/{$post->slug}")],
+                ])->toArray(),
             'post' => $post->only('title', 'category', 'excerpt', 'body', 'cover_image', 'published_at'),
             'related' => Post::published()->where('id', '!=', $post->id)
                 ->latest('published_at')->limit(3)

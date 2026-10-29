@@ -39,8 +39,8 @@ class InsideController extends Controller
 
         return Inertia::render('Inside', [
             'seo' => Seo::make(
-                'Inside Nymak: An Interactive Story',
-                'An interactive walk through Nymak Pharma, from a 1998 startup in Mundra to an exporter trusted across 24+ countries.'
+                'Inside Nymak Pharma: Our Interactive Story',
+                'An interactive walk through Nymak Pharma: from a 1998 startup in Mundra to a pharmaceutical export company trusted across 24+ export countries worldwide.'
             )->override('inside')->breadcrumbs([
                 ['Home', SetLocale::absolute('/')],
                 ['Inside Nymak', SetLocale::absolute('/inside-nymak')],

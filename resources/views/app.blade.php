@@ -64,7 +64,7 @@
 
         {{-- Per-page schema nodes (Product, Article, FAQPage, BreadcrumbList...) --}}
         @foreach (($seo['schema'] ?? []) as $node)
-            <script type="application/ld+json">{!! json_encode(array_merge(['@context' => 'https://schema.org'], $node)) !!}</script>
+            <script type="application/ld+json" data-page-schema>{!! json_encode(array_merge(['@context' => 'https://schema.org'], $node)) !!}</script>
         @endforeach
 
         @viteReactRefresh

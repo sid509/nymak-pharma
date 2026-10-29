@@ -14,8 +14,8 @@ class ManufacturingController extends Controller
     {
         return Inertia::render('Manufacturing', [
             'seo' => Seo::make(
-                'Pharmaceutical Manufacturing Facility in Mundra, Gujarat',
-                'Inside Nymak Pharma\'s WHO-GMP certified manufacturing facility in Mundra, Gujarat, with in-house QC lab, QA systems, regulatory and warehouse teams.'
+                'Drug Manufacturing Companies in India: Mundra',
+                'Among drug manufacturing companies in India, our Mundra WHO-GMP facility runs in-house QC, QA release, regulatory & warehouse teams. See the facility.'
             )->override('manufacturing')->breadcrumbs([
                 ['Home', SetLocale::absolute('/')],
                 ['Manufacturing', SetLocale::absolute('/manufacturing')],

@@ -11,11 +11,11 @@ class FaqSeeder extends Seeder
     {
         $faqs = [
             ['General', 'Who is Nymak Pharma?',
-                'Nymak Pharma Private Limited is a WHO-GMP certified pharmaceutical company and exporter founded in 1998 by Mr. Ranjit Advani. Headquartered in Mundra (Kutch), Gujarat, India, the company began with Sterilized Water for Injections BP and today supplies IV fluids, finished formulations, medical devices and rapid diagnostic kits to more than 24 countries.'],
+                'Nymak Pharma is a WHO-GMP certified pharmaceutical company and exporter founded in 1998 by Mr. Ranjit Advani, headquartered in Mundra, Gujarat, India, supplying IV fluids, formulations, devices and diagnostics to 24+ countries.'],
             ['General', 'Is Nymak Pharma a pharmaceutical exporter?',
-                'Yes. Nymak Pharma is a Government of India recognised Star Export House. In FY 2023-24 the company exported over 200 containers of pharmaceuticals and medical supplies, serving markets across Africa, the Middle East, Asia and the South Pacific.'],
+                'Yes. Nymak Pharma is a Government of India recognised Star Export House, exporting 200+ containers in FY 2023-24 to 24+ markets.'],
             ['General', 'Where is Nymak Pharma located?',
-                'The head office and manufacturing facility are located at Plot No. 22, Phase 3, Port Biz Industrial Park, Kandla-Mundra Highway, Bhadreshwar, Mundra (Kutch), Gujarat, India, close to the ports of Mundra and Kandla. A branch office operates in Ahmedabad, and international offices/partners operate in the United Kingdom, Sierra Leone and Liberia.'],
+                'The head office and manufacturing facility sit at Plot No. 22, Phase 3, Port Biz Industrial Park, Kandla-Mundra Highway, Mundra (Kutch), Gujarat, with offices in Ahmedabad, the UK, Sierra Leone and Liberia.'],
             ['Products', 'What products does Nymak Pharma manufacture?',
                 'Nymak Pharma\'s portfolio spans four segments: IV fluids and intravenous infusions; finished formulations (tablets, capsules, syrups, suspensions and injections across antimalarial, antibiotic, antiretroviral and chronic therapies); medical devices and surgical disposables; and rapid diagnostic test kits.'],
             ['Products', 'What IV fluids does Nymak Pharma offer?',

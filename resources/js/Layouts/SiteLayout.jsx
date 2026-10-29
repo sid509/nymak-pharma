@@ -7,6 +7,7 @@ import { WhatsAppIcon } from '../Components/Ui';
 import { useT } from '../i18n/useT';
 import Footer from '../Components/Footer';
 import Header from '../Components/Header';
+import HeadSync from '../Components/HeadSync';
 
 function FlashToast() {
     const { flash } = usePage().props;
@@ -56,6 +57,7 @@ export default function SiteLayout({ children }) {
 
     return (
         <div className="flex min-h-screen flex-col">
+            <HeadSync />
             <a href="#main-content"
                className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[60] focus:rounded-lg focus:bg-brand-700 focus:px-4 focus:py-2 focus:text-sm focus:font-bold focus:text-white">
                 {t('Skip to main content')}

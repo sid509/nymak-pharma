@@ -34,9 +34,9 @@ class Seo
     {
         $seo = new self;
         $seo->title = $title;
-        // Meta descriptions: 120–160 chars target (requirement #6). Trim at a
+        // Meta descriptions: 150-160 chars target (requirement #6). Trim at a
         // word boundary rather than mid-word if input runs long.
-        $seo->description = Str::of($description)->squish()->limit(150)->toString();
+        $seo->description = Str::of($description)->squish()->limit(160)->toString();
 
         return $seo;
     }
@@ -81,7 +81,7 @@ class Seo
             $this->title = $meta->meta_title;
         }
         if ($meta?->meta_description) {
-            $this->description = Str::of($meta->meta_description)->squish()->limit(150)->toString();
+            $this->description = Str::of($meta->meta_description)->squish()->limit(160)->toString();
         }
         if ($meta?->og_image) {
             $this->image = url($meta->og_image);

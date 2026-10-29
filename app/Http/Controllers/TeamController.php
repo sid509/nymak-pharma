@@ -28,8 +28,8 @@ class TeamController extends Controller
 
         return Inertia::render('Team/Index', [
             'seo' => Seo::make(
-                'Our Team: Leadership & Experts',
-                'Meet the leadership and specialists behind Nymak Pharma: exports, regulatory affairs, quality control, logistics and design.'
+                'Nymak Pharma Team: Leaders & Specialists',
+                'Meet the team behind Nymak Pharma: leadership and specialists in exports, regulatory affairs, quality control, logistics & design in Gujarat, India today.'
             )->override('team.index')->breadcrumbs([
                 ['Home', SetLocale::absolute('/')],
                 ['Team', SetLocale::absolute('/team')],

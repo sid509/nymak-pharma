@@ -46,8 +46,8 @@ class MarketController extends Controller
 
         return Inertia::render('Markets/Index', [
             'seo' => Seo::make(
-                'Global Presence: Pharmaceutical Exports to 24+ Countries',
-                'Nymak Pharma exports pharmaceuticals, IV fluids and medical supplies to 24+ countries across Africa, Central America & the South Pacific.'
+                'Pharmaceutical Exporter India: 24+ Markets',
+                'A pharmaceutical exporter India relies on across 24+ countries in Africa, the Middle East, Asia & the South Pacific. Explore our global market map today.'
             )->override('markets.index')->breadcrumbs([
                 ['Home', SetLocale::absolute('/')],
                 ['Global Presence', SetLocale::absolute('/global-presence')],

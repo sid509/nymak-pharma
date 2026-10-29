@@ -17,8 +17,8 @@ class QualityController extends Controller
         $qualityFaqs = Faq::where('category', 'Quality')->orderBy('sort_order')->get();
 
         $seo = Seo::make(
-            'Quality & Certifications: WHO-GMP, ISO 13485',
-            'Nymak Pharma\'s quality credentials: WHO-GMP certified facility, ISO 13485:2016, Star Export House, Pharmexcil RCMC, with in-house QC/QA oversight.'
+            'Pharmaceutical Regulatory Services India',
+            'Pharmaceutical regulatory services India exporters rely on: WHO-GMP & ISO 13485 certified, dossier preparation & registration support per destination market.'
         )->override('quality')->breadcrumbs([
             ['Home', SetLocale::absolute('/')],
             ['Quality & Certifications', SetLocale::absolute('/quality-certifications')],
