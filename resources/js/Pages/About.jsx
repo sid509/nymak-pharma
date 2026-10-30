@@ -37,7 +37,7 @@ export default function About({ seo, leadership, team, certifications, content, 
                         </div>
                     </div>
                     <Reveal variant="media" className="rounded-2xl shadow-card">
-                        <img src={`/${content.overview_image}`} alt="Nymak Pharma facility aerial view, Mundra, Gujarat"
+                        <img src={`/${content.overview_image}`} alt="Nymak Pharma facility, Mundra, among pharmaceutical companies in India since 1998"
                              width="960" height="640" loading="lazy"
                              className="w-full object-cover" />
                     </Reveal>

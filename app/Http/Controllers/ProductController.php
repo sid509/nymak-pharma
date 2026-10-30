@@ -20,7 +20,7 @@ class ProductController extends Controller
         return Inertia::render('Products/Index', [
             'seo' => Seo::make(
                 'Pharmaceutical Products: IV Fluids, Formulations & More',
-                'Explore Nymak Pharma\'s export portfolio: IV fluids, finished formulations, medical devices & disposables, rapid diagnostic kits and vaccines.'
+                'Explore Nymak Pharma\'s export portfolio: IV fluids, finished formulations, medical devices & disposables and rapid diagnostic kits.'
             )->override('products.index')->breadcrumbs([
                 ['Home', SetLocale::absolute('/')],
                 ['Products', SetLocale::absolute('/products')],
@@ -64,11 +64,11 @@ class ProductController extends Controller
                     'isPartOf' => ['@id' => url('/#website')],
                     'hasPart' => ['@type' => 'ItemList', 'url' => SetLocale::absolute("/product/{$category->slug}/products"), 'numberOfItems' => $category->products_count],
                 ])->breadcrumbs([
-                ['Home', SetLocale::absolute('/')],
-                ['Products', SetLocale::absolute('/products')],
-                [$category->name, SetLocale::absolute("/product/{$category->slug}")],
-            ])->toArray(),
-            'category' => $category->only('name', 'slug', 'intro', 'description', 'content', 'image') + [
+                    ['Home', SetLocale::absolute('/')],
+                    ['Products', SetLocale::absolute('/products')],
+                    [$category->name, SetLocale::absolute("/product/{$category->slug}")],
+                ])->toArray(),
+            'category' => $category->only('name', 'slug', 'intro', 'description', 'content', 'image', 'focus_keyword') + [
                 'products_count' => $category->products_count,
                 'catalogue_url' => "/product/{$category->slug}/products",
             ],
@@ -155,11 +155,11 @@ class ProductController extends Controller
                     'manufacturer' => ['@id' => url('/#organization')],
                     'category' => $category->name,
                 ])->breadcrumbs([
-                ['Home', SetLocale::absolute('/')],
-                ['Products', SetLocale::absolute('/products')],
-                [$category->name, SetLocale::absolute("/product/{$category->slug}")],
-                [$product->name, SetLocale::absolute("/product/{$category->slug}/{$product->slug}")],
-            ])->toArray(),
+                    ['Home', SetLocale::absolute('/')],
+                    ['Products', SetLocale::absolute('/products')],
+                    [$category->name, SetLocale::absolute("/product/{$category->slug}")],
+                    [$product->name, SetLocale::absolute("/product/{$category->slug}/{$product->slug}")],
+                ])->toArray(),
             'product' => [
                 'name' => $product->name,
                 'slug' => $product->slug,

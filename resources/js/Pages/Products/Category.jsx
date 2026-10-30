@@ -75,7 +75,7 @@ export default function ProductsCategory({ seo, category, groups, siblings, cont
                         <div className="min-w-0">
                             {category.image && (
                                 <Reveal variant="media" className="mb-10 rounded-2xl shadow-card">
-                                    <img src={`/${category.image}`} alt={`${category.name}, Nymak Pharma`}
+                                    <img src={`/${category.image}`} alt={category.focus_keyword ? `${category.name}: ${category.focus_keyword}` : `${category.name}, Nymak Pharma`}
                                          width="1200" height="600" fetchPriority="high"
                                          className="aspect-[2/1] w-full object-cover" />
                                 </Reveal>

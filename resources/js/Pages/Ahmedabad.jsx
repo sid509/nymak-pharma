@@ -66,7 +66,7 @@ export default function Ahmedabad({ seo, offices, content: c }) {
                     <div className="grid items-center gap-10 lg:grid-cols-2">
                         <Reveal>
                             <div className="relative overflow-hidden rounded-2xl shadow-card">
-                                <img src="/images/hero/facility-aerial.webp" alt="Nymak Pharma works at Mundra, Gujarat"
+                                <img src="/images/hero/facility-aerial.webp" alt="Pharma manufacturing company in Ahmedabad: Nymak Pharma works at Mundra, Gujarat"
                                      width="960" height="640" loading="lazy" className="w-full object-cover" />
                                 <div className="absolute bottom-4 left-4 rounded-xl bg-white/95 px-4 py-2 text-xs font-bold uppercase tracking-wider text-ink-700 shadow-card">
                                     <FontAwesomeIcon style={{ fontSize: 12 }} icon={faIndustry} className="mr-1.5 text-brand-700" aria-hidden />Head Office &amp; Works, Mundra

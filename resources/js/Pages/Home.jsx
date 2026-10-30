@@ -31,7 +31,7 @@ export default function Home({ seo, categories, featuredProducts = [], testimoni
                 {/* Image drifts gently on scroll (±20px, covered by the 12% overscan) */}
                 <div className="absolute inset-0 will-change-transform"
                      style={{ transform: `translateY(${parallaxY}px) scale(1.12)` }}>
-                    <img src={`/${c.hero_image}`} alt="Nymak Pharma facility, Mundra, Gujarat"
+                    <img src={`/${c.hero_image}`} alt="Pharma manufacturers in India: Nymak Pharma facility, Mundra, Gujarat"
                          width="1920" height="1280" fetchPriority="high"
                          className="h-full w-full object-cover" />
                 </div>
@@ -108,7 +108,7 @@ export default function Home({ seo, categories, featuredProducts = [], testimoni
                             {c.about_image && c.about_image !== c.hero_image ? (
                                 <>
                                     <Reveal variant="media" className="rounded-2xl shadow-card">
-                                        <img src={`/${c.about_image}`} alt="Nymak Pharma manufacturing plant, Mundra"
+                                        <img src={`/${c.about_image}`} alt="Nymak Pharma plant, Mundra, pharma manufacturers in India"
                                              width="960" height="640" loading="lazy"
                                              className="w-full object-cover" />
                                     </Reveal>

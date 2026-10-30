@@ -33,7 +33,7 @@ export default function Manufacturing({ seo, content }) {
                     </div>
                     <div className="lg:sticky lg:top-28">
                         <Reveal variant="media" className="rounded-2xl shadow-card">
-                            <img src={`/${content.facility_image}`} alt="Nymak Pharma manufacturing facility, Port Biz Industrial Park, Mundra"
+                            <img src={`/${content.facility_image}`} alt="Drug manufacturing companies in India: Nymak Pharma facility, Port Biz Industrial Park, Mundra"
                                  width="960" height="640" loading="lazy"
                                  className="w-full object-cover" />
                         </Reveal>
