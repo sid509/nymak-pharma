@@ -9,7 +9,7 @@
 - HQ & works: {{ $c['address']['street'] }}, {{ $c['address']['city'] }}, {{ $c['address']['region'] }}, {{ $c['address']['country'] }}
 - Branch office: {{ $c['branch_address'] }}
 @if(!empty($c['offices']))
-- International offices: {{ collect($c['offices'])->map(fn ($o) => $o['name'])->implode(' · ') }}
+- International offices: {!! collect($c['offices'])->map(fn ($o) => $o['name'])->implode(' · ') !!}
 @endif
 - Certifications: WHO-GMP, ISO 13485:2016, Star Export House, Pharmexcil RCMC, IEC, GST
 - Contact: {{ $c['phone'] }} · {{ $c['email'] }}

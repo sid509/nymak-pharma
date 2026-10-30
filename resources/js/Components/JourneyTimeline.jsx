@@ -60,7 +60,7 @@ export default function JourneyTimeline({ items, partners = [] }) {
                     {partners.map((p) => (
                         <li key={p.name}>
                             {p.image
-                                ? <img src={`/${p.image}`} alt="" loading="lazy" decoding="async" />
+                                ? <img src={`/${p.image}`} alt={`${p.name} logo`} loading="lazy" decoding="async" />
                                 : <span className="journey-partner-mark" aria-hidden>{p.name.charAt(0)}</span>}
                             <span>{p.name}</span>
                         </li>
@@ -94,8 +94,8 @@ export default function JourneyTimeline({ items, partners = [] }) {
                                         <div className={`journey-imgs ${photos.length > 1 ? 'journey-imgs--duo' : ''}`}>
                                             {photos.length === 0 ? (
                                                 <span className="journey-icon-tile"><FontAwesomeIcon icon={FaIcon} aria-hidden /></span>
-                                            ) : photos.map((src) => (
-                                                <img key={src} src={`/${src}`} alt="" loading="lazy" decoding="async"
+                                            ) : photos.map((src, pi) => (
+                                                <img key={src} src={`/${src}`} alt={pi === 0 ? `${item.title}, ${item.year}` : ''} loading="lazy" decoding="async"
                                                     className={item.fit === 'contain' ? 'journey-img-contain' : ''} />
                                             ))}
                                         </div>
